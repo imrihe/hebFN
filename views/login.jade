@@ -1,0 +1,32 @@
+//-var hp = '~imrihe/nodeJS1/'
+if message
+    p #{message}
+//    script(type='text/javascript')
+//        alert("damm: "+ #{message});
+if failureFlash
+    p fail: #{failureFlash}
+if flash
+    p #{flash}
+if user
+    h2 hello #{user.username}
+//h1 "hie"
+//    script.
+//        alert("invalid login - hard coded!"+ user)
+if user
+    form(method='post')
+        input(name="_method", type="hidden", value="GET")
+        p Hello #{user.username}!
+            a(href='logout', onClick='forms[0].submit()') [logout]
+
+else
+    p Please log in
+    form(method='post' ,action='login')
+        fieldset
+            legend Login
+            p
+                label(for="user[name]") Username:
+                input(name="username")
+            p
+                label(for="user[pwd]") Password:
+                input(type="password", name="password")
+            input(type="submit", value="Submit")
