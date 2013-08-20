@@ -14,3 +14,7 @@ exports.login = function (req,res){
 exports.index = function (req,res){
 	res.send("this is the home page");
 };
+
+exports.findQuery = function (req,res){
+    res.render('findQuery.jade');
+}

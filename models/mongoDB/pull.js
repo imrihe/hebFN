@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
 	schema = mongoose.Schema;
 
+var user = require("./schemes.js").userSchema;
 	//scheme = require('../mongoDB/schemes');
 
 
@@ -35,13 +36,13 @@ conn.once('open', function () {
 	});
 };*/
 
-var user = new schema({
+/*var user = new schema({
 	firstName: String,
 	lastName: String,
-	username: String,
+	username1: String,
 	password: String
 //	roles: Array
-});
+});*/
 
 exports.users = function (req, res) {
 	console.log("handeling user login request");

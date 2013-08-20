@@ -4,17 +4,19 @@
  */
 
 console.log("DEBUG: loading main app");
-
+var  counter = 0;
 var express = require('express')
     , path = require('path')
     ,flash = require('connect-flash')
     ,passport =require('passport')
     ,LocalStrategy =require('passport-local').Strategy
-    ,auth = require('./controllers/auth');
+    ,auth = require('./controllers/auth')
+    ,toobusy = require('toobusy');
 var usersMong = require('./models/mongoDB/pull.js');
 
 var hp = exports.hp ='/~imrihe/nodeJS1/';
 
+toobusy.maxLag(60);
 //load all controllers:
 //var users = require('./contollers/users')
 var control = require('./controllers/index');
@@ -55,6 +57,16 @@ var app = module.exports = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+app.use(function(req, res, next) {
+    // check if we're toobusy() - note, this call is extremely fast, and returns
+    // state that is cached at a fixed interval
+    counter = counter+1;
+    if (toobusy()) res.send(503, "I'm busy right now, sorry."+ counter);
+    else next();
+});
+
+
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.cookieParser('your secret here'));

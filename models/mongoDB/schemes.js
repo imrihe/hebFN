@@ -12,7 +12,7 @@ Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 //var Number = Schema.Types.Number;
 //var Date = Schema.Types.Date;
-var roleType = new Schema({role: {type: String, enum:["annotator", "reviewer","planner","admin"]}});
+var roleType = {type: String, enum:["annotator", "reviewer","planner","admin"]};
 
 var userSchema = exports.userSchema = new Schema({
     username: String,
@@ -39,10 +39,10 @@ userSchema.methods.validPassword = function (password) {
 
 
 
-var IDType =exports.IDType={ type: Number, min: 0 } ; //TODO new schema
+var IDType = exports.IDType ={ type: Number, min: 0 } ; //TODO new schema
 var orderType =  { type: Number, min: 0 }; //"description": "a numeric type to use for order specification (rank, paragraph order, etc.)",
 var frameNameType = {type :String, match: /^[A-Z].*/}; //TODO: check correctness of regex
-var dateTimeType = String;//{ type: Date, default: Date.now } ;
+var dateTimeType = {type: String}; //match:  "\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2} [A-Z]{3} (Sun|Mon|Tue|Wed|Thu|Fri|Sat)"
 var countType = { type: Number, min: 0 }; //"description": "a numeric type to use for pattern counts",
 var POSType = {type: String, enum:  [ "N","V", "A", "ADV","PRON","PREP","NUM","C","INTJ","ART","SCON","CCON","AVP"]};
 var defType = String;
@@ -167,10 +167,10 @@ var headerType = {
 /**semTypeRefType
  * same for english and hebrew
  */
-var semTypeRefType = new Schema({
+var semTypeRefType = {
     "@name":String,
     "@ID": IDType
-});
+};
 
 /**
  * same in hebrew
@@ -203,18 +203,18 @@ var FEType = exports.FEType = new Schema({
 /**relatedFramesType
  * same in hebrew
  */
-var relatedFramesType = new Schema({
+var relatedFramesType = {
     "@type": String, //TODO: check if there are enums for this field
     "relatedFrame" : [{"$": frameNameType}]
-});
-var lexemeType=  exports.lexemeType = new Schema({
+};
+var lexemeType=  exports.lexemeType = {
     //description" :"an attributes-only lexeme element",
     "@name": String,
     "@POS": POSType,
     "@breakBefore": Boolean,
     "@headword": Boolean,
     "@order": orderType
-})  ;
+};
 
 
 
@@ -275,14 +275,15 @@ var lexUnit = exports.lexUnit = new Schema({
         "@ID": IDType,
         "@name": {type : String, match: /^.+../}, //TODO: check correctness of regex
         "@status": {type: String, match: /^[A-Z].*/}, //TODO: check correctness of regex
-        "definition": defType,
+        "definition": defType, //TODO: correct the $ key in the DB
+        "header":headerType,
         "@cDate": dateTimeType,
         "@cBy": String,
         "@lemmaID": IDType,
         "@POS": POSType,
         "@frameID":IDType,
         "@frame": frameNameType,
-        "header":headerType,
+
         "sentenceCount": {total: countType, annotated: countType},
         "lexeme": [lexemeType],
         "semType":[semTypeRefType],
@@ -293,6 +294,17 @@ var lexUnit = exports.lexUnit = new Schema({
     }
 });
 
+
+/*********************** hebrew schemes:*******************************/
+//missing: history, annotatorDecisions,inquiryType
+
+
+
+/**
+ * general types
+ *
+ */
+var hebPOSType = {type: String, enum:  [ "N","V", "A", "ADV","PRON","PREP","NUM","C","INTJ","ART","SCON","CCON","AVP"]};
 
 
 /**
@@ -340,81 +352,196 @@ var hebFrameType = exports.hebFrameType = new Schema({
         "lexUnit": [hebFrameLUType]
 });
 
-
-
-var hebFrameLUType = exports.hebFrameLUType = new Schema({
-"frameLUType":{
-    "description":"frame-embedded lexUnit type",
-        "type":"object",
-        "properties":{
-        "priority": "Number"
-        "definition":"defType"
-        "status":{
-            "type":"String",
-                "oneOf":[
-                {
-                    "format":"approved"
-                },
-                {
-                    "format":"pending"
-                }
-            ]
-        },
-        "translatedFrom":{
-            "description":"holds information regarding the english lexical unit which this lexical unit was translated from",
-                "type":"object",
-                "properties":{
-                "luId":"IDType",
-                    "lexUnit":"string"
-            },
-            "required":[
-                "luId",
-                "lexUnit"
-            ]
-        },
-        "sentenceCount":{
-            "description":"contains information regarding the sentences of this lexical unit",
-                "type":"object",
-                "properties":{
-                "total":"countType",
-                    "annotated":"countType"
-            },
-            "required":[
-                "total",
-                "annotated"
-            ]
-        },
-        "lexeme":{
-            "type":"array",
-                "items":{
-                "lexeme":"lexemeType"
-            },
-            "minimum":1
-        },
-        "semType":{
-            "type":"array",
-                "items":{
-                "semType":"semTypeRefType"
-            }
-        },
-        "valences":"valencesType",
-            "anottations":{
-            "type":"array",
-                "items":{
-                "id":"IDType"
-            },
-            "attributeGroup":[
-                "basicLUAttributes"
-            ],
-                "cDate":"dateTimeType",
-                "cBy":"string",
-                "lemmaID":"IDType"
-        },
-        "required":[
-            "cDate",
-            "cBy",
-            "lemmaID"
-        ]
-    }}
-
+/**
+ * "description":"an attributes-only lexeme element",
+ * @type {Schema}
+ */
+var heblexemeType =new Schema({
+    "name": String,
+    "POS":hebPOSType,
+    "breakBefore":Boolean,
+    "headword":Boolean,
+    "order":orderType
 });
+
+/**  hebFrameLUType
+ *"description":"frame-embedded lexUnit type",
+ * @type {Schema}
+ */
+var hebFrameLUType = exports.hebFrameLUType = new Schema({
+    "priority": Number,
+    "definition": defType,
+    "status":{type:String,enum: ["approved","pending"]},
+    "translatedFrom"://"description":"holds information regarding the english lexical unit which this lexical unit was translated from",
+    {
+        "luId":IDType,
+        "lexUnitName":String,
+        "lexUnitID" :IDType
+    },
+    //"description":"contains information regarding the sentences of this lexical unit",
+
+    "sentenceCount":{
+        "total":countType,
+        "annotated":countType
+    },
+    "lexeme":[heblexemeType],
+    "semType":[semTypeRefType],
+    "valences": valencesType,
+    "anottations":[IDType],
+    "@ID":IDType,
+    "@name":{type:String, match: /^.+\..+/},
+    "@POS":hebPOSType,
+    "@incorporatedFE":String,
+    "@status":{type: String, match: /^[A-Z].*/},
+    "@cDate":dateTimeType,
+    "@cBy":String,
+    "@lemmaID":IDType
+});
+
+
+
+
+/**
+ * this is how the word (in a snetnece)is represented according to alon's search engine,
+ * TODO: add description to each one of the fields
+ * @type {Schema}
+ */
+var wordType = new Schema({
+    "word": String,
+    "prefix": String,
+    "base": String,
+    "suffix": String,
+    "lemma": String,
+    "pos": String,
+    "postype": String,
+    "gender":{type : String, enum: ['m', 'f']},
+    "number":{type: String, enum: ['s','p','_']},// "comment" : "singular/plural or non. check if plural is signaled by p!",
+    "construct": String,
+    "polarity": {type: String}, //  "comment" : "probably contains: (pos) | (neg) | _"
+    "person":{type: String, enum: ['1','2','3']},
+    "tense": String,
+    "def": Boolean,
+    "pconj": Boolean ,
+    "pint": Boolean,
+    "pprep": Boolean,
+    "psub": Boolean,
+    "ptemp": Boolean,
+    "prb": Boolean,
+    "suftype": String,
+    "sufgen": Boolean,
+    "sufnum": String,
+    "sufperson":{type: String, enum:['1','2','3']},
+    "chunk": String,
+    "height": Number,
+    "id": Number,
+    "parid": Number,
+    "pardist": Number,
+    "parpos": String,
+    "parword": String
+});
+
+
+
+//ConllJson31Type
+/**TODO: complete this according to alon's type - 31 json response
+ *comment : "the json as received by alon's search tool",
+ * @type {Schema}
+ */
+var ConllJson31Type = new Schema({
+    "length" : Number,
+    "height" :Number,
+    "root_location" :Number,
+    "root_pos" : String,
+    "pattern" :  String,
+    "words" :[wordType],
+    "valid": Boolean,
+    "original": Boolean
+});
+
+
+/**
+ *"description":"sentence will contaion the basic POS, parse trees and morphology along with list of annotationSet ids",
+ * @type {Schema}
+ */
+var hebsentenceType = exports.hebsentenceType = new Schema({
+    "text":String,
+    "Content" : [ConllJson31Type], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+    "lus":[IDType],//save the related LU ids
+    "ID":IDType,
+    "source": {type: String, enum: ["corpus", "manual", "translation"]},
+    //"comment":"sentences can also be manually inserted",
+    "sentenceOrigin": {
+        "aPos":extSentRefType,
+        "paragNo":orderType,
+        "sentNo":orderType,
+        "docId":IDType,
+        "corpID":IDType
+    }
+});
+
+
+var heblabelType = new Schema({
+    "name":String,
+    "tokens":[Number],//"comment" : "contains the index of the words found in the relevant sentence",
+    "fgColor":RGBColorType,
+    "bgColor":RGBColorType,
+    // "comment":"for null instantiation",
+    "itype":{type: String, enum: ["APos","CNI","INI","DNI","INC"]},
+    "feID":IDType //contatins the relevant FE if this is part of FN annotation layer
+});
+
+/**each layer will have it's own type (name) - dependency, FN annotations, constituency etc
+ *
+ * @type {Schema}
+ */
+var heblayerType = new Schema({
+            "label":[heblabelType],
+            "name":String,
+            "rank":orderType,
+            "status":{type: String, enum: ["approved","decision","inquiry","temporary"]}
+});
+
+
+/**each annotation will be embedded in a sentence and one of it's segmentation,
+ * only the annotations which are related to the valid segmentation will be count as valid
+ *
+ * @type {Schema}
+ */
+/*var hebannotationSetType = exports.hebannotationSetType = new Schema({
+    "ID":IDType,
+    "sentenceID":IDType,
+    "conllID": IDType,
+//    "segmentation": segmentationType,
+    "cDate": dateTimeType,
+    "cBy": String, //username
+    "layer":[heblayerType],
+    "status":String
+});*/
+
+
+var annotatedSentenceType = new Schema({
+    "ID":IDType,//is it needed??? in the sentenceType - there is annotations list
+    "validVersion" : Boolean,
+    "status": String,
+    "cDate": dateTimeType,
+    "cBy": String, //username
+    "sentenceId" : IDType, //the id of the sentence in the sentences collection
+    //"sentenceContent": ConllJson31Type, //only the relevant one - the one which this annotation is being made on (the valid one!)
+    "versionNumber" :Number, //each sentence has one or more versions - according to the original imported sentence and its corrections, only one of those will be valid
+    //in case that this version is not valid  - all the annotation set will be marked as not valid
+    "layer":[heblayerType]
+});
+
+
+/**
+ * "description":"this is a N-2-N relationshop table between LU and sentences - will contain all the annotations which are related to the pair",
+ * a lu with sentence will be added to this list when a lu-sentence association is being created
+ * @type {Schema}
+ */
+var luSentenceType = exports.luSentenceType = new Schema({
+    "luId": IDType, //the id of the annotated lexical unit.
+    "luName": String, //optimization
+    "frameID": IDType, //the id of the frame which this lu is related to  (search and data retrieval optimization)
+    "annotations": [annotatedSentenceType]
+});
+

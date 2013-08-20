@@ -14,8 +14,8 @@
 	"expresso": "*",
 	"connect-flash": "*",
 	"passport" : "*",
-	"passport-local" :"*"
-		
+	"passport-local" :"*",
+	"toobusy" :"*"
   }
 }
 

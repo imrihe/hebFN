@@ -5,6 +5,8 @@ var index = require('./controllers/index'),
     app = require('./app.js'),
     auth = require('./controllers/auth'),
     passport =require('passport');
+    engControl = require('./controllers/english');
+    engModel = require('./models/mongoDB/englishModel.js');
 
 var hp = '/~imrihe/nodeJS1/';
 var homeLink = "<br>" + "(<a href=\""+hp+"\"> go home</a>)";
@@ -15,6 +17,42 @@ app.get('/kaki', function(req, res){
 });
 
 app.get('/', index.index);
+
+/******************general getters***************/
+app.get('/findquery', index.findQuery);
+
+app.post('/findquery', engModel.findQuery);
+
+
+/******************english getters***************/
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frame/?id=320
+app.get('/eng/frame', engModel.loadFrame);
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/lu/?id=320
+app.get('/eng/lu',engModel.loadLuEng);
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=1
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=0
+app.get('/eng/luNames', engModel.loadLuNames);
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frameNames
+app.get('/eng/frameNames', engModel.loadFrameNames);
+
+
+/******************hebrew getters***************/
+    //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frame/?id=320
+app.get('/heb/frame', engModel.loadFrame);
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/lu/?id=320
+app.get('/heb/lu',engModel.loadLuEng);
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=1
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=0
+app.get('/heb/luNames', engModel.loadLuNames);
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frameNames
+app.get('/heb/frameNames', engModel.loadFrameNames);
+
 
 
 app.get('/login', function(req, res){
