@@ -6,9 +6,13 @@ var index = require('./controllers/index'),
     auth = require('./controllers/auth'),
     passport =require('passport');
     engControl = require('./controllers/english');
-    engModel = require('./models/mongoDB/englishModel.js');
+    engModel = require('./models/mongoDB/englishModel.js'),
+    general  = require('./models/mongoDB/general.js');
 
-var hp = '/~imrihe/nodeJS1/';
+var hp  = '/~imrihe/nodeJS1/';
+exports.hp = hp;
+console.log("hp: ",hp);
+
 var homeLink = "<br>" + "(<a href=\""+hp+"\"> go home</a>)";
 app.get('/kaki', function(req, res){
     console.log("route:",req.route);
@@ -19,9 +23,8 @@ app.get('/kaki', function(req, res){
 app.get('/', index.index);
 
 /******************general getters***************/
-app.get('/findquery', index.findQuery);
-
-app.post('/findquery', engModel.findQuery);
+app.get('/findquery', index.findQuery);  //renders the form to submit to query
+app.post('/findquery', general.findQuery);  //process the query data, submit to DB and return the results
 
 
 /******************english getters***************/
@@ -37,6 +40,14 @@ app.get('/eng/luNames', engModel.loadLuNames);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frameNames
 app.get('/eng/frameNames', engModel.loadFrameNames);
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/eng/annotations?lu=XXXX
+app.get('/eng/annotations', engModel.loadAnnotations);
+
+
+//http://www.cs.bgu.ac.il/~imrihe/nodeJS1/eng/translations?luid=XXXX
+app.get('/eng/translations', engModel.loadTranslations);
+
 
 
 /******************hebrew getters***************/

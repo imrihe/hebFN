@@ -69,7 +69,10 @@ exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
 	    console.log("checking autentication " + req.user.username);
 	    if (req.isAuthenticated()) { return next(); }
     }
-    console.log("user " + req.user.username +" is not authenticated");
+    var us = null;
+    if (req.user) us = req.user.username;
+    console.log("user " + us +" is not authenticated");
+    console.log("redirectiong to: " + hp+'login')
 	res.redirect(hp+'login');
 };
 

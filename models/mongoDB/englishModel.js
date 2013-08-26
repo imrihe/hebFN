@@ -10,7 +10,7 @@ var schema = mongoose.Schema;
 
 var frame = require("./schemes.js").engFrameSchema;
 var lu = require("./schemes.js").lexUnit;
-
+var translation = require("./schemes.js").translation;
 exports.findQuery = function findQuery (req, res) {
     console.log("handling findQuery request");
     console.log("request query is: ", req.query);
@@ -198,6 +198,68 @@ exports.loadFrameData = function loadFrameData (req, res) {
     });
 };
 
+
+/**
+ *
+ * @param req the request should contaion lu=xxxx  for lu id number.
+ * @param res
+ */
+exports.loadAnnotations = function loadAnnotations (req, res) {
+    console.log("handling load english annotations request with req.query.params=", req.query);
+    var  luModel = mongoose.model('lu', lu, 'lu');
+    var query= {};
+    var proj = {"lexUnit.@ID":1, "lexUnit.@name":1,"lexUnit.@frame":1, "_id":0, "lexUnit.subCorpus":1 };
+    var options ={"limit":1};
+
+
+    if (req.query.lu) {
+        query = {"lexUnit.@ID": req.query.lu};
+    }
+    else query =  {};
+    luModel.find(query , proj, options,function(err,results){
+        if (err || !results){
+            res.send("error with request: "+ resluts );
+        }
+        else{
+            console.log("found resluts");
+            res.send(results);
+        }
+    });
+};
+
+/**
+ * loads the translation for specific lexical unit, @see {'models/mongoDB/schemes.js'} for details of the response schema
+ * @param req
+ * @param res
+ */
+exports.loadTranslations = function loadAnnotations (req, res) {
+    console.log("handling load translations request with req.query.params=", req.query);
+    var  TranslationModel = mongoose.model('translationsV3', translation, 'translationsV3');
+    var query= {};
+    var proj = {};//{"lexUnit.@ID":1, "lexUnit.@name":1,"lexUnit.@frame":1, "_id":0, "lexUnit.subCorpus":1 };
+    var options ={"limit":1};
+
+
+    if (req.query.luid) {
+        query = {"luID": req.query.luid};
+    }
+    else query =  {};
+    TranslationModel.find(query , proj, options,function(err,results){
+        if (err || !results){
+            res.send("error with request: "+ results );
+        }
+        else{
+            console.log("found results");
+            console.log("found results:", results[0]['translation']);
+            res.charset = 'utf-8'; //in chrom it doesn't work work without this
+            //res.set({'content-type': 'application/json'});
+            res.send(results);
+        }
+    });
+};
+
+
+
 /*conn.on('error', function (err) {
 	console.log('Error! DB Connection failed.');
 });
@@ -227,17 +289,7 @@ conn.once('open', function () {
 //	roles: Array
 });*/
 
-exports.users = function (req, res) {
-	console.log("handling user login request");
-	var  userModel = mongoose.model('User', user);
-	//var usersRec = new userModel();
-	console.log("users model:", userModel);
-	userModel.find({"username": "imrihe"}, function(err,usersRes){
-		console.log("found user: ", usersRes );
-		res.send(usersRes);
-		//res.end();
-	});
-};
+
 	/*conn.db.collectionNames(function (err, names) {
 		console.log("1");
 		console.log("names: ", names);
@@ -246,5 +298,4 @@ exports.users = function (req, res) {
 			collections_names: names
 		});
 	});*/
-
 

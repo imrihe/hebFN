@@ -1,7 +1,7 @@
 /**       a
  * New node file
  */
-
+var general = require('../models/mongoDB/general.js');
 
 exports.showUser =  function (req, res){
 	res.send(req.session.req.currentUser);
@@ -16,5 +16,5 @@ exports.index = function (req,res){
 };
 
 exports.findQuery = function (req,res){
-    res.render('findQuery.jade');
+    res.render('findQuery.jade', {"collections": general.collectionNames});
 }

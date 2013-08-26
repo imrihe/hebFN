@@ -3,22 +3,23 @@ if message
     p #{message}
 //    script(type='text/javascript')
 //        alert("damm: "+ #{message});
-
 p please type free find query: (note: maximum 20 results will be returned, no pagination)
 p put double quotes ("") around text  ({"limit":20})
 form(method='post' ,action='findquery')
-    //fieldset
-    legend Query
-    p
-        label(for="collection") collection:
-        input(name="collection", value ="lu")
-    p
-        label(for="query") query:
-        textarea(name="query", rows=3, id="query" ) {}
-    p
-        label(for="proj") projection:
-        textarea(name="proj", rows=3, id="proj" ) {}
-    p
-        label(for="options") options:
-        textarea(name="options", rows=1, id="options") {"limit":20}
-    input(type="submit", value="Submit")
+    fieldset
+        legend Query
+        p
+            label(for="collection") collection:
+            select(name="collection")
+                for item in collections
+                    option(value=item) #{item}
+        p
+            label(for="query") query:
+            textarea(name="query", rows=3, id="query" ) {}
+        p
+            label(for="proj") projection:
+            textarea(name="proj", rows=3, id="proj" ) {}
+        p
+            label(for="options") options:
+            textarea(name="options", rows=1, id="options") {"limit":20}
+        input(type="submit", value="Submit")

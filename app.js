@@ -12,11 +12,10 @@ var express = require('express')
     ,LocalStrategy =require('passport-local').Strategy
     ,auth = require('./controllers/auth')
     ,toobusy = require('toobusy');
-var usersMong = require('./models/mongoDB/pull.js');
+var dbConnection = require('./models/mongoDB/dbConnection.js');
 
-var hp = exports.hp ='/~imrihe/nodeJS1/';
 
-toobusy.maxLag(60);
+toobusy.maxLag(90); //TODO
 //load all controllers:
 //var users = require('./contollers/users')
 var control = require('./controllers/index');

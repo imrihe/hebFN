@@ -5,7 +5,9 @@
  *              in order to save\insert new document into the DB - we will firest define suitable model (by scheme) and then call the NEW operator with the document data.
  *              in order to query the DB - we will do modelName.find() \findOne() etc. - the result will be returned to the calledBack function sent
  */
-
+//TODO: think - every field that appears in the schema will always be pulled and saved and casted by it's defined type, if i delete the field - it won't apper if it's empty..
+//maybe it's better to work with partial schemas
+//TODO: add static methodes to the schemas - http://mongoosejs.com/docs/guide.html#staticss
 console.log("DEBUG: loading schemes@");
 var mongoose = require('mongoose'),
 Schema = mongoose.Schema;
@@ -65,21 +67,21 @@ var labelType = new Schema({
     "@cBy": String
 });
 
-var layerType = new Schema({
+var layerType ={
     "label": [labelType],
     "@name": String,
     "@rank": orderType
-});
+};
 
 
-var subCorpusType = new Schema({
+var subCorpusType = {
     "sentence": [sentenceType]
-});
+};
 
 
 var extSentRefType = {type: Number, min: 0}; //			"description": "a numeric type to use for external references to sentences (aPos)",
-var annotationSetType = exports.annotationSetType = new Schema({
-    "@ID6": IDType,
+var annotationSetType ={
+    "@ID": IDType,
     "@status": String,
     "@frameName": String,
     "@frameID": IDType,
@@ -89,7 +91,7 @@ var annotationSetType = exports.annotationSetType = new Schema({
     "@cxnID": IDType,
     "@cDate": dateTimeType,
     "layer": [layerType]
-});
+};
 var annoSetType = {"@ID" : IDType};
 var governorType = new Schema({
     "annoSet": [annoSetType],
@@ -125,7 +127,7 @@ var valencesType = {
             "FEGroupRealization":[FEGroupRealizationType]
 };
 
-var sentenceType = new Schema({
+var sentenceType = {
     "text": String,
     "annotationSet": [annotationSetType],
     "@ID": IDType,
@@ -137,7 +139,7 @@ var sentenceType = new Schema({
 
 
 
-});
+};
 
 
 var documentType = new Schema({"@ID":IDType, "@description": String});
@@ -186,8 +188,8 @@ var internalFrameRelationFEType = exports.internalFrameRElationFEType= new Schem
  * @type {Schema}
  */
 var FEType = exports.FEType = new Schema({
-    "definition": String,
-    "semType": [semTypeRefType],
+    //"definition": String,
+    //"semType": {type:[semTypeRefType], select: false},     //TODO - remove the select field
     "requiresFE": [internalFrameRelationFEType],
     "excludesFE": [internalFrameRelationFEType],
     "@ID": IDType,
@@ -205,7 +207,7 @@ var FEType = exports.FEType = new Schema({
  */
 var relatedFramesType = {
     "@type": String, //TODO: check if there are enums for this field
-    "relatedFrame" : [{"$": frameNameType}]
+    "relatedFrame" : [frameNameType]
 };
 var lexemeType=  exports.lexemeType = {
     //description" :"an attributes-only lexeme element",
@@ -345,7 +347,7 @@ var hebFrameType = exports.hebFrameType = new Schema({
         "definition": defType,
         "source" : String,
         "priority": Number,
-        "semType":[semTypeRefType], //same type as english
+        "semType":{type: [semTypeRefType], required: false}, //same type as english
         "FE": [FEType] ,
         "FEcoreSet": [memberFEtype], //occurrences: 0+
         "frameRelation": [relatedFramesType],
@@ -543,5 +545,19 @@ var luSentenceType = exports.luSentenceType = new Schema({
     "luName": String, //optimization
     "frameID": IDType, //the id of the frame which this lu is related to  (search and data retrieval optimization)
     "annotations": [annotatedSentenceType]
+});
+
+/******************************* translations schema *********************/
+
+
+//posTransType = [String];
+var translationType =  {'pos' : String, 'vals' : [String]};
+
+var translation = exports.translation = new Schema({
+    "luID": IDType, //the id of  lexical unit.
+    "frameID": IDType, //the id of the frame.
+    "pos": String, //part of speech of the lu
+    "name": String, //the 'name' it self (the actual form)
+    "translation": [translationType]
 });
 

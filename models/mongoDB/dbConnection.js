@@ -2,10 +2,11 @@
  * New node file a
  */
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
+var //db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
+    db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
 	schema = mongoose.Schema;
 
-var user = require("./schemes.js").userSchema;
+//var user = require("./schemes.js").userSchema;
 	//scheme = require('../mongoDB/schemes');
 
 
