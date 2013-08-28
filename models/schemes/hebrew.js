@@ -8,7 +8,9 @@
 //TODO: think - every field that appears in the schema will always be pulled and saved and casted by it's defined type, if i delete the field - it won't apper if it's empty..
 //maybe it's better to work with partial schemas
 //TODO: add static methodes to the schemas - http://mongoosejs.com/docs/guide.html#staticss
-console.log("DEBUG: loading schemes@");
+
+printModule('models/schemes/hebrew');
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     Model = mongoose.model;

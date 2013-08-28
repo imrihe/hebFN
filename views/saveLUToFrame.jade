@@ -1,0 +1,41 @@
+//-var hp = '~imrihe/nodeJS1/'
+p
+    for item in fields
+        li #{JSON.stringify(item.name)} -  #{JSON.stringify(item.type)}
+if message
+    p #{message}
+//    script(type='text/javascript')
+//        alert("damm: "+ #{message});
+p add lexical unit data to add it to a frame - and make sure to fill all the fields:
+p (note: maximum 20 results will be returned, no pagination)
+p put double quotes ("") around text  ({"limit":20})
+form(method='post' ,action='savelutoframe')
+    fieldset(name="hihi")
+        legend add lexical unit to frame
+        //receives list of fields and it's types
+        p
+            span frame id:
+            input(title="frameid", type="text",  name="frameid" )
+    fieldset(id='f1', name="haha")
+        legend lexical unit data
+        for item in fields
+            //add 'priority' to the list
+            if (autoFields.indexOf(item.name) == -1)
+                label
+                    br
+                    key #{item.name}:
+                        input(type="text",  name=item.name  )//value=item.name
+        p
+        label
+            //key try
+                //input(type="text", name ='myType[kaki]')
+                //input(type="text", name ='myType[pipi]')
+
+    fieldset(name="haha")
+        legend enter full lu data
+        b
+            key (check the check box if you want to set the data frome here instead of the fields)
+                input(type="checkbox", name="fulllu", id="fulllu")
+        p
+            textarea(name="lexUnit",rows=15, cols=100, text=exm, id="lexUnit" ) #{JSON.stringify(exm)}
+    input(type="submit", value="Submit", style="height:50px; width:100%")

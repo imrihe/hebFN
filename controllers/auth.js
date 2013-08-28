@@ -85,7 +85,6 @@ exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
 
 
 
-//TODO passport.use(auth.strat);
 //auth.serializeUser;
 //auth.deserializeUser;
 

@@ -11,39 +11,9 @@ var schema = mongoose.Schema;
 var frame = require("./schemes.js").engFrameSchema;
 var lu = require("./schemes.js").lexUnit;
 var translation = require("./schemes.js").translation;
-exports.findQuery = function findQuery (req, res) {
-    console.log("handling findQuery request");
-    console.log("request query is: ", req.query);
-
-    console.log("request body is: ", req.body);
-    switch (req.body.collection){
-        case 'lu':
-            schem = lu;
-            break;
-        case 'frame':
-            schem =frame;
-            break;
-        default:
-            schem = frame;
-            break;
-    }
-    var options = JSON.parse(req.body.options);
-    if (!(options['limit'] && (parseInt(options['limit']) <=20)))
-        options['limit']=20;
-    var model = mongoose.model(req.body.collection, schem, req.body.collection);
-    model.find(JSON.parse(req.body.query), JSON.parse(req.body.proj), options,function(err,results){
-        if (err || !results){
-            res.send("results not found, check your query syntax: "+ req.body );
-        }
-        else{
-            console.log("found results!");
-            res.send(results);
-        }
-    });
-}
-
-
-
+var frameCollectionName = 'frame',
+    luCollectionName = 'lu',
+    translationsCollectionName = 'translationsV3'
 
 /**
  *
@@ -52,7 +22,7 @@ exports.findQuery = function findQuery (req, res) {
  */
 exports.loadFrame = function loadFrame (req, res) {
     console.log("handling load-english-frame request");
-    var  engframeModel = mongoose.model('Frame', frame, 'frame'),
+    var  engframeModel = mongoose.model(frameCollectionName, frame, frameCollectionName),
         query = {},
         queryProj = {};
     //if (req.query.q) query =JSON.parse(req.query.q);
@@ -66,7 +36,7 @@ exports.loadFrame = function loadFrame (req, res) {
             res.send("frame not found: "+ query );
         }
         else{
-            //console.log('NO ERR result',frameRes);
+            console.log('NO ERR result',frameRes);
             console.log("found frame: ", frameRes['frame']['@ID'] );
             res.send(frameRes);
         }
@@ -88,7 +58,7 @@ exports.loadFrame = function loadFrame (req, res) {
  */
 exports.loadLuEng = function loadLuEng (req, res) {
     console.log("handling load english lu request");
-    var  engluModel = mongoose.model('Lu', lu, 'lu'),
+    var  engluModel = mongoose.model(luCollectionName, lu, luCollectionName),
         query = {},
         queryProj = {},
         limit = {'limit' : 50};
@@ -122,7 +92,7 @@ exports.loadLuEng = function loadLuEng (req, res) {
  */
 exports.loadLuNames = function loadLuNames (req, res) {
     console.log("handling load english lexical units names request");
-    var  engluModel = mongoose.model('Lu', lu, 'lu');
+    var  engluModel = mongoose.model(luCollectionName, lu, luCollectionName);
     var queryProj = {};
     var query = {};
     var limit = {};
@@ -153,7 +123,7 @@ exports.loadLuNames = function loadLuNames (req, res) {
  */
 exports.loadFrameNames = function loadFrameNames (req, res) {
     console.log("handling load english frame-names request with req.query.params['lus']=", req.query.lus);
-    var  engframeModel = mongoose.model('Frame', frame, 'frame');
+    var  engframeModel = mongoose.model(frameCollectionName, frame, frameCollectionName);
     var queryProj= {};
     var query = {};
     var limit = {};
@@ -179,7 +149,7 @@ exports.loadFrameNames = function loadFrameNames (req, res) {
 
 exports.loadFrameData = function loadFrameData (req, res) {
     console.log("handling load english frame-names request with req.query.params['lus']=", req.query.lus);
-    var  engframeModel = mongoose.model('Frame', frame, 'frame');
+    var  engframeModel = mongoose.model(frameCollectionName, frame, frameCollectionName);
     var query= {};
 
 
@@ -206,12 +176,10 @@ exports.loadFrameData = function loadFrameData (req, res) {
  */
 exports.loadAnnotations = function loadAnnotations (req, res) {
     console.log("handling load english annotations request with req.query.params=", req.query);
-    var  luModel = mongoose.model('lu', lu, 'lu');
+    var  luModel = mongoose.model(luCollectionName, lu, luCollectionName);
     var query= {};
     var proj = {"lexUnit.@ID":1, "lexUnit.@name":1,"lexUnit.@frame":1, "_id":0, "lexUnit.subCorpus":1 };
     var options ={"limit":1};
-
-
     if (req.query.lu) {
         query = {"lexUnit.@ID": req.query.lu};
     }
@@ -232,9 +200,9 @@ exports.loadAnnotations = function loadAnnotations (req, res) {
  * @param req
  * @param res
  */
-exports.loadTranslations = function loadAnnotations (req, res) {
+exports.loadTranslations= function loadTranslations (req, res) {
     console.log("handling load translations request with req.query.params=", req.query);
-    var  TranslationModel = mongoose.model('translationsV3', translation, 'translationsV3');
+    var  TranslationModel = mongoose.model(translationsCollectionName, translation, translationsCollectionName);
     var query= {};
     var proj = {};//{"lexUnit.@ID":1, "lexUnit.@name":1,"lexUnit.@frame":1, "_id":0, "lexUnit.subCorpus":1 };
     var options ={"limit":1};
@@ -250,7 +218,7 @@ exports.loadTranslations = function loadAnnotations (req, res) {
         }
         else{
             console.log("found results");
-            console.log("found results:", results[0]['translation']);
+            console.log("found results:", results);
             res.charset = 'utf-8'; //in chrom it doesn't work work without this
             //res.set({'content-type': 'application/json'});
             res.send(results);
@@ -269,7 +237,7 @@ conn.once('open', function () {
 });*/
 
 
-/*exports.framNames = function (req, res) {
+/*exports.frameNames = function (req, res) {
 	console.log("entering teamList fucntion");
 	conn.db.collectionNames(function (err, names) {
 		console.log("1");

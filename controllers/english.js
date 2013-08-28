@@ -1,7 +1,7 @@
 /**           a
  * english controllers for framenet
  */
-console.log("DEBUG: english controller is being loaded");
+printModule('controllers/english');
 
 var schemas = require("../models/mongoDB/schemes.js");
 //var

@@ -18,14 +18,14 @@ var dbConnection = require('./models/mongoDB/dbConnection.js');
 toobusy.maxLag(90); //TODO
 //load all controllers:
 //var users = require('./contollers/users')
-var control = require('./controllers/index');
+//var control = require('./controllers/index');
 
 
 
-process.on('uncaughtException', function (err) {
+/*process.on('uncaughtException', function (err) {
     console.error(err);
     console.log("Node NOT Exiting...");
-});
+});*/
 
 //TODO passport.use(auth.strat);
 //auth.serializeUser;
@@ -51,7 +51,8 @@ passport.use(new LocalStrategy(auth.localStrategyFunc));
 //start app:
 //var app = express();
 var app = module.exports = express();
-//exports.app = app;
+
+
 //all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
@@ -98,8 +99,13 @@ app.configure('production', function() {
     app.use(express.errorHandler());
 });
 
+global.printModule= function(name) { console.log("DEBUG: loading module","<< "+name+" >>");};
+global.hp ='/~imrihe/nodeJS1/';
 
-require('./routes.js');
+require('./routes/index.js');
+
+app.locals(require('./models/mongoDB/locals.js').localVars);
+
 //app.get('/', control.index);
 //app.get('/kaki', function(req, res){res.redirect(hp+'login');});
 //app.get('/login', control.index);
@@ -151,9 +157,9 @@ require('./routes.js');
         User.findOne(function(err, user){console.log("this is the one!!", err, user);});
         res.send("database connection is OK");
     }); */
-
 if (!module.parent) {
     app.listen(process.env.PORT || 3000);
     console.log("hebFNApp: Express server listening on port %d %s in %s mode", process.env.PORT || 3000, 'localhost',  app.settings.env);
 }else console.log("hebFNApp is running as sub-server");
 
+exports = module.exports = app;

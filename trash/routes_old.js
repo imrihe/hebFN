@@ -1,13 +1,17 @@
 /**
  *   a
  */
-var index = require('./controllers/index'),
-    app = require('./app.js'),
-    auth = require('./controllers/auth'),
+//TODO - think about changing into this  - http://stackoverflow.com/questions/10459291/dynamically-generate-express-routes-fails-in-production-environment
+
+
+var index = require('../controllers/index'),
+    app = require('../app.js'),
+    auth = require('../controllers/auth'),
     passport =require('passport');
-    engControl = require('./controllers/english');
-    engModel = require('./models/mongoDB/englishModel.js'),
-    general  = require('./models/mongoDB/general.js');
+    engControl = require('../controllers/english');
+    engModel = require('../models/mongoDB/englishModel.js'),
+    hebModel = require('../models/mongoDB/hebrewModel.js'),
+    general  = require('../models/mongoDB/general.js');
 
 var hp  = '/~imrihe/nodeJS1/';
 exports.hp = hp;
@@ -52,17 +56,17 @@ app.get('/eng/translations', engModel.loadTranslations);
 
 /******************hebrew getters***************/
     //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frame/?id=320
-app.get('/heb/frame', engModel.loadFrame);
+app.get('/heb/frame', hebModel.loadFrame);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/lu/?id=320
-app.get('/heb/lu',engModel.loadLuEng);
+app.get('/heb/lu',hebModel.loadLu);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=1
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=0
-app.get('/heb/luNames', engModel.loadLuNames);
+app.get('/heb/luNames', hebModel.loadLuNames);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frameNames
-app.get('/heb/frameNames', engModel.loadFrameNames);
+app.get('/heb/frameNames', hebModel.loadFrameNames);
 
 
 
@@ -94,7 +98,7 @@ app.get('/auth',
 app.get('/checkdbconnect',
     function(req,res){
         console.log("DEBUG: checking...");
-        var userScehme = require('./models/mongoDB/schemes.js').userSchema;
+        var userScehme = require('../models/mongoDB/schemes.js').userSchema;
         var User = require('mongoose').model('User', userScehme);
         User.findOne(function(err, user){console.log("this is the one!!", err, user);});
         res.send("database connection is OK " + homeLink);
@@ -105,8 +109,11 @@ app.get('/checkdbconnect',
 //***************POSTS*************//
 app.post('/login',
     passport.authenticate('local', { successRedirect: hp+'auth', failureRedirect: hp+'login', failureFlash: true  }),
-    function(req, res) {
-        console.log("user %s is NOW LOGGED IN", req.user.username);
-        res.send("managed to authenticate!!!");
-    });
+        function(req, res) {
+            console.log("user %s is NOW LOGGED IN", req.user.username);
+            res.send("managed to authenticate!!!");
+        });
+
+app.get('/heb/savelutoframe', index.saveLUToFrame);  //process the query data, submit to DB and return the results
+app.post('/heb/savelutoframe', hebModel.addLUToFrame);  //process the query data, submit to DB and return the results
 

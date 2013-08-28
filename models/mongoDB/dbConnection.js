@@ -2,6 +2,8 @@
  * New node file a
  */
 var mongoose = require('mongoose');
+var options = {server: { poolSize: 5 }};
+options.server.socketOptions = { keepAlive: 1 };
 var //db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
     db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
 	schema = mongoose.Schema;
