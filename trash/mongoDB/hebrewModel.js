@@ -320,5 +320,5 @@ exports.saveLUToFrame = function (req,res){
         fields.push({'name': fieldNames[i], 'type':types[i] });
     }
     //console.log("fields\n",fields );
-    res.render('saveLUToFrame.jade', {"collections": general.collectionNames, "fields": fields, 'exm':pop.hebLUexample });
+    res.render('addLUToFrame.jade', {"collections": general.collectionNames, "fields": fields, 'exm':pop.hebLUexample });
 }

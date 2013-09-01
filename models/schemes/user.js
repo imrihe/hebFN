@@ -8,7 +8,10 @@
 //TODO: think - every field that appears in the schema will always be pulled and saved and casted by it's defined type, if i delete the field - it won't apper if it's empty..
 //maybe it's better to work with partial schemas
 //TODO: add static methodes to the schemas - http://mongoosejs.com/docs/guide.html#staticss
-printModule('models/schemes/user');
+global.printModule('models/schemes/user');
+
+
+
 
 var Schema = require('mongoose').Schema;
 var MongooseModel = require('mongoose').model;
@@ -24,7 +27,6 @@ var userSchema = exports.userSchema = new Schema({
     lastName: String,
     email: String,
     roles: [roleType]
-//	roles: Array
 });
 
 userSchema.methods.validPassword = function (password) {
@@ -40,4 +42,5 @@ userSchema.methods.validPassword = function (password) {
  * english frame schema ande related subSchemes
  */
 //console.log(userSchema);
-var userModel  =require('mongoose').model('Users', userSchema, 'users');
+var userModel = exports.userModel  =require('mongoose').model('Users', userSchema, 'users');
+

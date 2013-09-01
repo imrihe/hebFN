@@ -12,9 +12,11 @@
 printModule('models/schemes/hebrew');
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Model = mongoose.model;
+    Schema = mongoose.Schema;
+    //Model = mongoose.model;
 var ObjectId = mongoose.Schema.Types.ObjectId;
+var frameCollectionName = 'hebFrames',
+    sentencesCollectionName = 'sentences' ;
 //var Number = Schema.Types.Number;
 //var Date = Schema.Types.Date;
 var roleType = {type: String, enum:["annotator", "reviewer","planner","admin"]};
@@ -378,7 +380,7 @@ var hebFrameLUType = exports.hebFrameLUType = new Schema({
  *
  * @type {Schema}
  */
-var hebFrameType = exports.hebFrameType = new Schema({
+var hebFrameSchema = exports.hebFrameType = new Schema({
         "@ID": IDType,
         "@name": frameNameType,
         "@cDate": dateTimeType,
@@ -408,7 +410,7 @@ var heblexemeType =new Schema({
 
 
 //var frameModel = mongoose.model('Frame', frame, 'frame');
-var frameModel = mongoose.model('hebFrames', hebFrameType, 'hebFrames');
+//var frameModel = mongoose.model('hebFrames', hebFrameType, 'hebFrames');
 //console.log(typeof(values(frameModel.schema.paths.lexUnit.schema.tree)[2]));
 //console.log(values(hebFrameLUType.tree));
 //console.log(hebFrameType)
@@ -560,17 +562,6 @@ var luSentenceType = exports.luSentenceType = new Schema({
     "annotations": [annotatedSentenceType]
 });
 
-/******************************* translations schema *********************/
 
 
-//posTransType = [String];
-var translationType =  {'pos' : String, 'vals' : [String]};
-
-var translation = exports.translation = new Schema({
-    "luID": IDType, //the id of  lexical unit.
-    "frameID": IDType, //the id of the frame.
-    "pos": String, //part of speech of the lu
-    "name": String, //the 'name' it self (the actual form)
-    "translation": [translationType]
-});
-
+exports.hebFrameModel = mongoose.model(frameCollectionName, hebFrameSchema, frameCollectionName);

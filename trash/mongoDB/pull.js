@@ -2,30 +2,11 @@
  * New node file a
  */
 var mongoose = require('mongoose');
-var options ={  //TODO: check the good and right settings...
-        server:{
-            poolSize: 5,
-            auto_reconnect: true,
-            socketOptions:{
-                keepAlive: 200,
-                connectTimeoutMS:36000, //3600000,
-                //keepAlive: 36000,
-                //socketTimeoutMS:36000 //3600000    putting this will terminate the connection after 36 seconds!! NOTE
-            }
-        }
-}
-
-
 var //db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
-    db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB',options,  function(err)
-            {if (err){
-                console.error("connection problem!! EXITING..");
-                process.exit(code=8);
-            }
-                    }),  //TODO { server: { auto_reconnect: false }}
-    schema = mongoose.Schema;
+    db = mongoose.connect('mongodb://localhost/HebFrameNetDB'),
+	schema = mongoose.Schema;
 
-//var user = require("./schemes.js").userSchema;
+var user = require("./schemes.js").userSchema;
 	//scheme = require('../mongoDB/schemes');
 
 

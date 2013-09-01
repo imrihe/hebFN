@@ -9,7 +9,8 @@
 
 printModule("routes/auth");
 module.exports = function(app) {
-    var homeLink = "<br>" + "(<a href=\""+hp+"\"> go home</a>)";
+    var homeLink = "<br>" + "(<a href=\""+global.hp+"\"> go home</a>)";
+    //console.log("home link1: ", homeLink)
     var auth = require('./../controllers/auth'),
         passport =require('passport');
     app.get('/login', function(req, res){
@@ -19,25 +20,33 @@ module.exports = function(app) {
         res.render('login', { user: req.user, message: req.flash('error') });
     });
 
-    app.get('/account', auth.ensureAuthenticated, function(req, res){
-        res.send('account: user: '+req.user + homeLink);
-    });
 
+    /*TODO: change to this one:
+            I'll assume your form is set to post and it's name is myForm.
+            <a href="#" onclick="document.myForm.submit();return false;">Click to submit</a>/
+    */
     app.get('/logout', function(req, res){
         req.logout();
         console.log("logging out the user");
         res.redirect(hp+'');
     });
 
+    app.post('/logout', function(req, res){
+        req.logout();
+        console.log("logging out the user");
+        res.redirect(hp+'');
+    });
+
+    //TODO
     app.get('/auth',
-        auth.ensureAuthenticated,
+        auth.ensureAuthenticated, //this middleware call will make sure that the callback function will be called only if the user is logged in other wise redirection will occur
         function(req,res){
             console.log("DEBUG: responding after auth: ", req.user.username);
             res.send("authentication is OK  "+ homeLink);
         });
 
     app.post('/login',
-        passport.authenticate('local', { successRedirect: hp+'auth', failureRedirect: hp+'login', failureFlash: true  }),
+        passport.authenticate('local', { successRedirect: hp+'auth', failureRedirect: hp+'login', failureFlash: "kaki!", successFlash: 'Welcome!'  }),
         function(req, res) {
             console.log("user %s is NOW LOGGED IN", req.user.username);
             res.send("managed to authenticate!!!");

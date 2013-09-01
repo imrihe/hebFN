@@ -1,15 +1,16 @@
 /**
  * New node file a
  */
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 //var db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
-var schema = mongoose.Schema;
+//var schema = mongoose.Schema;
 
 //scheme = require('../mongoDB/schemes');
 
-var engframe = require("./schemes.js").engFrameSchema;
-var englu = require("./schemes.js").lexUnit;
-var hebFrames = require("./schemes.js").hebFrameType;
+var engModels = require('../models/schemes/english.js');
+var hebModels = require('../models/schemes/hebrew.js');
+var userModel = require('../models/schemes/user.js').userModel;
+
 var responseFunc = function(err,results, req, res){
     if (err || !results){
         res.send("results not found, check your query syntax: "+ req.query+ "\n"+ req.body );
@@ -29,29 +30,38 @@ exports.collectionNames = ['frame', 'lu', 'hebFrames']//TODO:no schemes yet, 'fu
 exports.findQuery = function findQuery (req, res) {
     console.log("handling findQuery request");
     console.log("request query is: ", req.query);
-
     console.log("request body is: ", req.body);
+    var model;
     switch (req.body.collection){
         case 'lu':
-            schem = englu;
+            model = engModels.luModel;
             break;
         case 'frame':
-            schem =engframe;
+            model = engModels.frameModel;
             break;
         case 'hebFrames':
-            schem =hebFrames;
+            model =hebModels.hebFrameModel;
             break;
         default:
-            schem = frame;
+            model = engModels.frameModel;
             break;
     }
     var options = JSON.parse(req.body.options);
     if (!(options['limit'] && (parseInt(options['limit']) <=20)))
         options['limit']=20;
-    var model = mongoose.model(req.body.collection, schem, req.body.collection);
+    //var model = mongoose.model(req.body.collection, schem, req.body.collection);
     console.log("finding..");
     model.find(JSON.parse(req.body.query), JSON.parse(req.body.proj), options,
         function (err,results) {responseFunc(err,results, req,res)});
 };
+
+exports.checkdbconnect = function(req,res){
+    console.log("DEBUG: checking...");
+    //var userScehme = require('./../models/mongoDB/schemes.js').userSchema;
+    //var User = require('mongoose').model('User', userScehme);
+    userModel.findOne(function(err, user){console.log("this is the one!!", err, user);});
+    res.send("database connection is OK " + global.homeLink);
+};
+
 
 

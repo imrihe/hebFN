@@ -406,7 +406,7 @@ var heblexemeType =new Schema({
 
 
 //var frameModel = mongoose.model('Frame', frame, 'frame');
-var frameModel = mongoose.model('hebFrames', hebFrameType, 'hebFrames');
+//var frameModel = mongoose.model('hebFrames', hebFrameType, 'hebFrames');
 //console.log(typeof(values(frameModel.schema.paths.lexUnit.schema.tree)[2]));
 //console.log(values(hebFrameLUType.tree));
 //console.log(hebFrameType)

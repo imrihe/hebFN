@@ -1,0 +1,60 @@
+//-var hp = '~imrihe/nodeJS1/'
+if message
+    h1 #{message}
+
+if user
+    h2 hello #{user.username}
+//h1 "hie"
+//    script.
+//        alert("invalid login - hard coded!"+ user)
+p
+    ul
+        li user managment:
+            ul
+                li
+                    a(href='login') login
+                li
+                    a(href='logout') logout
+                li
+                    a(href='account') account
+                li
+                    a(href='auth') check if authorized
+        li general:
+            ul
+                li
+                    a(href='checkdbconnect') use this link to check DB connectivity
+                li
+                    a(href='findquery') type free query to DB
+        li english data:
+            ul
+                li
+                    a(href='eng/frame', title="add '?id=123'") frame
+                li
+                    a(href='eng/lu', title="add '?luid=123' of '?frameid=123' for specification") lexical unit
+                li
+                    a(href='eng/lunames') lus names
+                li
+                    a(href='eng/framenames') frames names
+                li
+                    a(href='eng/translations', title = "add ?luid=6 for specification") lus translations
+                li
+                    a(href='eng/annotations', title = "add ?luid=6 for specification") lus annotations
+
+        li hebrew data:
+            ul
+                li
+                    a(href='heb/frame', title="add '?id=123'") frame
+                li
+                    a(href='heb/lu', title="add '?luid=123' of '?frameid=123' for specification") lexical unit
+                li
+                    a(href='heb/lunames') lus names
+                li
+                    a(href='heb/framenames') frames names
+
+                li
+                    a(href='heb/addlutoframe') add lu to frame
+
+
+
+
+

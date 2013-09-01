@@ -1,7 +1,7 @@
 //-var hp = '~imrihe/nodeJS1/'
 p
     for item in fields
-        li #{JSON.stringify(item.name)} -  #{JSON.stringify(item.type)}
+        //li #{JSON.stringify(item.name)} -  #{JSON.stringify(item.type)}
 if message
     p #{message}
 //    script(type='text/javascript')
@@ -9,7 +9,7 @@ if message
 p add lexical unit data to add it to a frame - and make sure to fill all the fields:
 p (note: maximum 20 results will be returned, no pagination)
 p put double quotes ("") around text  ({"limit":20})
-form(method='post' ,action='savelutoframe')
+form(method='post' ,action='addlutoframe')
     fieldset(name="hihi")
         legend add lexical unit to frame
         //receives list of fields and it's types
@@ -25,13 +25,13 @@ form(method='post' ,action='savelutoframe')
                     br
                     key #{item.name}:
                         input(type="text",  name=item.name  )//value=item.name
-        p
-        label
+        //p
+        //label
             //key try
                 //input(type="text", name ='myType[kaki]')
                 //input(type="text", name ='myType[pipi]')
 
-    fieldset(name="haha")
+    fieldset
         legend enter full lu data
         b
             key (check the check box if you want to set the data frome here instead of the fields)

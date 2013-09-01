@@ -7,29 +7,31 @@
  */
 
 
+//engModels is implicitly defined in routes/index.js
 printModule("routes/english");
 module.exports = function(app){
-
-
+    var engControl = require('../controllers/english.js')
+    //console.log("DEBUG: checking path to english model\n:",engModels, engModels.loadFrame);
     /******************english getters***************/
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frame/?id=320
-    app.get('/eng/frame', engModel.loadFrame);
+    app.get('/eng/frame', engControl.loadFrame);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/lu/?id=320
-    app.get('/eng/lu',engModel.loadLuEng);
+    app.get('/eng/lu',engControl.loadLuEng);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=1
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=0
-    app.get('/eng/luNames', engModel.loadLuNames);
+    app.get('/eng/luNames', engControl.loadLuNames);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frameNames
-    app.get('/eng/frameNames', engModel.loadFrameNames);
+    app.get('/eng/frameNames', engControl.loadFrameNames);
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/eng/annotations?lu=XXXX
-    app.get('/eng/annotations', engModel.loadAnnotations);
+    app.get('/eng/annotations', engControl.loadAnnotations);
 
 
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/eng/translations?luid=XXXX
-    app.get('/eng/translations', engModel.loadTranslations);
+    app.get('/eng/translations', engControl.loadTranslations);
 
+    app.get('/eng/', function(req,res){ res.redirect(hp)});
 }
