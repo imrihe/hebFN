@@ -11,314 +11,77 @@
 
 printModule('models/schemes/hebrew');
 
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
     //Model = mongoose.model;
-var ObjectId = mongoose.Schema.Types.ObjectId;
+
 var frameCollectionName = 'hebFrames',
-    sentencesCollectionName = 'sentences' ;
-//var Number = Schema.Types.Number;
-//var Date = Schema.Types.Date;
-var roleType = {type: String, enum:["annotator", "reviewer","planner","admin"]};
+    sentencesCollectionName = 'sentences',
+    luSentenceCollectionsName = 'luSentence';
 
-var userSchema = exports.userSchema = new Schema({
-    username: String,
-    password: String,
-    firstName: String,
-    lastName: String,
-    email: String,
-    roles: [roleType]
-//	roles: Array
-});
-
-userSchema.methods.validPassword = function (password) {
-	console.log("validating user in : userScheme");
-	  if (password === this.password) {
-	    return true; 
-	  } else {
-	    return false;
-	  }
-};
-
-/**
- * english frame schema ande related subSchemes
- */
-
-
-
-var IDType = exports.IDType ={ type: Number, min: 0 } ; //TODO new schema
-var orderType =  { type: Number, min: 0 }; //"description": "a numeric type to use for order specification (rank, paragraph order, etc.)",
-var frameNameType = {type :String, match: /^[A-Z].*/}; //TODO: check correctness of regex
-var dateTimeType = { required: true , type: Date, auto : true}; //match:  "\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2} [A-Z]{3} (Sun|Mon|Tue|Wed|Thu|Fri|Sat)"
-var countType = { type: Number, min: 0 }; //"description": "a numeric type to use for pattern counts",
-var POSType = {type: String, enum:  [ "N","V", "A", "ADV","PRON","PREP","NUM","C","INTJ","ART","SCON","CCON","AVP"]};
-var defType = String;
-//console.log(IDType);
-
-var RGBColorType = {type: String, match: /^[0-9A-Fa-f]{6}/};
-var coreType = {type: String, enum:["Core","Peripheral","Extra-Thematic","Core-Unexpressed"]};
-
+//import general types:
+var types = require('./generalTypes.js');
+//import basic Types
+var ObjectId =types.ObjectId,
+    IDType =types.IDType,
+    orderType = types.orderType,
+    frameNameType = types.frameNameType,
+    dateTimeType = types.dateTimeType,
+    countType = Number,
+    //POSType =types.POSType,
+    defType = types.defType,
+    RGBColorType =types.RGBColorType,
+    coreType = types.coreType;
 
 //var labelSpanType = new Schema({type: Number, min:0});//"description" : "a numeric type to use for Label spans",
-var labelSpanType = {type: Number, min:0};//"description" : "a numeric type to use for Label spans",
-var labelType = new Schema({
-    "@name": String,
-    "@start": labelSpanType,
-    "@end": labelSpanType,
-    "@fgColor": RGBColorType,
-    "@bgColor": RGBColorType,
-    "@itype": {type: "string",enum: ["APos","CNI","INI","DNI","INC"]},
-    "@feID": Number,
-    "@cBy": String
-});
-
-var layerType ={
-    "label": [labelType],
-    "@name": String,
-    "@rank": orderType
-};
-
-
-var subCorpusType = {
-    "sentence": [sentenceType]
-};
-
-
-var extSentRefType = {type: Number, min: 0}; //			"description": "a numeric type to use for external references to sentences (aPos)",
-var annotationSetType ={
-    "@ID": IDType,
-    "@status": String,
-    "@frameName": String,
-    "@frameID": IDType,
-    "@luName": String,
-    "@luID":IDType,
-    "@cxnName": String,
-    "@cxnID": IDType,
-    "@cDate": dateTimeType,
-    "layer": [layerType]
-};
-var annoSetType = {"@ID" : IDType};
-var governorType = new Schema({
-    "annoSet": [annoSetType],
-    "@lemma": String,
-    "@type": String   //TODO: check for enum
-});
-
-var FEValenceType = {"@name":String};
- var valenceUnitType = {
-                 "FE": String,
-                 "PT": String,
-                 "GF":String
- };
-var FERealizationType  =new Schema({
-    "FE": FEValenceType,
-    "pattern":[{"@total": countType, "valenceUnit": valenceUnitType , "annoSet": [annoSetType]}],
-    "@total": countType
-});
-
-
-
-var FEGroupRealizationType = new Schema({
-            "FE": [FEValenceType],
-            "pattern":[{"@total": countType, "valenceUnit": [valenceUnitType] , "annoSet": [annoSetType]}],
-            "@total": countType
-});
-
-
-
-var valencesType = {
-            "governor": [governorType],
-            "FERealization":[FERealizationType],
-            "FEGroupRealization":[FEGroupRealizationType]
-};
-
-var sentenceType = {
-    "text": String,
-    "annotationSet": [annotationSetType],
-    "@ID": IDType,
-    "@aPos": extSentRefType,
-    "@paragNo": orderType,
-    "@sentNo": orderType,
-    "@docId": IDType,
-    "@corpID": IDType
-
-
-
-};
-
-
-var documentType = new Schema({"@ID":IDType, "@description": String});
-var corpDocType = new Schema({
-    "@name": String,
-    "@ID":IDType,
-    "document": [documentType]
-});
-
-var headerType = {
-    "corpus": [corpDocType],
-    "frame":{
-        "FE":[new Schema({
-            "@fgColor" : RGBColorType,
-            "@bgColor" :RGBColorType,
-            "@type" : coreType,
-            "@abbrev" : String,
-            "@name" : String
-        })]
-    }
-};
-
+var extSentRefType =types.extSentRefType;// {type: Number, min: 0}; //			"description": "a numeric type to use for external references to sentences (aPos)",
+var annoSetType =types.annoSetType;
+var governorType = types.governorType;
+var FEValenceType =types.FEValenceType;
+var valenceUnitType = types.valenceUnitType;
+var FERealizationType  = types.FERealizationType;
+var FEGroupRealizationType =types.FEGroupRealizationType;
+var valencesType = types.valencesType;
 
 //description": "a string type for FE core types",
-
-
 /**semTypeRefType
  * same for english and hebrew
  */
-var semTypeRefType = {
-    "@name":String,
-    "@ID": IDType
-};
+var semTypeRefType = types.semTypeRefType;
 
 /**
  * same in hebrew
  * @type {Schema}
  */
-var internalFrameRelationFEType = exports.internalFrameRElationFEType= new Schema({
-    "@name": String,
-    "@ID": {type: Number,min :0 }
-});
+var internalFrameRelationFEType  =types.internalFrameRelationFEType;
 
 /** FEType
  * same in hebrew
  * @type {Schema}
  */
-var FEType = exports.FEType = new Schema({
-    //"definition": String,
-    //"semType": {type:[semTypeRefType], select: false},     //TODO - remove the select field
-    "requiresFE": [internalFrameRelationFEType],
-    "excludesFE": [internalFrameRelationFEType],
-    "@ID": IDType,
-    "@name": frameNameType,
-    "@abbrev": String,
-    "@cDate": dateTimeType,
-    "@cBy": String,
-    "@coreType": coreType,
-    "@fgColor": RGBColorType,
-    "@bgColor": RGBColorType
-});
+var FEType =  types.FEType;
 
 /**relatedFramesType
  * same in hebrew
  */
-var relatedFramesType = {
-    "@type": String, //TODO: check if there are enums for this field
-    "relatedFrame" : [frameNameType]
-};
-var lexemeType=  exports.lexemeType = {
-    //description" :"an attributes-only lexeme element",
-    "@name": String,
-    "@POS": POSType,
-    "@breakBefore": Boolean,
-    "@headword": Boolean,
-    "@order": orderType
-};
-
-
-
-var frameLUType = exports.frameLUType= new Schema({
-
-    //"description" : "frame-embedded lexUnit type",
-        "definition": defType, //"comment": "has SOURCE then a colon followed by a string"
-        "sentenceCount": {total: countType, annotated: countType},
-        "lexeme": [lexemeType],
-        "semType":[semTypeRefType],
-        "@cDate": dateTimeType,
-        "@cBy": String,
-        "@lemmaID": IDType,
-        "@ID": IDType,//IDType
-        "@name": {type : String, match: /^.+../}, //TODO: check correctness of regex
-        "@POS": POSType,
-        "@incorporatedFE": String,
-        "@status": {type: String, match: /^[A-Z].*/} //TODO: check correctness of regex
-});
+var relatedFramesType =types.relatedFramesType;
 
 /**memberFEtype
  * same in hebrew
  * @type {Schema}
  */
-var memberFEtype   = exports.memberFEtype = new Schema({
-                    "memberFE": [internalFrameRelationFEType]} //occurrences: 2+
-                    );
-
-var engFrameSchema = exports.engFrameSchema = new Schema(
-    {"frame": {
-        "_id" : ObjectId,
-        "definition": defType,
-        "semType": [semTypeRefType],
-        "FE": [FEType] ,
-        "FEcoreSet": [memberFEtype], //occurrences: 0+
-        "frameRelation": [relatedFramesType],
-        "lexUnit": [frameLUType],
-        "@ID": IDType,
-        "@name": frameNameType,
-        "@cDate": dateTimeType,
-        "@cBy": String
-    }
-});
-
-
-/**
- * hebrew frame schema
- */
-
-
-
-
-/**
- * english LU schema
- */
-var lexUnit = exports.lexUnit = new Schema({
-    "lexUnit":{
-        "@ID": IDType,
-        "@name": {type : String, match: /^.+../}, //TODO: check correctness of regex
-        "@status": {type: String, match: /^[A-Z].*/}, //TODO: check correctness of regex
-        "definition": defType, //TODO: correct the $ key in the DB
-        "header":headerType,
-        "@cDate": dateTimeType,
-        "@cBy": String,
-        "@lemmaID": IDType,
-        "@POS": POSType,
-        "@frameID":IDType,
-        "@frame": frameNameType,
-
-        "sentenceCount": {total: countType, annotated: countType},
-        "lexeme": [lexemeType],
-        "semType":[semTypeRefType],
-        "valences": valencesType,
-        "subCorpus": [subCorpusType],
-        "@incorporatedFE": String,
-        "totalAnnotated":countType
-    }
-});
+var memberFEtype   = types.memberFEtype;
 
 
 /*********************** hebrew schemes:*******************************/
 //missing: history, annotatorDecisions,inquiryType
-
-
 
 /**
  * general types
  *
  */
 var hebPOSType = {required: true, type: String, enum:  [ "N","V", "A", "ADV","PRON","PREP","NUM","C","INTJ","ART","SCON","CCON","AVP"]};
-
-
-/**
- * hebrew LU schema
- */
-
-
 
 /**
  * hebrew corpora schema
@@ -332,17 +95,28 @@ var corporaSchema = new Schema({
 });
 
 
+/**
+ * "description":"an attributes-only lexeme element",
+ * @type {Schema}
+ */
+var heblexemeType =new Schema({
+    "name": String,
+    "POS":hebPOSType,
+    "breakBefore":Boolean,
+    "headword":Boolean,
+    "order":orderType
+});
 
-/**  hebFrameLUType
+/**  hebType
  *"description":"frame-embedded lexUnit type",
  * @type {Schema}
  * each lu will have an _id - the _id will be it's identifier in the entire database. and is of type ObjectID
  */
-var hebFrameLUType = exports.hebFrameLUType = new Schema({
+var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     //"_id": ObjectId,
     "priority": Number,
     "definition": defType,
-    "status":{type:String,enum: ["approved","pending"]},
+    "status":{type: String,enum: ["approved","pending"]},
     "translatedFrom"://"description":"holds information regarding the english lexical unit which this lexical unit was translated from",
     {
         "frameId":IDType,
@@ -373,11 +147,6 @@ var hebFrameLUType = exports.hebFrameLUType = new Schema({
 /**
  * hebrew frame schema
  * "description":"Contains information about the frame: definition, priority,semantic type, frame elements, core frame element, frame relations, and lexical units; does not contain annotations.",
- */
-
-
-/**
- *
  * @type {Schema}
  */
 var hebFrameSchema = exports.hebFrameType = new Schema({
@@ -392,30 +161,8 @@ var hebFrameSchema = exports.hebFrameType = new Schema({
         "FE": [FEType] ,
         "FEcoreSet": [memberFEtype], //occurrences: 0+
         "frameRelation": [relatedFramesType],
-        "lexUnit": [hebFrameLUType]
+        "lexUnit": [hebFrameLUSchema]
 });
-
-/**
- * "description":"an attributes-only lexeme element",
- * @type {Schema}
- */
-var heblexemeType =new Schema({
-    "name": String,
-    "POS":hebPOSType,
-    "breakBefore":Boolean,
-    "headword":Boolean,
-    "order":orderType
-});
-
-
-
-//var frameModel = mongoose.model('Frame', frame, 'frame');
-//var frameModel = mongoose.model('hebFrames', hebFrameType, 'hebFrames');
-//console.log(typeof(values(frameModel.schema.paths.lexUnit.schema.tree)[2]));
-//console.log(values(hebFrameLUType.tree));
-//console.log(hebFrameType)
-//console.log(keys(hebFrameLUType.paths))
-//console.log("values",values(hebFrameLUType))
 
 
 /**
@@ -457,8 +204,6 @@ var wordType = new Schema({
     "parword": String
 });
 
-
-
 //ConllJson31Type
 /**TODO: complete this according to alon's type - 31 json response
  *comment : "the json as received by alon's search tool",
@@ -480,15 +225,15 @@ var ConllJson31Type = new Schema({
  *"description":"sentence will contaion the basic POS, parse trees and morphology along with list of annotationSet ids",
  * @type {Schema}
  */
-var hebsentenceType = exports.hebsentenceType = new Schema({
+var hebsentenceSchema = exports.hebsentenceSchema = new Schema({
     "text":String,
     "Content" : [ConllJson31Type], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
-    "lus":[IDType],//save the related LU ids
-    "ID":IDType,
+    "lus":[ObjectId],//save the related LU ids
+    "ID":ObjectId,
     "source": {type: String, enum: ["corpus", "manual", "translation"]},
     //"comment":"sentences can also be manually inserted",
     "sentenceOrigin": {
-        "aPos":extSentRefType,
+        "aPos": extSentRefType,
         "paragNo":orderType,
         "sentNo":orderType,
         "docId":IDType,
@@ -555,8 +300,9 @@ var annotatedSentenceType = new Schema({
  * a lu with sentence will be added to this list when a lu-sentence association is being created
  * @type {Schema}
  */
-var luSentenceType = exports.luSentenceType = new Schema({
-    "luId": IDType, //the id of the annotated lexical unit.
+var luSentenceSchema = exports.luSentenceSchema = new Schema({
+    "sentenceID" : ObjectId,
+    "luId": ObjectId, //the id of the annotated lexical unit.
     "luName": String, //optimization
     "frameID": IDType, //the id of the frame which this lu is related to  (search and data retrieval optimization)
     "annotations": [annotatedSentenceType]
@@ -564,4 +310,7 @@ var luSentenceType = exports.luSentenceType = new Schema({
 
 
 
+console.log("DEBUG: creating hebrew models - << models/schemes/hebrew >>");
 exports.hebFrameModel = mongoose.model(frameCollectionName, hebFrameSchema, frameCollectionName);
+exports.hebSentenceModel = mongoose.model(sentencesCollectionName, hebsentenceSchema, sentencesCollectionName);
+exports.luSentenceModel = mongoose.model(luSentenceCollectionsName, luSentenceSchema, luSentenceCollectionsName);

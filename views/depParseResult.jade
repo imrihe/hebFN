@@ -1,0 +1,9 @@
+h1 the result of the parser is below
+p click the 'add to lu' in order to go to add the page to the lu
+
+form(method="get",action="../heb/addsentence", accept-charset="utf8")
+    textarea(name="sentence", value =result) #{JSON.stringify(result)}
+    <br>
+    input( type="submit", value="add to lu")
+    //a(href='/')
+        button(type="button") Previous Page

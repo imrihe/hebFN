@@ -20,7 +20,7 @@ exports.loadFrame = function loadFrame (req, res) {
         queryProj = {};
     //if (req.query.q) query =JSON.parse(req.query.q);
 
-    if (req.query.id) query["frame.@ID"] =  req.query.id;
+    if (req.query.frameid) query["frame.@ID"] =  req.query.frameid;
     if (req.query.name) query["frame.@name"] =  req.query.name;
     //console.log("find query:",typeof(query),  query);
     engframeModel.findOne(query,function(err,frameRes){
@@ -62,15 +62,15 @@ exports.loadLuEng = function loadLuEng (req, res) {
         try {query = JSON.parse(req.query.q);}
         catch(err) {console.log("query parsing exception "+ err)};
     }
-    else if (req.query.id) query[ 'lexUnit.@ID']= req.query.id;
-    else if (req.query.name) query['lexUnit.@name'] = {$regex : ".*"+req.query.name+".*"};   //search all lus which contains the given name
+    else if (req.query.luid) query[ 'lexUnit.@ID']= req.query.luid;
+    else if (req.query.luname) query['lexUnit.@name'] = {$regex : ".*"+req.query.luname+".*"};   //search all lus which contains the given name
 
     //projection check:
     if (req.query.proj) try{ queryProj = JSON.parse(req.query.proj);}
     catch(err) {console.log("query parsing exception" + err)};
     engluModel.find(query,queryProj, limit, function(err,response){
         if (err || !response){
-            res.send("lu not found: "+ luID );
+            res.send("lu not found: "+ luid );
         }
         else{
             res.send(response);
@@ -149,7 +149,7 @@ exports.loadFrameNames = function loadFrameNames (req, res) {
 
 
 
-//TODO: check where i am using this one
+//TODO: check where i am using this one if i am
 /*exports.loadFrameData = function loadFrameData (req, res) {
     console.log("handling load english frame-names request with req.query.params['lus']=", req.query.lus);
     var  engframeModel = mongoose.model(frameCollectionName, frame, frameCollectionName);
@@ -176,7 +176,7 @@ exports.loadFrameNames = function loadFrameNames (req, res) {
 
 /**
  *
- * @param req the request should contaion lu=xxxx  for lu id number.
+ * @param req the request should contaion luid=xxxx  for lu id number.
  * @param res
  */
 exports.loadAnnotations = function loadAnnotations (req, res) {
@@ -185,8 +185,8 @@ exports.loadAnnotations = function loadAnnotations (req, res) {
     var query= {};
     var proj = {"lexUnit.@ID":1, "lexUnit.@name":1,"lexUnit.@frame":1, "_id":0, "lexUnit.subCorpus":1 };
     var options ={"limit":1};
-    if (req.query.lu) {
-        query = {"lexUnit.@ID": req.query.lu};
+    if (req.query.luid) {
+        query = {"lexUnit.@ID": req.query.luid};
     }
     else query =  {};
     luModel.find(query , proj, options,function(err,results){

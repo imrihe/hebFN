@@ -1,0 +1,84 @@
+by the link:
+    http://stackoverflow.com/questions/15454441/mongoose-based-app-architecture
+structure:
+    -- app.js
+    -- models/
+    ---- index.js
+    ---- blog.js
+    -- mongoose/
+    ---- index.js
+    -- routes/
+    ---- index.js
+    ---- blog/index.js
+    -- public/
+    -- views/
+    ---- index.{your layout engine} => I use Jade.lang
+    -- methods/
+    ---- index.js => use if you'd rather write all your functions here
+    ---- blog.js => can store more complex logic here
+
+
+my structure:
+    -app.js
+    -package.json
+    -readme.md
+    routes:   (moduls in this folder will route frome the URI to the relevant controller
+        -index  (loads all the other routes)
+        -auth
+        -english
+        -general
+        -hebrewGetters
+        -hebrewSetters
+        -general
+        -users
+    models:
+        -schemes:
+            -english
+            -hebrew
+            -user
+            -decision
+            TODO
+    contorllers: (by task!)
+        -hebrew
+            -view frame, lu, names(lu,frames)
+            -add lu to frame
+            -add sentences to lu
+            -annotate sentences of lu
+            -add decision
+            -review decisions
+        -english
+            -view frame, lu, translations, names(lu,frames)
+
+
+
+processes:
+---authentication:
+        --GET/login - from routes/index->auth renders login view
+        --POST/login - uses 'serialize user'
+---add lu-frame association
+---add sentence to lu
+        --add sentence to sentences' collection
+                --type manual sentence and parse it
+                --search for sentences and choose one to add
+        --add sentence to lu and lu to sentence
+
+
+
+
+
+//TODO:
+    -schemes:
+        -define all the models in the scheme page itself  -V
+        -devide into different pages                      -V
+        -exports what is needed                           -V
+        -add getters and setters??? i am not sure i want this..
+    -contorleres:
+        -move all methods from models to controlles  - V
+    -create:
+        --hebrew setters by steps:
+                -create lu-frame association - V
+                -add sentence to lu (manual!)
+                -add annotation to LU
+    -structure:
+        -specify for each file -  it's contents
+

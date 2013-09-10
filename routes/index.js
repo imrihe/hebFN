@@ -49,11 +49,5 @@ require('./hebrewGetters.js')(app);
 //add hebrew setters
 require('./hebrewSetters.js')(app);
 
-
-
-
-
-
-
-
+require('./externalTools.js')(app);
 

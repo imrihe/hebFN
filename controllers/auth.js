@@ -2,7 +2,7 @@
  * use according to this project: https://github.com/jaredhanson/passport-local/blob/master/examples/login/app.js
  */
 
-global.printModule("loading module << controllers/auth.js >>");
+global.printModule("controllers/auth.js");
 var mongoose = require('mongoose');
 
 var hp = global.hp;

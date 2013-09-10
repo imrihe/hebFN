@@ -8,7 +8,7 @@ var options ={  //TODO: check the good and right settings...
             auto_reconnect: true,
             socketOptions:{
                 keepAlive: 200,
-                connectTimeoutMS:36000, //3600000,
+                connectTimeoutMS:36000 //3600000,
                 //keepAlive: 36000,
                 //socketTimeoutMS:36000 //3600000    putting this will terminate the connection after 36 seconds!! NOTE
             }
@@ -17,7 +17,7 @@ var options ={  //TODO: check the good and right settings...
 
 
 var //db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
-    db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB',options,  function(err)
+    db = mongoose.connect('mongodb://localhost/HebFrameNetDB',options,  function(err)
             {if (err){
                 console.error("connection problem!! EXITING..");
                 process.exit(code=8);

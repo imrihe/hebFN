@@ -2,7 +2,7 @@
  * New node file
  */
 
-global.printModule("loading module << controllers/users.js >>");
+global.printModule("controllers/users");
 
 var User = require('../models/schemes/user.js').userModel;
 

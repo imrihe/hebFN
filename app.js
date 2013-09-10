@@ -5,8 +5,8 @@
 
 console.log("DEBUG: loading main app");
 global.printModule= function(name) { console.log("DEBUG: loading module","<< "+name+" >>");};
-//global.hp ="/";//from home user "/" //TODO
-global.hp ='/~imrihe/nodeJS1/';
+global.hp ="/";//from home user "/" //TODO
+//global.hp ='/~imrihe/nodeJS1/';
 global.homeLink = "<br>" + "(<a href=\""+hp+"\"> go home</a>)";
 
 

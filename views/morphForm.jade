@@ -1,0 +1,13 @@
+h1 morphological disambiguation pipe
+p please enter a sentence in hebrew and click 'submit' - it is recommanded to choose the 'json' format
+
+ul.
+    <form method="post" action="morph" accept-charset="utf8">
+        <textarea name="text" cols="120" rows="30" dir="rtl">   </textarea>
+        <br>
+            json: <input type="checkbox" name="json">,
+            plain: <input type="checkbox" name="plain">,
+            p: <input type="checkbox" name="bm">
+            foreign words: <input type="checkbox" name="foreign">
+            <input type="submit">
+        </form>

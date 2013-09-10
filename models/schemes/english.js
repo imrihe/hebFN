@@ -7,15 +7,26 @@
  */
 //TODO: think - every field that appears in the schema will always be pulled and saved and casted by it's defined type, if i delete the field - it won't apper if it's empty..
 //maybe it's better to work with partial schemas
-//TODO: add static methodes to the schemas - http://mongoosejs.com/docs/guide.html#staticss
+//TODO: add static methods to the schemas - http://mongoosejs.com/docs/guide.html#staticss
 printModule('models/schemes/english');
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     Model = mongoose.model;
-var ObjectId = mongoose.Schema.Types.ObjectId;
-//var Number = Schema.Types.Number;
-//var Date = Schema.Types.Date;
-var roleType = {type: String, enum:["annotator", "reviewer","planner","admin"]};
+
+
+//import general types:
+var types = require('./generalTypes.js');
+//import basic Types
+var ObjectId =types.ObjectId,
+    IDType =types.IDType,
+    orderType = types.orderType,
+    frameNameType = types.frameNameType,
+    dateTimeType = types.dateTimeType,
+    countType = Number,
+//POSType =types.POSType,
+    defType = types.defType,
+    RGBColorType =types.RGBColorType,
+    coreType = types.coreType;
 
 var frameCollection = 'frame',
     luCollection = 'lu',
@@ -46,20 +57,19 @@ var frameCollection = 'frame',
 
 
 
-var IDType = exports.IDType ={ type: Number, min: 0 } ; //TODO new schema
-var orderType =  { type: Number, min: 0 }; //"description": "a numeric type to use for order specification (rank, paragraph order, etc.)",
-var frameNameType = {type :String, match: /^[A-Z].*/}; //TODO: check correctness of regex
-var dateTimeType = { required: true , type: Date, auto : true}; //match:  "\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2} [A-Z]{3} (Sun|Mon|Tue|Wed|Thu|Fri|Sat)"
-var countType = { type: Number, min: 0 }; //"description": "a numeric type to use for pattern counts",
+//var IDType  ={ type: Number, min: 0 } ; //TODO new schema
+//var orderType =  { type: Number, min: 0 }; //"description": "a numeric type to use for order specification (rank, paragraph order, etc.)",
+//var frameNameType = {type :String, match: /^[A-Z].*/}; //TODO: check correctness of regex
+//var dateTimeType = { required: true , type: Date, auto : true}; //match:  "\d{2}/\d{2}/\d{4} \d{2}:\d{2}:\d{2} [A-Z]{3} (Sun|Mon|Tue|Wed|Thu|Fri|Sat)"
+//var countType = { type: Number, min: 0 }; //"description": "a numeric type to use for pattern counts",
 var POSType = {type: String, enum:  [ "N","V", "A", "ADV","PRON","PREP","NUM","C","INTJ","ART","SCON","CCON","AVP"]};
-var defType = String;
+//var defType = String;
 //console.log(IDType);
 
-var RGBColorType = {type: String, match: /^[0-9A-Fa-f]{6}/};
-var coreType = {type: String, enum:["Core","Peripheral","Extra-Thematic","Core-Unexpressed"]};
-
-
+//var RGBColorType = {type: String, match: /^[0-9A-Fa-f]{6}/};
+//var coreType = {type: String, enum:["Core","Peripheral","Extra-Thematic","Core-Unexpressed"]};
 //var labelSpanType = new Schema({type: Number, min:0});//"description" : "a numeric type to use for Label spans",
+
 var labelSpanType = {type: Number, min:0};//"description" : "a numeric type to use for Label spans",
 var labelType = new Schema({
     "@name": String,
@@ -79,12 +89,28 @@ var layerType ={
 };
 
 
+var extSentRefType =types.extSentRefType;// {type: Number, min: 0}; //			"description": "a numeric type to use for external references to sentences (aPos)",
+var annoSetType =types.annoSetType;
+var governorType = types.governorType;
+var FEValenceType =types.FEValenceType;
+var valenceUnitType = types.valenceUnitType;
+var FERealizationType  = types.FERealizationType;
+var FEGroupRealizationType =types.FEGroupRealizationType;
+var valencesType = types.valencesType;
+
+var semTypeRefType = types.semTypeRefType;
+var internalFrameRelationFEType  =types.internalFrameRelationFEType;
+var FEType =  types.FEType;
+var relatedFramesType =types.relatedFramesType;
+var memberFEtype   = types.memberFEtype;
+
+
 var subCorpusType = {
     "sentence": [sentenceType]
 };
 
 
-var extSentRefType = {type: Number, min: 0}; //			"description": "a numeric type to use for external references to sentences (aPos)",
+//var extSentRefType = {type: Number, min: 0}; //			"description": "a numeric type to use for external references to sentences (aPos)",
 var annotationSetType ={
     "@ID": IDType,
     "@status": String,
@@ -97,40 +123,41 @@ var annotationSetType ={
     "@cDate": dateTimeType,
     "layer": [layerType]
 };
-var annoSetType = {"@ID" : IDType};
-var governorType = new Schema({
+//var annoSetType = {"@ID" : IDType};
+/*var governorType = new Schema({
     "annoSet": [annoSetType],
     "@lemma": String,
     "@type": String   //TODO: check for enum
-});
+});*/
 
-var FEValenceType = {"@name":String};
- var valenceUnitType = {
+//var FEValenceType = {"@name":String};
+ /*var valenceUnitType = {
                  "FE": String,
                  "PT": String,
                  "GF":String
- };
-var FERealizationType  =new Schema({
+ };*/
+
+/*var FERealizationType  =new Schema({
     "FE": FEValenceType,
     "pattern":[{"@total": countType, "valenceUnit": valenceUnitType , "annoSet": [annoSetType]}],
     "@total": countType
-});
+});*/
 
 
 
-var FEGroupRealizationType = new Schema({
+/*var FEGroupRealizationType = new Schema({
             "FE": [FEValenceType],
             "pattern":[{"@total": countType, "valenceUnit": [valenceUnitType] , "annoSet": [annoSetType]}],
             "@total": countType
-});
+});*/
 
 
-
+/*
 var valencesType = {
             "governor": [governorType],
             "FERealization":[FERealizationType],
             "FEGroupRealization":[FEGroupRealizationType]
-};
+};*/
 
 var sentenceType = {
     "text": String,
@@ -174,25 +201,25 @@ var headerType = {
 /**semTypeRefType
  * same for english and hebrew
  */
-var semTypeRefType = {
+/*var semTypeRefType = {
     "@name":String,
     "@ID": IDType
-};
+};*/
 
 /**
  * same in hebrew
  * @type {Schema}
  */
-var internalFrameRelationFEType = exports.internalFrameRElationFEType= new Schema({
+/*var internalFrameRelationFEType = new Schema({
     "@name": String,
     "@ID": {type: Number,min :0 }
-});
+});*/
 
 /** FEType
  * same in hebrew
  * @type {Schema}
  */
-var FEType = exports.FEType = new Schema({
+/*var FEType = new Schema({
     //"definition": String,
     //"semType": {type:[semTypeRefType], select: false},     //TODO - remove the select field
     "requiresFE": [internalFrameRelationFEType],
@@ -205,16 +232,16 @@ var FEType = exports.FEType = new Schema({
     "@coreType": coreType,
     "@fgColor": RGBColorType,
     "@bgColor": RGBColorType
-});
+});*/
 
 /**relatedFramesType
  * same in hebrew
  */
-var relatedFramesType = {
+/*var relatedFramesType = {
     "@type": String, //TODO: check if there are enums for this field
     "relatedFrame" : [frameNameType]
-};
-var lexemeType=  exports.lexemeType = {
+};*/
+var lexemeType=   {
     //description" :"an attributes-only lexeme element",
     "@name": String,
     "@POS": POSType,
@@ -225,7 +252,7 @@ var lexemeType=  exports.lexemeType = {
 
 
 
-var frameLUType = exports.frameLUType= new Schema({
+var frameLUSchema = exports.frameLUSchema= new Schema({
 
     //"description" : "frame-embedded lexUnit type",
         "definition": defType, //"comment": "has SOURCE then a colon followed by a string"
@@ -246,9 +273,11 @@ var frameLUType = exports.frameLUType= new Schema({
  * same in hebrew
  * @type {Schema}
  */
-var memberFEtype   = exports.memberFEtype = new Schema({
+/*
+var memberFEtype   = new Schema({
                     "memberFE": [internalFrameRelationFEType]} //occurrences: 2+
                     );
+*/
 
 var engFrameSchema = exports.engFrameSchema = new Schema(
     {"frame": {
@@ -258,21 +287,13 @@ var engFrameSchema = exports.engFrameSchema = new Schema(
         "FE": [FEType] ,
         "FEcoreSet": [memberFEtype], //occurrences: 0+
         "frameRelation": [relatedFramesType],
-        "lexUnit": [frameLUType],
+        "lexUnit": [frameLUSchema],
         "@ID": IDType,
         "@name": frameNameType,
         "@cDate": dateTimeType,
         "@cBy": String
     }
 });
-
-
-/**
- * hebrew frame schema
- */
-
-
-
 
 /**
  * english LU schema

@@ -16,6 +16,8 @@ module.exports = function(app) {
     //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frameNames
     app.get('/heb/frameNames', hebControl.loadFrameNames);
 
+    app.get('/heb/listsentences', hebControl.listAllSentences);
+
     app.get('/heb/', function(req,res){ res.redirect(hp)});
 
-}
+};

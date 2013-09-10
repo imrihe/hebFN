@@ -11,6 +11,8 @@ printModule("routes/general");
 module.exports = function(app){
     genControl = require('../controllers/general.js');
 
+    app.get('/index.html', function(req,res){res.redirect(hp)});
+
     app.get('/', function (req,res){
         res.render('index.jade',{user: req.user, message:"~~welcome to the hebrew framenet~~"});
     });
