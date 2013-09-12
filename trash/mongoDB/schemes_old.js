@@ -221,7 +221,7 @@ var lexemeType=  exports.lexemeType = {
 
 
 
-var frameLUType = exports.frameLUType= new Schema({
+var frameLUType = exports.frameLUSchema= new Schema({
 
     //"description" : "frame-embedded lexUnit type",
         "definition": defType, //"comment": "has SOURCE then a colon followed by a string"

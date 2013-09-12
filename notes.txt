@@ -64,6 +64,56 @@ processes:
 
 
 
+#### add sentence to LU: ###
+GET - form
+1. checkbox - 'manual' or 'search'
+1.1 if 'manual'
+    1.1.1 enter sentence
+    1.1.2 send to dependency parser and to meni's service.
+    1.1.3 format the sentence according to alon's format+dep_rel and lemma.
+1.2 else -'search'
+    1.2.1 fill search form (pop-up) (search by lemma\base\word\pos, search content, number of wanted results, diversity, corpus(db)).
+    1.2.2 send the form to the search engine (GET)
+    1.2.3 for each result - check if already in DB (linearize and search text in mongoDB - sentences collection)
+1.3 present the results results - for each result mark:
+    1.3.1 add to LU?
+    1.3.2 mark segmentation as wrong (will remove the option to add to the LU)
+        1.3.2.1 FUTURE: open window in order to correct the segmentation.
+    1.3.3 add note -if the sentence is already in the DB (if marked as bad segmentation - hide it)
+1.4 "add sentences" - create POST to the server and save all the wanted sentences to the LU.
+    (the 'bad segmentation' sentences will also be sent to the server and saved in 'bas sentences' collection)
+
+
+POST: (format: body.sentences<sentence>=list of sentences, luid, frameid, user.username, sentence={conll31, badSegmentation?, addTOLU?, inDB, db})
+1. for each sentence:
+    1.1 if in DB
+        1.1.1 if badSegmentation - remove from DB or move from sentence to badSentences
+        1.1.2 else if addToLu:
+            1.1.2.1 add LU to sentence[lus]
+            1.1.2.2 add sentence-lu pair to lu-sentence collection
+
+    1.2 else
+        1.2.1 if badSegmentation - add to 'badSentences'
+        1.2.2 else:
+            1.2.2.1 add to 'sentences' and mark segmentation as valid
+            1.2.2.2 add LU to sentence[lus]
+            1.2.2.3 add sentence-lu pair to lu-sentence collection
+2. send result: list of {luid,frameid,sentenceid} pairs.
+
+#add sentence to LU: (luid, sentenceid, frameid):
+1. check if sentence is already related to the lu -return "already connected" if it is
+2. add the LU id to the sentence lus list
+3. add the snetenceid,luid,frameid to the sentence-lu collection.
+
+#add annotation of sentence to lu:
+1. load the frame data.
+2. load the sentence data.
+3. receive annotation+lu+frame+sentence data.
+4. add the annotation to the sentence in the lu-sentence collection.
+5. add the annotation id to the frame.lu.annotations list.
+
+
+
 
 
 //TODO:
@@ -77,8 +127,8 @@ processes:
     -create:
         --hebrew setters by steps:
                 -create lu-frame association - V
-                -add sentence to lu (manual!)
-                -add annotation to LU
+                -add sentence to lu (manual!) - V
+                -add annotation to LU - V
     -structure:
         -specify for each file -  it's contents
 

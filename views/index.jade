@@ -32,7 +32,7 @@ p
                 li
                     a(href='external/depparse') link to dependenct parser pipe - via our server
                 li
-                    a(href='/external/searchSentence') search sentences by word\POS\lemma\base  - alon's search engine
+                    a(href='external/searchSentence') search sentences by word\POS\lemma\base  - alon's search engine
 
         li english data:
             ul
@@ -61,9 +61,16 @@ p
                     a(href='heb/framenames') frames names
 
                 li
-                    a(href='heb/addlutoframe') add lu to frame /heb/addsentence
-                li
+                    a(href='heb/addlutoframe') add lu to frame
+                li(hidden)
                     a(href='heb/addsentence') add sentence to lexical unit
+                li
+                    a(href='heb/addSentencesToLuPost') add sentence to lexical unit
+                li
+                    a(href='ajax/heb/addsentence') add sentence to lexical unit - from search engine (alon).
+                    a    see
+                        a(href='http://www.cs.bgu.ac.il/~yoavg/nathanstatic/queries.html')    this link
+                    a  in order to understand the query language - but use only query=$w.lemma="הלך" and something like this
                 li
                     a(href='heb/listsentences') list all sentences
 

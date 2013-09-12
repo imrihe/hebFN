@@ -33,13 +33,13 @@ function findUser_old(username, fn){
 
 //this function will be called once the "login" call is being called by  req.login(); (in the app.get('login')
 exports.serializeUser = function(user, done) {
-	console.log("DEBUG: user is logging in:",user.username);
+	console.log("DEBUG: serializeUser - user is logging in:",user.username);
 	done(null, user.username);
 };
 
 //this function will be called once the "logout" call is being called by  req.logout(); (in the app.get('logout')
 exports.deserializeUser =function(username, done) {
-    console.log("DEBUG: user is logging out:",username);
+    console.log("DEBUG: deserializeUser -:",username);
 	findUser(username, function (err, user) {
 		done(err, user);
 	});

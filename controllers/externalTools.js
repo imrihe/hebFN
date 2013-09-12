@@ -72,19 +72,19 @@ exports.getDepParse = function(req,res) {
                 for (var i = 0; i<splitted.length; i++){
                     newSplitted.push(splitted[i].split('\t'));
                     tmp =splitted[i].split('\t');
-                    console.log('tmp', tmp);
+                    //console.log('tmp', tmp);
                     //console.log('tmp',tmp[8]);
                     resObj = {
                         id: tmp[0],
-                        word: tmp[1],
-                        f2: tmp[2],
-                        pos1: tmp[3],
-                        pos2: tmp[4],
-                        tags: tmp[5],
-                        parID: tmp[6],
-                        role: tmp[7],
-                        f8: tmp[8],
-                        f9: tmp[9]
+                        form: tmp[1],
+                        lemma: tmp[2],  //always '_'
+                        CPOSTAG: tmp[3],
+                        POSTAG: tmp[4],
+                        FEATS: tmp[5],
+                        HEAD: tmp[6],
+                        DEPREL: tmp[7],
+                        PHEAD: tmp[8], //always '_'
+                        PDEPREL: tmp[9] //always '_'
                     };
                     resArr.push(resObj);
                 }
@@ -107,7 +107,7 @@ exports.getDepParse = function(req,res) {
  */
 var url =require('url');
 var http = require('http');
-searchEngineServer = 'localhost';
+searchEngineServer = 'elhadad2';//'localhost';
 //var q = '/HBCTPWeb/search?db=haaretz&from=1&to=2&diversity=false&query=$w.word="ילד"%20;%20$w';
 //var q = '/HBCTPWeb/search?db=haaretz&from=1&to=2&diversity=false&query=$w.word="ילד"%20;%20$w'
 //var q = '/HBCTPWeb/search?db=haaretz&from=1&to=2&diversity=false&query=$w.word="ילד" ; $w';
@@ -151,10 +151,10 @@ function parseConll31Json(resTxt){
         var results = [];
         //console.log("debug: ",resTxt);
         var resJson = JSON.parse(resTxt.substring(resTxt.indexOf('***JSON_START***')+16, resTxt.indexOf('***JSON_END***')));
-        console.log("DEBUG: sentence meta-data: ", resJson["hitCount"], resJson["from"],resJson["to"] );
+        //console.log("DEBUG: sentence meta-data: ", resJson["hitCount"], resJson["from"],resJson["to"] );
         //console.log(JSON.stringify(resJson['results']))
         for (sent in resJson['results']){
-            console.log(JSON.stringify(resJson['results'][sent]));
+            //console.log(JSON.stringify(resJson['results'][sent]));
             results.push(resJson['results'][sent]);
             //results.push('<br>**********************************<br>');
         }
@@ -171,6 +171,7 @@ function parseConll31Json(resTxt){
 
 
 exports.getSE = function getSE(req,res, cb) {
+    console.log("DEBUG: getSE-->", req['query']);
     var q =JSON.parse(JSON.stringify(qBase)); //clone the qBase object
     var query = req['query'];
     if (query['db']) q['db'] = query['db'];
@@ -193,7 +194,6 @@ exports.getSE = function getSE(req,res, cb) {
             //console.log('BODY-->'+chunk.toString());
             res.charset = 'utf-8';
             //res.write(chunk.replace(/&quot;/g, "\"")); //TODO: this in order to make the hebrew correct
-            //res.write("שלום כתה א'");
             tmp = tmp + chunk;
 
         });
@@ -202,7 +202,7 @@ exports.getSE = function getSE(req,res, cb) {
                 //res.end(); //when no modre data chunks availble - send 'end' signal to 'res'
                 //res.send(tmp);
                 //console.log((tmp.replace(/&quot;/g, "\"")));
-                console.log('DEBUG: all chunks were sent and "end" sig was sent');
+                console.log('DEBUG: getSE- all chunks and "END" sig were sent');
                 var resJson = parseConll31Json(tmp.replace(/&quot;/g, "\""));
                // console.log("resJson is:",resJson);
                 if (req.isAjax) {

@@ -16,8 +16,8 @@ var options ={  //TODO: check the good and right settings...
 }
 
 
-var //db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB'),
-    db = mongoose.connect('mongodb://localhost/HebFrameNetDB',options,  function(err)
+var //db = mongoose.connect('mongodb://localhost/HebFrameNetDB'),
+    db = mongoose.connect('mongodb://elhadad2/HebFrameNetDB',options,  function(err)
             {if (err){
                 console.error("connection problem!! EXITING..");
                 process.exit(code=8);

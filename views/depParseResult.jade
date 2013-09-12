@@ -1,9 +1,11 @@
 h1 the result of the parser is below
 p click the 'add to lu' in order to go to add the page to the lu
 
-form(method="get",action="../heb/addsentence", accept-charset="utf8")
-    textarea(name="sentence", value =result) #{JSON.stringify(result)}
+//form(method="get",action="../heb/addsentence", accept-charset="utf8")
+//this form type is not supported for now - TODO
+form(method="post", accept-charset="utf8", onSubmit="function(){}(); return false;")
+    textarea(name="sentence",cols=150, rows=20, value=result) #{JSON.stringify(result)}
     <br>
-    input( type="submit", value="add to lu")
+    input( type="submit", value="add to lu", onclick="alert('not supported at the moment!')")
     //a(href='/')
         button(type="button") Previous Page

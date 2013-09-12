@@ -18,6 +18,7 @@ var objID = require('mongoose').Types.ObjectId;
  * @param res
  */
 exports.loadFrame = function loadFrame (req, res) {
+    console.log(req['url'], req.query);
     console.log("DEBUG: handling load-hebrew-frame request");
     var  frameModel =Models.hebFrameModel,// mongoose.model(framesCollectionName, frame, framesCollectionName),
         query = {},
@@ -36,6 +37,10 @@ exports.loadFrame = function loadFrame (req, res) {
             //console.log('NO ERR result',frameRes);
             console.log("found frame: ", response['@ID'] );
             res.send(response);
+
+            //res.send("<html> <body><h2>"+response+"</h2></body></html>");
+            //res.write(response);
+            //res.end();
         }
         //res.end();
     });
@@ -263,6 +268,8 @@ exports.saveLUToFrame = function (req,res){
  */
 exports.addSentenceToLUForm = function (req,res, obj){
     console.log("DEBUG: add sentence to lu GET request - loading form");
+    var obj;
+    //if (req.isAjax) return = externalTools.getSE(req, res, hebControl.addSentenceToLUForm);
     //var collectionNames = require('../controllers/general.js').collectionNames;
     //console.log("tree",Models.hebFrameLUSchema);
     var sentId = req['query']['sentenceid'];
@@ -285,7 +292,7 @@ exports.addSentenceToLUForm = function (req,res, obj){
 
 function valid31Format(candidate){return true;} //TODO!!! - complete this function or put as pre-save
 function linearizeSentence(sentenceJson) {
-    console.log("DEBUG: linearize sentence: recieved object: ", sentenceJson);
+    console.log("DEBUG: linearize sentence: recieved object! ");
     var sent ="";
     if (!Array.isArray(sentenceJson)) throw new error("the sentence is not valid");
     for (word in sentenceJson){
@@ -296,6 +303,19 @@ function linearizeSentence(sentenceJson) {
     return sent;
 }
 
+function linearizeConllSentence(sentenceJson) {
+    require('../tools/utils.js').linearizePython(sentenceJson);
+    console.log("DEBUG: linearizeConllSentence: recieved object1 ");
+    var sent ="";
+    //if (!Array.isArray(sentenceJson)) throw new Error("the sentence is not valid");
+    console.log("DEBUG: the type of the recieved sentence in linearizeConllSentence is:", typeof(sentenceJson));
+    for (word in sentenceJson){
+        //sent = sent + sentenceJson[word]['word']+ " ";
+        sent = sent + sentenceJson[word]['word']+ " ";
+    }
+    console.log("DEBUG: linearize sentence: returning result: ", sent);
+    return sent;
+}
 
 var addLUToSentence = exports.addLUToSentence = function addLUToSentence (req,res, cb){
     console.log("DEBUG: adding the LU to the Sentence");
@@ -313,7 +333,7 @@ var addLUToSentence = exports.addLUToSentence = function addLUToSentence (req,re
             }else{
                 res.charset= 'utf-8';
                 console.log('DEBUG: the lu ', lu, 'was added to the sentence', req['body']['sentenceid'], '\n', returnedObj);
-                cb(req, res,function(){res.send({'msg': 'good! the \' add sentence to lu\' process was finished','obj': (returnedObj)})});  //here cb is 'addsentencetolu
+                cb(req, res,function(){res.send({'msg': 'good! the \' add sentence to LU\' process was finished','obj': (returnedObj)})});  //here cb is 'addsentencetolu
             }
         });
     }
@@ -380,33 +400,36 @@ var addSentenceToLU = exports.addSentenceToLU = function addSentenceToLU(req,res
  * @param req
  * @param res
  */
-exports.addSentenceToDB = function (req,res){
+exports.addSentenceToDB = function addSentenceToDB(req,res){
     console.log("DEBUG: add sentence to lu - POST request");
     var resBody = req.body;
     var sentence = resBody['sentence'];
+    console.log("DEBUG: add sentence to lu - the recieved sentence is:", sentence);
+
     var sentenceid = resBody['sentenceid'];
     /*if (!(frameId && luid && sentenceTxt && targetID)){
         console.log('DEBUG: not enough parameters for the request - one of the parameters is missing');
         res.send("one of the parameters is missing");
     } */
-    if ((! sentence && ! sentenceid) || (sentence && ! valid31Format(sentence))) res.send("the sentence is not vaild conll31 format");  //TODO: valid31Format
+    if ((! sentence && !sentenceid) || (sentence && ! valid31Format(sentence))) res.send("the sentence is not vaild conll31 format");  //TODO: valid31Format
     else {
 
         if (sentence){
             var  sentenceModel =Models.hebSentenceModel;
             var sentJson = {
-
-
-                "text":linearizeSentence(sentence.split('\n')),//TODO
-                "Content" : [sentence], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+                "text":linearizeConllSentence(JSON.parse(sentence)['words']),//TODO
+                "sentenceProperties" : sentence['sentenceProperties'],
+                "content" : [{"words": JSON.parse(sentence)['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
                 //"lus":[IDType],//save the related LU ids
                 "ID":objID(),
                 "source": 'manual'//{type: String, enum: ["corpus", "manual", "translation"]},//TODO
             };
-            sentJson['Content'] = [{a: "a"}];
-            console.log('DEBUG: add sentencetoDB - the result JSON is:',sentJson);
-
+            //sentJson['Content'] = [{a: "a"}];
+            console.log('DEBUG: add sentencetoDB - the result JSON is:',JSON.stringify(sentJson));
+            //res.send(sentJson);
+            console.log('content:', typeof(sentJson['content'][0]));
             var sent = new sentenceModel(sentJson);
+            console.log('DEBUG: the model is:',sent);
             sent.save(function(err){
                 if (err){
                     console.log('DEBUG: problem saving sentence', err);
@@ -427,8 +450,11 @@ exports.addSentenceToDB = function (req,res){
 };//method export
 
 
-
-
+/**
+ * returns a list of all the sentences in the 'sentences' collection (including which lus are related to them)
+ * @param req
+ * @param res
+ */
 exports.listAllSentences = function listAllSentences(req,res){
     console.log("DEBUG: handling listAllSentences method" );
     Models.hebSentenceModel.find({}, {'sentenceOrigin': 0},{'limit': 200}, function(err, resObj){
@@ -448,8 +474,326 @@ exports.listAllSentences = function listAllSentences(req,res){
        }
 
     });
+};
 
 
+/**
+ * returns a list of all the lu-sentence relations (each sentence-lu is a record which contains list of annotations)
+ * @param req
+ * @param res
+ */
+exports.luSentence = function luSentence(req,res){
+    console.log("DEBUG: handling luSentence method" );
+    Models.luSentenceModel.find({}, {"__v": 0},{'limit': 200}, function(err, resObj){
+        res.charset = 'utf-8';
+        if (err) {
+            console.log("DEBUG:problem in luSentence");
+            res.send("error occurred while handling query");
+        }
+        else if (!resObj){
+            res.send("couldn't find any records");
+
+        }else{
+            res.send(JSON.parse(JSON.stringify(resObj)));
+            //res.render('sentencesList.jade', {'result':resObj});
+
+        }
+
+    });
+
+};
+
+/**TODO
+ * check if the sentence is in the data base -search by the text linearization, return the id if in DB else return undefined
+ *
+ * @param sentence {indb: 'on', content:}
+ * @returns {*}
+ */
+function isInDB(sentenceText,cb){               //TODO - this is just a stub now!!
+    console.log("DEBUG: isInDB ");
+    Models.hebSentenceModel.findOne({"text": sentenceText}, {"ID":1},function(err, resObj){
+        if (!err){
+            console.log("DEBUG-isInDB: text search result in sentences coll:", resObj);
+            if (resObj) cb(resObj.ID, 'good');
+            else Models.hebBadSentenceModel.findOne({"text": sentenceText}, {"ID":1},function(err, resObj2){
+                if (!err){
+                    console.log("DEBUG: text search result in badSentences coll", resObj2);
+                    if (resObj2) cb(resObj2.ID, 'bad');
+                    else cb(resObj2);
+                }});
+            }
+        else throw new Error("connetion error with DB : isInDB");
+        }
+    );
+}
+    //if (sentence['indb']) return "523188378916588b7c000038" //todo
+    //else return undefined;
+    //cb(result);
+
+/**recieves a sentenceString (including the sentence properties) and data object and sentId.
+ * if the sentence id is not defined\false -creates a new id, extract from the data only the source of the sentence
+ * @param sentString
+ * @param data
+ * @param sentId
+ * @returns {{text: *, sentenceProperties: *, content: Array, ID: *, source: *}}
+ */
+function createSentenceJson(sentString, data){
+    console.log("DEBUG: createSentenceJson", typeof(sentString),"   ",sentString );
+    var sentObj = JSON.parse(sentString);
+    return {
+        "text":linearizeConllSentence(sentObj['words']),//TODO
+        "sentenceProperties" : sentObj['sentenceProperties'],
+        "content" : [{"words": sentObj['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+        //"lus":[IDType],//save the related LU ids
+        //"ID": sentId ? objID(sentId) : objID(),
+        "source": data ? data['source'] : 'manual'//{type: String, enum: ["corpus", "manual", "translation"]},//TODO
+    };
 
 }
 
+
+/**process bad sentence:
+ * add bad segmented sentence to the bad sentences collection in order to track the segementations in the future and to make sure that all the sentences are tracked
+ * @param sentJson
+ * @returns {*}
+ */
+function processBadSentence(sentJson, data, control, id){
+    "add the sentence to the bad sentences collection"
+    console.log("DEBUG: processing processBadSentence",id);
+    var succ = ("the sentence was added to the bad sentences collection with id: " + id);
+    //var sentObj = new badSentenceModel(sentJson);
+    sentJson['ID'] = id ?id : objID();
+    new Models.hebBadSentenceModel(sentJson).save(function(err){
+        if (err) {
+            console.log("error saving sentence", err);
+            control.write("error saving sentence" + sentJson);
+            control.dec();
+        }
+        console.log(succ);
+        control.write("the bad-segmented-sentence was saved successfully -!" + sentJson['ID']);
+        control.dec();
+    });
+}
+
+
+/**add new sentence to the DB - will be called only for valid segmented sentences
+ *
+ * @param sentJson - valid sentence JSON, no ID
+ * @returns {*}
+ */
+function addNewSentenceToLU(sentJson,data,control,id){
+    console.log("DEBUG: processing addNewSentenceToLU");
+    //1.add sentence to the sentences DB
+    var id = objID();
+    sentJson['ID'] = id;
+    //2.add luid to the sentence 'lus' field
+    var luid = objID(data['luid']);
+    sentJson['lus'] =luid;
+    new Models.hebSentenceModel(sentJson).save(function(err){
+        if (err) {
+            console.error("DEBUG-addNewSentenceToLU: error saving sentence to DB addNewSentenceToLU-phase-1");
+            control.write("error saving sentence to DB addNewSentenceToLU-phase-1");
+            control.dec();
+        }
+        else {
+            console.log('"DEBUG-addNewSentenceToLU:: the sentence was saved to BD with Id', id);
+            //3. add the sentenceid, frameid, luid to the sentence-lu collection
+            var luSent  = {sentenceID: id, luId: luid, frameID: data['frameid']};
+            new Models.luSentenceModel(luSent).save(function(err){
+                if (err) {
+                    control.write("error saving sentence-lu to DB addNewSentenceToLU-phase-2"+ err);
+                    control.dec();
+                    console.error("DEBUG-addNewSentenceToLU: error saving sentence-lu to DB addNewSentenceToLU-phase-2",err);
+                }
+                else {
+                    control.write("the sentence-lu was saved"+ luSent.sentenceID + " " + luSent.luId);
+                    control.dec();
+                    console.log("DEBUG-addNewSentenceToLU: the sentence-lu was saved", JSON.stringify(luSent));
+                }
+            });
+        }
+    });
+    return sentJson;
+}
+
+/** add the LU to the sentence - the sentence already exists in the DB - need to check the if it is already associated to the lu-frame
+ *
+ * @param sentJson
+ * @param data
+ * @returns {*}
+ */
+function addExistSentenceToLU(sentJson, data,control,id,coll){
+    console.log("DEBUG: processing addExistSentenceToLU",id, data['luid']);
+    //1. check if we have already sentence-lu association
+    //1.1 if exists - return -"association exists"
+    //1.2 else:
+    //1.2.1 add the lu to the sentence['lus'] list
+    //1.2.2 add triple - sent-lu-frame to luSentence collection
+    //var id = sentJson['ID'];
+    var luid = objID(data['luid']);
+    console.log("DEBUG-addExistSentenceToLU:searching for id:", luid, "sentId:", id);
+    //Models.hebSentenceModel.findOne({'ID':id,'lus': luid}, function(err, resObj){
+    Models.hebSentenceModel.find({'ID':id, 'lus': luid}, function(err, resObj){
+        var associated;
+        if (err) {
+            console.error("DEBUG-addExistSentenceToLU: error searching for lu in sentence");
+            control.write("error searching for lu in sentence");
+            control.dec();
+        }
+        else {
+            if (resObj && resObj.length >0){
+                console.log("DEBUG-addExistSentenceToLU: the sentence and lu are already associated");
+                associated= true;
+                control.write("the sentence and lu are already associated");
+                control.dec();
+
+            }else {
+                associated=false
+                //processUnAssociated(sentJson, data);
+                //1.2.1 add the lu to the sentence['lus'] list
+                Models.hebSentenceModel.findOneAndUpdate({'ID':id}, {$push: {"lus":luid}}, function(err, returnedObj) {
+                    if (err) console.log("DEBUG-addExistSentenceToLU: error adding lu to sentence lus list");
+                    else if (!returnedObj) {
+                        console.log("DEBUG-addExistSentenceToLU: couldn't fint the sentence");
+                        control.write("couldn't fint the sentence");
+                        control.dec();
+                    }
+                    else {
+                        console.log("DEBUG: success - the lu was added to the sentence", id);
+                        var luSent  = {sentenceID: id, luId: luid, frameID: data['frameid']};
+                        new Models.luSentenceModel(luSent).save(function(err){
+                            if (err){
+                                console.log(err);
+                                throw new Error("addExistSentenceToLU: error saving sentence-lu to DB addNewSentenceToLU-phase-2"+err);
+                            }
+                            else {
+                                console.log("DEBUG-addExistSentenceToLU: addExistSentenceToLU: the sentence-lu was saved", luSent);
+                                control.write("addExistSentenceToLU: the sentence-lu was saved");
+                                control.dec();
+                            }
+                        });
+                    }
+                })
+            }
+
+            //console.log("DEBUG-addExistSentenceToLU :proccessing associated: ", associated, resObj.length);
+        }
+
+
+    });
+    /*return
+    sentJson['lus'] =luid;
+    new Models.hebSentenceModel(sentJson).save(function(err){
+        if (err) throw new Error("error saving sentence to DB addNewSentenceToLU-phase-1");
+        else {
+            console.log('DEBUG: the sentence was saved to BD with Id', id);
+            //3. add the sentenceid, frameid, luid to the sentence-lu collection
+            var luSent  = {sentenceID: id, luId:luid, frameID: data['frameid']};
+            new Models.luSentenceModel(luSent).save(function(err){
+                if (err) throw new Error("error saving sentence-lu to DB addNewSentenceToLU-phase-2");
+                else console.log("the sentence-lu was saved", JSON.parse(luSent));
+            });
+        }
+    });
+    return sentJson;*/
+}
+/**
+ *
+ * @param sent - string representing the sentence in the following format:
+ *  {inddb=objID\true\ubdefined, content=string of 31-conll sentence format}
+ * @param data
+ * @returns {*}
+ */
+function processSentence(sent, data, control, sentenceNumber){
+    var func;
+    var action  = sent['action'];
+    console.log('processing sentence number:', sentenceNumber, "action:", sent['action']);
+    var sentJson  = createSentenceJson(sent['content'], data); //(sent['indb'] ? (sent['indb']) : undefined) ); //parse the sentence by schema
+    var msg;
+    function skipSentence (){
+        console.log("no action was chosen for the sentence", msg);
+        control.write("no action was chosen for the sentence " + msg);
+        control.dec();
+    }
+
+    //
+    isInDB(sentJson['text'], function(id, coll){
+        console.log("DEBUG: processSentence CB function: recieved id:",id);
+        switch (action) {
+            case 'badseg':
+                if (id && coll=='bad') {
+                    msg = id +coll
+                    func=skipSentence
+                }
+                else func=processBadSentence;
+                break;
+            case 'addtolu':
+                if (id && coll=='good')  func=addExistSentenceToLU;
+                else if (!id) func=addNewSentenceToLU;
+                else {
+                    msg = id +coll
+                    func=skipSentence;
+                }
+                break;
+            case 'nothing':
+                msg =  'nothing';
+                func=skipSentence;
+                break;
+
+        }
+        if (func) return func(sentJson, data,  control,id, coll);
+        else return "action: nothing";
+    } );
+}
+
+
+/*if (action=='badseg') func=processBadSentence;
+else if (action['addtolu']){
+if (id)  func=addExistSentenceToLU;
+else func=addNewSentenceToLU;
+}
+//func = function(s) {return s};
+
+return func(sentJson, data,  inDB, control);
+
+console.log("no action was chosen for the sentence");
+control.write("no action was chosen for the sentence");
+control.dec();
+*/
+
+
+/**
+ *
+ * @param req - req['method']==post, req['body']= {}
+ * @param res
+ */
+exports.addSentencesToLu = function addSentencesToLu(req,res) {
+    console.log("DEBUG: addSentencesToLu");//reqbody:", req.body);
+    //res.send(req.body);
+    //return
+    var sentences= req.body.sentences;
+    var data = req.body.data    ;
+    //options: bad segmentation - add to 'badSentences', good- add to lu? check if already in DB and in LU? else - nothing
+    res.charset='utf-8';
+    console.log("DEBUG-addSentencesToLu: data->", data);
+    var control = {results: [], counter : sentences.length,
+        write : function(msg){this.results.push(msg);},
+        end: function(){res.send(this.results)},
+        dec:function(){
+            this.counter= this.counter-1;
+            if (this.counter==0) this.end();
+        } };
+    //console.log("control obj:", control);
+    for (sentence in sentences){
+        processSentence(sentences[sentence], data, control,sentence);
+        /*if (sentences[sentence]['addtolu'] || sentences[sentence]['badseg'])
+            resultsArr.push(processSentence(sentences[sentence], data, control, sentence));
+        else {
+            console.log("no action was chosen for the sentence");
+            control.write("no action was chosen for the sentence");
+            control.dec();
+        } */
+    }
+
+    //res.send(resultsArr);
+};

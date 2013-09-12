@@ -28,3 +28,27 @@ exports.values = function values (obj){
     }
     return vals;
 }
+
+var spawn = require('child_process').spawn;
+exports.linearizePython = function linearizePython(sentJson){
+    console.log("DEBUG: linearizePython");
+    var wordList = [];
+    for (word in sentJson){
+        wordList.push([sentJson[word]['word'], sentJson[word]['pos']])
+    }
+
+    //console.log("DEBUG: linearizePython result:", wordList );
+    //var ls    = spawn('python', ['linearize.py']);
+    //require('./linearize.js');
+    /*var python = require('node-python');
+    var os = python.import('os');
+    var path = require('path');
+    console.log((os.path.basename(os.getcwd()) == path.basename(process.cwd())));
+    console.log(os.path.basename(os.getcwd()), "\n", path.basename(process.cwd()));
+    console.log((python.import));*/
+
+
+
+    //console.log("ls:", ls);
+
+}

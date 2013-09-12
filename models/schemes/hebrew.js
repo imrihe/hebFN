@@ -18,6 +18,7 @@ var mongoose = require('mongoose'),
 
 var frameCollectionName = 'hebFrames',
     sentencesCollectionName = 'sentences',
+    badSentencesCollectionName = 'badsentences',
     luSentenceCollectionsName = 'luSentence';
 
 //import general types:
@@ -178,11 +179,11 @@ var wordType = new Schema({
     "lemma": String,
     "pos": String,
     "postype": String,
-    "gender":{type : String, enum: ['m', 'f']},
-    "number":{type: String, enum: ['s','p','_']},// "comment" : "singular/plural or non. check if plural is signaled by p!",
+    "gender":{type : String, enum: ['_','m', 'f', 'mf']},
+    "number":{type: String, enum: ['sp','s','p','_']},// "comment" : "singular/plural or non. check if plural is signaled by p!",
     "construct": String,
     "polarity": {type: String}, //  "comment" : "probably contains: (pos) | (neg) | _"
-    "person":{type: String, enum: ['1','2','3']},
+    "person":{type: String},//, enum: ['1','2','3']},
     "tense": String,
     "def": Boolean,
     "pconj": Boolean ,
@@ -194,7 +195,7 @@ var wordType = new Schema({
     "suftype": String,
     "sufgen": Boolean,
     "sufnum": String,
-    "sufperson":{type: String, enum:['1','2','3']},
+    "sufperson":{type: String},//, enum:['1','2','3']},
     "chunk": String,
     "height": Number,
     "id": Number,
@@ -202,14 +203,43 @@ var wordType = new Schema({
     "pardist": Number,
     "parpos": String,
     "parword": String
-});
+},{"_id":false});
+
+var wordType1 = new Schema({
+    id: String,
+    word: String,
+    f2: String,
+    pos1: String,
+    pos2: String,
+    tags: String,
+    parID: String,
+    role: String,
+    f8: String,
+    f9: String,
+}, {_id: false});
 
 //ConllJson31Type
 /**TODO: complete this according to alon's type - 31 json response
  *comment : "the json as received by alon's search tool",
  * @type {Schema}
  */
+
+
 var ConllJson31Type = new Schema({
+    sentenceProperties: {
+        "length" : Number,
+        "height" :Number,
+        "root_location" :Number,
+        "root_pos" : String,
+        "pattern" :  String
+    },
+    "words" :[wordType],
+    "valid": Boolean,
+    "original": Boolean
+});
+
+
+var ConllJson31Type2 = new Schema({
     "length" : Number,
     "height" :Number,
     "root_location" :Number,
@@ -221,13 +251,15 @@ var ConllJson31Type = new Schema({
 });
 
 
+
+
 /**
  *"description":"sentence will contaion the basic POS, parse trees and morphology along with list of annotationSet ids",
  * @type {Schema}
  */
 var hebsentenceSchema = exports.hebsentenceSchema = new Schema({
     "text":String,
-    "Content" : [ConllJson31Type], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+    "content" : [ConllJson31Type], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
     "lus":[ObjectId],//save the related LU ids
     "ID":ObjectId,
     "source": {type: String, enum: ["corpus", "manual", "translation"]},
@@ -313,4 +345,7 @@ var luSentenceSchema = exports.luSentenceSchema = new Schema({
 console.log("DEBUG: creating hebrew models - << models/schemes/hebrew >>");
 exports.hebFrameModel = mongoose.model(frameCollectionName, hebFrameSchema, frameCollectionName);
 exports.hebSentenceModel = mongoose.model(sentencesCollectionName, hebsentenceSchema, sentencesCollectionName);
+exports.hebBadSentenceModel = mongoose.model(badSentencesCollectionName, hebsentenceSchema, badSentencesCollectionName);
+//exports.hebBadSentenceModel = mongoose.model(badSentencesCollectionName, new Schema({}, {strict: false}), badSentencesCollectionName);
+
 exports.luSentenceModel = mongoose.model(luSentenceCollectionsName, luSentenceSchema, luSentenceCollectionsName);

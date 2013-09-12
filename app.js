@@ -3,10 +3,11 @@
  * Module dependencies.
  */
 
+//bal bla bla [lalal](www.google.co.il)
 console.log("DEBUG: loading main app");
 global.printModule= function(name) { console.log("DEBUG: loading module","<< "+name+" >>");};
-global.hp ="/";//from home user "/" //TODO
-//global.hp ='/~imrihe/nodeJS1/';
+//global.hp ="/";//from home user "/" //TODO
+global.hp ='/~imrihe/nodeJS1/';
 global.homeLink = "<br>" + "(<a href=\""+hp+"\"> go home</a>)";
 
 
@@ -19,7 +20,8 @@ var express = require('express')
     ,LocalStrategy =require('passport-local').Strategy
     ,auth = require('./controllers/auth')
     ,toobusy = require('toobusy');
-var dbConnection = require('./models/mongoDB/dbConnection.js');
+
+require('./models/mongoDB/dbConnection.js'); //this import creats the connection to mongoDB
 
 //TODO - check how to handle uncouight exception - restart server or something and send exception to email or log..
 /*process.on('uncaughtException', function (err) {
@@ -49,6 +51,8 @@ var app = module.exports = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+
 
 app.use(function(req, res, next) {
     // check if we're toobusy() - note, this call is extremely fast, and returns
@@ -99,10 +103,27 @@ app.locals(require('./models/schemes/locals.js').localVars);
 
 
 
+function listen(){
+    try{
+        app.listen(process.env.PORT || 3000).on('error', function(err){
+            console.error('error listening on port 3000 - please check if the port is busy');
+            process.exit(8);
+        });
+        console.log("hebFNApp: Express server listening on port %d %s in %s mode", process.env.PORT || 3000, 'localhost',  app.settings.env);
+    }catch (err){
+        console.log("app error\n", err);
+        listen();
+    }
 
+}
 if (!module.parent) {
-    app.listen(process.env.PORT || 3000);
+
+    app.listen(process.env.PORT || 3000).on('error', function(err){
+        console.error('error listening on port 3000 - please check if the port is busy');
+        //process.exit(8);
+    });
     console.log("hebFNApp: Express server listening on port %d %s in %s mode", process.env.PORT || 3000, 'localhost',  app.settings.env);
+
 }else console.log("hebFNApp is running as sub-server");
 
 exports = module.exports = app;
