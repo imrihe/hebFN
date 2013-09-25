@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>hebFNServer</title>
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/docs.css">
+    <style>
+      body > .navbar .brand {
+        float:left;
+        text-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px, rgba(255, 255, 255, 0.4) 0px 0px 30px;
+        color: white;
+        margin-left:0px;
+        font-weight:normal;
+      }
+      
+      .bs-docs-sidenav i{
+        width: 8px;
+        height: 8px;
+        padding: 0px;
+        margin: 0px;
+        display: inline-block;
+        margin-right:0.5em;
+      }
+      
+      .bs-docs-sidenav > li:first-child > a {
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+      }
+      
+      code[class*="language-"],pre[class*="language-"]{color:black;text-shadow:0 1px white;font-family:Consolas,Monaco,'Andale Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*="language-"],pre[class*="language-"]{background:#f5f2f0}:not(pre)>code[class*="language-"]{padding:.1em;border-radius:.3em}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:slategray}.token.punctuation{color:#999}.namespace{opacity:.7}.token.property,.token.tag,.token.boolean,.token.number{color:#905}.token.selector,.token.attr-name,.token.string{color:#690}.token.operator,.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.regex,.token.important{color:#e90}.token.important{font-weight:bold}.token.entity{cursor:help}
+      div.description {margin: 14px 0; padding-top: 14px; border-bottom:1px solid #eee; }
+      .tags {}
+      .ctx-type {
+        display:inline-block;
+        margin-right:0.5em;
+        //- float:right; margin-top:8px
+      }
+      
+      footer iframe{vertical-align:middle;}
+      
+    </style>
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container"><a class="brand">Doxx</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right sponsored"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header id="overview" class="jumbotron subhead">
+      <div class="container">
+        <h1>hebFNServer</h1>
+        <p class="lead"></p>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li class=""><a href="../index.html">Main</a></li>
+            <li class=""><a href="../app.js.html">app.js</a></li>
+            <li class=""><a href="../conf.js.html">conf.js</a></li>
+            <li class=""><a href="../controllers/auth.js.html">controllers/auth.js</a></li>
+            <li class=""><a href="../controllers/english.js.html">controllers/english.js</a></li>
+            <li class="active"><a href="../controllers/externalTools.js.html">controllers/externalTools.js</a></li>
+            <li class=""><a href="../controllers/general.js.html">controllers/general.js</a></li>
+            <li class=""><a href="../controllers/hebrew.js.html">controllers/hebrew.js</a></li>
+            <li class=""><a href="../controllers/test.js.html">controllers/test.js</a></li>
+            <li class=""><a href="../controllers/users.js.html">controllers/users.js</a></li>
+            <li class=""><a href="../models/mongoDB/dbConnection.js.html">models/mongoDB/dbConnection.js</a></li>
+            <li class=""><a href="../models/schemes/english.js.html">models/schemes/english.js</a></li>
+            <li class=""><a href="../models/schemes/generalTypes.js.html">models/schemes/generalTypes.js</a></li>
+            <li class=""><a href="../models/schemes/hebrew.js.html">models/schemes/hebrew.js</a></li>
+            <li class=""><a href="../models/schemes/locals.js.html">models/schemes/locals.js</a></li>
+            <li class=""><a href="../models/schemes/test.js.html">models/schemes/test.js</a></li>
+            <li class=""><a href="../models/schemes/user.js.html">models/schemes/user.js</a></li>
+            <li class=""><a href="../routes/auth.js.html">routes/auth.js</a></li>
+            <li class=""><a href="../routes/english.js.html">routes/english.js</a></li>
+            <li class=""><a href="../routes/externalTools.js.html">routes/externalTools.js</a></li>
+            <li class=""><a href="../routes/general.js.html">routes/general.js</a></li>
+            <li class=""><a href="../routes/hebrewGetters.js.html">routes/hebrewGetters.js</a></li>
+            <li class=""><a href="../routes/hebrewSetters.js.html">routes/hebrewSetters.js</a></li>
+            <li class=""><a href="../routes/index.js.html">routes/index.js</a></li>
+            <li class=""><a href="../routes/users.js.html">routes/users.js</a></li>
+            <li class=""><a href="../tools/linearize.js.html">tools/linearize.js</a></li>
+            <li class=""><a href="../tools/mailer.js.html">tools/mailer.js</a></li>
+            <li class=""><a href="../tools/population.js.html">tools/population.js</a></li>
+            <li class=""><a href="../tools/utils.js.html">tools/utils.js</a></li>
+            <li class=""><a href="../trash/BUapp.js.html">trash/BUapp.js</a></li>
+            <li class=""><a href="../trash/hebrew.js.html">trash/hebrew.js</a></li>
+            <li class=""><a href="../trash/index.js.html">trash/index.js</a></li>
+            <li class=""><a href="../trash/index_old.js.html">trash/index_old.js</a></li>
+            <li class=""><a href="../trash/mongoDB/englishModel.js.html">trash/mongoDB/englishModel.js</a></li>
+            <li class=""><a href="../trash/mongoDB/general.js.html">trash/mongoDB/general.js</a></li>
+            <li class=""><a href="../trash/mongoDB/hebrewModel.js.html">trash/mongoDB/hebrewModel.js</a></li>
+            <li class=""><a href="../trash/mongoDB/locals.js.html">trash/mongoDB/locals.js</a></li>
+            <li class=""><a href="../trash/mongoDB/pull.js.html">trash/mongoDB/pull.js</a></li>
+            <li class=""><a href="../trash/mongoDB/push.js.html">trash/mongoDB/push.js</a></li>
+            <li class=""><a href="../trash/mongoDB/schemes_old.js.html">trash/mongoDB/schemes_old.js</a></li>
+            <li class=""><a href="../trash/mongoDB/users.js.html">trash/mongoDB/users.js</a></li>
+            <li class=""><a href="../trash/mongoDB/users_old.js.html">trash/mongoDB/users_old.js</a></li>
+            <li class=""><a href="../trash/routes_old.js.html">trash/routes_old.js</a></li>
+            <li class=""><a href="../trash/routes_old2.js.html">trash/routes_old2.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#url"><i class="alert alert-success"></i>url</a>
+              </li>
+              <li><a href="#parseConll31Json"><i class="alert alert-info"></i>parseConll31Json</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="span9">
+          <div class="description"><p>Created with IntelliJ IDEA.<br />User: imrihe<br />Date: 9/1/13<br />Time: 6:39 PM<br />To change this template use File | Settings | File Templates.</p> </div>
+          <pre><code class="language-javascript">printModule(&quot;controllers/externalTools&quot;);
+
+var morphServer = 'http://www.cs.bgu.ac.il/~nlpproj/demo/tag.php';
+var dependencyParserServer = 'http://www.cs.bgu.ac.il/~yoavg/depparse/parse';
+var searchEngineServer = 'http://localhost:5005/';
+var searchEngineServer2 = 'http://localhost';
+
+
+var request = require('request');
+exports.getMorph = function(req,res) {
+    console.log(&quot;DEBUG: handling get-morph post request&quot;);
+    console.log(&quot;the request body is:&quot;, req.body);
+    //res.redirect(hp+&quot;try&quot;);
+    //req.body.json='on'; //set the json on - no matter what the other fields are TODO - fix this
+    request.post(
+        morphServer,
+        { form: req.body },
+        function (error, response, body) {
+            if (!error &amp;&amp; response.statusCode == 200) {
+                console.log(&quot;result from morph analyzer: &quot;,typeof(body));
+                res.charset = 'utf-8';
+                if (req.body.json &amp;&amp; req.body.json=='on'){
+                    var resStr =body.substring(0, body.length - 3);
+                    var resStrObj  = JSON.parse(resStr)[0];
+                    console.log(JSON.parse(resStr));
+                    var resultObj ={'response': resStrObj , 'sentence': [], 'segmented': []};
+                    for (var i= 0; i&lt;resStrObj.length; i++){
+                        resultObj['sentence'].push(resStrObj[i]['form']);
+                    }
+                    for (var i= 0; i&lt;resStrObj.length; i++){
+                        if (resStrObj[i]['pref']) resultObj['segmented'].push(resStrObj[i]['pref']['form']);
+                        resultObj['segmented'].push(resStrObj[i]['base']['form']);
+                        if (resStrObj[i]['suff']) resultObj['segmented'].push(resStrObj[i]['suff']['form']);
+                    }
+
+                    res.send(resultObj);  //in the end of the response we have 'on' for some reason..
+                }
+                else res.send(body);
+            }
+        } );
+};
+
+
+
+exports.getDepParse = function(req,res) {
+    console.log(&quot;DEBUG: handling getDepParse post request&quot;);
+    console.log(&quot;the request body is:&quot;, req.body);
+    //res.redirect(hp+&quot;try&quot;);
+    //req.body.json='on'; //set the json on - no matter what the other fields are TODO - fix this
+    request.post(
+        dependencyParserServer,
+        { form: req.body },
+        function (error, response, body) {
+            if (!error &amp;&amp; response.statusCode == 200) {
+                console.log(&quot;result from Yoav-dependency parser: &quot;,body);
+                var splitted = body.split(&quot;\n&quot;);
+                res.charset = 'utf-8';
+                console.log(&quot;splitted\n:&quot;, splitted);
+                newSplitted = [];
+                var tmp;
+                var resObj;
+                resArr =[];
+                //turn the returned text into JSON - TODO - abstract via external function
+                for (var i = 0; i&lt;splitted.length; i++){
+                    newSplitted.push(splitted[i].split('\t'));
+                    tmp =splitted[i].split('\t');
+                    //console.log('tmp', tmp);
+                    //console.log('tmp',tmp[8]);
+                    resObj = {
+                        id: tmp[0],
+                        form: tmp[1],
+                        lemma: tmp[2],  //always '_'
+                        CPOSTAG: tmp[3],
+                        POSTAG: tmp[4],
+                        FEATS: tmp[5],
+                        HEAD: tmp[6],
+                        DEPREL: tmp[7],
+                        PHEAD: tmp[8], //always '_'
+                        PDEPREL: tmp[9] //always '_'
+                    };
+                    resArr.push(resObj);
+                }
+                //console.log(&quot;new spliotted: \n&quot;,resArr);
+                wordsStr = &quot;&quot;;
+                for (word in resArr){
+                    console.log(resArr[word]['word']);
+                    if (resArr[word]['word']) wordsStr = wordsStr +&quot; &quot;+ resArr[word]['word'];
+                }
+                res.render('depParseResult.jade',{&quot;result&quot;: resArr, &quot;wordsStr&quot;:wordsStr});
+            }
+        }
+    )
+};</code></pre>
+          <section id="url">
+            <h1>url</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">declaration</div><span>url</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>serach engine request</p> </div>
+          <pre><code class="language-javascript">var url =require('url');
+var http = require('http');
+searchEngineServer = 'elhadad2';//'localhost';
+//var q = '/HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=2&amp;diversity=false&amp;query=$w.word=&quot;ילד&quot;%20;%20$w';
+//var q = '/HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=2&amp;diversity=false&amp;query=$w.word=&quot;ילד&quot;%20;%20$w'
+//var q = '/HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=2&amp;diversity=false&amp;query=$w.word=&quot;ילד&quot; ; $w';
+//var q  =&quot;/HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=2&amp;diversity=false&amp;query=$w.word=\&quot;ילד\&quot;%20;%20$w&quot;;
+//var q  =&quot;/HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=30&amp;diversity=false&amp;query=$w.pos=\&quot;verb\&quot;%20;%20$w&quot;;
+http://localhost:5005/HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=2&amp;diversity=false&amp;query=$w.word=%22%D7%99%D7%9C%D7%93%22%20;%20$w
+                    //HBCTPWeb/search?db=test2&amp;from=1&amp;to=30&amp;diversity=false&amp;query= $w.word=%22%D7%99%D7%9C%D7%93%22%20;%20$w
+//q  =&quot;/HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=30&amp;diversity=false&amp;query=$w.word=$w.pos=\&quot;noun\&quot;%20;%20$w&quot;
+ //q='HBCTPWeb/search?db=haaretz&amp;from=1&amp;to=2&amp;diversity=false&amp;query=$w.word=%22%D7%99%D7%9C%D7%93%22%20;%20$w';
+//var q = 'HBCTPWeb/search?db=test&amp;from=1&amp;to=2&amp;diversity=false&amp;query=$w.pos=&quot;verb&quot;%20;%20$w';
+//var q = 'HBCTPWeb/';
+//var q = 'HBCTPWeb/search?db=test&amp;from=1&amp;to=2&amp;diversity=false?query=$w.pos=&quot;noun&quot;%20;%20$w'
+//console.log('q:',q);
+//console.log('q:',encodeURI(q));
+var qFull  ='/HBCTPWeb/search?db=test2&amp;from=1&amp;to=30&amp;diversity=true&amp;query=$w.word=&quot;ילד&quot; ; $w';
+var qBase  ={
+        base:'/HBCTPWeb/search?',
+        db : 'test2',
+        from: '1',
+        to: '30',
+        diversity:'true',
+        query : '$w.word=&quot;ילד&quot;',
+        queryEnd  :' ; $w'
+};</code></pre>
+          <section id="parseConll31Json">
+            <h1>parseConll31Json</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>parseConll31Json()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>resTxt</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>if resTxt is valid conll31Json format - this method will parse it and will return an array of the sentences' results - omitting the search metaData<br />else -returns false</p> </div>
+          <pre><code class="language-javascript">function parseConll31Json(resTxt){
+    if (resTxt.indexOf(&quot;No Results!&quot;) &gt;=0){
+        console.log('no results!!');
+        return false;
+    }else if (resTxt.indexOf(&quot;Invalid query&quot;) &gt;=0){
+            console.log('Invalid query  !!');
+            return false;
+    }else{
+        var results = [];
+        //console.log(&quot;debug: &quot;,resTxt);
+        var resJson = JSON.parse(resTxt.substring(resTxt.indexOf('***JSON_START***')+16, resTxt.indexOf('***JSON_END***')));
+        //console.log(&quot;DEBUG: sentence meta-data: &quot;, resJson[&quot;hitCount&quot;], resJson[&quot;from&quot;],resJson[&quot;to&quot;] );
+        //console.log(JSON.stringify(resJson['results']))
+        for (sent in resJson['results']){
+            //console.log(JSON.stringify(resJson['results'][sent]));
+            results.push(resJson['results'][sent]);
+            //results.push('&lt;br&gt;**********************************&lt;br&gt;');
+        }
+        return (results);
+        //console.log(resJson);
+    }
+
+
+}
+
+
+
+
+
+
+exports.getSE = function getSE(req,res, cb) {
+    console.log(&quot;DEBUG: getSE--&gt;&quot;, req['query']);
+    var q =JSON.parse(JSON.stringify(qBase)); //clone the qBase object
+    var query = req['query'];
+    if (query['db']) q['db'] = query['db'];
+    if (query['from']) q['from'] = query['from'];
+    if (query['to']) q['to'] = query['to'];
+    if (query['diversity']) q['diversity'] = query['diversity'];
+    if (query['query']) q['query'] = query['query'];
+    if (query['queryEnd']) q['queryEnd'] = query['queryEnd'];
+    q = q['base'] + '&amp;db=' + q['db'] + '&amp;from='  + q['from'] + '&amp;to='  + q['to'] +'&amp;diversity='  + q['diversity'] + '&amp;query=' + q['query']+q['queryEnd'];
+    var tmp =&quot;&quot;;
+    console.log(&quot;DEBUG: search engine --&gt; the query is:&lt;br&gt;&quot;, q);
+    http.get({ port: 5005, host: searchEngineServer, path: encodeURI(q)}, function(response) {
+
+        //console.log('response:', response);
+        //console.log('parse of response:', typeof(response));
+        response.setEncoding('utf8');
+        res.charset = 'utf-8';
+        //res.type('html');
+        response.on('data', function(chunk) {
+            //console.log('BODY--&gt;'+chunk.toString());
+            res.charset = 'utf-8';
+            //res.write(chunk.replace(/&quot;/g, &quot;\&quot;&quot;)); //TODO: this in order to make the hebrew correct
+            tmp = tmp + chunk;
+
+        });
+        return response.on('end',
+            function(){
+                //res.end(); //when no modre data chunks availble - send 'end' signal to 'res'
+                //res.send(tmp);
+                //console.log((tmp.replace(/&quot;/g, &quot;\&quot;&quot;)));
+                console.log('DEBUG: getSE- all chunks and &quot;END&quot; sig were sent');
+                var resJson = parseConll31Json(tmp.replace(/&quot;/g, &quot;\&quot;&quot;));
+               // console.log(&quot;resJson is:&quot;,resJson);
+                if (req.isAjax) {
+                    console.log(&quot;DEBUG: returning ajax&quot;);
+                    req['resJson'] = resJson;
+                    cb(req,res);
+                }
+                else res.send(JSON.stringify(resJson));
+            });
+
+        //res.send(response);
+    }).on('error',
+        function(err) {
+            console.log('Error %s', err.message);}
+    )};</code></pre>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with <a href="https://github.com/FGRibreau/doxx">Doxx </a>created by <a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Doxx is sponsored by <a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr </a>and <a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="http://platform.twitter.com/widgets.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="http://leaverou.github.com/prefixfree/prefixfree.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-transition.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-dropdown.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-collapse.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-affix.js"></script>
+    <script>
+      /**
+       * Prism: Lightweight, robust, elegant syntax highlighting
+       * MIT license http://www.opensource.org/licenses/mit-license.php/
+       * @author Lea Verou http://lea.verou.me
+       */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data));l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r){return n.stringify(t.tokenize(e,r))},tokenize:function(e,n){var r=t.Token,i=[e],s=n.rest;if(s){for(var o in s)n[o]=s[o];delete n.rest}e:for(var o in n){if(!n.hasOwnProperty(o)||!n[o])continue;var u=n[o],a=u.inside,f=!!u.lookbehind||0;u=u.pattern||u;for(var l=0;l<i.length;l++){var c=i[l];if(i.length>e.length)break e;if(c instanceof r)continue;u.lastIndex=0;var h=u.exec(c);if(h){f&&(f=h[1].length);var p=h.index-1+f,h=h[0].slice(f),d=h.length,v=p+d,m=c.slice(0,p+1),g=c.slice(v+1),y=[l,1];m&&y.push(m);var b=new r(o,a?t.tokenize(h,a):h);y.push(b);g&&y.push(g);Array.prototype.splice.apply(i,y)}}}return i},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]"){for(var r=0;r<e.length;r++)e[r]=n.stringify(e[r]);return e.join("")}var i={type:e.type,content:n.stringify(e.content),tag:"span",classes:["token",e.type],attributes:{}};i.type=="comment"&&(i.attributes.spellcheck="true");t.hooks.run("wrap",i);var s="";for(var o in i.attributes)s+=o+'="'+(i.attributes[o]||"")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'" '+s+">"+i.content+"</"+i.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+      Prism.languages.markup={comment:/&lt;!--[\w\W]*?--(&gt;|&gt;)/g,prolog:/&lt;\?.+?\?&gt;/,doctype:/&lt;!DOCTYPE.+?&gt;/,cdata:/&lt;!\[CDATA\[[\w\W]+?]]&gt;/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?&gt;/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|&gt;|"/g}},punctuation:/\/?&gt;/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+      Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:/@[\w-]+?(\s+[^;{]+)?(?=\s*{|\s*;)/gi,url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\}]*(?=\s*\{)/g,property:/(\b|\B)[a-z-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+      Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,number:/\b-?(0x)?\d*\.?[\da-f]+\b/g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+      Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b(-?(0x)?\d*\.?[\da-f]+|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+      
+    </script>
+    <!-- App js-->
+    <script>
+      $(function(){
+        var $window = $(window);
+        $('.scrollspy .nav').affix({
+          offset: {
+            top: function () { return $window.width() <= 980 ? 480 : 400 }
+          , bottom: 50
+          }
+        });
+      })
+    </script>
+  </body>
+</html>

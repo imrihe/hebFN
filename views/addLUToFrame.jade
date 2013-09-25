@@ -12,7 +12,9 @@ form(method='post' ,action='addlutoframe')
         //receives list of fields and it's types
         p
             span frame id:
-            input(title="frameid", type="text",  name="frameid" )
+            input(title="frameid", type="number",  name="frameid", value=777777 )
+            span lu name:
+            input(title="luname", type="text",  name="luname", value='move.v' )
     fieldset(id='f1', name="haha")
         legend lexical unit data
         for item in fields

@@ -9,17 +9,21 @@
 //maybe it's better to work with partial schemas
 //TODO: add static methodes to the schemas - http://mongoosejs.com/docs/guide.html#staticss
 
+//TODO: _id field and schema or JSON decisions
+//arrays done: FEType, semTypeRefType(_id:false),heblexemeType(_id:false), memberFEtype{_id:false} ,relatedFramesType{_id:false}, inquiryType(SCHEMA),
+//annotatedSentenceType,heblayerType(_id:false),heblabelType(_id:false),ConllJson31Type(_id:false), wordType(_id:false),
+//simple done: countType,   extSentRefType, RGBColorTypem orderType  , defType  ,frameNameType,hebPOSType,dateTimeType,valencesType
+//handle: IDType,ObjectId, hebFrameLUSchema
+
+
+
 printModule('models/schemes/hebrew');
 
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
     //Model = mongoose.model;
-
-var frameCollectionName = 'hebFrames',
-    sentencesCollectionName = 'sentences',
-    badSentencesCollectionName = 'badsentences',
-    luSentenceCollectionsName = 'luSentence';
+var coll=global.conf.coll;
 
 //import general types:
 var types = require('./generalTypes.js');
@@ -106,7 +110,9 @@ var heblexemeType =new Schema({
     "breakBefore":Boolean,
     "headword":Boolean,
     "order":orderType
-});
+},{_id:false});
+
+
 
 /**  hebType
  *"description":"frame-embedded lexUnit type",
@@ -117,6 +123,7 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     //"_id": ObjectId,
     "priority": Number,
     "definition": defType,
+    "frameID": IDType,
     "status":{type: String,enum: ["approved","pending"]},
     "translatedFrom"://"description":"holds information regarding the english lexical unit which this lexical unit was translated from",
     {
@@ -131,10 +138,10 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
         "annotated":countType
     },
     "lexeme":[heblexemeType],
-    "semType":{type : [semTypeRefType], required: false},
+    "semType": {type : [semTypeRefType], required: false},
     "valences": valencesType,
-    "annotations":[IDType],
-    //"@ID":ObjectId,//{type: Number ,unique: true, auto: true},
+    "annotations":[IDType], //TOOD: change to objID
+    "@ID":ObjectId,//{type: Number ,unique: true, auto: true},//TODO: use _id field
     "@name":{required: true, type: String, match: /^.+\..+/},
     "@POS": hebPOSType,
     "@lemmaID":IDType,
@@ -143,7 +150,6 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     "@cDate": dateTimeType,
     "@cBy":String
 }); //{_id: false}
-
 
 /**
  * hebrew frame schema
@@ -203,7 +209,7 @@ var wordType = new Schema({
     "pardist": Number,
     "parpos": String,
     "parword": String
-},{"_id":false});
+},{_id:false});
 
 var wordType1 = new Schema({
     id: String,
@@ -236,7 +242,9 @@ var ConllJson31Type = new Schema({
     "words" :[wordType],
     "valid": Boolean,
     "original": Boolean
-});
+},{_id:false});
+
+
 
 
 var ConllJson31Type2 = new Schema({
@@ -273,7 +281,6 @@ var hebsentenceSchema = exports.hebsentenceSchema = new Schema({
     }
 });
 
-
 var heblabelType = new Schema({
     "name":String,
     "tokens":[Number],//"comment" : "contains the index of the words found in the relevant sentence",
@@ -282,7 +289,7 @@ var heblabelType = new Schema({
     // "comment":"for null instantiation",
     "itype":{type: String, enum: ["APos","CNI","INI","DNI","INC"]},
     "feID":IDType //contatins the relevant FE if this is part of FN annotation layer
-});
+},{_id: false});
 
 /**each layer will have it's own type (name) - dependency, FN annotations, constituency etc
  *
@@ -293,7 +300,8 @@ var heblayerType = new Schema({
             "name":String,
             "rank":orderType,
             "status":{type: String, enum: ["approved","decision","inquiry","temporary"]}
-});
+},{_id:false});//TODO: decide if id is needed? no!
+
 
 
 /**each annotation will be embedded in a sentence and one of it's segmentation,
@@ -313,15 +321,16 @@ var heblayerType = new Schema({
 });*/
 
 
+
 var annotatedSentenceType = new Schema({
-    "ID":IDType,//is it needed??? in the sentenceType - there is annotations list
+    "ID":IDType,// in the sentenceType - there is annotations list - referring to this ID  TODO change to _id?
     "validVersion" : Boolean,
     "status": String,
     "cDate": dateTimeType,
     "cBy": String, //username
     "sentenceId" : IDType, //the id of the sentence in the sentences collection
     //"sentenceContent": ConllJson31Type, //only the relevant one - the one which this annotation is being made on (the valid one!)
-    "versionNumber" :Number, //each sentence has one or more versions - according to the original imported sentence and its corrections, only one of those will be valid
+    "segmentationID" : ObjectId, //each sentence has one or more versions - according to the original imported sentence and its corrections, only one of those will be valid
     //in case that this version is not valid  - all the annotation set will be marked as not valid
     "layer":[heblayerType]
 });
@@ -342,10 +351,46 @@ var luSentenceSchema = exports.luSentenceSchema = new Schema({
 
 
 
-console.log("DEBUG: creating hebrew models - << models/schemes/hebrew >>");
-exports.hebFrameModel = mongoose.model(frameCollectionName, hebFrameSchema, frameCollectionName);
-exports.hebSentenceModel = mongoose.model(sentencesCollectionName, hebsentenceSchema, sentencesCollectionName);
-exports.hebBadSentenceModel = mongoose.model(badSentencesCollectionName, hebsentenceSchema, badSentencesCollectionName);
-//exports.hebBadSentenceModel = mongoose.model(badSentencesCollectionName, new Schema({}, {strict: false}), badSentencesCollectionName);
 
-exports.luSentenceModel = mongoose.model(luSentenceCollectionsName, luSentenceSchema, luSentenceCollectionsName);
+var inquiryType = new Schema({
+    "ID": ObjectId,
+    "cDate":dateTimeType,
+    "cBy":String,
+    "status": {type: String, enum:['answered','pending']},
+    "text":String,
+    "subInquireies":[inquiryType],
+    "forumLink": String
+});
+
+var decisionSchema = exports.decisionSchema = new Schema({
+    cDate:dateTimeType,
+    cBy: String,
+    reviewer: String,
+    frameId: IDType,
+    lexUnitID: ObjectId,
+    "type":{"type":String, enum : ["frame-lu","lu-sentence","sentence-annotation"]},
+    "content":Object,//the decision object
+    "decisionExplanation":"String",
+    "status":{type:String, enum: ["approved", "seen","unseen","rejected", "inquiry" ]},
+    "hasInquiries":Boolean,
+    "inquiryContent":[inquiryType]
+
+},{_id:false    , __v:false, strict : false});
+
+decisionSchema.tooltip={aa:"aaaaa"};
+
+console.log("DEBUG: creating hebrew models - << models/schemes/hebrew >>");
+exports.hebFrameModel = mongoose.model(coll.hebframes, hebFrameSchema, coll.hebframes );
+exports.hebSentenceModel = mongoose.model(coll.hebSent, hebsentenceSchema, coll.hebSent);
+exports.hebBadSentenceModel = mongoose.model(coll.hebBadSent, hebsentenceSchema, coll.hebBadSent);
+//exports.hebBadSentenceModel = mongoose.model(badSentencesCollectionName, new Schema({}, {strict: false}), badSentencesCollectionName);
+exports.luSentenceModel = mongoose.model(coll.hebLuSent, luSentenceSchema, coll.hebLuSent);
+exports.annotatorDecisionsModel = mongoose.model(coll.hebDecisions, decisionSchema, coll.hebDecisions);
+
+
+//TODO - remove
+
+exports.tmodel = mongoose.model('t', new Schema({id:Number, subdoc: [{id:Number, text:String}]}), 't');
+
+
+

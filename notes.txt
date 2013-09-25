@@ -1,3 +1,9 @@
+
+create documentation: 'doxx --source . --target docs -i "node_modules trash"'
+    (dep: npm install doxx -g)
+    see: https://github.com/wordnik/swagger-core/wiki
+
+
 by the link:
     http://stackoverflow.com/questions/15454441/mongoose-based-app-architecture
 structure:
@@ -114,6 +120,13 @@ POST: (format: body.sentences<sentence>=list of sentences, luid, frameid, user.u
 
 
 
+#add lu-frame association:
+    -check if the frame exists
+    -check if the lu is already related to the frame (check by name)
+    -else - create association:
+        -create the lu using framemodel.lu.create
+        -add the lu to the lus list of the frame using 'push'
+
 
 
 //TODO:
@@ -122,7 +135,8 @@ POST: (format: body.sentences<sentence>=list of sentences, luid, frameid, user.u
         -devide into different pages                      -V
         -exports what is needed                           -V
         -add getters and setters??? i am not sure i want this..
-    -contorleres:
+        -decide about a name for all the 'id' fields - change everything
+    -controllers:
         -move all methods from models to controlles  - V
     -create:
         --hebrew setters by steps:
@@ -131,4 +145,23 @@ POST: (format: body.sentences<sentence>=list of sentences, luid, frameid, user.u
                 -add annotation to LU - V
     -structure:
         -specify for each file -  it's contents
+
+get API:
+get request api:
+homePath/lang/type?typeid=123&typename=XXX&proj={"field":1\0}
+        valid for: heb/lu, heb/frame, eng/frame, eng/lu, heb/listsentences?sentenceid, decisions?decisionid
+
+
+
+Frames:
+    option-1: search for all frames that corresponds to something (by name, by by number of lus etc..)
+        impl: loadFrameNames - using aggregate and match for the query
+    option-2: get specific frame data - by frameID or by luID
+        impl: loadFrame - using name\id\luid\luname (what i have now) -returns list of the results (if luname -than the results can be a list)
+
+lus:
+    option-1: list all lus names (maybe POS also). optional -filter by luId, luName, frameID, frameName - use aggregate!
+    option-2: get specific lu data
+    options-3: get lu annotations and sentence
+
 

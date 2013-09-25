@@ -1,0 +1,40 @@
+//form to add annotation - stub
+-var annoStub1 = {"name": 'agent' ,"tokens":[0],"fgColor":'blue',  "bgColor":'green'}
+-var annoStub2 = {"name": 'agent' ,"tokens":[0],"fgColor":'blue',  "bgColor":'green'}
+-var annoStub3 = {"name": 'agent' ,"tokens":[0],"fgColor":'blue',  "bgColor":'green'}
+-var anno = [ annoStub1, annoStub2,  annoStub3]
+p #{JSON.stringify(anno)}
+// "comment":"for null instantiation",
+    "itype":{type: String, enum: ["APos","CNI","INI","DNI","INC"]},
+    "feID":IDType //contatins the relevant FE if this is part of FN annotation layer
+
+
+p add annotation to lu
+form(method='post' ,action='createannotation')
+    fieldset
+        legend general data
+        p
+            label(for="frameid") frameid:
+            input(type='text', value=777777, name='frameid' )
+
+        p
+            label(for="sentenceid") sentenceid:
+            input(type='text', value="5231d1f6d1a37d5112000020", name='sentenceid' )
+
+        p
+            label(for="luid") luid:
+            input(type='text', value="5230adedd2a3eab54f0000b6", name='luid' )
+        p
+            label(for="segid") segid:
+            input(type='text', value="5230adedd2a3eab54f0000b6", name='segid' )
+    br
+    fieldset
+        legend annotation data
+
+        p
+            label(for="annotation") annotation:
+            textarea(name="annotation", rows=3, id="annotation" )  #{JSON.stringify(anno)}
+
+
+    input(type="submit", value="Submit")
+

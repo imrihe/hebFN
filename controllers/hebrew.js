@@ -8,113 +8,190 @@
 printModule('controllers/hebrew');
 
 var Models = require("../models/schemes/hebrew.js");
-
+var userControl = require('../controllers/users.js');
 var objID = require('mongoose').Types.ObjectId;
-
-
+var q2coll = require('../tools/utils.js').queryToCollectionQ,
+    handleHttpResults = require('../tools/utils.js').handleHttpResults,
+    utils =require('../tools/utils.js');
+var async = require('async'); //using async.parallel in order to gather frameData
+var engControl = require("./english.js");
 /**
  *
- * @param req can contaion id or name or q when id is number, name is string starting with capital letter, and q is json query  - using double quetes for internal strings
+ * @param req can contain id or name or q when id is number, name is string starting with capital letter, and q is json query  - using double quetes for internal strings
  * @param res
+ * @param cb
  */
-exports.loadFrame = function loadFrame (req, res) {
-    console.log(req['url'], req.query);
+var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
     console.log("DEBUG: handling load-hebrew-frame request");
-    var  frameModel =Models.hebFrameModel,// mongoose.model(framesCollectionName, frame, framesCollectionName),
-        query = {},
-        queryProj = {};
-    //if (req.query.q) query =JSON.parse(req.query.q);
-
-    if (req.query.frameid) query["@ID"] =  req.query.frameid;
-    if (req.query.name) query["@name"] =  req.query.name;
-    console.log("find query:",typeof(query),  query);
-    frameModel.findOne(query,function(err,response){
-        if (err || !response){
-            console.log('err result', err);
-            res.send("frame not found: "+ query );
-        }
-        else{
-            //console.log('NO ERR result',frameRes);
-            console.log("found frame: ", response['@ID'] );
-            res.send(response);
-
-            //res.send("<html> <body><h2>"+response+"</h2></body></html>");
-            //res.write(response);
-            //res.end();
-        }
-        //res.end();
-    });
-
+    var  engframeModel = Models.frameModel,
+        q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name'),
+        qOptions = options ? options : {limit: 50, sort: {'@name' :1}};
+    Models.hebFrameModel.find(q,proj,qOptions,cb);
 };
 
 
+/**response with a json object with the data of a frame/s
+ *@see general API instructions for filteres and query attributes
+ *
+ * @param req
+ * @param res
+ */
+exports.getFrame = function getFrame(req, res){
+    console.log("DEBUG: handling get-hebrew-frame request");
+    loadFrame(req.query,{},null,handleHttpResults(req,res))
+}
 
 
-/**this method returns single LU or collection of LUs according to the requested query:
- * if luid is given  -the lu with the id will be returned
- * if framid is given  the lus of the frame will be returned
- * if name was given  - a list of frames and the relevant lus will be returned
- * if name was given - a list of lus which thier name contains the give name will be returned.
- *
- * if porjection (proj) was supllied -the query will return fields by this projection - otherwise all fields will be returned
- *
+/**return object of sorted FES from given list of FEs:
+ * {core: [{name: thename, ID: the-@ID, def: 'the definition'}], nonCore: [{name: thename, ID: the-@ID, def: 'the definition'}] ]
+  * @param fes
+ * @returns {{core: Array, nonCore: Array}}
+ */
+function orderFes(fes){
+    var core=[];
+    var nonCore=[];
+    for (obj in fes){ //"@coreType": "Core",
+        //console.log(obj)
+        if (fes[obj]['@coreType'] =='Core') core.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
+        else  nonCore.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
+    }
+    //console.log("CORE",core);
+    //console.log("nonCore",nonCore);
+    return {core: core, nonCore: nonCore}
+
+}
+
+
+
+/**use this method in order to get all the needed data for a frame:
+ * coreFE, non-core-FEs, english lus, hebrew lus
+ * TODO: add retrival of the annotated sentences -hebrew and english as well
+ * returned object schema:
+ * {hebData: "contains hebrew-frame object (hebFrameSchema)", engData: {frame: "contains english-frame object (engllish FrameSchema)", fes:  {core: [{name: thename, ID: the-@ID, def: 'the definition'}], nonCore: [{name: thename, ID: the-@ID, def: 'the definition'}] ]}
+ * @param req
+ * @param res
+ * @param cb
+ */
+exports.loadFrameData = function loadFrameData(req,res,cb){
+    delete req.query['luid']
+    delete req.query['luname']
+    console.log("QUERY AFTER DELETE:", req.query)
+    if (!req.query.frameid && !req.query.framename) {res.send(400)}
+    async.parallel({
+            //get the hebrew frame data - with the hebrew lus and all the FEs
+            hebData: function(cb){
+                loadFrame(req.query, {}, null, function(err, results){
+                    if (results && results.length>0) cb(err, results[0]);
+                    else cb(206, results);})
+            },
+            //get the english lexical units list
+            engData: function(cb){
+                engControl.loadFrame(req.query,{},null, function(err,results){
+                    if  (results && results.length >0){
+                        var newResults ={
+                            fes:  orderFes(results[0].frame.FE.toObject()),
+                            frame: results[0].frame
+                        };
+                        cb(err,newResults)
+                    }
+                    else cb(206, results)
+                });
+                /*Models.hebFrameModel.findOne({"@ID":150}, function(err,resultObj){
+                 cb(err, resultObj);
+                 });*/
+            },
+            translations: function(cb){
+                engControl.loadTranslations(req.query,{},null, function(err,results){
+                    //console.log("TRANSALTIOSN RES:",results )
+                    if  (results && results.length>0)  cb(err,results)
+                    else cb(err, results)
+                })
+            }
+        },
+        function(err, results) {
+            res.charset = 'utf-8'
+            if (err) res.send(err);
+            else res.send(results);
+            //console.log(results)// results is now equals to: {one: 1, two: 2}
+        });
+};
+
+
+/**this method returns single LU according to the requested query:
+ * the query must contain - framename or frameid AND luname or luid - otherwise error will be returned
+ * the query will search for the exact name (frame or lu ) - so pay attention to case sensitive
+ * the response ,in case that an LU was found, will contain id of the frame, name of the frame and all the data of the SPECIFIC lu (no annotations)
  * @param req
  * @param res
  */
 //TODO: need to index the luID and the lu.@name
-exports.loadLu = function loadLu (req, res) {
-    console.log("DEBUG: handling load-hebrew-lu request");
-    var  frameModel =Models.hebFrameModel,// mongoose.model(framesCollectionName, frame, framesCollectionName),
-        query = {},
-        queryProj = {"@ID":1, "@name":1, "lexUnit":1},
-        limit = {'limit' : 50};
-    //var usersRec = new userModel();
+var loadLu = exports.loadLu = function loadLu (query, proj, options, cb) {
+    console.log("DEBUG: handling load hebrew lu request");
+    if (!((query.luid || query.luname) && (query.framename || query.frameid)) ) return cb(new Error("some parameters are missing"),null);
+    var resMode ='';
+    query.strict=1;
 
-    //build the query by the parameters (non is obligatory)
-    if (req.query.luid) query[ 'lexUnit.@ID']= parseInt(req.query.luid);
-    if (req.query.frameid) query[ '@ID']= req.query.frameid;
-    if (req.query.luname) query['lexUnit.@name'] = {$regex : ".*"+req.query.luname+".*"};
+    var q = q2coll(query,  '@ID @name lexUnit.@ID lexUnit.@name'),
+        qOptions =options || {} ; // options ? options : {'limit' : 50, sort: {'lexUnit.@name': 1}};
+    if (query.luid ){ //return single results - use element-match
+        proj['lexUnit'] =  { '$elemMatch': { '@ID': objID(query.luid)}}   //this options is to return only the first element in the array that matches to the query
+    }
+    if (query.luname ){ //return single results - use element-match
+        proj['lexUnit'] =  { '$elemMatch': { '@name': query.luname}}      //this options is to return only the first element in the array that matches to the query
+    }
+    q['lexUnit'] = {'$exists':true}; //query optimization
+    //execute:
+    Models.hebFrameModel.findOne(q,proj, qOptions, cb)
+};
+//aggregate( { $unwind : "$lexUnit" },{$sort: {"lexUnit.@name": 1}}, {$project: {"@name":1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1}} )
 
-    frameModel.find(query,queryProj, limit, function(err,response){
-        if (err || !response){
-            res.send("lu not found: "+ luID );
-        }
-        else{
-            //console.log("found result:", query, '\n' ,response);
-            res.charset = 'utf-8';
-            res.send(response);
-        }
-    });
+exports.getLu = function getLu(req, res){
+    console.log("DEBUG: handling hebrew get-lu-frame request");
+    loadLu(req.query,{"@ID":1, '@name':1, 'lexUnit':1},null,handleHttpResults(req,res))
+};
 
+
+var searchlus = function searchlus(query,proj, options, cb){
+    if (query.luid) query.luid = objID(query.luid); //cast String to objectID type
+    var q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name'); //build the mongo query
+    Models.hebFrameModel.aggregate(
+        {$unwind : "$lexUnit" },    //this operator splits each array of lus  - to N documents - each one with single lu
+        {$match: q},                //this filter the result of the prior phase
+        {$project: {"_id":0,"@name":1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1,'lexUnit.@POS':1}}, //handele projection
+        //{$project: {"_id":0,framename: "$lexUnit.@frame", frameid: '$lexUnit.@frameID', luname: '$lexUnit.@name', luid: '$lexUnit.@ID'}},
+        {$sort: {"lexUnit.@name": 1}},
+        cb)
+}
+
+
+exports.getSearchLus = function(req,res){
+    console.log("DEBUG: handling hebrew getSearchLus request");
+    //throw new Error("asd");
+    searchlus(req.query, {}, null, handleHttpResults(req,res))
+}
+
+
+var searchFrames = exports.searchFrames = function  searchFrames(query,projection, options, cb){
+    var q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name');
+    Models.hebFrameModel.aggregate(
+        {$match: q},//{frameid: Number('281') }},
+        {$project: {"_id":0,'@name': "$@name", '@ID': '$@ID'}},
+        {$sort: {"@name": 1}},
+        cb)
+    };
+
+exports.getSearchFrames = function (req, res){
+    console.log("DEBUG: handle getSearchFrames request")
+    searchFrames(req.query, {},{},handleHttpResults(req,res))
 };
 
 
 
-
-/** model method for luNames request
- *  TODO: build this
- * @param req
- * @param res
- */
-exports.loadLuNames = function loadLuNames (req, res) {
-    console.log("DEBUG: handling load hebrew lexical units names request");
-    var  frameModel = Models.hebFrameModel; //mongoose.model(framesCollectionName, frame,framesCollectionName );
-    var queryProj = {'@ID':1,'lexUnit.@name':1, 'lexUnit.@ID':1, '_id':0};
-    var query = {"lexUnit.@ID": {$exists: true}};
-    var limit = {};
-    //check
-    frameModel.find(query , queryProj,limit, function(err,response){
-        if (err || !response){
-            res.send("error with request: "+ err || response );
-        }
-        else{
-            console.log("found lu-names");
-            res.charset = 'utf-8';
-            res.send(response);
-        }
-    });
-};
-
+exports.pageframes = function (req,res){
+    var limit = _.min([20, (req.query.size ||30)]);
+    console.log('using limit',limit)
+    Models.hebFrameModel.find({},{},{sort: {'@name':1},skip: req.query.n*limit,limit:limit}, handleHttpResults(req,res))
+}
 
 
 //TODO: sort the list before response
@@ -123,34 +200,7 @@ exports.loadLuNames = function loadLuNames (req, res) {
  * @param req
  * @param res
  */
-exports.loadFrameNames = function loadFrameNames (req, res) {
-    console.log("DEBUG: handling load hebrew frame-names request with req.query.params=", req.query);
-    var  frameModel = Models.hebFrameModel;  // mongoose.model('Frame', frame, 'frame');
-    var queryProj= {};
-    var query = {};
-    var limit = {};
-    if  (req.query.all && req.query.all==0 )   {
-        queryProj ={};
-        limit = {'limit':10};
-    }
-    //check if list of lus of the frame is needed
-    else if (req.query.lus && req.query.lus == 1) queryProj = {"@ID":1, "@name":1, "lexUnit.@name":1 ,"lexUnit.@ID":1, "_id":0};
-    else queryProj =  {'@ID':1,'@name':1,'_id':0};
-    frameModel.find(query , queryProj,limit, function(err,response){
-        if (err || !response){
-            res.send("error with request: "+ response );
-        }
-        else{
-            console.log("found frame-names");
-            res.charset = 'utf-8';
-            res.send(response);
-        }
-    });
-};
 
-
-
-var utils = require('../tools/utils.js')
 
 /**
  *the function recieves object and removes all the empty fields or <''>[empty string] fields
@@ -158,7 +208,7 @@ var utils = require('../tools/utils.js')
  * @returns the same object without the empty fields
  */
 function omitEmpties(obj){
-    var objKeys = utils.keys(obj);
+    var objKeys = _.keys(obj);
     var proj = {};
     for (i in objKeys){
         if (!obj[objKeys[i]] || obj[objKeys[i]] == '') {
@@ -169,70 +219,76 @@ function omitEmpties(obj){
     return obj;
 }
 
-/**
+
+exports.tryAdd=function tryAdd(req,res){
+    var existlu = {id: 1, subdoc: {id:11, text: "asdas"}}
+    var otherframelu = {id: 2, subdoc: {id:11, text: "asdas"}}
+    var noframe = {id: 34, subdoc: {id:11, text: "asdas"}}
+    var noframe2 = {id: 34, subdoc: {id:13, text: "asdas"}}
+    var good ={id: 1, subdoc: {id:15, text: "asdas"}}
+    var good2 ={id: 1, subdoc: {id:18, text: "asdas"}}
+
+    var all = {1:existlu, 2:otherframelu, 3: noframe, 4: noframe2, 5: good, 6:good2};
+    doTryAdd(req,res,all[req.query.n])
+}
+
+function validParseLU(lu){ return JSON.parse(lu)} //TODO: remove frome here to schemes or utils and create validation scheme
+
+function validParseLuReq(req){
+    //if (!((query.luid || query.luname) && (query.framename || query.frameid)) )
+    if (!req.param('frameid') || ! req.param('lexUnit')) return false;
+    else return validParseLU(req.param('lexUnit'));
+}
+
+/**the method add a given lu to a a frame by 'frameid'.
+ * the post form should contatin 'frameid' and 'lexUnit' parameters
+ *      the 'lexUnit' will be a valid hebrew lexUnit schema {@see schemes/hebrew.js -> hebFrameLUSchema}
+ *
+ * the method will call {@param cb} with (err, result) depends on the use case.
+ *      the method will validate the request parameters before saving
+ *
+ *
+ * @param {express.request} req  POST request - the body will contain fields as described above
+ * @param {express.response} res
+ * @param {String} cb callback function
+ * @returns {*}
+ */
+function addLuToFrame(req,res, cb){
+    var mod = Models.hebFrameModel;
+
+    //check for parameters validation
+    var lu = validParseLuReq(req);
+    if (!lu) return cb(new Error("the request is not valid"), null);
+
+    //search for the frame itself - return error if not exists
+    mod.findOne({'@ID': req.param('frameid')}, {lexUnit:1, '@ID':1},
+        function(err, resu){
+            if (err) return cb(err, null) //return res.send ({msg: 'error', cont: err});
+            if (!resu) return cb(new Error("frame doesn't exist"),null); //return res.send({msg: "the frame deosn't exists", cont: resu})
+
+            //make sure that the lu is not in the frame
+            if (_.find(resu['lexUnit'], function(lexUnit){ return lexUnit['@name'] == lu['@name']}))
+                return cb(new Error('the lu is already associated with the frame'), resu)
+            var luStub={"priority":0,"definition":"this is the definitiion of the lexical unit","status":"approved","translatedFrom":{"frameId":7,"lexUnitName":"movemove.v","lexUnitID":6},"sentenceCount":{"total":1,"annotated":0},"lexeme":[{"name":"התקדם","POS":"V","breakBefore":false,"headword":false,"order":0}],"valences":{"governor":"[governorType]","FERealization":"[FERealizationType]","FEGroupRealization":"[FEGroupRealizationType]"},"@name":"קפצפץ.v","@POS":"V","@status":"GOOD","@lemmaID":1234}
+            //got here- everything is fine -add the lu to to the frame
+            mod.findOneAndUpdate({'@ID' :req.param('frameid')},{'$push': {lexUnit: (JSON.parse(req.param('lexUnit') || luStub))}},
+                function(err2, resu2){
+                    if (err2) return cb(err2, null)
+                    if (!resu2) return cb(new Error("there was a problem with the update"), null);
+                    return cb(null, {msg: 'the lu was added',content: resu2});
+                })//func2
+    })    //func1
+}
+
+
+/**this function is using (addLuToFrame) in and wraps it with http req\response
  *
  * @param req
  * @param res
  */
-exports.addLUToFrame = function addLUToFrame (req, res) {
-    console.log("DEBUG: handling lu to frame POST request");
+exports.postAddLuToFrame = function(req,res){
+    addLuToFrame(req,res,handleHttpResults(req,res))};
 
-    var resBody = req.body;
-    var frameId = resBody['frameid'];
-    if (!frameId) res.send("please try again - you must specify frame id to add a lexical-unit");
-    else {
-        var  frameModel =Models.hebFrameModel;  //mongoose.model(framesCollectionName, frame, framesCollectionName);
-        frameModel.count({'@ID': frameId}, function(err, returnedObj){
-                console.log("calling function");
-                if (err) {
-                    console.log("err in data base connection");
-                    return res.send("data base connection error");
-                }
-                else if (returnedObj ==0) {
-                    //console.log("returnedObj \<\= 0", returnedObj);
-                    res.send(404, "the wanted frame does not exist");
-                }
-                else {
-                    console.log("good job", returnedObj);
-                    res.charset = 'utf-8'; //in
-                    var lu;
-                    var luID = objID();
-
-                    if (resBody['fulllu'] == 'on'){
-                        lu  = JSON.parse(resBody['lexUnit']);
-                        console.log("using full lu:", lu);
-                    }
-                    else{
-                        delete(resBody['frameid']);
-                        delete(resBody['lexUnit']);
-
-                        lu = omitEmpties(resBody); //TODO: remove from here to client side - remove empty fields
-                        //lu = resBody;
-                        lu['@ID'] = luID;
-
-                        console.log("using parameters");
-
-                    }
-
-                    //set automatic fields:
-                    lu['@cDate'] = new Date();
-                    lu['@ID'] = luID;
-                    if (req.user && req.user.username) lu['@cBy'] = req.user.username;
-                    else lu['@cBy'] = 'unknown';
-                    console.log("setting LU:", lu);
-                    frameModel.findOneAndUpdate({"@ID": frameId}, {$push: {"lexUnit":lu}}, function(err, returnedObj) {
-                        if (err) return res.send("contact addMsg error: " + err);
-                        //console.log('the results object is: ', returnedObj['lexUnit']);
-                        res.send("document was saved!");
-                    });
-                    //return res.send(lu);
-
-                }//else
-            }//function
-        );
-
-    }
-};
 
 
 
@@ -241,13 +297,13 @@ exports.addLUToFrame = function addLUToFrame (req, res) {
  * @param req
  * @param res
  */
-exports.saveLUToFrame = function (req,res){
+exports.renderAddLUToFrame = function (req,res){
     var pop = require('../tools/population.js');
     console.log("DEBUG: add lu to frame GET request - loading form");
     //var collectionNames = require('../controllers/general.js').collectionNames;
 //    /console.log("tree",Models.hebFrameLUSchema);
-    var fieldNames =utils.keys(Models.hebFrameLUSchema.tree);// ['@ID', "@name"]
-    var types = utils.values(Models.hebFrameLUSchema.tree);//["text", "text"]
+    var fieldNames =_.keys(Models.hebFrameLUSchema.tree);// ['@ID', "@name"]
+    var types = _.values(Models.hebFrameLUSchema.tree);//["text", "text"]
     var fields = [];
     for (var i =0 ; i<fieldNames.length; i++){
         fields.push({'name': fieldNames[i], 'type':types[i] });
@@ -275,8 +331,8 @@ exports.addSentenceToLUForm = function (req,res, obj){
     var sentId = req['query']['sentenceid'];
     var sentence = req['query']['sentence'];
 
-    var fieldNames =utils.keys(Models.hebFrameLUSchema.tree);// ['@ID', "@name"]
-    var types = utils.values(Models.hebFrameLUSchema.tree);//["text", "text"]
+    var fieldNames =_.keys(Models.hebFrameLUSchema.tree);// ['@ID', "@name"]
+    var types = _.values(Models.hebFrameLUSchema.tree);//["text", "text"]
     var fields = [];
     for (var i =0 ; i<fieldNames.length; i++){
         fields.push({'name': fieldNames[i], 'type':types[i] });
@@ -291,20 +347,10 @@ exports.addSentenceToLUForm = function (req,res, obj){
 
 
 function valid31Format(candidate){return true;} //TODO!!! - complete this function or put as pre-save
-function linearizeSentence(sentenceJson) {
-    console.log("DEBUG: linearize sentence: recieved object! ");
-    var sent ="";
-    if (!Array.isArray(sentenceJson)) throw new error("the sentence is not valid");
-    for (word in sentenceJson){
-        //sent = sent + sentenceJson[word]['word']+ " ";
-        sent = sent + sentenceJson[word]+ " ";
-    }
-    console.log("DEBUG: linearize sentence: returning result: ", sent);
-    return sent;
-}
+
 
 function linearizeConllSentence(sentenceJson) {
-    require('../tools/utils.js').linearizePython(sentenceJson);
+    //require('../tools/utils.js').linearizePython(sentenceJson);
     console.log("DEBUG: linearizeConllSentence: recieved object1 ");
     var sent ="";
     //if (!Array.isArray(sentenceJson)) throw new Error("the sentence is not valid");
@@ -417,7 +463,7 @@ exports.addSentenceToDB = function addSentenceToDB(req,res){
         if (sentence){
             var  sentenceModel =Models.hebSentenceModel;
             var sentJson = {
-                "text":linearizeConllSentence(JSON.parse(sentence)['words']),//TODO
+                "text": utils.linearizeConllSentence(JSON.parse(sentence)['words']),//TODO
                 "sentenceProperties" : sentence['sentenceProperties'],
                 "content" : [{"words": JSON.parse(sentence)['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
                 //"lus":[IDType],//save the related LU ids
@@ -455,53 +501,37 @@ exports.addSentenceToDB = function addSentenceToDB(req,res){
  * @param req
  * @param res
  */
-exports.listAllSentences = function listAllSentences(req,res){
+function listSentences(req,res,cb){
     console.log("DEBUG: handling listAllSentences method" );
-    Models.hebSentenceModel.find({}, {'sentenceOrigin': 0},{'limit': 200}, function(err, resObj){
-       res.charset = 'utf-8';
-       if (err) {
-           console.log("DEBUG:problem in list all sentences");
-           res.send("error occurred while handling quert");
-       }
-       else if (!resObj){
-           res.send("couldn't find any sentences");
+    var query=  {};
+    if (req.query.luid) query.lus=req.query.luid;
+    if (req.query.sentenceid) query.ID=req.query.sentenceid;
 
-       }else{
-           //res.charset = 'utf-8';
-           //res.send(JSON.parse(JSON.stringify(resObj)));
-           res.render('sentencesList.jade', {'result':resObj});
-
-       }
-
-    });
+    Models.hebSentenceModel.find(query, {'sentenceOrigin': 0},{'limit': 200}, cb)
 };
 
 
+exports.getListSentences = function getListSentences(req,res,cb){
+    listSentences(req,res, handleHttpResults(req,res))};
 /**
  * returns a list of all the lu-sentence relations (each sentence-lu is a record which contains list of annotations)
+ * if luid or sentenceid is given - use as filter
  * @param req
  * @param res
  */
-exports.luSentence = function luSentence(req,res){
+function luSentence(req,res, cb){
     console.log("DEBUG: handling luSentence method" );
-    Models.luSentenceModel.find({}, {"__v": 0},{'limit': 200}, function(err, resObj){
-        res.charset = 'utf-8';
-        if (err) {
-            console.log("DEBUG:problem in luSentence");
-            res.send("error occurred while handling query");
-        }
-        else if (!resObj){
-            res.send("couldn't find any records");
+    var query ={};
+    q2coll('frameId - luId - sentenceID');
+    //if (req.query.sentenceid) query.sentenceID = req.query.sentenceid;
 
-        }else{
-            res.send(JSON.parse(JSON.stringify(resObj)));
-            //res.render('sentencesList.jade', {'result':resObj});
+    //console.log("DEBUG-luSentence: using query:",query);
+    Models.luSentenceModel.find(query, {"_id":0, "__v":0},{skip:500,'limit': 50}, cb)
+ }
 
-        }
-
-    });
-
-};
+//wrapper function for luSentence - creates a CB function
+exports.getLuSentence = function(req,res){
+    luSentence(req,res, handleHttpResults(req,res))}
 
 /**TODO
  * check if the sentence is in the data base -search by the text linearization, return the id if in DB else return undefined
@@ -509,7 +539,7 @@ exports.luSentence = function luSentence(req,res){
  * @param sentence {indb: 'on', content:}
  * @returns {*}
  */
-function isInDB(sentenceText,cb){               //TODO - this is just a stub now!!
+function isInDB(sentenceText,cb){
     console.log("DEBUG: isInDB ");
     Models.hebSentenceModel.findOne({"text": sentenceText}, {"ID":1},function(err, resObj){
         if (!err){
@@ -541,7 +571,7 @@ function createSentenceJson(sentString, data){
     console.log("DEBUG: createSentenceJson", typeof(sentString),"   ",sentString );
     var sentObj = JSON.parse(sentString);
     return {
-        "text":linearizeConllSentence(sentObj['words']),//TODO
+        "text": utils.linearizeConllSentence(sentObj['words']),//TODO
         "sentenceProperties" : sentObj['sentenceProperties'],
         "content" : [{"words": sentObj['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
         //"lus":[IDType],//save the related LU ids
@@ -797,3 +827,145 @@ exports.addSentencesToLu = function addSentencesToLu(req,res) {
 
     //res.send(resultsArr);
 };
+
+
+
+
+//add the sorounding labels to array of labels and cretes FE annotation object to be saved in the DB
+function createFEAnnotation(anno){
+    console.log("DEBUG -createFEAnnotation - input " , anno);
+    return {
+        name :'FE',
+        label : JSON.parse(anno), //this needs to be the contenct form the client- array of labels  each one corresponds to 'heblabelType'
+        rank : 1,
+        status: 'decision'
+    }
+}
+
+/**add annotation to lu, the given annotation object will be transmitted via the res.body object. in addition to luid, frameid and sentenceid.
+ * the annotation will be saved in the lu-sentence collection and the annotation id will be added to the frame.lu.annotations
+ *
+ * @param req
+ * @param res
+ * @param cb
+ */
+exports.addAnnotation = function addAnnotation(req,res,cb) {
+    console.log("DEBUG: handling addAnnotation");
+    var body =req.body;
+    //check if the req contains all the relevant data
+    if (!(body.frameid && body.luid && body.sentenceid && body.annotation && body.segid)) return cb(new Error("one of the parameters is missing - abort"));
+    //phase 1: save new annotation to the lu-sentence collection - return error if fails to find
+    var query =  {
+        sentenceID : body.sentenceid ,
+        luId : body.luid,
+        frameID: body.frameid
+    };
+    var anno = createFEAnnotation(body.annotation)
+    var annotation ={
+        ID: objID(),
+        validVersion: false,
+        status: 'pending',
+        cDate: new Date(),
+        cBy: req.user ? req.user.username : 'unknown',
+        sentenceId:  body.sentenceid,
+        segmentationID: body.segid,
+        layer : [anno]
+    };
+    console.log("DEBUG-addAnnotation query is:", query);
+    console.log("DEBUG-addAnnotation anno is:", anno);
+    Models.luSentenceModel.findOneAndUpdate(query, {$push: {"annotations": annotation}}, function(err, returnedObj) {
+        console.log("DEBUG-addAnnotation reulst is:", err, JSON.stringify(returnedObj));
+        cb(err, returnedObj);
+    });
+
+
+};
+
+
+/**returns all data needed for the annotation of a LU - the frameData, the LU data, and a list of sentence data and it's lu-sentence data (with annotations if exists)
+ *
+ * @param req
+ * @param res
+ * @param cb
+ */
+exports.luAnnotationsData = function  luAnnotationsData(req,res,cb){
+    if (!(req.query.luid && req.query.frameid)) return cb(new Error("some of the parameters are missing"))
+    //load frame data with lu
+    //load the lu-sentence for this lu
+    //load the sentences related to this lu
+    async.parallel({
+            //get the hebrew frame data - with the hebrew lus and all the FEs
+            frameLU: function(cb){
+                loadFrame(req,res, cb)
+            },
+            //get the english lexical units list
+            luSentence: function(cb){
+                luSentence(req,res, cb);
+            },
+            sentences: function(cb){
+                listSentences(req,res, cb);
+                /*Models.hebFrameModel.findOne({"@ID":150}, function(err,resultObj){
+                 cb(err, resultObj);
+                 });*/
+            }
+        },
+        handleHttpResults(req,res)
+    );
+};
+
+
+//TODO: add query options! (sentenceid, luid, frameid, username, status, etc.
+function listDecisions(req,res,cb){
+    var query = {};
+    if (req.query.decisionid) query.ID =objID(req.query.decisionid);
+    Models.annotatorDecisionsModel.find(query, {'__v':0, '_id':0},cb)
+}
+
+exports.getDecisions = function getDecisions(req,res,cb){
+    listDecisions(req,res,handleHttpResults(req,res));
+};
+
+
+
+//TODO: stub for DEV, remove on PROD
+var decisionStub = {
+    cDate: new Date(),
+    cBy: 'imrihe',
+    reviewer: 'imirhe',
+    frameId: 777777,
+    lexUnitID: objID("52356fe7914f9ce666000025"),
+    "type": "frame-lu",
+    //"content":Object,//the decision object
+    "decisionExplanation":"i am not sure if this lu fits to this frame or not",
+    "status":"unseen",
+    "hasInquiries":false
+    //"inquiryContent":[inquiryType]
+};
+
+
+/**set decision - saves a decision using the decision, id
+ *
+ * @param req
+ * @param res
+ * @param cb
+ */
+exports.setDecision = function setDecision(req,res,cb){
+    var query = {};
+    //if (req.query.decid) query.ID =req.query.decid;
+    decisionStub.ID=objID();
+    decisionStub.cDate=new Date();
+    if(req.body.decisionExplanation) decisionStub.decisionExplanation = req.body.decisionExplanation;
+    new Models.annotatorDecisionsModel(decisionStub).save(function(err, results){
+        console.log("result of save is: ", results, "\n cb is:", cb);
+        if (err) cb(err);
+        else{
+            userControl.mailReviewersInternal("a decision was created for reviewing",
+            "a decision was made, the decision content can be found in this link:\n "+"http://www.cs.bgu.ac.il"+hp+"heb/getdecisions?decisionid="+decisionStub.ID.toString(),
+            function(err,mailRes){cb(null, {mails: mailRes, decisions: results})}); //function(err,results) {res.send(results)});
+            //res.send(results)
+        }
+    }); //save
+};//function
+
+
+

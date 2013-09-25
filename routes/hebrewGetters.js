@@ -6,13 +6,26 @@ function isAjax(req,res,next){
     console.log("is ajax?", req.isAjax)
     next();
 }
+
 module.exports = function(app) {
     var hebControl = require('../controllers/hebrew.js');
-    app.get('/heb/frame', isAjax, hebControl.loadFrame);
 
-    app.get('/talAjax1', function(req,res){res.render('tal.jade')});
+    /**
+     * use this call in order to get data of an english frame\s
+     * request parameters: frameid, framename, luname, luid - will filter the response (number of returned frames is limited to 20 at a time)
+     * @link /eng/pageframes for paginating
+     */
+    app.get('/heb/frame', isAjax, hebControl.getFrame);
+    app.get('/heb/framedata',  hebControl.loadFrameData);
 
-    app.post('/talAjax', function(req, res){
+    /**
+     * use this call in order to get data of an english frame\s
+     * request parameters: frameid, framename, luname, luid - will filter the response (number of returned frames is limited to 20 at a time)
+     * @link /eng/pageframes for paginating
+     */
+    app.get('/talAjax1', function(req,res){res.render('tal.jade')});//TODO- remove
+
+    app.post('/talAjax', function(req, res){ //TODO- remove
         var data;
         console.log("TAL:");
         console.log(req.body['text1']);
@@ -29,19 +42,28 @@ module.exports = function(app) {
         res.send(req.body);
     } );
     //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/lu/?id=320
-    app.get('/heb/lu',hebControl.loadLu);
+    app.get('/heb/lu',hebControl.getLu);
 
     //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=1
     //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/luNames?lus=0
-    app.get('/heb/luNames', hebControl.loadLuNames);
+    app.get('/heb/luNames', hebControl.getSearchLus);
 
     //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/frameNames
-    app.get('/heb/frameNames', hebControl.loadFrameNames);
+    app.get('/heb/frameNames', hebControl.getSearchFrames);
+    app.get('/heb/searchframes', hebControl.getSearchFrames);
+    app.get('/heb/searchlus', hebControl.getSearchLus);
 
-    app.get('/heb/listsentences', hebControl.listAllSentences);
 
-    app.get('/heb/lusentence', hebControl.luSentence);
+    app.get('/heb/sentences', hebControl.getListSentences);
 
+    app.get('/heb/lusentence', hebControl.getLuSentence);
+    app.get('/heb/ludata', hebControl.luAnnotationsData);
+    app.get('/heb/decisions', hebControl.getDecisions);
+    app.get('/heb/pageframes', hebControl.pageframes);
+
+
+    app.get('/fuck', function(req,res) {throw  new Error("fuck!!")}); //TODO- remove
+    app.get('/testadd/:num', hebControl.tryAdd); //TODO- remove
 
     app.get('/heb/', function(req,res){ res.redirect(hp)});
 

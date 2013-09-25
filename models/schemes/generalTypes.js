@@ -25,23 +25,24 @@ var basicTypes = module.exports  = {
 /**semTypeRefType
  * same for english and hebrew
  */
-var semTypeRefType =exports.semTypeRefType = {
+var semTypeRefType =module.exports.semTypeRefType = new Schema({ //TODO:SCHEMA
     "@name":String,
     "@ID": basicTypes.IDType
-};
+},{_id:false});
 
+//console.log("SSSSSSSS;",semTypeRefType)
 /**
  * same in hebrew
  * @type {Schema}
  */
-var internalFrameRelationFEType  =exports.internalFrameRelationFEType = new Schema({
+var internalFrameRelationFEType  =module.exports.internalFrameRelationFEType = new Schema({
     "@name": String,
     "@ID": {type: Number,min :0 }
 });
 
 
 
-var FEType =exports.FEType=   new Schema({
+var FEType =module.exports.FEType=   new Schema({
     "definition": String,
     "semType": {type:[semTypeRefType], select: false},     //TODO - remove the select field
     "requiresFE": [internalFrameRelationFEType],
@@ -54,45 +55,47 @@ var FEType =exports.FEType=   new Schema({
     "@coreType": basicTypes.coreType,
     "@fgColor": basicTypes.RGBColorType,
     "@bgColor": basicTypes.RGBColorType
-});
+},{_id:false});
 
 
 /**relatedFramesType
  * same in hebrew
  */
-var relatedFramesType = exports.relatedFramesType = {
+var relatedFramesType = module.exports.relatedFramesType = new Schema({
     "@type": String, //TODO: check if there are enums for this field
     "relatedFrame" : [basicTypes.frameNameType]
-};
+},{_id:false});
 
 
 /**memberFEtype
  * same in hebrew
  * @type {Schema}
  */
-var memberFEtype   =exports.memberFEtype  = new Schema({
-        "memberFE": [internalFrameRelationFEType]} //occurrences: 2+
+var memberFEtype   =module.exports.memberFEtype  = new Schema(
+    {
+        "memberFE": [internalFrameRelationFEType]
+    },{_id:false} //occurrences: 2+
 );
 
 
 var extSentRefType =module.exports.extSentRefType=  {type: Number, min: 0}; //			"description": "a numeric type to use for external references to sentences (aPos)",
-var annoSetType =  exports.annoSetType=  {"@ID" : basicTypes.IDType};
+var annoSetType =  module.exports.annoSetType=  {"@ID" : basicTypes.IDType};
 
 
-var FEValenceType =exports.FEValenceType= {"@name":String};
+var FEValenceType =module.exports.FEValenceType= {"@name":String};
 
-var governorType = exports.governorType=  new Schema({
+var governorType = module.exports.governorType=  new Schema({
     "annoSet": [annoSetType],
     "@lemma": String,
     "@type": String   //TODO: check for enum
 });
 
-var valenceUnitType = exports.valenceUnitType= {
+var valenceUnitType = module.exports.valenceUnitType= {
     "FE": String,
     "PT": String,
     "GF":String
 };
-var FERealizationType  =exports.FERealizationType= new Schema({
+var FERealizationType  =module.exports.FERealizationType= new Schema({
     "FE": FEValenceType,
     "pattern":[{"@total": basicTypes.countType, "valenceUnit": valenceUnitType , "annoSet": [annoSetType]}],
     "@total": basicTypes.countType
@@ -100,7 +103,7 @@ var FERealizationType  =exports.FERealizationType= new Schema({
 
 
 
-var FEGroupRealizationType = exports.FEGroupRealizationType=  new Schema({
+var FEGroupRealizationType = module.exports.FEGroupRealizationType=  new Schema({
     "FE": [FEValenceType],
     "pattern":[{"@total": basicTypes.countType, "valenceUnit": [valenceUnitType] , "annoSet": [annoSetType]}],
     "@total": basicTypes.countType

@@ -17,7 +17,11 @@
         "passport-local" :"*",
         "toobusy" :"*",
         "mongoose-forms": "*",
-        "request" : "*"
+        "request" : "*",
+        "async" : "*",
+        "nodemailer": "*",
+        "bcrypt": "*",
+        "forms-mongoose": "*"
 
     }
 }

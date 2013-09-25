@@ -19,6 +19,11 @@ p
                     a(href='account') account
                 li
                     a(href='auth') check if authorized
+                li
+                    a(href='admin/mailreviewers') send e-mail to all reviewers
+                li
+                    a(href='admin/listusers') list all users (without password)
+
         li general:
             ul
                 li
@@ -48,9 +53,30 @@ p
                     a(href='eng/translations', title = "add ?luid=6 for specification") lus translations
                 li
                     a(href='eng/annotations', title = "add ?luid=6 for specification") lus annotations
+                li
+                    a(href='eng/searchframes') search the frames in the eng-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
+                li
+                    a(href='eng/searchlus') search the lus in the eng-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
+
+
 
         li hebrew data:
+
+            li
+                b main process
             ul
+
+                    li
+                        a(href='heb/framedata?name=Communication') framedata - returns data for hebrew frame and english frame (with associated lus) by query (framid,name) (multiple DB calls)
+                    li
+                        a(href='heb/addlutoframe') add lu to frame
+                    li(hidden)
+                        a(href='heb/addsentence') add sentence to lexical unit
+                    li
+                        a(href='heb/addSentencesToLuPost') add sentence to lexical unit
+                    li
+                        a(href='heb/createannotation') add annotation - all fields must bu filled
+
                 li
                     a(href='heb/frame', title="add '?id=123'") frame
                 li
@@ -59,6 +85,9 @@ p
                     a(href='heb/lunames') lus names
                 li
                     a(href='heb/framenames') frames names
+                li
+                    b
+                        a(href='heb/framedata?name=Communication') framedata - returns data for hebrew frame and english frame (with associated lus) by query (framid,name) (multiple DB calls)
 
                 li
                     a(href='heb/addlutoframe') add lu to frame
@@ -70,9 +99,19 @@ p
                     a(href='ajax/heb/addsentence') add sentence to lexical unit - from search engine (alon).
                     a    see
                         a(href='http://www.cs.bgu.ac.il/~yoavg/nathanstatic/queries.html')    this link
-                    a  in order to understand the query language - but use only query=$w.lemma="הלך" and something like this
+                    a  in order to understand the query language - but use only query=$w.lemma="הלך" and similar queries
                 li
-                    a(href='heb/listsentences') list all sentences
+                    a(href='heb/sentences') list all sentences of filter by 'frameid' or 'luid'
+                li
+                    a(href='heb/lusentence') list sentence-lu entries, may filter by luid,frameid,sentenceid
+                li
+                    a(href='heb/getdecisions') list all the decisions or filted by 'decisionid=123423'
+                li
+                    a(href='heb/searchlus') search the lus in the heb-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
+                li
+                    a(href='heb/searchframes') search the frames in the heb-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
+                li
+                    a(href='heb/pageframes?n=2&size=10') iterate over the heb-frames  - n- is the page number, size - number of results per page (maximum=20)
 
 
 

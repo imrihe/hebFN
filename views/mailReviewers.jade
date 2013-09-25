@@ -1,0 +1,12 @@
+h1 send e-mail to all reviewers
+form(method='post', action='mailreviewers')
+    label emails
+        textarea(required,name='mails', cols=60) #{mails}
+    br
+    label subject
+        input(required,name='subject', type='text')
+    br
+    label content
+        textarea(name='msg', cols=60,rows=10, required)
+    br
+    input(type='submit', value='send e-mail', onClick="return confirm('Do you really want to follow')")

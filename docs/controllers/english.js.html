@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>hebFNServer</title>
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/docs.css">
+    <style>
+      body > .navbar .brand {
+        float:left;
+        text-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px, rgba(255, 255, 255, 0.4) 0px 0px 30px;
+        color: white;
+        margin-left:0px;
+        font-weight:normal;
+      }
+      
+      .bs-docs-sidenav i{
+        width: 8px;
+        height: 8px;
+        padding: 0px;
+        margin: 0px;
+        display: inline-block;
+        margin-right:0.5em;
+      }
+      
+      .bs-docs-sidenav > li:first-child > a {
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+      }
+      
+      code[class*="language-"],pre[class*="language-"]{color:black;text-shadow:0 1px white;font-family:Consolas,Monaco,'Andale Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*="language-"],pre[class*="language-"]{background:#f5f2f0}:not(pre)>code[class*="language-"]{padding:.1em;border-radius:.3em}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:slategray}.token.punctuation{color:#999}.namespace{opacity:.7}.token.property,.token.tag,.token.boolean,.token.number{color:#905}.token.selector,.token.attr-name,.token.string{color:#690}.token.operator,.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.regex,.token.important{color:#e90}.token.important{font-weight:bold}.token.entity{cursor:help}
+      div.description {margin: 14px 0; padding-top: 14px; border-bottom:1px solid #eee; }
+      .tags {}
+      .ctx-type {
+        display:inline-block;
+        margin-right:0.5em;
+        //- float:right; margin-top:8px
+      }
+      
+      footer iframe{vertical-align:middle;}
+      
+    </style>
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container"><a class="brand">Doxx</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right sponsored"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header id="overview" class="jumbotron subhead">
+      <div class="container">
+        <h1>hebFNServer</h1>
+        <p class="lead"></p>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li class=""><a href="../index.html">Main</a></li>
+            <li class=""><a href="../app.js.html">app.js</a></li>
+            <li class=""><a href="../conf.js.html">conf.js</a></li>
+            <li class=""><a href="../controllers/auth.js.html">controllers/auth.js</a></li>
+            <li class="active"><a href="../controllers/english.js.html">controllers/english.js</a></li>
+            <li class=""><a href="../controllers/externalTools.js.html">controllers/externalTools.js</a></li>
+            <li class=""><a href="../controllers/general.js.html">controllers/general.js</a></li>
+            <li class=""><a href="../controllers/hebrew.js.html">controllers/hebrew.js</a></li>
+            <li class=""><a href="../controllers/test.js.html">controllers/test.js</a></li>
+            <li class=""><a href="../controllers/users.js.html">controllers/users.js</a></li>
+            <li class=""><a href="../models/mongoDB/dbConnection.js.html">models/mongoDB/dbConnection.js</a></li>
+            <li class=""><a href="../models/schemes/english.js.html">models/schemes/english.js</a></li>
+            <li class=""><a href="../models/schemes/generalTypes.js.html">models/schemes/generalTypes.js</a></li>
+            <li class=""><a href="../models/schemes/hebrew.js.html">models/schemes/hebrew.js</a></li>
+            <li class=""><a href="../models/schemes/locals.js.html">models/schemes/locals.js</a></li>
+            <li class=""><a href="../models/schemes/test.js.html">models/schemes/test.js</a></li>
+            <li class=""><a href="../models/schemes/user.js.html">models/schemes/user.js</a></li>
+            <li class=""><a href="../routes/auth.js.html">routes/auth.js</a></li>
+            <li class=""><a href="../routes/english.js.html">routes/english.js</a></li>
+            <li class=""><a href="../routes/externalTools.js.html">routes/externalTools.js</a></li>
+            <li class=""><a href="../routes/general.js.html">routes/general.js</a></li>
+            <li class=""><a href="../routes/hebrewGetters.js.html">routes/hebrewGetters.js</a></li>
+            <li class=""><a href="../routes/hebrewSetters.js.html">routes/hebrewSetters.js</a></li>
+            <li class=""><a href="../routes/index.js.html">routes/index.js</a></li>
+            <li class=""><a href="../routes/users.js.html">routes/users.js</a></li>
+            <li class=""><a href="../tools/linearize.js.html">tools/linearize.js</a></li>
+            <li class=""><a href="../tools/mailer.js.html">tools/mailer.js</a></li>
+            <li class=""><a href="../tools/population.js.html">tools/population.js</a></li>
+            <li class=""><a href="../tools/utils.js.html">tools/utils.js</a></li>
+            <li class=""><a href="../trash/BUapp.js.html">trash/BUapp.js</a></li>
+            <li class=""><a href="../trash/hebrew.js.html">trash/hebrew.js</a></li>
+            <li class=""><a href="../trash/index.js.html">trash/index.js</a></li>
+            <li class=""><a href="../trash/index_old.js.html">trash/index_old.js</a></li>
+            <li class=""><a href="../trash/mongoDB/englishModel.js.html">trash/mongoDB/englishModel.js</a></li>
+            <li class=""><a href="../trash/mongoDB/general.js.html">trash/mongoDB/general.js</a></li>
+            <li class=""><a href="../trash/mongoDB/hebrewModel.js.html">trash/mongoDB/hebrewModel.js</a></li>
+            <li class=""><a href="../trash/mongoDB/locals.js.html">trash/mongoDB/locals.js</a></li>
+            <li class=""><a href="../trash/mongoDB/pull.js.html">trash/mongoDB/pull.js</a></li>
+            <li class=""><a href="../trash/mongoDB/push.js.html">trash/mongoDB/push.js</a></li>
+            <li class=""><a href="../trash/mongoDB/schemes_old.js.html">trash/mongoDB/schemes_old.js</a></li>
+            <li class=""><a href="../trash/mongoDB/users.js.html">trash/mongoDB/users.js</a></li>
+            <li class=""><a href="../trash/mongoDB/users_old.js.html">trash/mongoDB/users_old.js</a></li>
+            <li class=""><a href="../trash/routes_old.js.html">trash/routes_old.js</a></li>
+            <li class=""><a href="../trash/routes_old2.js.html">trash/routes_old2.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#loadFrame"><i class="alert alert-success"></i>loadFrame</a>
+              </li>
+              <li><a href="#loadLuEng"><i class="alert alert-success"></i>loadLuEng</a>
+              </li>
+              <li><a href="#loadFrameNames"><i class="alert alert-info"></i>loadFrameNames</a>
+              </li>
+              <li><a href="#loadAnnotations"><i class="alert alert-success"></i>loadAnnotations</a>
+              </li>
+              <li><a href="#loadTranslations"><i class="alert alert-success"></i>loadTranslations</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="span9">
+          <div class="description"><p>a<br />english controllers for framenet</p> </div>
+          <pre><code class="language-javascript">printModule('controllers/english');
+
+var Models = require(&quot;../models/schemes/english.js&quot;);
+var q2coll = require('../tools/utils.js').queryToCollectionQ,
+    handleHttpResults = require('../tools/utils.js').handleHttpResults;</code></pre>
+          <section id="loadFrame">
+            <h1>loadFrame</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">declaration</div><span>loadFrame</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>@param req can contaion id or name or q when id is number, name is string starting with capital letter, and q is json query  - using double quetes for internal strings</p> </div>
+          <pre><code class="language-javascript">var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
+    console.log(&quot;DEBUG: handling load-english-frame request&quot;);
+    var  engframeModel = Models.frameModel,
+        q = q2coll(query, 'frame.@ID frame.@name frame.lexUnit.@ID frame.lexUnit.@name'),
+        qOptions = options ? options : {limit: 50, sort: {'frame.@name' :1}};
+    //if (query.frameid) q[&quot;frame.@ID&quot;] = query.frameid;
+    if  (q[&quot;frame.@name&quot;]) q[&quot;frame.@name&quot;]=  {$regex : &quot;.*&quot;+query.framename+&quot;.*&quot;, $options: 'i'}; //runover the default -strict frame name check
+    //console.log(&quot;find query:&quot;,typeof(query),  query);
+    console.log(&quot;QUERY:&quot;,q)
+    engframeModel.find(q,proj,qOptions,cb);
+};
+
+exports.getFrame = function getFrame(req, res,cb){
+    console.log(&quot;DEBUG: handling get-english-frame request&quot;);
+    loadFrame(req.query,{},null,handleHttpResults(req,res))
+
+}
+
+exports.getFrameNames = function getFrameNames(req, res){
+    console.log(&quot;DEBUG: handling get-frame-names request&quot;);
+    var queryProj = {&quot;_id&quot;: 0,&quot;frame.@ID&quot;:1, &quot;frame.@name&quot;:1},
+        options = {sort: {'frame.@name': 1}};
+    //console.log('QUERY:',query)
+    loadFrame(req.query,queryProj,options,handleHttpResults(req,res))
+
+};</code></pre>
+          <section id="loadLuEng">
+            <h1>loadLuEng</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">declaration</div><span>loadLuEng</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{express.request}</td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>{express.response}</td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>this method returns single LU or collection of LUs according to the requested query:<br />if id is given  -the lu with the id will be returned<br />if name was given - a list of lus which thier name contains the give name will be returned.<br />if q was supplied - the result will be collection.find(JSON.parse(q))   (q implies query)</p>
+
+<p>if porjection (proj) was supllied -the query will return fields by this projection - otherwise all fields will be returned</p> </div>
+          <pre><code class="language-javascript">var loadLuEng = exports.loadLuEng = function loadLuEng (query, proj, options, cb) {
+    console.log(&quot;DEBUG: handling load english lu request&quot;);
+    var  engluModel = Models.luModel,
+        q = q2coll(query,  'lexUnit.@frameID lexUnit.@frame lexUnit.@ID lexUnit.@name'),
+        qOptions = options ? options : {'limit' : 50, sort: {'lexUnit.@name': 1}};
+    //var usersRec = new userModel();
+    //if (query.luid) q[ 'lexUnit.@ID']= query.luid;
+    //if (query.luname) q['lexUnit.@name'] = {$regex : &quot;.*&quot;+query.luname+&quot;.*&quot;, $options: 'i'};   //search all lus which contains the given name, 'i'=case insensitive
+
+    //projection check:
+    engluModel.find(q,proj, qOptions, cb)
+};
+
+
+exports.getLu = function getLu(req, res,cb){
+    console.log(&quot;DEBUG: handling get-lu-frame request&quot;);
+    loadLuEng(req.query,{},null,handleHttpResults(req,res))
+};
+
+
+var searchFrames = exports.searchFrames = function  searchFrames(query,projection, options, cb){
+    if (query.luid) query.luid = Number(query.luid)
+    var q = q2coll(query, 'frame.@ID frame.@name frame.lexUnit.@ID frame.lexUnit.@name');
+    var qProj ={&quot;_id&quot;:0,'frame.@name': &quot;$frame.@name&quot;, 'frame.@ID': '$frame.@ID'}</code></pre>
+          <div class="description"><p>f (query.lus=1) {//TODO: filter frames by LU doesn't show the lu?..<br />        qProj['frame.lexUnit.@name']=1<br />        qProj['frame.lexUnit.@ID']=1<br />    }</p> </div>
+          <pre><code class="language-javascript">Models.frameModel.aggregate(
+        {$match: q},//{frameid: Number('281') }},
+        {$project: qProj},
+        {$sort: {&quot;frame.@name&quot;: 1}},
+        cb)
+}
+
+exports.getSearchFrames = function (req, res){
+    searchFrames(req.query, {},{},handleHttpResults(req,res))
+}
+
+
+
+var searchLus = exports.searchLus = function  searchLus(query,projection, options, cb){
+    if (query.luid) query.luid = Number(query.luid)
+    //var q = q2coll(query, 'frameid framename luid luname');
+    var q = q2coll(query, 'lexUnit.@frameID lexUnit.@frame lexUnit.@ID lexUnit.@name');
+    Models.luModel.aggregate(
+        //{$project: {&quot;_id&quot;:0,framename: &quot;$lexUnit.@frame&quot;, frameid: '$lexUnit.@frameID', luname: '$lexUnit.@name', luid: '$lexUnit.@ID'}},
+        {$project: {&quot;_id&quot;:0,'lexUnit.@frame': &quot;$lexUnit.@frame&quot;, 'lexUnit.@frameID': '$lexUnit.@frameID', 'lexUnit.@name': '$lexUnit.@name', 'lexUnit.@ID': '$lexUnit.@ID'}},
+        {$match: q},//{frameid: Number('281') }},
+        {$sort: {&quot;luname&quot;: 1}},
+        cb)
+
+}
+
+exports.getSearchLus = function (req, res){
+    searchLus(req.query, {},{},handleHttpResults(req,res))
+}
+
+exports.getLuNames = function getLuNames1(req, res){
+    console.log(&quot;DEBUG: handling get-lu-names request&quot;);
+    var queryProj = {'lexUnit.@ID':1,'lexUnit.@name':1, 'lexUnit.@frame':1, 'lexUnit.@frameID':1, '_id':0},
+        options = {sort: {'lexUnit.@name': 1}};
+    //console.log('QUERY:',query)
+    loadLuEng(req.query,queryProj,options,handleHttpResults(req,res))
+
+};
+
+exports.getLuNames1 = function getLuNames(req, res){
+    Models.luModel.aggregate( {$sort: {&quot;lexUnit.@name&quot;: 1}},
+                              {$project: {&quot;_id&quot;:0,&quot;@name&quot;:1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1, 'lexUnit.@frame':1, 'lexUnit.@frameID':1}},
+        function(err,results){
+            res.send(results);
+        })
+};
+
+//TODO: sort the list before response</code></pre>
+          <section id="loadFrameNames">
+            <h1>loadFrameNames</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.loadFrameNames()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>returns names and ids of all frames, if lus=1 will return also list of related lus for each frame (under 'lexUnit=[]')</p> </div>
+          <pre><code class="language-javascript">exports.loadFrameNames = function loadFrameNames (req, res) {
+    console.log(&quot;DEBUG: handling load english frame-names request with req.query.params['lus']=&quot;, req.query.lus);
+    var  engframeModel = Models.frameModel;
+    //var  engframeModel = mongoose.model(frameCollectionName, frame, frameCollectionName);
+    var queryProj= {};
+    var query = {};
+    var limit = {sort:
+    {'frame.@name': 1}};
+    if  (req.query.all &amp;&amp; req.query.all==0 )   {
+        queryProj ={};
+        limit['limit'] =10;
+    }
+    //check if list of lus of the frame is needed
+    else if (req.query.lus &amp;&amp; req.query.lus == 1) queryProj = {&quot;frame.@ID&quot;:1, &quot;frame.@name&quot;:1, &quot;frame.lexUnit.@ID&quot;:1, &quot;_id&quot;:0};
+    else queryProj =  {'frame.@ID':1,'frame.@name':1};
+    engframeModel.find(query , queryProj,limit, function(err,response){
+        if (err) res.send(&quot;error with request: &quot;+err)
+        else if(!response || response.length==0)
+            res.send(&quot;couldn't find any frame names: &quot;+ response );
+
+        else{
+            console.log(&quot;found frame-names&quot;);
+            res.charset = 'utf-8';
+            res.send(response);
+            //res.jsonp(response);
+        }
+    });
+};
+
+
+
+
+//TODO: check where i am using this one if i am</code></pre>
+          <div class="description"><p>xports.loadFrameData = function loadFrameData (req, res) {<br />    console.log("handling load english frame-names request with req.query.params['lus']=", req.query.lus);<br />    var  engframeModel = mongoose.model(frameCollectionName, frame, frameCollectionName);<br />    var query= {};</p>
+
+<pre><code>if (req.query.lus == 1) {
+    query = {"frame.@ID":1, "frame.@name":1, "frame.lexUnit.@ID":1, "_id":0};
+}
+else query =  {'frame.@ID':1,'frame.@name':1,'_id':0};
+engframeModel.find({} , query,function(err,response){
+    if (err || !response){
+        res.send("error with request: "+ response );
+    }
+    else{
+        console.log("found frame-names");
+        res.send(response);
+    }
+});
+</code></pre>
+
+<p>};</p> </div>
+          <section id="loadAnnotations">
+            <h1>loadAnnotations</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">declaration</div><span>loadAnnotations</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>@param req the request should contaion luid=xxxx  for lu id number.</p> </div>
+          <pre><code class="language-javascript">var loadAnnotations = exports.loadAnnotations = function loadAnnotations (query, proj, options, cb) {
+    console.log(&quot;DEBUG: handling load english annotations request, quert: &quot;,query);
+    var  luModel = Models.luModel; //mongoose.model(luCollectionName, lu, luCollectionName);
+    var q= {};
+    var qProj =proj ? proj : {&quot;lexUnit.@ID&quot;:1, &quot;lexUnit.@name&quot;:1,&quot;lexUnit.@frame&quot;:1, &quot;_id&quot;:0, &quot;lexUnit.subCorpus&quot;:1 };
+    var qOptions =options? options : {&quot;limit&quot;:1};
+    if (query.luid) q = {&quot;lexUnit.@ID&quot;: query.luid};
+    if (query.luname) q = {&quot;lexUnit.@name&quot;: query.luname};
+    luModel.findOne(q , proj, options,cb);
+};
+
+exports.getAnnotations = function(req,res){
+    console.log(&quot;DEBUG: handling eng-getAnnotations request&quot;);
+    loadAnnotations(req.query, null, null, handleHttpResults(req,res));
+}</code></pre>
+          <section id="loadTranslations">
+            <h1>loadTranslations</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">declaration</div><span>loadTranslations</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>loads the translation for specific lexical unit, @see {'models/mongoDB/schemes.js'} for details of the response schema</p> </div>
+          <pre><code class="language-javascript">var loadTranslations = exports.loadTranslations= function loadTranslations (query, proj, options, cb) {
+    console.log(&quot;DEBUG: handling load translations request&quot;);
+    var q= q2coll(query,'frameID frameName luID name')
+    var qOptions= options ? options : {limit: 50};
+    //console.log(&quot;QUERY:&quot;,query)
+    //console.log(&quot;DEBUG: handling load translations request with req.query.params=&quot;, req.query);
+    var  TranslationModel = Models.translationModel;  // mongoose.model(translationsCollectionName, translation, translationsCollectionName);
+    TranslationModel.find(q , proj, qOptions,cb)
+};
+
+
+exports.getTranslations = function(req,res) {
+    console.log(&quot;DEBUG: handling get-translations request&quot;);
+    var proj = {};//{&quot;lexUnit.@ID&quot;:1, &quot;lexUnit.@name&quot;:1,&quot;lexUnit.@frame&quot;:1, &quot;_id&quot;:0, &quot;lexUnit.subCorpus&quot;:1 };
+    var options ={&quot;limit&quot;:100};
+    loadTranslations(req.query,proj,options, handleHttpResults(req,res))
+}</code></pre>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with <a href="https://github.com/FGRibreau/doxx">Doxx </a>created by <a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Doxx is sponsored by <a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr </a>and <a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="http://platform.twitter.com/widgets.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="http://leaverou.github.com/prefixfree/prefixfree.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-transition.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-dropdown.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-collapse.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-affix.js"></script>
+    <script>
+      /**
+       * Prism: Lightweight, robust, elegant syntax highlighting
+       * MIT license http://www.opensource.org/licenses/mit-license.php/
+       * @author Lea Verou http://lea.verou.me
+       */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data));l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r){return n.stringify(t.tokenize(e,r))},tokenize:function(e,n){var r=t.Token,i=[e],s=n.rest;if(s){for(var o in s)n[o]=s[o];delete n.rest}e:for(var o in n){if(!n.hasOwnProperty(o)||!n[o])continue;var u=n[o],a=u.inside,f=!!u.lookbehind||0;u=u.pattern||u;for(var l=0;l<i.length;l++){var c=i[l];if(i.length>e.length)break e;if(c instanceof r)continue;u.lastIndex=0;var h=u.exec(c);if(h){f&&(f=h[1].length);var p=h.index-1+f,h=h[0].slice(f),d=h.length,v=p+d,m=c.slice(0,p+1),g=c.slice(v+1),y=[l,1];m&&y.push(m);var b=new r(o,a?t.tokenize(h,a):h);y.push(b);g&&y.push(g);Array.prototype.splice.apply(i,y)}}}return i},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]"){for(var r=0;r<e.length;r++)e[r]=n.stringify(e[r]);return e.join("")}var i={type:e.type,content:n.stringify(e.content),tag:"span",classes:["token",e.type],attributes:{}};i.type=="comment"&&(i.attributes.spellcheck="true");t.hooks.run("wrap",i);var s="";for(var o in i.attributes)s+=o+'="'+(i.attributes[o]||"")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'" '+s+">"+i.content+"</"+i.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+      Prism.languages.markup={comment:/&lt;!--[\w\W]*?--(&gt;|&gt;)/g,prolog:/&lt;\?.+?\?&gt;/,doctype:/&lt;!DOCTYPE.+?&gt;/,cdata:/&lt;!\[CDATA\[[\w\W]+?]]&gt;/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?&gt;/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|&gt;|"/g}},punctuation:/\/?&gt;/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+      Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:/@[\w-]+?(\s+[^;{]+)?(?=\s*{|\s*;)/gi,url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\}]*(?=\s*\{)/g,property:/(\b|\B)[a-z-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+      Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,number:/\b-?(0x)?\d*\.?[\da-f]+\b/g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+      Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b(-?(0x)?\d*\.?[\da-f]+|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+      
+    </script>
+    <!-- App js-->
+    <script>
+      $(function(){
+        var $window = $(window);
+        $('.scrollspy .nav').affix({
+          offset: {
+            top: function () { return $window.width() <= 980 ? 480 : 400 }
+          , bottom: 50
+          }
+        });
+      })
+    </script>
+  </body>
+</html>

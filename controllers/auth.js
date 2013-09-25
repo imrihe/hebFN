@@ -47,7 +47,7 @@ exports.deserializeUser =function(username, done) {
 
 
 //these function is in use everytime a user needs to be authenticated   -called automatically
-exports.localStrategyFunc=function(username, password, done) {
+/*exports.localStrategyFunc=function(username, password, done) {
     process.nextTick(function () {
     	//console.log("DEBUG: next tick");
     	console.log("DEBUG: searching for user: ", username);
@@ -63,9 +63,38 @@ exports.localStrategyFunc=function(username, password, done) {
     		return done(null, user);
     	});
     });
-  };
+  };*/
 
 
+exports.localStrategyFunc=function(username, password, done) {
+    process.nextTick(function () {
+        //console.log("DEBUG: next tick");
+        console.log("DEBUG: searching for user: ", username);
+        findUser(username, function (err, user){
+            //console.log("err !user user.passwor, password:", err, user, user.password, password );
+            if (err) { return done(err); }
+            if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+            //if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+
+            user.validPassword(password, function (err, isMatch){
+                console.log("running the valid password functin");
+                if (err) return done(err);
+                if(isMatch) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, { message: 'Invalid password' });
+                }
+
+                //sreturn done(err, user, { message: msg });
+            });
+            //if (! user.validPassword(password)) { return  }
+            //console.log("DEBUG: done next tick");
+            //console.log("DEBUG: found user! ", user);
+
+            //return done(null, user);
+        });
+    });
+};
 
 
 //middleware methode to ensure that the current user is authorised

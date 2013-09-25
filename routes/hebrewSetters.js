@@ -7,9 +7,14 @@ module.exports = function(app) {
     var hebControl = require('../controllers/hebrew.js');
     var externalTools =require('../controllers/externalTools.js');
 
-    app.get('/heb/addlutoframe', hebControl.saveLUToFrame);  //get the form for submission
-    app.post('/heb/addlutoframe',auth.ensureAuthenticated, hebControl.addLUToFrame);  //process the query data, submit to DB and return the results
-    app.post('/heb/fuck', function(req,res){console.log("hahaha");  res.send("fuck you!")});
+    app.get('/heb/addlutoframe', hebControl.renderAddLUToFrame);  //get the form for submission
+    //app.post('/heb/addlutoframe',auth.ensureAuthenticated, hebControl.addLUToFrame);  //process the query data, submit to DB and return the results
+    /**the post should contatin:
+     * frameid, luname and lexUnit.
+     * the lexUnit should be a valid lu-schema type JSON
+     *
+     */
+    app.post('/heb/addlutoframe',auth.ensureAuthenticated, hebControl.postAddLuToFrame);
 
     //.app.post('/heb/addsentence', function (req,res) {console.log("hahaha"); res.send('good!');});
     app.get('/heb/addsentence',/*auth.ensureAuthenticated,*/ hebControl.addSentenceToLUForm);  //get the form for submission
@@ -25,5 +30,24 @@ module.exports = function(app) {
     app.post( '/heb/addSentencesToLU', hebControl.addSentencesToLu);
     app.get('/heb/', function(req,res){ res.redirect(hp)});
 
-};
+    app.get('/heb/createannotation', function(req,res){res.render('createAnnotation.jade')});
+    app.post('/heb/createannotation', function(req,res) {
+        hebControl.addAnnotation(req,res, function(err, result){
+            if (err) res.send("ERROR! "+ err);
+            else res.send(result);
+        })
+    });
+
+    app.get('/heb/setdecision', function(req,res) {res.render('setDecision.jade')});
+    app.post('/heb/setdecision', function(req,res) {
+        hebControl.setDecision(req,res,function(err,result){
+            if (err) return res.send(new Error("problem setting decision"));
+            res.charset='utf-8';
+            res.send(result);
+        })});
+
+
+
+
+};  //main!
 

@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>hebFNServer</title>
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/docs.css">
+    <style>
+      body > .navbar .brand {
+        float:left;
+        text-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px, rgba(255, 255, 255, 0.4) 0px 0px 30px;
+        color: white;
+        margin-left:0px;
+        font-weight:normal;
+      }
+      
+      .bs-docs-sidenav i{
+        width: 8px;
+        height: 8px;
+        padding: 0px;
+        margin: 0px;
+        display: inline-block;
+        margin-right:0.5em;
+      }
+      
+      .bs-docs-sidenav > li:first-child > a {
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+      }
+      
+      code[class*="language-"],pre[class*="language-"]{color:black;text-shadow:0 1px white;font-family:Consolas,Monaco,'Andale Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*="language-"],pre[class*="language-"]{background:#f5f2f0}:not(pre)>code[class*="language-"]{padding:.1em;border-radius:.3em}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:slategray}.token.punctuation{color:#999}.namespace{opacity:.7}.token.property,.token.tag,.token.boolean,.token.number{color:#905}.token.selector,.token.attr-name,.token.string{color:#690}.token.operator,.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.regex,.token.important{color:#e90}.token.important{font-weight:bold}.token.entity{cursor:help}
+      div.description {margin: 14px 0; padding-top: 14px; border-bottom:1px solid #eee; }
+      .tags {}
+      .ctx-type {
+        display:inline-block;
+        margin-right:0.5em;
+        //- float:right; margin-top:8px
+      }
+      
+      footer iframe{vertical-align:middle;}
+      
+    </style>
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container"><a class="brand">Doxx</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right sponsored"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header id="overview" class="jumbotron subhead">
+      <div class="container">
+        <h1>hebFNServer</h1>
+        <p class="lead"></p>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li class=""><a href="../index.html">Main</a></li>
+            <li class=""><a href="../app.js.html">app.js</a></li>
+            <li class=""><a href="../conf.js.html">conf.js</a></li>
+            <li class=""><a href="../controllers/auth.js.html">controllers/auth.js</a></li>
+            <li class=""><a href="../controllers/english.js.html">controllers/english.js</a></li>
+            <li class=""><a href="../controllers/externalTools.js.html">controllers/externalTools.js</a></li>
+            <li class=""><a href="../controllers/general.js.html">controllers/general.js</a></li>
+            <li class=""><a href="../controllers/hebrew.js.html">controllers/hebrew.js</a></li>
+            <li class=""><a href="../controllers/test.js.html">controllers/test.js</a></li>
+            <li class=""><a href="../controllers/users.js.html">controllers/users.js</a></li>
+            <li class=""><a href="../models/mongoDB/dbConnection.js.html">models/mongoDB/dbConnection.js</a></li>
+            <li class=""><a href="../models/schemes/english.js.html">models/schemes/english.js</a></li>
+            <li class=""><a href="../models/schemes/generalTypes.js.html">models/schemes/generalTypes.js</a></li>
+            <li class=""><a href="../models/schemes/hebrew.js.html">models/schemes/hebrew.js</a></li>
+            <li class=""><a href="../models/schemes/locals.js.html">models/schemes/locals.js</a></li>
+            <li class=""><a href="../models/schemes/test.js.html">models/schemes/test.js</a></li>
+            <li class=""><a href="../models/schemes/user.js.html">models/schemes/user.js</a></li>
+            <li class=""><a href="../routes/auth.js.html">routes/auth.js</a></li>
+            <li class=""><a href="../routes/english.js.html">routes/english.js</a></li>
+            <li class=""><a href="../routes/externalTools.js.html">routes/externalTools.js</a></li>
+            <li class=""><a href="../routes/general.js.html">routes/general.js</a></li>
+            <li class=""><a href="../routes/hebrewGetters.js.html">routes/hebrewGetters.js</a></li>
+            <li class=""><a href="../routes/hebrewSetters.js.html">routes/hebrewSetters.js</a></li>
+            <li class=""><a href="../routes/index.js.html">routes/index.js</a></li>
+            <li class=""><a href="../routes/users.js.html">routes/users.js</a></li>
+            <li class=""><a href="../tools/linearize.js.html">tools/linearize.js</a></li>
+            <li class=""><a href="../tools/mailer.js.html">tools/mailer.js</a></li>
+            <li class=""><a href="../tools/population.js.html">tools/population.js</a></li>
+            <li class=""><a href="../tools/utils.js.html">tools/utils.js</a></li>
+            <li class=""><a href="../trash/BUapp.js.html">trash/BUapp.js</a></li>
+            <li class="active"><a href="../trash/hebrew.js.html">trash/hebrew.js</a></li>
+            <li class=""><a href="../trash/index.js.html">trash/index.js</a></li>
+            <li class=""><a href="../trash/index_old.js.html">trash/index_old.js</a></li>
+            <li class=""><a href="../trash/mongoDB/englishModel.js.html">trash/mongoDB/englishModel.js</a></li>
+            <li class=""><a href="../trash/mongoDB/general.js.html">trash/mongoDB/general.js</a></li>
+            <li class=""><a href="../trash/mongoDB/hebrewModel.js.html">trash/mongoDB/hebrewModel.js</a></li>
+            <li class=""><a href="../trash/mongoDB/locals.js.html">trash/mongoDB/locals.js</a></li>
+            <li class=""><a href="../trash/mongoDB/pull.js.html">trash/mongoDB/pull.js</a></li>
+            <li class=""><a href="../trash/mongoDB/push.js.html">trash/mongoDB/push.js</a></li>
+            <li class=""><a href="../trash/mongoDB/schemes_old.js.html">trash/mongoDB/schemes_old.js</a></li>
+            <li class=""><a href="../trash/mongoDB/users.js.html">trash/mongoDB/users.js</a></li>
+            <li class=""><a href="../trash/mongoDB/users_old.js.html">trash/mongoDB/users_old.js</a></li>
+            <li class=""><a href="../trash/routes_old.js.html">trash/routes_old.js</a></li>
+            <li class=""><a href="../trash/routes_old2.js.html">trash/routes_old2.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#loadFrame1"><i class="alert alert-info"></i>loadFrame1</a>
+              </li>
+              <li><a href="#orderFes"><i class="alert alert-info"></i>orderFes</a>
+              </li>
+              <li><a href="#loadFrameData"><i class="alert alert-info"></i>loadFrameData</a>
+              </li>
+              <li><a href="#loadLuNames"><i class="alert alert-info"></i>loadLuNames</a>
+              </li>
+              <li><a href="#loadFrameNames2"><i class="alert alert-info"></i>loadFrameNames2</a>
+              </li>
+              <li><a href="#omitEmpties"><i class="alert alert-info"></i>omitEmpties</a>
+              </li>
+              <li><a href="#addLUToFrame"><i class="alert alert-info"></i>addLUToFrame</a>
+              </li>
+              <li><a href="#saveLUToFrame"><i class="alert alert-info"></i>saveLUToFrame</a>
+              </li>
+              <li><a href="#addSentenceToLUForm"><i class="alert alert-info"></i>addSentenceToLUForm</a>
+              </li>
+              <li><a href="#addSentenceToLU"><i class="alert alert-success"></i>addSentenceToLU</a>
+              </li>
+              <li><a href="#addSentenceToDB"><i class="alert alert-info"></i>addSentenceToDB</a>
+              </li>
+              <li><a href="#listSentences"><i class="alert alert-info"></i>listSentences</a>
+              </li>
+              <li><a href="#luSentence"><i class="alert alert-info"></i>luSentence</a>
+              </li>
+              <li><a href="#isInDB"><i class="alert alert-info"></i>isInDB</a>
+              </li>
+              <li><a href="#createSentenceJson"><i class="alert alert-info"></i>createSentenceJson</a>
+              </li>
+              <li><a href="#processBadSentence"><i class="alert alert-info"></i>processBadSentence</a>
+              </li>
+              <li><a href="#addNewSentenceToLU"><i class="alert alert-info"></i>addNewSentenceToLU</a>
+              </li>
+              <li><a href="#addExistSentenceToLU"><i class="alert alert-info"></i>addExistSentenceToLU</a>
+              </li>
+              <li><a href="#processSentence"><i class="alert alert-info"></i>processSentence</a>
+              </li>
+              <li><a href="#addSentencesToLu"><i class="alert alert-info"></i>addSentencesToLu</a>
+              </li>
+              <li><a href="#addAnnotation"><i class="alert alert-info"></i>addAnnotation</a>
+              </li>
+              <li><a href="#luAnnotationsData"><i class="alert alert-info"></i>luAnnotationsData</a>
+              </li>
+              <li><a href="#setDecision"><i class="alert alert-info"></i>setDecision</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="span9">
+          <div class="description"><p>hebrew contorlller:<br />this page contains all the server and DB logic related to hebrew FN data.<br />the methods defined in this page are being used by the routes module and are depended on the models/schemes</p> </div>
+          <pre><code class="language-javascript">printModule('controllers/hebrew');
+
+var Models = require(&quot;../models/schemes/hebrew.js&quot;);
+var userControl = require('../controllers/users.js');
+var objID = require('mongoose').Types.ObjectId;
+var q2coll = require('../tools/utils.js').queryToCollectionQ,
+    handleHttpResults = require('../tools/utils.js').handleHttpResults,
+    keys = require('../tools/utils.js').keys,
+    utils =require('../tools/utils.js');
+
+
+
+var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
+    console.log(&quot;DEBUG: handling load-hebrew-frame request&quot;);
+    var  engframeModel = Models.frameModel,
+        q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name'),
+        qOptions = options ? options : {limit: 50, sort: {'@name' :1}};
+    //if (query.frameid) q[&quot;frame.@ID&quot;] = query.frameid;
+    //if  (q[&quot;@name&quot;]) q[&quot;@name&quot;]=  {$regex : &quot;.*&quot;+query.framename+&quot;.*&quot;, $options: 'i'}; //runover the default -strict frame name check
+    //console.log(&quot;find query:&quot;,typeof(query),  query);
+    console.log(&quot;QUERY:&quot;,q)
+    Models.hebFrameModel.find(q,proj,qOptions,cb);
+};
+
+exports.getFrame = function getFrame(req, res,cb){
+    console.log(&quot;DEBUG: handling get-hebrew-frame request&quot;);
+    loadFrame(req.query,{},null,handleHttpResults(req,res))
+
+}
+
+exports.getFrameNames1 = function getFrameNames1(req, res){
+    console.log(&quot;DEBUG: handling get-frame-names request&quot;);
+    var queryProj = {&quot;_id&quot;: 0,&quot;@ID&quot;:1, &quot;@name&quot;:1},
+        options = {sort: {'@name': 1}};
+    //console.log('QUERY:',query)
+    loadFrame(req.query,queryProj,options,handleHttpResults(req,res))
+
+};</code></pre>
+          <section id="loadFrame1">
+            <h1>loadFrame1</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>loadFrame1()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>cb</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>@param req can contain id or name or q when id is number, name is string starting with capital letter, and q is json query  - using double quetes for internal strings</p> </div>
+          <pre><code class="language-javascript">function loadFrame1 (query, proj,options, cb) {
+    //console.log(req['url'], req.query);
+    console.log(&quot;DEBUG: handling load-hebrew-frame request&quot;);
+    var  frameModel =Models.hebFrameModel,// mongoose.model(framesCollectionName, frame, framesCollectionName),
+        q = {},
+        qOptions =options? options : {limit: 50, sort: {'@name': 1}};
+    if (query.frameid) q[&quot;@ID&quot;] =  query.frameid;
+    if (query.framename) q[&quot;@name&quot;] =  {$regex : &quot;.*&quot;+query.framename+&quot;.*&quot;, $options: 'i'}; //i for 'case insensitivew'
+    console.log(&quot;find query=before:&quot;, query);
+    console.log(&quot;find query:&quot;, q);
+
+    frameModel.find(q,proj,qOptions,function(err,response){
+        if (err || !response){
+            console.log('DEBUG: err result', err);
+        }
+        else{
+            //console.log('NO ERR result',frameRes);
+            console.log(&quot;DEBUG: found hebrew frame: &quot;, response['@ID'] );
+        }
+        console.log('calling call back', cb)
+        cb(err, response);
+    });
+
+}</code></pre>
+          <section id="orderFes">
+            <h1>orderFes</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>orderFes()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>fes</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>return object of sorted FES from given list of FEs:<br />{core: [{name: thename, ID: the-@ID, def: 'the definition'}], nonCore: [{name: thename, ID: the-@ID, def: 'the definition'}] ]</p> </div>
+          <pre><code class="language-javascript">function orderFes(fes){
+    var core=[];
+    var nonCore=[];
+    for (obj in fes){ //&quot;@coreType&quot;: &quot;Core&quot;,
+        //console.log(obj)
+        if (fes[obj]['@coreType'] =='Core') core.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
+        else  nonCore.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
+    }
+    //console.log(&quot;CORE&quot;,core);
+    //console.log(&quot;nonCore&quot;,nonCore);
+    return {core: core, nonCore: nonCore}
+
+}
+var async = require('async');
+var engControl = require(&quot;./english.js&quot;);</code></pre>
+          <section id="loadFrameData">
+            <h1>loadFrameData</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.loadFrameData()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>cb</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>use this method in order to get all the needed data for a frame:<br />coreFE, non-core-FEs, english lus, hebrew lus<br />TODO: add retrival of the annotated sentences -hebrew and english as well<br />returned object schema:<br />{hebData: "contains hebrew-frame object (hebFrameSchema)", engData: {frame: "contains english-frame object (engllish FrameSchema)", fes:  {core: [{name: thename, ID: the-@ID, def: 'the definition'}], nonCore: [{name: thename, ID: the-@ID, def: 'the definition'}] ]}</p> </div>
+          <pre><code class="language-javascript">exports.loadFrameData = function loadFrameData(req,res,cb){
+    delete req.query['luid']
+    delete req.query['luname']
+    console.log(&quot;QUERY AFTER DELETE:&quot;, req.query)
+    if (!req.query.frameid &amp;&amp; !req.query.framename) {res.send(400)}
+    async.parallel({
+            //get the hebrew frame data - with the hebrew lus and all the FEs
+            hebData: function(cb){
+                loadFrame(req.query, {}, null, function(err, results){
+                    if (results &amp;&amp; results.length&gt;0) cb(err, results[0]);
+                    else cb(206, results);})
+            },
+            //get the english lexical units list
+            engData: function(cb){
+                engControl.loadFrame(req.query,{},null, function(err,results){
+                    if  (results &amp;&amp; results.length &gt;0){
+                        var newResults ={
+                            fes:  orderFes(results[0].frame.FE.toObject()),
+                            frame: results[0].frame
+                        };
+                        cb(err,newResults)
+                    }
+                    else cb(206, results)
+                });</code></pre>
+          <div class="description"><p>odels.hebFrameModel.findOne({"@ID":150}, function(err,resultObj){<br />                 cb(err, resultObj);<br />                 });</p> </div>
+          <pre><code class="language-javascript">},
+            translations: function(cb){
+                engControl.loadTranslations(req.query,{},null, function(err,results){
+                    //console.log(&quot;TRANSALTIOSN RES:&quot;,results )
+                    if  (results &amp;&amp; results.length&gt;0)  cb(err,results)
+                    else cb(err, results)
+                })
+            }
+        },
+        function(err, results) {
+            res.charset = 'utf-8'
+            if (err) res.send(err);
+            else res.send(results);
+            //console.log(results)// results is now equals to: {one: 1, two: 2}
+        });
+};</code></pre>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>this method returns single LU or collection of LUs according to the requested query:<br />if luid is given  -the lu with the id will be returned<br />if framid is given  the lus of the frame will be returned<br />if name was given  - a list of frames and the relevant lus will be returned<br />if name was given - a list of lus which thier name contains the give name will be returned.</p>
+
+<p>if porjection (proj) was supllied -the query will return fields by this projection - otherwise all fields will be returned</p> </div>
+          <pre><code class="language-javascript">//TODO: need to index the luID and the lu.@name
+exports.loadLu1 = function loadLu (req, res) {
+    console.log(&quot;DEBUG: handling load-hebrew-lu request&quot;);
+     var   query = {},
+        queryProj = {&quot;@ID&quot;:1, &quot;@name&quot;:1, &quot;lexUnit&quot;:1},
+        limit = {'limit' : 50};
+    //var usersRec = new userModel();
+
+    //build the query by the parameters (non is obligatory)
+    if (req.query.luid &amp;&amp; utils.validID(req.query.luid)) query[ 'lexUnit.@ID']= (req.query.luid);
+    if (req.query.frameid) query[ '@ID']= req.query.frameid;
+    if (req.query.luname) query['lexUnit.@name'] = {$regex : &quot;.*&quot;+req.query.luname+&quot;.*&quot;, $options: 'i'};
+    console.log(&quot;BUG BUG&quot;);
+    Models.hebFrameModel.find(query,queryProj, limit, function(err,response){
+        if (err){
+            res.send(&quot;error in find lu: &quot;+ err);
+        }
+        else if (!response || response.length==0) res.send(&quot;wanted lu wasn't found!&quot;);
+        else{
+            //console.log(&quot;found result:&quot;, query, '\n' ,response);
+            res.charset = 'utf-8';
+            res.send(response);
+        }
+    });
+};
+
+
+var loadLu = exports.loadLu = function loadLu (query, proj, options, cb) {
+    console.log(&quot;DEBUG: handling load hebrew lu request&quot;);
+    var resMode ='';
+    var q = q2coll(query,  '@ID @name lexUnit.@ID lexUnit.@name'),
+        qOptions = options ? options : {'limit' : 50, sort: {'lexUnit.@name': 1}};
+    console.log(&quot;Q&quot;,q)
+    if (query.luid ){ //return single results - use element-match
+        proj['lexUnit'] =  { '$elemMatch': { '@ID': objID(query.luid)}}
+    }
+    if (query.luname ){ //return single results - use element-match
+        proj['lexUnit'] =  { '$elemMatch': { '@name': query.luname}}
+        //q['lexUnit.@name.$']=1;
+        resMode = 'complex';  //TODO: HERE HERE HERE
+    }
+
+    //var usersRec = new userModel();
+    //if (query.luid) q[ 'lexUnit.@ID']= query.luid;
+    //if (query.luname) q['lexUnit.@name'] = {$regex : &quot;.*&quot;+query.luname+&quot;.*&quot;, $options: 'i'};   //search all lus which contains the given name, 'i'=case insensitive
+    q['lexUnit'] = {'$exists':true};
+    //projection check:
+    console.log(q,'\n', proj);
+    Models.hebFrameModel.find(q,proj, qOptions, cb)
+};
+//aggregate( { $unwind : &quot;$lexUnit&quot; },{$sort: {&quot;lexUnit.@name&quot;: 1}}, {$project: {&quot;@name&quot;:1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1}} )
+
+exports.getLu = function getLu(req, res){
+    console.log(&quot;DEBUG: handling hebrew get-lu-frame request&quot;);
+    loadLu(req.query,{&quot;@ID&quot;:1, '@name':1, 'lexUnit':1},null,handleHttpResults(req,res))
+};
+
+var searchlus = function searchlus(query,proj, options, cb){
+    if (query.luid) query.luid = objID(query.luid); //cast String to objectID type
+    var q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name'); //build the mongo query
+    Models.hebFrameModel.aggregate(
+        {$unwind : &quot;$lexUnit&quot; },
+        {$match: q},//{frameid: Number('281') }},
+        {$project: {&quot;_id&quot;:0,&quot;@name&quot;:1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1,'lexUnit.@POS':1}},
+        //{$project: {&quot;_id&quot;:0,framename: &quot;$lexUnit.@frame&quot;, frameid: '$lexUnit.@frameID', luname: '$lexUnit.@name', luid: '$lexUnit.@ID'}},
+        {$sort: {&quot;lexUnit.@name&quot;: 1}},
+
+        cb)
+}
+
+exports.getSearchLus = function(req,res){
+    console.log(&quot;DEBUG: handling hebrew getSearchLus request&quot;);
+    //throw new Error(&quot;asd&quot;);
+    searchlus(req.query, {}, null, handleHttpResults(req,res))
+}
+
+exports.getLuNames = function getLuNames(req, res){
+    Models.hebFrameModel.aggregate(
+        { $unwind : &quot;$lexUnit&quot; },
+        {$sort: {&quot;lexUnit.@name&quot;: 1}},
+        {$project: {&quot;_id&quot;:0,&quot;@name&quot;:1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1}},
+    function(err,results){
+        res.send(results);
+    })
+};
+
+exports.getFrameNames = function getFrameNames(req, res){
+    Models.hebFrameModel.aggregate({$sort: {&quot;@name&quot;: 1}}, {$project: {&quot;_id&quot;:0,&quot;@name&quot;:1, '@ID':1}},
+        function(err,results){
+            res.send(results);
+        })
+}
+
+
+
+
+exports.getLuNames1 = function getLuNames1(req, res){
+    console.log(&quot;DEBUG: handling get-lu-names request&quot;);
+    var queryProj = {'@ID':1, '@name':1,'lexUnit.@ID':1,'lexUnit.@name':1},
+        options = {sort: {'lexUnit.@name': 1}};
+    //console.log('QUERY:',query)
+    //loadLu(req.query,queryProj,options,handleHttpResults(req,res))
+    loadLu(req.query,queryProj,options,function(err,results){
+        //pick the names from each frame - and for each one of the frames create new object {frameID, luID, luName
+        var lus = []                              //TODO: do this as call back if possible
+        var count=0;
+        for (frame in results){
+            var fcount =0;
+            console.log('THE FRAME:', typeof(results[frame]['lexUnit'].length), results[frame]['lexUnit'].length)
+            var flus = (results[frame]['lexUnit']).toObject();
+
+            for (lu in flus){
+                console.log('number of lus in frame:' ,frame, 'lu:',lu, 'lus:',flus.length)
+                count = count+1;
+                fcount= fcount+1;
+                //console.log('THE LUS:', results[frame]['lexUnit'])
+                lus.push({frameID: results[frame]['@ID'], luID: flus[lu]['@ID'], luName: flus[lu]['@name']});
+            }
+            console.log('THE FRAME count:', fcount)
+        }
+        //console.log(&quot;results: &quot;, count, '\n',lus)
+        handleHttpResults(req, res)(err, lus);
+        });
+
+
+};
+
+
+var searchFrames = exports.searchFrames = function  searchFrames(query,projection, options, cb){
+    var q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name');
+    Models.hebFrameModel.aggregate(
+        {$match: q},//{frameid: Number('281') }},
+        {$project: {&quot;_id&quot;:0,'@name': &quot;$@name&quot;, '@ID': '$@ID'}},
+        {$sort: {&quot;@name&quot;: 1}},
+        cb)
+    }
+
+exports.getSearchFrames = function (req, res){
+    console.log(&quot;DEBUG: handle getSearchFrames request&quot;)
+    searchFrames(req.query, {},{},handleHttpResults(req,res))
+}</code></pre>
+          <section id="loadLuNames">
+            <h1>loadLuNames</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.loadLuNames()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>model method for luNames request<br /> TODO: build this</p> </div>
+          <pre><code class="language-javascript">exports.loadLuNames = function loadLuNames (req, res) {
+    console.log(&quot;DEBUG: handling load hebrew lexical units names request&quot;);
+    var  frameModel = Models.hebFrameModel; //mongoose.model(framesCollectionName, frame,framesCollectionName );
+    var queryProj = {'@ID':1,'lexUnit.@name':1, 'lexUnit.@ID':1};
+    var query = {&quot;lexUnit.@ID&quot;: {$exists: true}};
+    var limit = {};
+    //check
+    frameModel.find(query , queryProj,limit, function(err,response){
+        if (err || !response){
+            res.send(&quot;error with request: &quot;+ err || response );
+        }
+        else{
+            console.log(&quot;found lu-names&quot;);
+            res.charset = 'utf-8';
+            res.send(response);
+        }
+    });
+};
+
+
+
+//TODO: sort the list before response</code></pre>
+          <section id="loadFrameNames2">
+            <h1>loadFrameNames2</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>loadFrameNames2()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>returns names and ids of all frames, if lus=1 will return also list of related lus for each frame (under 'lexUnit=[]')</p> </div>
+          <pre><code class="language-javascript">function loadFrameNames2 (req, res) {
+    console.log(&quot;DEBUG: handling load hebrew frame-names request with req.query.params=&quot;, req.query);
+    var  frameModel = Models.hebFrameModel;  // mongoose.model('Frame', frame, 'frame');
+    var queryProj= {};
+    var query = {};
+    var limit = {};
+    if  (req.query.all &amp;&amp; req.query.all==0 )   {
+        queryProj ={};
+        limit = {'limit':10};
+    }
+    //check if list of lus of the frame is needed
+    else if (req.query.lus &amp;&amp; req.query.lus == 1) queryProj = {_id: 0,&quot;@ID&quot;:1, &quot;@name&quot;:1, &quot;lexUnit.@name&quot;:1 ,&quot;lexUnit.@ID&quot;:1};
+    else queryProj =  '-_id @ID @name'//{'@ID':1,'@name':1,'_id':0} ;
+
+    console.log('DEBUG:',query,'\n', queryProj)
+    frameModel.find(query , queryProj,limit, function(err,response){
+        if (err) res.send(&quot;error with request: &quot;+err)
+        else if(!response || response.length==0)
+            res.send(&quot;couldn't find any frame names: &quot;+ response );
+
+        else{
+            console.log(&quot;found frame-names&quot;);
+            res.charset = 'utf-8';
+            res.send(response);
+        }
+    });
+};
+//exports.loadFrameNames = loadFrameNames2;</code></pre>
+          <section id="omitEmpties">
+            <h1>omitEmpties</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>omitEmpties()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-</td>
+                <td>obj</td>
+                <td>to delete the fields from</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>the function recieves object and removes all the empty fields or &lt;''>[empty string] fields</p> </div>
+          <pre><code class="language-javascript">function omitEmpties(obj){
+    var objKeys = utils.keys(obj);
+    var proj = {};
+    for (i in objKeys){
+        if (!obj[objKeys[i]] || obj[objKeys[i]] == '') {
+            //obj[objKeys[i]] = undefined;
+            delete(obj[objKeys[i]]) ;
+        }
+    }
+    return obj;
+}</code></pre>
+          <section id="addLUToFrame">
+            <h1>addLUToFrame</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.addLUToFrame()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>@param req</p> </div>
+          <pre><code class="language-javascript">exports.addLUToFrame = function addLUToFrame (req, res) {
+    console.log(&quot;DEBUG: handling lu to frame POST request&quot;);
+
+    var resBody = req.body;
+    var frameId = resBody['frameid'];
+    if (!frameId) res.send(&quot;please try again - you must specify frame id to add a lexical-unit&quot;);
+    else {
+        var  frameModel =Models.hebFrameModel;  //mongoose.model(framesCollectionName, frame, framesCollectionName);
+        frameModel.count({'@ID': frameId}, function(err, returnedObj){
+                console.log(&quot;calling function&quot;);
+                if (err) {
+                    console.log(&quot;err in data base connection&quot;);
+                    return res.send(&quot;data base connection error&quot;);
+                }
+                else if (returnedObj ==0) {
+                    //console.log(&quot;returnedObj \&lt;\= 0&quot;, returnedObj);
+                    res.send(404, &quot;the wanted frame does not exist&quot;);
+                }
+                else {
+                    console.log(&quot;good job&quot;, returnedObj);
+                    res.charset = 'utf-8'; //in
+                    var lu;
+                    var luID = objID();
+
+                    if (resBody['fulllu'] == 'on'){
+                        lu  = JSON.parse(resBody['lexUnit']);
+                        console.log(&quot;using full lu:&quot;, lu);
+                    }
+                    else{
+                        delete(resBody['frameid']);
+                        delete(resBody['lexUnit']);
+
+                        lu = omitEmpties(resBody); //TODO: remove from here to client side - remove empty fields
+                        //lu = resBody;
+                        lu['@ID'] = luID;
+
+                        console.log(&quot;using parameters&quot;);
+
+                    }
+
+                    //set automatic fields:
+                    lu['@cDate'] = new Date();
+                    lu['@ID'] = luID;
+                    if (req.user &amp;&amp; req.user.username) lu['@cBy'] = req.user.username;
+                    else lu['@cBy'] = 'unknown';
+                    console.log(&quot;setting LU:&quot;, lu);
+                    frameModel.findOneAndUpdate({&quot;@ID&quot;: frameId}, {$push: {&quot;lexUnit&quot;:lu}}, function(err, returnedObj) {
+                        if (err) return res.send(&quot;contact addMsg error: &quot; + err);
+                        //console.log('the results object is: ', returnedObj['lexUnit']);
+                        res.send(&quot;document was saved -lexUnit id is: &quot; + luID);
+                    });
+                    //return res.send(lu);
+
+                }//else
+            }//function
+        );
+
+    }
+};</code></pre>
+          <section id="saveLUToFrame">
+            <h1>saveLUToFrame</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.saveLUToFrame()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>step 2 in the process - from generation<br />generates a form to add a new lexical unit to a frame</p> </div>
+          <pre><code class="language-javascript">exports.saveLUToFrame = function (req,res){
+    var pop = require('../tools/population.js');
+    console.log(&quot;DEBUG: add lu to frame GET request - loading form&quot;);
+    //var collectionNames = require('../controllers/general.js').collectionNames;
+//    /console.log(&quot;tree&quot;,Models.hebFrameLUSchema);
+    var fieldNames =utils.keys(Models.hebFrameLUSchema.tree);// ['@ID', &quot;@name&quot;]
+    var types = utils.values(Models.hebFrameLUSchema.tree);//[&quot;text&quot;, &quot;text&quot;]
+    var fields = [];
+    for (var i =0 ; i&lt;fieldNames.length; i++){
+        fields.push({'name': fieldNames[i], 'type':types[i] });
+    }
+    res.render('addLUToFrame.jade', {&quot;fields&quot;: fields, 'exm':pop.hebLUexample }); //exm - will be inserted as exampe for input data
+};</code></pre>
+          <section id="addSentenceToLUForm">
+            <h1>addSentenceToLUForm</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.addSentenceToLUForm()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>step 2 in the process - form generation<br />the req body contains the sentence details:<br />target frame ID<br />target LU ID<br />sentence JSON! after yoav and meni!<br />target word token ID</p> </div>
+          <pre><code class="language-javascript">exports.addSentenceToLUForm = function (req,res, obj){
+    console.log(&quot;DEBUG: add sentence to lu GET request - loading form&quot;);
+    var obj;
+    //if (req.isAjax) return = externalTools.getSE(req, res, hebControl.addSentenceToLUForm);
+    //var collectionNames = require('../controllers/general.js').collectionNames;
+    //console.log(&quot;tree&quot;,Models.hebFrameLUSchema);
+    var sentId = req['query']['sentenceid'];
+    var sentence = req['query']['sentence'];
+
+    var fieldNames =utils.keys(Models.hebFrameLUSchema.tree);// ['@ID', &quot;@name&quot;]
+    var types = utils.values(Models.hebFrameLUSchema.tree);//[&quot;text&quot;, &quot;text&quot;]
+    var fields = [];
+    for (var i =0 ; i&lt;fieldNames.length; i++){
+        fields.push({'name': fieldNames[i], 'type':types[i] });
+    }
+    //console.log(&quot;fields\n&quot;,fields );
+    console.log('sentence id: ', sentId);
+    //console.log(&quot;the ajax is:&quot;,req['resJson']);
+    res.render('addSentenceToLU.jade', {'sentJson': req['resJson'],'sentence' : sentence, 'sentenceid': sentId});
+    console.log(&quot;the ajax is:&quot;,req['resJson']);
+};
+
+
+
+function valid31Format(candidate){return true;} //TODO!!! - complete this function or put as pre-save
+function linearizeSentence(sentenceJson) {
+    console.log(&quot;DEBUG: linearize sentence: recieved object! &quot;);
+    var sent =&quot;&quot;;
+    if (!Array.isArray(sentenceJson)) throw new error(&quot;the sentence is not valid&quot;);
+    for (word in sentenceJson){
+        //sent = sent + sentenceJson[word]['word']+ &quot; &quot;;
+        sent = sent + sentenceJson[word]+ &quot; &quot;;
+    }
+    console.log(&quot;DEBUG: linearize sentence: returning result: &quot;, sent);
+    return sent;
+}
+
+function linearizeConllSentence(sentenceJson) {
+    require('../tools/utils.js').linearizePython(sentenceJson);
+    console.log(&quot;DEBUG: linearizeConllSentence: recieved object1 &quot;);
+    var sent =&quot;&quot;;
+    //if (!Array.isArray(sentenceJson)) throw new Error(&quot;the sentence is not valid&quot;);
+    console.log(&quot;DEBUG: the type of the recieved sentence in linearizeConllSentence is:&quot;, typeof(sentenceJson));
+    for (word in sentenceJson){
+        //sent = sent + sentenceJson[word]['word']+ &quot; &quot;;
+        sent = sent + sentenceJson[word]['word']+ &quot; &quot;;
+    }
+    console.log(&quot;DEBUG: linearize sentence: returning result: &quot;, sent);
+    return sent;
+}
+
+var addLUToSentence = exports.addLUToSentence = function addLUToSentence (req,res, cb){
+    console.log(&quot;DEBUG: adding the LU to the Sentence&quot;);
+    var lu = req.body.luid;
+    if (!lu) res.send (&quot;please specify luid in order to add LU to the sentence&quot;)
+    else{
+        var sentModel = Models.hebSentenceModel;
+        //sentModel.findOneAndUpdate({},);
+        console.log('DEBUG: ', 'request is: ', req.body, req['sentenceid']);
+        sentModel.findOneAndUpdate({&quot;ID&quot;: req['body']['sentenceid']}, {$addToSet: {&quot;lus&quot;:lu}}, function(err, returnedObj) {
+            if (err || !returnedObj){
+                console.log('DEBUG: problem adding lu to sentence', err, returnedObj);
+                if (!returnedObj) res.send(&quot;there was an error adding the lus to the sentence = object wasn't found&quot;);
+                else res.send(&quot;there was an error adding the lus to the sentence&quot;);
+            }else{
+                res.charset= 'utf-8';
+                console.log('DEBUG: the lu ', lu, 'was added to the sentence', req['body']['sentenceid'], '\n', returnedObj);
+                cb(req, res,function(){res.send({'msg': 'good! the \' add sentence to LU\' process was finished','obj': (returnedObj)})});  //here cb is 'addsentencetolu
+            }
+        });
+    }
+
+};</code></pre>
+          <section id="addSentenceToLU">
+            <h1>addSentenceToLU</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">declaration</div><span>addSentenceToLU</span>
+            </p>
+          </section>
+          <div class="description"><p>add sentence to lexical Unit - needed frameID and LUid and sentenceID -this will be added to the luSentence collection<br />this will be an 'save' by luid and frameid<br />the pairing will be added only if the sentence (by id) is not already associated with the luid + frameid</p> </div>
+          <pre><code class="language-javascript">var addSentenceToLU = exports.addSentenceToLU = function addSentenceToLU(req,res, cb){
+    var model = Models.luSentenceModel;
+    var body = req.body;
+
+    if (!body['luid'] || !body['frameid'] || !body['sentenceid']){
+        console.log('DEBUG: not enough parameters for the request of  addSentenceToLU- ', req);
+        res.send('error: not enough parameters -luid, frameid and sentenceid');
+    }
+    else{
+        var content = {
+            'luId' : body['luid'],
+                //'luName': TODO
+            'frameID': body['frameid'],
+            'sentenceID': body['sentenceid']
+        };
+        //content['sentenceID'] = objID(&quot;5229b677b6b700bb4300002d&quot;);  -//TODO remove-  for DEBUGGING only
+        var objToSave = new Models.luSentenceModel(content);
+        //model.insert(content,function(err, result){res.send({'err':err, 'result':result})}) ;
+        objToSave.save(function (err) {
+            if (err) {
+                console.log('DEBUG: error saving the sentence-lu association in the sentnecelu collection', err);
+                res.send('error saving the snetnece lu association\n' + err);
+            }
+            else cb();
+        })
+    }
+};</code></pre>
+          <div class="description"><p>1    מה  _   QW  QW  _   2   SBJ _   _<br /> 2    נשמע    _   VB  VB  M|S|3|PAST|NIFAL    3   SBJ _   _<br /> 3    חבר _   VB  VB  M|S|2|IMPERATIVE|PIEL   0   ROOT    _   _</p> </div>
+          <div class="description"><p>adding a sentence to a LU is built from few steps:<br />1. add the sentence to the sentence collection if not exists.<br />2. add the lu to the sentence lus list.<br />3. add the sentence to the lu's sentences list.</p> </div>
+          <section id="addSentenceToDB">
+            <h1>addSentenceToDB</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.addSentenceToDB()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>step 2 in the process -<br />     part1 - add sentence to the sentences collection<br />     assuming that the sentence doesn't exist in the sentences collection<br />         the req body contains the sentence details:<br />         sentence JSON! after yoav and meni!<br />target word token ID</p> </div>
+          <pre><code class="language-javascript">exports.addSentenceToDB = function addSentenceToDB(req,res){
+    console.log(&quot;DEBUG: add sentence to lu - POST request&quot;);
+    var resBody = req.body;
+    var sentence = resBody['sentence'];
+    console.log(&quot;DEBUG: add sentence to lu - the recieved sentence is:&quot;, sentence);
+
+    var sentenceid = resBody['sentenceid'];</code></pre>
+          <div class="description"><p>f (!(frameId &amp;&amp; luid &amp;&amp; sentenceTxt &amp;&amp; targetID)){<br />        console.log('DEBUG: not enough parameters for the request - one of the parameters is missing');<br />        res.send("one of the parameters is missing");<br />    }</p> </div>
+          <pre><code class="language-javascript">if ((! sentence &amp;&amp; !sentenceid) || (sentence &amp;&amp; ! valid31Format(sentence))) res.send(&quot;the sentence is not vaild conll31 format&quot;);  //TODO: valid31Format
+    else {
+
+        if (sentence){
+            var  sentenceModel =Models.hebSentenceModel;
+            var sentJson = {
+                &quot;text&quot;:linearizeConllSentence(JSON.parse(sentence)['words']),//TODO
+                &quot;sentenceProperties&quot; : sentence['sentenceProperties'],
+                &quot;content&quot; : [{&quot;words&quot;: JSON.parse(sentence)['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+                //&quot;lus&quot;:[IDType],//save the related LU ids
+                &quot;ID&quot;:objID(),
+                &quot;source&quot;: 'manual'//{type: String, enum: [&quot;corpus&quot;, &quot;manual&quot;, &quot;translation&quot;]},//TODO
+            };
+            //sentJson['Content'] = [{a: &quot;a&quot;}];
+            console.log('DEBUG: add sentencetoDB - the result JSON is:',JSON.stringify(sentJson));
+            //res.send(sentJson);
+            console.log('content:', typeof(sentJson['content'][0]));
+            var sent = new sentenceModel(sentJson);
+            console.log('DEBUG: the model is:',sent);
+            sent.save(function(err){
+                if (err){
+                    console.log('DEBUG: problem saving sentence', err);
+                    res.send(&quot;problem saving sentence - abort&quot;);
+                }
+                else {
+                    console.log('sentence was saved!, id:',sentJson[&quot;ID&quot;]);
+                    req['body']['sentenceid'] = sentJson['ID'];
+                    addLUToSentence(req, res, addSentenceToLU);
+                }});//save
+        }else{ //case: no sentence, there is a sentence id
+            console.log('DEBUG: skipping &lt;save sentence&gt; adding lu to sentence')
+            addLUToSentence(req, res, addSentenceToLU);
+
+        }
+
+    }//else
+};//method export</code></pre>
+          <section id="listSentences">
+            <h1>listSentences</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>listSentences()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>returns a list of all the sentences in the 'sentences' collection (including which lus are related to them)</p> </div>
+          <pre><code class="language-javascript">function listSentences(req,res,cb){
+    console.log(&quot;DEBUG: handling listAllSentences method&quot; );
+    var query=  {};
+    if (req.query.luid) query.lus=req.query.luid;
+    if (req.query.sentenceid) query.ID=req.query.sentenceid;
+
+    Models.hebSentenceModel.find(query, {'sentenceOrigin': 0},{'limit': 200}, function(err, resObj){
+       res.charset = 'utf-8';
+       if (err) {
+           console.log(&quot;DEBUG:problem in list-sentences&quot;);
+           cb(new Error(&quot;error occurred while handling quert&quot;), null);
+       }
+       else if (!resObj){
+           cb(null, &quot;couldn't find any sentences&quot;);
+
+       }else{
+           //res.charset = 'utf-8';
+           //res.send(JSON.parse(JSON.stringify(resObj)));
+           cb( null, resObj)//
+       }
+    });
+};
+
+
+exports.getListSentences = function getListSentences(req,res,cb){
+    listSentences(req,res, function(err, result){
+        //res.render('sentencesList.jade', {'result': result});
+        res.charset='utf-8'
+        res.send(result)
+    })};</code></pre>
+          <section id="luSentence">
+            <h1>luSentence</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>luSentence()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>returns a list of all the lu-sentence relations (each sentence-lu is a record which contains list of annotations)<br />if luid or sentenceid is given - use as filter</p> </div>
+          <pre><code class="language-javascript">function luSentence(req,res, cb){
+    console.log(&quot;DEBUG: handling luSentence method&quot; );
+    var query ={};
+    if (req.query.luid) query.luId = req.query.luid;
+    if (req.query.sentenceid) query.sentenceID = req.query.sentenceid;
+    if (req.query.frameid) query.frameID = req.query.frameid;
+
+    console.log(&quot;DEBUG-luSentence: using query:&quot;,query);
+    Models.luSentenceModel.find(query, {&quot;__v&quot;: 0},{'limit': 200}, function(err, resObj){
+        res.charset = 'utf-8';
+        if (err) {
+            console.log(&quot;DEBUG:problem in luSentence&quot;);
+            cb(new Error(&quot;error occurred while handling query&quot;), null);
+        }
+        else if (!resObj || resObj.length==0){
+            cb(null, null);
+
+        }else{
+            cb(null, resObj);
+            //res.render('sentencesList.jade', {'result':resObj});
+
+        }
+
+    });
+
+}
+
+
+//wrapper function for luSentence - creates a CB function
+exports.getLuSentence = function(req,res){
+    luSentence(req,res, function(err, result){
+        if (err) res.send(404, err);
+        else res.send(result);
+    })};</code></pre>
+          <section id="isInDB">
+            <h1>isInDB</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>isInDB()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{indb:</td>
+                <td>sentence</td>
+                <td>'on', content:}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>TODO<br />check if the sentence is in the data base -search by the text linearization, return the id if in DB else return undefined</p> </div>
+          <pre><code class="language-javascript">function isInDB(sentenceText,cb){               //TODO - this is just a stub now!!
+    console.log(&quot;DEBUG: isInDB &quot;);
+    Models.hebSentenceModel.findOne({&quot;text&quot;: sentenceText}, {&quot;ID&quot;:1},function(err, resObj){
+        if (!err){
+            console.log(&quot;DEBUG-isInDB: text search result in sentences coll:&quot;, resObj);
+            if (resObj) cb(resObj.ID, 'good');
+            else Models.hebBadSentenceModel.findOne({&quot;text&quot;: sentenceText}, {&quot;ID&quot;:1},function(err, resObj2){
+                if (!err){
+                    console.log(&quot;DEBUG: text search result in badSentences coll&quot;, resObj2);
+                    if (resObj2) cb(resObj2.ID, 'bad');
+                    else cb(resObj2);
+                }});
+            }
+        else throw new Error(&quot;connetion error with DB : isInDB&quot;);
+        }
+    );
+}
+    //if (sentence['indb']) return &quot;523188378916588b7c000038&quot; //todo
+    //else return undefined;
+    //cb(result);</code></pre>
+          <section id="createSentenceJson">
+            <h1>createSentenceJson</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>createSentenceJson()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>sentString</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>data</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>sentId</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>recieves a sentenceString (including the sentence properties) and data object and sentId.<br />if the sentence id is not defined\false -creates a new id, extract from the data only the source of the sentence</p> </div>
+          <pre><code class="language-javascript">function createSentenceJson(sentString, data){
+    console.log(&quot;DEBUG: createSentenceJson&quot;, typeof(sentString),&quot;   &quot;,sentString );
+    var sentObj = JSON.parse(sentString);
+    return {
+        &quot;text&quot;:linearizeConllSentence(sentObj['words']),//TODO
+        &quot;sentenceProperties&quot; : sentObj['sentenceProperties'],
+        &quot;content&quot; : [{&quot;words&quot;: sentObj['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+        //&quot;lus&quot;:[IDType],//save the related LU ids
+        //&quot;ID&quot;: sentId ? objID(sentId) : objID(),
+        &quot;source&quot;: data ? data['source'] : 'manual'//{type: String, enum: [&quot;corpus&quot;, &quot;manual&quot;, &quot;translation&quot;]},//TODO
+    };
+
+}</code></pre>
+          <section id="processBadSentence">
+            <h1>processBadSentence</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>processBadSentence()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>sentJson</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>process bad sentence:<br />add bad segmented sentence to the bad sentences collection in order to track the segementations in the future and to make sure that all the sentences are tracked</p> </div>
+          <pre><code class="language-javascript">function processBadSentence(sentJson, data, control, id){
+    &quot;add the sentence to the bad sentences collection&quot;
+    console.log(&quot;DEBUG: processing processBadSentence&quot;,id);
+    var succ = (&quot;the sentence was added to the bad sentences collection with id: &quot; + id);
+    //var sentObj = new badSentenceModel(sentJson);
+    sentJson['ID'] = id ?id : objID();
+    new Models.hebBadSentenceModel(sentJson).save(function(err){
+        if (err) {
+            console.log(&quot;error saving sentence&quot;, err);
+            control.write(&quot;error saving sentence&quot; + sentJson);
+            control.dec();
+        }
+        console.log(succ);
+        control.write(&quot;the bad-segmented-sentence was saved successfully -!&quot; + sentJson['ID']);
+        control.dec();
+    });
+}</code></pre>
+          <section id="addNewSentenceToLU">
+            <h1>addNewSentenceToLU</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>addNewSentenceToLU()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-</td>
+                <td>sentJson</td>
+                <td>valid sentence JSON, no ID</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>add new sentence to the DB - will be called only for valid segmented sentences</p> </div>
+          <pre><code class="language-javascript">function addNewSentenceToLU(sentJson,data,control,id){
+    console.log(&quot;DEBUG: processing addNewSentenceToLU&quot;);
+    //1.add sentence to the sentences DB
+    var id = objID();
+    sentJson['ID'] = id;
+    //2.add luid to the sentence 'lus' field
+    var luid = objID(data['luid']);
+    sentJson['lus'] =luid;
+    new Models.hebSentenceModel(sentJson).save(function(err){
+        if (err) {
+            console.error(&quot;DEBUG-addNewSentenceToLU: error saving sentence to DB addNewSentenceToLU-phase-1&quot;);
+            control.write(&quot;error saving sentence to DB addNewSentenceToLU-phase-1&quot;);
+            control.dec();
+        }
+        else {
+            console.log('&quot;DEBUG-addNewSentenceToLU:: the sentence was saved to BD with Id', id);
+            //3. add the sentenceid, frameid, luid to the sentence-lu collection
+            var luSent  = {sentenceID: id, luId: luid, frameID: data['frameid']};
+            new Models.luSentenceModel(luSent).save(function(err){
+                if (err) {
+                    control.write(&quot;error saving sentence-lu to DB addNewSentenceToLU-phase-2&quot;+ err);
+                    control.dec();
+                    console.error(&quot;DEBUG-addNewSentenceToLU: error saving sentence-lu to DB addNewSentenceToLU-phase-2&quot;,err);
+                }
+                else {
+                    control.write(&quot;the sentence-lu was saved&quot;+ luSent.sentenceID + &quot; &quot; + luSent.luId);
+                    control.dec();
+                    console.log(&quot;DEBUG-addNewSentenceToLU: the sentence-lu was saved&quot;, JSON.stringify(luSent));
+                }
+            });
+        }
+    });
+    return sentJson;
+}</code></pre>
+          <section id="addExistSentenceToLU">
+            <h1>addExistSentenceToLU</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>addExistSentenceToLU()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>sentJson</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>data</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>add the LU to the sentence - the sentence already exists in the DB - need to check the if it is already associated to the lu-frame</p> </div>
+          <pre><code class="language-javascript">function addExistSentenceToLU(sentJson, data,control,id,coll){
+    console.log(&quot;DEBUG: processing addExistSentenceToLU&quot;,id, data['luid']);
+    //1. check if we have already sentence-lu association
+    //1.1 if exists - return -&quot;association exists&quot;
+    //1.2 else:
+    //1.2.1 add the lu to the sentence['lus'] list
+    //1.2.2 add triple - sent-lu-frame to luSentence collection
+    //var id = sentJson['ID'];
+    var luid = objID(data['luid']);
+    console.log(&quot;DEBUG-addExistSentenceToLU:searching for id:&quot;, luid, &quot;sentId:&quot;, id);
+    //Models.hebSentenceModel.findOne({'ID':id,'lus': luid}, function(err, resObj){
+    Models.hebSentenceModel.find({'ID':id, 'lus': luid}, function(err, resObj){
+        var associated;
+        if (err) {
+            console.error(&quot;DEBUG-addExistSentenceToLU: error searching for lu in sentence&quot;);
+            control.write(&quot;error searching for lu in sentence&quot;);
+            control.dec();
+        }
+        else {
+            if (resObj &amp;&amp; resObj.length &gt;0){
+                console.log(&quot;DEBUG-addExistSentenceToLU: the sentence and lu are already associated&quot;);
+                associated= true;
+                control.write(&quot;the sentence and lu are already associated&quot;);
+                control.dec();
+
+            }else {
+                associated=false
+                //processUnAssociated(sentJson, data);
+                //1.2.1 add the lu to the sentence['lus'] list
+                Models.hebSentenceModel.findOneAndUpdate({'ID':id}, {$push: {&quot;lus&quot;:luid}}, function(err, returnedObj) {
+                    if (err) console.log(&quot;DEBUG-addExistSentenceToLU: error adding lu to sentence lus list&quot;);
+                    else if (!returnedObj) {
+                        console.log(&quot;DEBUG-addExistSentenceToLU: couldn't fint the sentence&quot;);
+                        control.write(&quot;couldn't fint the sentence&quot;);
+                        control.dec();
+                    }
+                    else {
+                        console.log(&quot;DEBUG: success - the lu was added to the sentence&quot;, id);
+                        var luSent  = {sentenceID: id, luId: luid, frameID: data['frameid']};
+                        new Models.luSentenceModel(luSent).save(function(err){
+                            if (err){
+                                console.log(err);
+                                throw new Error(&quot;addExistSentenceToLU: error saving sentence-lu to DB addNewSentenceToLU-phase-2&quot;+err);
+                            }
+                            else {
+                                console.log(&quot;DEBUG-addExistSentenceToLU: addExistSentenceToLU: the sentence-lu was saved&quot;, luSent);
+                                control.write(&quot;addExistSentenceToLU: the sentence-lu was saved&quot;);
+                                control.dec();
+                            }
+                        });
+                    }
+                })
+            }
+
+            //console.log(&quot;DEBUG-addExistSentenceToLU :proccessing associated: &quot;, associated, resObj.length);
+        }
+
+
+    });</code></pre>
+          <div class="description"><p>eturn<br />    sentJson['lus'] =luid;<br />    new Models.hebSentenceModel(sentJson).save(function(err){<br />        if (err) throw new Error("error saving sentence to DB addNewSentenceToLU-phase-1");<br />        else {<br />            console.log('DEBUG: the sentence was saved to BD with Id', id);<br />            //3. add the sentenceid, frameid, luid to the sentence-lu collection<br />            var luSent  = {sentenceID: id, luId:luid, frameID: data['frameid']};<br />            new Models.luSentenceModel(luSent).save(function(err){<br />                if (err) throw new Error("error saving sentence-lu to DB addNewSentenceToLU-phase-2");<br />                else console.log("the sentence-lu was saved", JSON.parse(luSent));<br />            });<br />        }<br />    });<br />    return sentJson;</p> </div>
+          <pre><code class="language-javascript">}</code></pre>
+          <section id="processSentence">
+            <h1>processSentence</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>processSentence()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>data</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>@param sent - string representing the sentence in the following format:<br /> {inddb=objID\true\ubdefined, content=string of 31-conll sentence format}</p> </div>
+          <pre><code class="language-javascript">function processSentence(sent, data, control, sentenceNumber){
+    var func;
+    var action  = sent['action'];
+    console.log('processing sentence number:', sentenceNumber, &quot;action:&quot;, sent['action']);
+    var sentJson  = createSentenceJson(sent['content'], data); //(sent['indb'] ? (sent['indb']) : undefined) ); //parse the sentence by schema
+    var msg;
+    function skipSentence (){
+        console.log(&quot;no action was chosen for the sentence&quot;, msg);
+        control.write(&quot;no action was chosen for the sentence &quot; + msg);
+        control.dec();
+    }
+
+    //
+    isInDB(sentJson['text'], function(id, coll){
+        console.log(&quot;DEBUG: processSentence CB function: recieved id:&quot;,id);
+        switch (action) {
+            case 'badseg':
+                if (id &amp;&amp; coll=='bad') {
+                    msg = id +coll
+                    func=skipSentence
+                }
+                else func=processBadSentence;
+                break;
+            case 'addtolu':
+                if (id &amp;&amp; coll=='good')  func=addExistSentenceToLU;
+                else if (!id) func=addNewSentenceToLU;
+                else {
+                    msg = id +coll
+                    func=skipSentence;
+                }
+                break;
+            case 'nothing':
+                msg =  'nothing';
+                func=skipSentence;
+                break;
+
+        }
+        if (func) return func(sentJson, data,  control,id, coll);
+        else return &quot;action: nothing&quot;;
+    } );
+}</code></pre>
+          <div class="description"><p>f (action=='badseg') func=processBadSentence;<br />else if (action['addtolu']){<br />if (id)  func=addExistSentenceToLU;<br />else func=addNewSentenceToLU;<br />}<br />//func = function(s) {return s};</p>
+
+<p>return func(sentJson, data,  inDB, control);</p>
+
+<p>console.log("no action was chosen for the sentence");<br />control.write("no action was chosen for the sentence");<br />control.dec();</p> </div>
+          <section id="addSentencesToLu">
+            <h1>addSentencesToLu</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.addSentencesToLu()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>@param req - req['method']==post, req['body']= {}</p> </div>
+          <pre><code class="language-javascript">exports.addSentencesToLu = function addSentencesToLu(req,res) {
+    console.log(&quot;DEBUG: addSentencesToLu&quot;);//reqbody:&quot;, req.body);
+    //res.send(req.body);
+    //return
+    var sentences= req.body.sentences;
+    var data = req.body.data    ;
+    //options: bad segmentation - add to 'badSentences', good- add to lu? check if already in DB and in LU? else - nothing
+    res.charset='utf-8';
+    console.log(&quot;DEBUG-addSentencesToLu: data-&gt;&quot;, data);
+    var control = {results: [], counter : sentences.length,
+        write : function(msg){this.results.push(msg);},
+        end: function(){res.send(this.results)},
+        dec:function(){
+            this.counter= this.counter-1;
+            if (this.counter==0) this.end();
+        } };
+    //console.log(&quot;control obj:&quot;, control);
+    for (sentence in sentences){
+        processSentence(sentences[sentence], data, control,sentence);</code></pre>
+          <div class="description"><p>f (sentences[sentence]['addtolu'] || sentences[sentence]['badseg'])<br />            resultsArr.push(processSentence(sentences[sentence], data, control, sentence));<br />        else {<br />            console.log("no action was chosen for the sentence");<br />            control.write("no action was chosen for the sentence");<br />            control.dec();<br />        }</p> </div>
+          <pre><code class="language-javascript">}
+
+    //res.send(resultsArr);
+};
+
+
+
+
+//add the sorounding labels to array of labels and cretes FE annotation object to be saved in the DB
+function createFEAnnotation(anno){
+    console.log(&quot;DEBUG -createFEAnnotation - input &quot; , anno);
+    return {
+        name :'FE',
+        label : JSON.parse(anno), //this needs to be the contenct form the client- array of labels  each one corresponds to 'heblabelType'
+        rank : 1,
+        status: 'decision'
+    }
+}</code></pre>
+          <section id="addAnnotation">
+            <h1>addAnnotation</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.addAnnotation()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>cb</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>add annotation to lu, the given annotation object will be transmitted via the res.body object. in addition to luid, frameid and sentenceid.<br />the annotation will be saved in the lu-sentence collection and the annotation id will be added to the frame.lu.annotations</p> </div>
+          <pre><code class="language-javascript">exports.addAnnotation = function addAnnotation(req,res,cb) {
+    console.log(&quot;DEBUG: handling addAnnotation&quot;);
+    var body =req.body;
+    //check if the req contains all the relevant data
+    if (!(body.frameid &amp;&amp; body.luid &amp;&amp; body.sentenceid &amp;&amp; body.annotation &amp;&amp; body.segid)) return cb(new Error(&quot;one of the parameters is missing - abort&quot;));
+    //phase 1: save new annotation to the lu-sentence collection - return error if fails to find
+    var query =  {
+        sentenceID : body.sentenceid ,
+        luId : body.luid,
+        frameID: body.frameid
+    };
+    var anno = createFEAnnotation(body.annotation)
+    var annotation ={
+        ID: objID(),
+        validVersion: false,
+        status: 'pending',
+        cDate: new Date(),
+        cBy: req.user ? req.user.username : 'unknown',
+        sentenceId:  body.sentenceid,
+        segmentationID: body.segid,
+        layer : [anno]
+    };
+    console.log(&quot;DEBUG-addAnnotation query is:&quot;, query);
+    console.log(&quot;DEBUG-addAnnotation anno is:&quot;, anno);
+    Models.luSentenceModel.findOneAndUpdate(query, {$push: {&quot;annotations&quot;: annotation}}, function(err, returnedObj) {
+        console.log(&quot;DEBUG-addAnnotation reulst is:&quot;, err, JSON.stringify(returnedObj));
+        cb(err, returnedObj);
+    });
+
+
+};</code></pre>
+          <section id="luAnnotationsData">
+            <h1>luAnnotationsData</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.luAnnotationsData()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>cb</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>returns all data needed for the annotation of a LU - the frameData, the LU data, and a list of sentence data and it's lu-sentence data (with annotations if exists)</p> </div>
+          <pre><code class="language-javascript">exports.luAnnotationsData = function  luAnnotationsData(req,res,cb){
+    if (!(req.query.luid &amp;&amp; req.query.frameid)) return cb(new Error(&quot;some of the parameters are missing&quot;))
+    //load frame data with lu
+    //load the lu-sentence for this lu
+    //load the sentences related to this lu
+    async.parallel({
+            //get the hebrew frame data - with the hebrew lus and all the FEs
+            frameLU: function(cb){
+                loadFrame(req,res, cb)
+            },
+            //get the english lexical units list
+            luSentence: function(cb){
+                luSentence(req,res, cb);
+            },
+            sentences: function(cb){
+                listSentences(req,res, cb);</code></pre>
+          <div class="description"><p>odels.hebFrameModel.findOne({"@ID":150}, function(err,resultObj){<br />                 cb(err, resultObj);<br />                 });</p> </div>
+          <pre><code class="language-javascript">}
+        },
+        function(err, results) {
+            res.send(results);
+            console.log(results)// results is now equals to: {one: 1, two: 2}
+        });
+};
+
+function listDecisions(req,res,cb){
+    var query = {};
+    if (req.query.decisionid) query.ID =objID(req.query.decisionid);
+    Models.annotatorDecisionsModel.find(query, {'__v':0, '_id':0},cb)
+}
+
+exports.getDecisions = function getDecisions(req,res,cb){
+    listDecisions(req,res,function(err,result){
+        if (err) return res.send(new Error(&quot;problem getting decisions&quot;));
+        res.charset = 'utf-8';
+        if (result.length!=0) res.send(result);
+        else (res.send(&quot;no data was found&quot;));
+    })
+};
+
+
+
+
+var decisionStub = {
+    cDate: new Date(),
+    cBy: 'imrihe',
+    reviewer: 'imirhe',
+    frameId: 777777,
+    lexUnitID: objID(&quot;52356fe7914f9ce666000025&quot;),
+    &quot;type&quot;: &quot;frame-lu&quot;,
+    //&quot;content&quot;:Object,//the decision object
+    &quot;decisionExplanation&quot;:&quot;i am not sure if this lu fits to this frame or not&quot;,
+    &quot;status&quot;:&quot;unseen&quot;,
+    &quot;hasInquiries&quot;:false
+    //&quot;inquiryContent&quot;:[inquiryType]
+};</code></pre>
+          <section id="setDecision">
+            <h1>setDecision</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>exports.setDecision()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td>req</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>res</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>cb</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>set decision - saves a decision using the decision, id</p> </div>
+          <pre><code class="language-javascript">exports.setDecision = function setDecision(req,res,cb){
+    var query = {};
+    //if (req.query.decid) query.ID =req.query.decid;
+    decisionStub.ID=objID();
+    decisionStub.cDate=new Date();
+    if(req.body.decisionExplanation) decisionStub.decisionExplanation = req.body.decisionExplanation;
+    new Models.annotatorDecisionsModel(decisionStub).save(function(err, results){
+        console.log(&quot;result of save is: &quot;, results, &quot;\n cb is:&quot;, cb);
+        if (err) cb(err);
+        else{
+            userControl.mailReviewersInternal(&quot;a decision was created for reviewing&quot;,
+            &quot;a decision was made, the decision content can be found in this link:\n &quot;+&quot;http://www.cs.bgu.ac.il&quot;+hp+&quot;heb/getdecisions?decisionid=&quot;+decisionStub.ID.toString(),
+            function(err,mailRes){cb(null, {mails: mailRes, decisions: results})}); //function(err,results) {res.send(results)});
+            //res.send(results)
+        }
+    }); //save
+};//function</code></pre>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with <a href="https://github.com/FGRibreau/doxx">Doxx </a>created by <a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Doxx is sponsored by <a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr </a>and <a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="http://platform.twitter.com/widgets.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="http://leaverou.github.com/prefixfree/prefixfree.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-transition.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-dropdown.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-collapse.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-affix.js"></script>
+    <script>
+      /**
+       * Prism: Lightweight, robust, elegant syntax highlighting
+       * MIT license http://www.opensource.org/licenses/mit-license.php/
+       * @author Lea Verou http://lea.verou.me
+       */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data));l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r){return n.stringify(t.tokenize(e,r))},tokenize:function(e,n){var r=t.Token,i=[e],s=n.rest;if(s){for(var o in s)n[o]=s[o];delete n.rest}e:for(var o in n){if(!n.hasOwnProperty(o)||!n[o])continue;var u=n[o],a=u.inside,f=!!u.lookbehind||0;u=u.pattern||u;for(var l=0;l<i.length;l++){var c=i[l];if(i.length>e.length)break e;if(c instanceof r)continue;u.lastIndex=0;var h=u.exec(c);if(h){f&&(f=h[1].length);var p=h.index-1+f,h=h[0].slice(f),d=h.length,v=p+d,m=c.slice(0,p+1),g=c.slice(v+1),y=[l,1];m&&y.push(m);var b=new r(o,a?t.tokenize(h,a):h);y.push(b);g&&y.push(g);Array.prototype.splice.apply(i,y)}}}return i},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]"){for(var r=0;r<e.length;r++)e[r]=n.stringify(e[r]);return e.join("")}var i={type:e.type,content:n.stringify(e.content),tag:"span",classes:["token",e.type],attributes:{}};i.type=="comment"&&(i.attributes.spellcheck="true");t.hooks.run("wrap",i);var s="";for(var o in i.attributes)s+=o+'="'+(i.attributes[o]||"")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'" '+s+">"+i.content+"</"+i.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+      Prism.languages.markup={comment:/&lt;!--[\w\W]*?--(&gt;|&gt;)/g,prolog:/&lt;\?.+?\?&gt;/,doctype:/&lt;!DOCTYPE.+?&gt;/,cdata:/&lt;!\[CDATA\[[\w\W]+?]]&gt;/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?&gt;/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|&gt;|"/g}},punctuation:/\/?&gt;/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+      Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:/@[\w-]+?(\s+[^;{]+)?(?=\s*{|\s*;)/gi,url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\}]*(?=\s*\{)/g,property:/(\b|\B)[a-z-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+      Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,number:/\b-?(0x)?\d*\.?[\da-f]+\b/g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+      Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b(-?(0x)?\d*\.?[\da-f]+|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+      
+    </script>
+    <!-- App js-->
+    <script>
+      $(function(){
+        var $window = $(window);
+        $('.scrollspy .nav').affix({
+          offset: {
+            top: function () { return $window.width() <= 980 ? 480 : 400 }
+          , bottom: 50
+          }
+        });
+      })
+    </script>
+  </body>
+</html>

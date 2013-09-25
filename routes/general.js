@@ -8,8 +8,17 @@
 
 
 printModule("routes/general");
-module.exports = function(app){
-    genControl = require('../controllers/general.js');
+/**<b> this function gathers all the routes of the server</b>
+ *<h3> general: </h3>
+ *      it is devided by topic of routes to: english, general, authentication, admin, hebrew
+ * <h3> queries structure: </h3>
+ *      almost each one of the queries can accept 'frameid' 'luid' 'framename' 'luname' 'sentenceid'
+ *      in addition - by using strict=1 - the query will search for the exact framename or luname supplied (if)
+ *
+ * @param app  {express.server}
+ */
+function mainRoute(app){
+    var genControl = require('../controllers/general.js');
 
     app.get('/index.html', function(req,res){res.redirect(hp)});
 
@@ -26,7 +35,13 @@ module.exports = function(app){
         }
     );
 
+    app.get('/errortest', function(req,res,next){
+        next(new Error("if you see this message so the error handled is working!"))  ;
+    })
+
     app.post('/findquery', genControl.findQuery);  //process the query data, submit to DB and return the results
 
 
 }
+
+module.exports = mainRoute;

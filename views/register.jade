@@ -1,0 +1,37 @@
+
+h1 register new user (only admin can do this!)
+if !user || user.roles.indexOf('admin') == -1
+    p your roles are: #{user.roles}
+    p only admin can add other users, sorry
+else
+    div
+        p please type all the details of the new user, an e-mail will be sent to the user with his password
+        form(class='container', action='register', method='POST', enctype='multipart/form-data')
+            input(type='hidden', name='_csrf', value=csrfToken)
+            div
+            label(for='username') username:
+            input(type='text', id='username', name='username', required)
+            div
+                label(for='email') E-mail:
+                input(type='text', id='email', name='email' , required)
+                span(style='color: #666; font-size: 0.6em; font-weight: normal;')
+                    | will not be published without user permission
+            div
+            label(for='passwrod') password:
+            input(type='password', id='password', name='password', required)
+            div
+                label(for='firstName') first name:
+                input(type='text', id='firstName', name='firstName', required)
+            div
+                label(for='lastName') lastname:
+                input(type='text', id='lastName', name='lastName', required)
+            div
+                select(multiple, name='roles')
+                    option( value="admin") admin
+                    option( value="reviewer") reviewer
+                    option( value="annotator") annotator
+                    option( value="planner") planner
+                    option( value="guest") guest
+            br
+            input(type='submit', value='register', class='submit')
+            input(type='reset', value='reset')
