@@ -20,6 +20,7 @@ var //db = mongoose.connect('mongodb://localhost/HebFrameNetDB'),
     db = mongoose.connect('mongodb://'+conf.dbhost+':'+conf.dbport+'/'+conf.dbname,options,  function(err)
             {if (err){
                 console.error("connection problem!! EXITING..");
+                require('../../tools/mailer.js').sendMail("imirhe@gmail.com", 'monogdb is down', "mongoDB is down")
                 process.exit(code=8);
             }
                     }),  //TODO { server: { auto_reconnect: false }}

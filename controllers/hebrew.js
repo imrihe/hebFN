@@ -151,7 +151,7 @@ exports.getLu = function getLu(req, res){
 };
 
 
-var searchlus = function searchlus(query,proj, options, cb){
+function searchlus(query,proj, options, cb){
     if (query.luid) query.luid = objID(query.luid); //cast String to objectID type
     var q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name'); //build the mongo query
     Models.hebFrameModel.aggregate(
@@ -171,8 +171,10 @@ exports.getSearchLus = function(req,res){
 }
 
 
-var searchFrames = exports.searchFrames = function  searchFrames(query,projection, options, cb){
-    var q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name');
+function  searchFrames(query,projection, options, cb){
+    var q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name - priority');
+    console.log('QUERY', q)
+
     Models.hebFrameModel.aggregate(
         {$match: q},//{frameid: Number('281') }},
         {$project: {"_id":0,'@name': "$@name", '@ID': '$@ID'}},
@@ -275,10 +277,12 @@ function addLuToFrame(req,res, cb){
                 function(err2, resu2){
                     if (err2) return cb(err2, null)
                     if (!resu2) return cb(new Error("there was a problem with the update"), null);
+                    //return cb(null, {msg: 'the lu was added',content: resu2});
                     return cb(null, {msg: 'the lu was added',content: resu2});
                 })//func2
     })    //func1
 }
+
 
 
 /**this function is using (addLuToFrame) in and wraps it with http req\response
@@ -503,6 +507,7 @@ exports.addSentenceToDB = function addSentenceToDB(req,res){
  */
 function listSentences(req,res,cb){
     console.log("DEBUG: handling listAllSentences method" );
+    //var q = q2coll("frameid")
     var query=  {};
     if (req.query.luid) query.lus=req.query.luid;
     if (req.query.sentenceid) query.ID=req.query.sentenceid;
@@ -914,7 +919,7 @@ exports.luAnnotationsData = function  luAnnotationsData(req,res,cb){
 };
 
 
-//TODO: add query options! (sentenceid, luid, frameid, username, status, etc.
+//TODO: add query options! (sentenceid, luid, frameid, username, status, etc).
 function listDecisions(req,res,cb){
     var query = {};
     if (req.query.decisionid) query.ID =objID(req.query.decisionid);
@@ -950,6 +955,7 @@ var decisionStub = {
  * @param cb
  */
 exports.setDecision = function setDecision(req,res,cb){
+    console.log('DEBUG: setDecision')
     var query = {};
     //if (req.query.decid) query.ID =req.query.decid;
     decisionStub.ID=objID();
@@ -968,4 +974,263 @@ exports.setDecision = function setDecision(req,res,cb){
 };//function
 
 
+function  priorityTasks(req,res,cb){
+    console.log('DEBUG: priorityTasks')
+    //if (!(req.query.luid && req.query.frameid)) return cb(new Error("some of the parameters are missing"))
+    //load frame data with lu
+    //load the lu-sentence for this lu
+    //load the sentences related to this lu
+    req.query['priority']=1;
+    async.parallel({
+            //get the hebrew frame data - with the hebrew lus and all the FEs
+            frames: function(cb){
+
+                searchFrames(req.query, {},{},cb)
+            },
+            //get the english lexical units list
+            lus: function(cb){
+                searchlus(req.query,{},{}, cb);
+            },
+            sentences: function(cb){
+                //listSentences(req,res, cb);
+                cb(null, ["this is a sentence", "this is another sentence"])
+                /*Models.hebFrameModel.findOne({"@ID":150}, function(err,resultObj){
+                 cb(err, resultObj);
+                 });*/
+            }
+        },
+        handleHttpResults(req,res)
+    );
+};
+
+
+exports.getPriorityTasks=function (req,res){
+    console.log('DEBUG: getPriorityTasks')
+    priorityTasks(req,res)
+}
+
+
+
+
+
+//addBasicLUToFrame(lu.luname,lu.lupos, frame.framename,  cb)
+function addBasicLUToFrame(params, cb){
+    console.log('DEBUG: addBasicLUToFrame')
+    var mod = Models.hebFrameModel;
+
+    var lu = {
+        //"_id": ObjectId,
+        //"definition": "this is defenitions stub of lexical unit",
+        //"frameID": IDType,
+        "status": 'initial',
+        /*"translatedFrom"://"description":"holds information regarding the english lexical unit which this lexical unit was translated from",
+        {
+            "frameId":IDType,
+            "lexUnitName":String,
+            "lexUnitID" :IDType
+        },*/
+        //"description":"contains information regarding the sentences of this lexical unit",
+        "sentenceCount":{
+            "total": 0,
+            "annotated": 0
+        },
+        "@name":params.lu.luname, //{required: true, type: String, match: /^.+\..+/},
+        "@POS": params.lu.lupos,
+        "@cDate": new Date(),
+        "@cBy":params.other.username
+    }; //{_id: false}
+    if (params.other.trans)  lu.translatedFrom = {
+        "frameName":params.other.trans.framename,
+        "lexUnitName":params.other.trans.luname,
+    }
+
+    //validParseLuReq(req);
+    if (!lu) return cb(new Error("the request is not valid"), null);
+
+    //search for the frame itself - return error if not exists
+    console.log('FRAMENAME',params.frame.framename,"LU",lu);
+    mod.findOneAndUpdate({'@name' :params.frame.framename},{'$push': {lexUnit: lu}}, {new:true},
+                function(err, resu){
+                    console.log(err, resu)
+
+                    if (err) return cb(err, null)
+                    //if (!resu2) return cb(new Error("there was a problem with the update"), null);
+                    //return cb(null, {msg: 'the lu was added',content: resu2});
+                    return cb(null, {msg: 'the lu was added',content: resu});
+                })//func2
+}
+
+// addDecision(refs, type, subtype, comment, username, cb)
+/**add a new decision (annotator decision - not reviewer) to the db -
+ *
+ * @param refs - contatins the references - need to be relevant to the given type
+ * @param type - one of framelu, lusent, sentanno
+ * @param subtype - add, remove, query
+ * @param comment
+ */
+function addDecision(params, type, cb){
+    console.log('DEBUG: addDecision')
+    var refs = {
+        frameName: params.frame.framename,
+        luName: params.lu.luname
+    }
+    var action = {
+        cBy: params.other.username,
+        cDate: new Date(),
+        type:  params.other.action,
+        comment: params.other.comment
+    }
+    var query = {
+       type: type,
+        refs: refs
+    }
+    Models.historyModel.findOneAndUpdate(
+        query,
+        {'$push': {actions: action}},  //update
+        {new:true, upsert: true}, cb)   //options (upsert  = create new object if not exists)
+}//adddecision
+
+
+//(refs.luname, refs.frameName, subtype,username
+
+function setLUdecisionStatus(params, cb){
+    console.log('DEBUG: setLUdecisionStatus')
+    var currStat= {'stat': params.other.action, cBy: params.other.username, cDate :new Date()};
+    Models.hebFrameModel.findOneAndUpdate(
+        {'@name': params.frame.framename, 'lexUnit.@name': params.lu.luname},
+        {'$set':{
+            'lexUnit.$.decision.currStat.stat': params.other.action,
+            'lexUnit.$.decision.currStat.cBy': params.other.username,
+            'lexUnit.$.decision.currStat.cDate': new Date()
+        }},
+        cb
+    )
+}
+
+function addFrameLuDecision(params, type, callBack){
+    console.log('DEBUG: addFrameLuDecision')
+    async.parallel({
+            luHistory: function(cb) {
+                //console.log('REFS:',refs);
+                addDecision(params, type, cb)
+            },
+            lexUnit: function(cb) {
+                //console.log("REFS-2:", refs)
+                setLUdecisionStatus(params,
+                    function(err,results) {
+                        var newRes =results;
+                        //console.log(newRes)
+                        if (newRes){
+                            //console.log("luid:",typeof(luid) ,luid);
+                            newRes= _.filter(newRes.lexUnit, function(obj) {
+                                return (obj['@name'] == params.lu.luname);})
+                        }
+                        cb(err, newRes)
+                    }
+
+                )}
+        },
+        callBack)
+
+}
+
+
+
+/*
+pseudo code:
+addFrameLuAssociation(luname,framename,action){
+    if !luinframe(luname,framename):
+        if (action==delete) - throw exception
+        else
+            addlutoframe(luname, lupos,framename)
+
+    setframeLudecision(fname,luname, action)
+*/
+
+function createFrameLuAssociation(params, cb){
+    console.log('DEBUG: frameLuAssociationAction')
+    //if (!luinframe(luname,framename)):
+    //console.log(lu)
+    if (!params.lu.luname) return cb(new Error("you must specify lu name (lu.luname) in the request"))
+    Models.hebFrameModel.findOne({'@name': params.frame.framename, 'lexUnit.@name':params.lu.luname}, {'lexUnit.@name':1},function(err,results){
+        console.log("DEBUG: frameLuAssociationAction->findOne results", err, results)
+        if (err) return cb(err)
+        if (!results) { //if (action==delete) - throw exception
+            if (params.other.action=='delete') return cb(new Error("you cannot delete lu from frame if it is not added first"))
+            //addlutoframe(luname, lupos,framename)
+            if (!params.lu.lupos) return cb(new Error("you have to specify the POS of the lexical unit before adding it to frame"))
+            addBasicLUToFrame(params,
+            function(addError, addResult){
+                addFrameLuDecision(params,'framelu',cb)
+            })
+        }
+        else {
+            addFrameLuDecision(params,'framelu',cb)
+        }
+    })
+}
+
+/**recieves a request and
+ *
+ * @param req
+ * @returns {{lu: {}, frame: {}, other: {}}}
+ */
+function parseReqParams(req){
+    console.log('DEBUG: parseReqParams', req)
+    var lu = {},
+        frame = {},
+        other = {};
+    if (req.param('action')) other['action'] =  req.param('action');
+    if (req.param('comment')) other['comment'] =  req.param('comment');
+    if (req.param('luname')) lu['luname'] =  req.param('luname');
+    if (req.param('luid')) lu['luid'] =  req.param('luid');
+    if (req.param('lupos')) lu['lupos'] =  req.param('lupos').toUpperCase();
+    if (req.param('trans')) lu['trans'] =  req.param('trans');
+    if (req.param('frameid')) frame['frameid'] =  req.param('frameid');
+    if (req.param('framename')) frame['framename'] =  req.param('framename');
+    if (req.user && req.user.username) other['username'] =  req.user.username; else other['username'] = 'undefined'//TODO - add ensrueAhuthenticated
+    return {lu: lu, frame:frame, other:other};
+}
+
+/**  wrapper function - checks validity of the parameters, parse theme and initiate the createFrameLuAssociation function
+ *
+ * @param req
+ * @param res
+ */
+exports.postCreateFrameLuAssociation = function(req,res){
+    console.log('DEBUG: postFrameLUDecision')
+    var params = parseReqParams(req)
+    var valid = (params.other.action && (-1 != _.indexOf(['add', 'delete', 'query'], params.other.action)))
+    valid = valid &&  params.frame.framename &&  params.lu.luname
+    if (!valid) throw new  Error("the selected action is not valid")
+    console.log('VALID',valid, (params.other.action in ['add', 'delete', 'query']), params.other.action)
+
+    createFrameLuAssociation(params, handleHttpResults(req,res));
+}
+
+
+/**search in the history database
+ *
+ * @param query  - contains paramter to filter the history by - framename, luname, sentenceid (one or more), type<framelu, lusent, sentanno>
+ * @param proj - will be forworded to the mongoDB query as projection parameter
+ * @param options - may contain parameters such as sort, limit etc
+ * @param cb
+ */
+function searchHistory(query, proj, options, cb){
+    console.log('DEBUG: searchDecisions')
+    var q  =q2coll(query, '- refs.frameName - refs.luName sentenceID -')
+    if (query['type']) q['type']  = query['type'];
+    Models.historyModel.find(q, proj, options,cb);
+//TODO: complete
+
+}
+
+/** @see searchHistory
+ * @param req
+ * @param res
+ */
+exports.getSearchHistory = function(req,res) {
+    console.log('DEBUG: getSearchDecisions')
+    searchHistory(req.query, {},{limit:100, sort: refs.frameName}, handleHttpResults(req,res));
+}
 

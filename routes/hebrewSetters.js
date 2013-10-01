@@ -7,14 +7,14 @@ module.exports = function(app) {
     var hebControl = require('../controllers/hebrew.js');
     var externalTools =require('../controllers/externalTools.js');
 
-    app.get('/heb/addlutoframe', hebControl.renderAddLUToFrame);  //get the form for submission
+    app.get('/heb/addlutoframe_old', hebControl.renderAddLUToFrame);  //get the form for submission
     //app.post('/heb/addlutoframe',auth.ensureAuthenticated, hebControl.addLUToFrame);  //process the query data, submit to DB and return the results
     /**the post should contatin:
      * frameid, luname and lexUnit.
      * the lexUnit should be a valid lu-schema type JSON
      *
      */
-    app.post('/heb/addlutoframe',auth.ensureAuthenticated, hebControl.postAddLuToFrame);
+    app.post('/heb/addlutoframe_old',auth.ensureAuthenticated, hebControl.postAddLuToFrame);
 
     //.app.post('/heb/addsentence', function (req,res) {console.log("hahaha"); res.send('good!');});
     app.get('/heb/addsentence',/*auth.ensureAuthenticated,*/ hebControl.addSentenceToLUForm);  //get the form for submission
@@ -47,7 +47,8 @@ module.exports = function(app) {
         })});
 
 
-
-
+    app.get('/heb/decision', hebControl.postCreateFrameLuAssociation)
+    app.get('/heb/addlutoframe', hebControl.postCreateFrameLuAssociation)
+    app.post('/heb/addlutoframe', hebControl.postCreateFrameLuAssociation)
 };  //main!
 

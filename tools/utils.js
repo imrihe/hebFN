@@ -48,11 +48,12 @@ exports.queryToCollectionQ= function queryToCollectionQ(query, names){
 
     var resQuery = {};
     names = names.split(' ');
-    if (query.frameid &&names[0]!='-') resQuery[names[0]] = Number(query['frameid']);
-    if (query.framename &&names[1]!='-') resQuery[names[1]] = query['strict'] ? query['framename'] : {$regex : ".*"+query['framename']+".*", $options: 'i'};
+    if (query.frameid && names[0]!='-') resQuery[names[0]] = Number(query['frameid']);
+    if (query.framename && names[1]!='-') resQuery[names[1]] = query['strict'] ? query['framename'] : {$regex : ".*"+query['framename']+".*", $options: 'i'};
     if (query.luid && names[2]!='-') resQuery[names[2]]  =  query['luid'];
     if (query.luname &&names[3]!='-') resQuery[names[3]] =  query['strict'] ? query['luname'] : {$regex : ".*"+query['luname']+".*", $options: 'i'};
     if (query.sentenceid && names[4] && names[4]!='-') resQuery[names[4]]  =  query['sentenceid'];
+    if (query.priority && names[5] && names[5]!='-') resQuery[names[5]]  =  {$lt : 998};
     //console.log("RESQUERY:",resQuery);
     return resQuery;
 };

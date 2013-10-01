@@ -200,11 +200,11 @@ exports.loadFrameNames = function loadFrameNames (req, res) {
 var loadAnnotations = exports.loadAnnotations = function loadAnnotations (query, proj, options, cb) {
     console.log("DEBUG: handling load english annotations request, quert: ",query);
     var  luModel = Models.luModel; //mongoose.model(luCollectionName, lu, luCollectionName);
-    var q= {};
+    var q= q2coll(query, "lexUnit.@frameID lexUnit.@frame lexUnit.@ID lexUnit.@name");
     var qProj =proj ? proj : {"lexUnit.@ID":1, "lexUnit.@name":1,"lexUnit.@frame":1, "_id":0, "lexUnit.subCorpus":1 };
     var qOptions =options? options : {"limit":1};
-    if (query.luid) q = {"lexUnit.@ID": query.luid};
-    if (query.luname) q = {"lexUnit.@name": query.luname};
+    //if (query.luid) q = {"lexUnit.@ID": query.luid};
+    //if (query.luname) q = {"lexUnit.@name": query.luname};
     luModel.findOne(q , proj, options,cb);
 };
 

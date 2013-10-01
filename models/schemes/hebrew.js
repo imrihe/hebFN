@@ -124,12 +124,11 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     "priority": Number,
     "definition": defType,
     "frameID": IDType,
-    "status":{type: String,enum: ["approved","pending"]},
+    "status":{type: String,enum: ["initial","complete"]},//{type: String,enum: ["approved","pending"]}, - relating to lu data - if not 'complete'  - not possible to add sentences??
     "translatedFrom"://"description":"holds information regarding the english lexical unit which this lexical unit was translated from",
     {
-        "frameId":IDType,
-        "lexUnitName":String,
-        "lexUnitID" :IDType
+        "frameNaem":String,
+        "luName": String
     },
     //"description":"contains information regarding the sentences of this lexical unit",
 
@@ -148,8 +147,29 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     "@incorporatedFE":String,
     "@status":{type: String, match: /^[A-Z].*/},
     "@cDate": dateTimeType,
-    "@cBy":String
-}); //{_id: false}
+    "@cBy":String,
+    "decision":{
+        currStat: {stat: String, cBy: String, cDate : Date},
+        appStat: {stat: String, cBy: String, cDate: Date}
+    }
+},{strict: false}); //{_id: false}
+
+
+
+var historySchema =  new Schema({
+
+    type: {type: String, enum: ['framelu', 'lusent', 'sentanno']},
+    refs: {luName: String, sentenceID: ObjectId, frameName: String},
+    actions : [{
+        cBy: String,
+        cDate: Date,
+        type: {type:String, enum:['add','remove','query']},
+        comment: String,
+        discussionid: ObjectId,
+        revCall: {type: String, enum: ['approved','rejected']}}]
+}) //history schema
+
+
 
 /**
  * hebrew frame schema
@@ -386,7 +406,7 @@ exports.hebBadSentenceModel = mongoose.model(coll.hebBadSent, hebsentenceSchema,
 //exports.hebBadSentenceModel = mongoose.model(badSentencesCollectionName, new Schema({}, {strict: false}), badSentencesCollectionName);
 exports.luSentenceModel = mongoose.model(coll.hebLuSent, luSentenceSchema, coll.hebLuSent);
 exports.annotatorDecisionsModel = mongoose.model(coll.hebDecisions, decisionSchema, coll.hebDecisions);
-
+exports.historyModel = mongoose.model(coll.history, historySchema,coll.history);
 
 //TODO - remove
 

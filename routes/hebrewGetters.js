@@ -58,8 +58,10 @@ module.exports = function(app) {
 
     app.get('/heb/lusentence', hebControl.getLuSentence);
     app.get('/heb/ludata', hebControl.luAnnotationsData);
-    app.get('/heb/decisions', hebControl.getDecisions);
+    app.get('/heb/history', hebControl.getSearchHistory);
     app.get('/heb/pageframes', hebControl.pageframes);
+
+    app.get('/heb/prioritytasks', hebControl.getPriorityTasks);
 
 
     app.get('/fuck', function(req,res) {throw  new Error("fuck!!")}); //TODO- remove
