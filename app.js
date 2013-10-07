@@ -6,9 +6,19 @@
 /**bal bla bla [lalal](http://www.google.co.il)
  *
  */
-
+//require('console-stamp')(console, '[HH:mm:ss.l]');
+require('./logger.js')
 console.log("DEBUG: loading main app");
 global._ = require('underscore');
+
+_.mixin({ //add method to the _ module
+    removeEmpties : function(o) {
+        _.each(o, function(v, k){
+            if(!v) delete o[k];
+        });
+        return o;
+}});
+
 global.printModule= function(name) { console.log("DEBUG: loading module","<< "+name+" >>");};
 global.conf = require('./conf.js');
 
@@ -71,10 +81,17 @@ app.use(function(req, res, next) {
     else next();
 });
 
-
 app.use(express.favicon());
-app.use(express.logger('dev'));
-//app.use(express.logger({type: 'dev',"stream": require('fs').createWriteStream('a.log')}));  //http://www.senchalabs.org/connect/middleware-logger.html
+//app.use(express.logger('dev'));
+app.use(express.logger({type: 'dev',"stream": require('fs').createWriteStream('a.log')}));  //http://www.senchalabs.org/connect/middleware-logger.html
+
+//since logger only returns a UTC version of date, I'm defining my own date format - using an internal module from console-stamp
+express.logger.format('mydate', function() {
+    var df = require('console-stamp/node_modules/dateformat');
+    return df(new Date(), 'dd:mm:yy HH:MM:ss.l');
+});
+//app.use(express.logger('[:mydate] :method :url :status :res[content-length] bytes -  :response-time ms', {"stream": require('fs').createWriteStream('a.log')}));//:remote-addr -
+
 app.use(express.cookieParser('your secret here'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -102,6 +119,7 @@ function handleErrors(err, req, res, next){
     if (req.xhr) {
         res.send(500, { error: 'Something blew up! '});
     } else {
+        console.log('ERROR:',err)
         res.render('error.jade', {err:err, req: req});
     }
 }
@@ -140,4 +158,4 @@ if (!module.parent) {
 
 exports = module.exports = app;
 //require('./models/schemes/test.js');
-
+//require('./checkMilog.js');

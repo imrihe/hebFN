@@ -21,7 +21,9 @@
         "async" : "*",
         "nodemailer": "*",
         "bcrypt": "*",
-        "forms-mongoose": "*"
+        "forms-mongoose": "*",
+        "strftime": "*",
+        "console-stamp":"*"
 
     }
 }

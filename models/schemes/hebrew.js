@@ -124,10 +124,11 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     "priority": Number,
     "definition": defType,
     "frameID": IDType,
+    "frameName": String,
     "status":{type: String,enum: ["initial","complete"]},//{type: String,enum: ["approved","pending"]}, - relating to lu data - if not 'complete'  - not possible to add sentences??
     "translatedFrom"://"description":"holds information regarding the english lexical unit which this lexical unit was translated from",
     {
-        "frameNaem":String,
+        "frameName":String,
         "luName": String
     },
     //"description":"contains information regarding the sentences of this lexical unit",
@@ -241,7 +242,7 @@ var wordType1 = new Schema({
     parID: String,
     role: String,
     f8: String,
-    f9: String,
+    f9: String
 }, {_id: false});
 
 //ConllJson31Type
@@ -288,7 +289,7 @@ var ConllJson31Type2 = new Schema({
 var hebsentenceSchema = exports.hebsentenceSchema = new Schema({
     "text":String,
     "content" : [ConllJson31Type], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
-    "lus":[ObjectId],//save the related LU ids
+    "lus":[String],//save the related LU ids
     "ID":ObjectId,
     "source": {type: String, enum: ["corpus", "manual", "translation"]},
     //"comment":"sentences can also be manually inserted",
@@ -366,8 +367,9 @@ var luSentenceSchema = exports.luSentenceSchema = new Schema({
     "luId": ObjectId, //the id of the annotated lexical unit.
     "luName": String, //optimization
     "frameID": IDType, //the id of the frame which this lu is related to  (search and data retrieval optimization)
+    "frameName": String,
     "annotations": [annotatedSentenceType]
-});
+},{strict: false});
 
 
 

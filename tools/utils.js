@@ -123,3 +123,57 @@ exports.linearizeConllSentence  =function linearizeConllSentence(sentenceJson){
     if (! _.isArray(sentenceJson)) throw "the sentence is not valid for linearization"
     return _.reduce(sentenceJson, function(memo, sent){return memo +" "+sent['word']}, "")
 }
+
+
+
+/**recieves a request and
+ *
+ * @param req
+ * @returns {{lu: {}, frame: {}, other: {}}}
+ */
+function parseReqParams(req, mode){
+    console.log('DEBUG: parseReqParams')
+    var lu = {},
+        frame = {},
+        other = {};
+    if (req.param('action')) other['action'] =  req.param('action');
+    if (req.param('comment')) other['comment'] =  req.param('comment');
+    if (req.param('luname')) lu['luname'] =  req.param('luname');
+    if (req.param('luid')) lu['luid'] =  req.param('luid');
+    if (req.param('lupos')) lu['lupos'] =  req.param('lupos').toUpperCase();
+    if (req.param('trans')) lu['trans'] =  req.param('trans');
+    if (req.param('frameid')) frame['frameid'] =  req.param('frameid');
+    if (req.param('framename')) frame['framename'] =  req.param('framename');
+    if (req.param('decisionid')) other['decisionid'] =  objID(req.param('decisionid'));
+    if (req.user && req.user.username) other['username'] =  req.user.username; else other['username'] = 'undefined'//TODO - add ensrueAhuthenticated
+
+    if (mode && mode =='editlu'){
+        if (req.param('definition')) lu['definition'] =  req.param('definition');
+        if (req.param('status')) lu['status'] =  req.param('status');
+        if (req.param('lexeme')) lu['lexeme'] =  req.param('lexeme');
+        if (req.param('semType')) lu['semType'] =  req.param('semType');
+        //fields = {definition: lu.definition, status: lu.status,lexeme: lu.lexeme, semType: lu.semType,'@incorporatedFE' : lu.incoFe}
+    }
+    return {lu: lu, frame:frame, other:other};
+}
+
+exports.parseReqParams = parseReqParams;
+
+
+
+/**
+ *the function recieves object and removes all the empty fields or <''>[empty string] fields
+ * @param obj  - to delete the fields from
+ * @returns the same object without the empty fields
+ */
+function omitEmpties(obj){
+    var objKeys = _.keys(obj);
+    var proj = {};
+    for (i in objKeys){
+        if (!obj[objKeys[i]] || obj[objKeys[i]] == '') {
+            //obj[objKeys[i]] = undefined;
+            delete(obj[objKeys[i]]) ;
+        }
+    }
+    return obj;
+}

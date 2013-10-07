@@ -26,6 +26,7 @@ module.exports = function(app) {
             <a href="#" onclick="document.myForm.submit();return false;">Click to submit</a>/
     */
     app.get('/logout', function(req, res){
+        console.log(req.logout)
         req.logout();
         console.log("logging out the user");
         res.redirect(hp+'');

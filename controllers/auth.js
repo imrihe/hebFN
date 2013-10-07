@@ -33,13 +33,15 @@ function findUser_old(username, fn){
 
 //this function will be called once the "login" call is being called by  req.login(); (in the app.get('login')
 exports.serializeUser = function(user, done) {
-	console.log("DEBUG: serializeUser - user is logging in:",user.username);
-	done(null, user.username);
+	console.log("DEBUG: serializeUser - user is logging in:",user);
+	//done(null, user.username);
+    done(null, {username: user.username, roles: user.roles} );
 };
 
-//this function will be called once the "logout" call is being called by  req.logout(); (in the app.get('logout')
+
 exports.deserializeUser =function(username, done) {
-    console.log("DEBUG: deserializeUser -:",username);
+    console.log("DEBUG: deserializeUser -:",JSON.stringify(username));
+    return done(null, username)
 	findUser(username, function (err, user) {
 		done(err, user);
 	});
@@ -110,6 +112,27 @@ exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
 	res.redirect(hp+'login');
 };
 
+
+//middleware methode to ensure that the current user had the relevant role
+exports.ensureReviewer = function ensureReviewer(req, res, next) {
+    if (req.user && _.indexOf(req.user.roles,'reviewer') !=-1)  return next()
+    //else res.send(401,"only reviewer is allowed to do this action");
+    else next(new Error(401,"only reviewer is allowed to do this action"))//res.redirect(hp+'login');
+};
+
+
+exports.ensureAdmin = function ensureAdmin(req, res, next) {
+    if (req.user && _.indexOf(req.user.roles,'admin') !=-1)  return next()
+    else res.redirect(hp+'login');
+};
+
+
+exports.ensureRole = function (role){
+    return function (req, res, next) {
+        if (req.user && _.indexOf(req.user.roles,role) !=-1)  return next()
+        else next(new Error(401,"the user doesn't have the relevant role: "+role))//res.redirect(hp+'login');
+    };
+}
 
 
 

@@ -9,6 +9,7 @@ function isAjax(req,res,next){
 
 module.exports = function(app) {
     var hebControl = require('../controllers/hebrew.js');
+    var auth = require('./../controllers/auth');
 
     /**
      * use this call in order to get data of an english frame\s
@@ -59,13 +60,13 @@ module.exports = function(app) {
     app.get('/heb/lusentence', hebControl.getLuSentence);
     app.get('/heb/ludata', hebControl.luAnnotationsData);
     app.get('/heb/history', hebControl.getSearchHistory);
-    app.get('/heb/pageframes', hebControl.pageframes);
+    app.get('/heb/pageframes', hebControl.getPageFrames);
 
     app.get('/heb/prioritytasks', hebControl.getPriorityTasks);
 
 
     app.get('/fuck', function(req,res) {throw  new Error("fuck!!")}); //TODO- remove
-    app.get('/testadd/:num', hebControl.tryAdd); //TODO- remove
+    //app.get('/testadd/:num', hebControl.tryAdd); //TODO- remove
 
     app.get('/heb/', function(req,res){ res.redirect(hp)});
 

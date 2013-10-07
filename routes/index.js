@@ -50,6 +50,16 @@ app.get('/kaki', function(req, res){
     //res.send(homePath+"kaki");});
 });
 
+app.get('/*', function(req,res,next){
+    if (req.xhr) {
+        console.log('received AJAX request - marking ajax flag');
+        req.isAjax = true;
+    }
+    next()
+
+
+})
+
 
 /******************general getters***************/
 require('./general.js')(app);

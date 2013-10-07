@@ -21,7 +21,7 @@ var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
     //if (query.frameid) q["frame.@ID"] = query.frameid;
     if  (q["frame.@name"]) q["frame.@name"]=  {$regex : ".*"+query.framename+".*", $options: 'i'}; //runover the default -strict frame name check
     //console.log("find query:",typeof(query),  query);
-    console.log("QUERY:",q)
+    //console.log("QUERY:",q)
     engframeModel.find(q,proj,qOptions,cb);
 };
 
@@ -59,12 +59,13 @@ var loadLuEng = exports.loadLuEng = function loadLuEng (query, proj, options, cb
     var  engluModel = Models.luModel,
         q = q2coll(query,  'lexUnit.@frameID lexUnit.@frame lexUnit.@ID lexUnit.@name'),
         qOptions = options ? options : {'limit' : 50, sort: {'lexUnit.@name': 1}};
+    if (!query.luid && !((query.framename || query.frameid) && (query.luname || query.luid))) cb(new Error('some parameters are missing'))
     //var usersRec = new userModel();
     //if (query.luid) q[ 'lexUnit.@ID']= query.luid;
     //if (query.luname) q['lexUnit.@name'] = {$regex : ".*"+query.luname+".*", $options: 'i'};   //search all lus which contains the given name, 'i'=case insensitive
 
     //projection check:
-    engluModel.find(q,proj, qOptions, cb)
+    engluModel.findOne(q,proj, qOptions, cb)
 };
 
 
@@ -198,19 +199,19 @@ exports.loadFrameNames = function loadFrameNames (req, res) {
  * @param res
  */
 var loadAnnotations = exports.loadAnnotations = function loadAnnotations (query, proj, options, cb) {
-    console.log("DEBUG: handling load english annotations request, quert: ",query);
+    console.log("DEBUG: handling load english annotations request, quert: ");
     var  luModel = Models.luModel; //mongoose.model(luCollectionName, lu, luCollectionName);
     var q= q2coll(query, "lexUnit.@frameID lexUnit.@frame lexUnit.@ID lexUnit.@name");
     var qProj =proj ? proj : {"lexUnit.@ID":1, "lexUnit.@name":1,"lexUnit.@frame":1, "_id":0, "lexUnit.subCorpus":1 };
     var qOptions =options? options : {"limit":1};
     //if (query.luid) q = {"lexUnit.@ID": query.luid};
     //if (query.luname) q = {"lexUnit.@name": query.luname};
-    luModel.findOne(q , proj, options,cb);
+    luModel.find(q , proj, options,cb);
 };
 
 exports.getAnnotations = function(req,res){
     console.log("DEBUG: handling eng-getAnnotations request");
-    loadAnnotations(req.query, null, null, handleHttpResults(req,res));
+    loadAnnotations(req.query, null, {limit: 10}, handleHttpResults(req,res));
 }
 
 /**
