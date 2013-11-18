@@ -63,6 +63,8 @@ module.exports = function(app) {
     app.get('/heb/pageframes', hebControl.getPageFrames);
 
     app.get('/heb/prioritytasks', hebControl.getPriorityTasks);
+    app.get('/heb/fesByFrame', hebControl.getFes);
+    app.get('/heb/historybyuser', hebControl.getHistoryByUser);
 
 
     app.get('/fuck', function(req,res) {throw  new Error("fuck!!")}); //TODO- remove

@@ -72,5 +72,7 @@ exports.checkdbconnect = function(req,res){
     res.send("database connection is OK " + global.homeLink);
 };
 
+exports.getConstants = function(req,res) {res.send(global.constants)};
+
 
 

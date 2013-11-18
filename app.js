@@ -42,6 +42,11 @@ var express = require('express')
 
 require('./models/mongoDB/dbConnection.js'); //this import creats the connection to mongoDB
 
+//this will load list of constants from the DB in will save it to memory (global)
+var constantsLoader = require('./models/mongoDB/constants.js').loadConstants;
+constantsLoader(global.constants)
+
+
 //TODO - check how to handle uncouight exception - restart server or something and send exception to email or log..
 /*process.on('uncaughtException', function (err) {
  console.error(err);
@@ -83,7 +88,7 @@ app.use(function(req, res, next) {
 
 app.use(express.favicon());
 //app.use(express.logger('dev'));
-app.use(express.logger({type: 'dev',"stream": require('fs').createWriteStream('a.log')}));  //http://www.senchalabs.org/connect/middleware-logger.html
+//app.use(express.logger({type: 'dev',"stream": require('fs').createWriteStream('a.log')}));  //http://www.senchalabs.org/connect/middleware-logger.html
 
 //since logger only returns a UTC version of date, I'm defining my own date format - using an internal module from console-stamp
 express.logger.format('mydate', function() {
@@ -91,6 +96,8 @@ express.logger.format('mydate', function() {
     return df(new Date(), 'dd:mm:yy HH:MM:ss.l');
 });
 //app.use(express.logger('[:mydate] :method :url :status :res[content-length] bytes -  :response-time ms', {"stream": require('fs').createWriteStream('a.log')}));//:remote-addr -
+app.use(express.logger('[:mydate] :method :url status-:status :res[content-length] bytes -  :response-time ms'));//:remote-addr -
+
 
 app.use(express.cookieParser('your secret here'));
 app.use(express.bodyParser());
@@ -152,7 +159,7 @@ if (!module.parent) {
         console.error('error listening on port',port,'- please check if the port is busy');
         //process.exit(8);
     });
-    console.log("hebFNApp: Express server listening on port %d %s in %s mode", port, conf.server,  app.settings.env);
+    console.log("hebFNApp: Express server listening on", conf.server+':'+port ,'in' ,app.settings.env,'mode');
 
 }else console.log("hebFNApp is running as sub-server");
 

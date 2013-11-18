@@ -39,6 +39,8 @@ function mainRoute(app){
         next(new Error("if you see this message so the error handled is working!"))  ;
     })
 
+    app.get('/constants', genControl.getConstants);
+
     app.post('/findquery', genControl.findQuery);  //process the query data, submit to DB and return the results
 
 

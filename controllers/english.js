@@ -16,7 +16,7 @@ var q2coll = require('../tools/utils.js').queryToCollectionQ,
 var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
     console.log("DEBUG: handling load-english-frame request");
     var  engframeModel = Models.frameModel,
-        q = q2coll(query, 'frame.@ID frame.@name frame.lexUnit.@ID frame.lexUnit.@name'),
+        q = q2coll(query, '- frame.@name frame.lexUnit.@ID frame.lexUnit.@name'),
         qOptions = options ? options : {limit: 50, sort: {'frame.@name' :1}};
     //if (query.frameid) q["frame.@ID"] = query.frameid;
     if  (q["frame.@name"]) q["frame.@name"]=  {$regex : ".*"+query.framename+".*", $options: 'i'}; //runover the default -strict frame name check
@@ -221,7 +221,11 @@ exports.getAnnotations = function(req,res){
  */
 var loadTranslations = exports.loadTranslations= function loadTranslations (query, proj, options, cb) {
     console.log("DEBUG: handling load translations request");
-    var q= q2coll(query,'frameID frameName luID name')
+    if (query.strict && query.strict ==0) delete query['strict'];
+    else query.strict=1
+    console.log(query.strict)
+    var q= q2coll(query,'- frameName luID name')
+
     var qOptions= options ? options : {limit: 50};
     //console.log("QUERY:",query)
     //console.log("DEBUG: handling load translations request with req.query.params=", req.query);

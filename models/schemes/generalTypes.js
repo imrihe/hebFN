@@ -25,6 +25,7 @@ var basicTypes = module.exports  = {
 /**semTypeRefType
  * same for english and hebrew
  */
+//var semTypeRefType=module.exports.semTypeRefType = String;
 var semTypeRefType =module.exports.semTypeRefType = new Schema({ //TODO:SCHEMA
     "@name":String,
     "@ID": basicTypes.IDType

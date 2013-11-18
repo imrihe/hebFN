@@ -99,7 +99,11 @@ var corporaSchema = new Schema({
     "status":{"type":String, enum:["active","requested","unactive","wip"]}
 });
 
-
+var commentType = new Schema({
+    cBy: String,
+    content: String,
+    cDate: Date
+})
 /**
  * "description":"an attributes-only lexeme element",
  * @type {Schema}
@@ -125,14 +129,14 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     "definition": defType,
     "frameID": IDType,
     "frameName": String,
-    "status":{type: String,enum: ["initial","complete"]},//{type: String,enum: ["approved","pending"]}, - relating to lu data - if not 'complete'  - not possible to add sentences??
+    "status":{type: String,enum: ["initial","completed"]},//{type: String,enum: ["approved","pending"]}, - relating to lu data - if not 'complete'  - not possible to add sentences??
     "translatedFrom"://"description":"holds information regarding the english lexical unit which this lexical unit was translated from",
     {
         "frameName":String,
+        "luID": String,
         "luName": String
     },
     //"description":"contains information regarding the sentences of this lexical unit",
-
     "sentenceCount":{
         "total":countType,
         "annotated":countType
@@ -145,14 +149,21 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
     "@name":{required: true, type: String, match: /^.+\..+/},
     "@POS": hebPOSType,
     "@lemmaID":IDType,
+    "@lemma":String,
     "@incorporatedFE":String,
     "@status":{type: String, match: /^[A-Z].*/},
     "@cDate": dateTimeType,
     "@cBy":String,
+    "@eDate":dateTimeType,     //e= edited
+    "@eBy":String,
+    "locked": Boolean,
+    "lockedBy": String,
+    "lockTime" : Date,
     "decision":{
         currStat: {stat: String, cBy: String, cDate : Date},
         appStat: {stat: String, cBy: String, cDate: Date}
-    }
+    },
+    "comments": [commentType]
 },{strict: false}); //{_id: false}
 
 
@@ -189,7 +200,8 @@ var hebFrameSchema = exports.hebFrameType = new Schema({
         "FE": [FEType] ,
         "FEcoreSet": [memberFEtype], //occurrences: 0+
         "frameRelation": [relatedFramesType],
-        "lexUnit": [hebFrameLUSchema]
+        "lexUnit": [hebFrameLUSchema],
+        "comments" : [commentType]
 });
 
 
@@ -199,6 +211,47 @@ var hebFrameSchema = exports.hebFrameType = new Schema({
  * @type {Schema}
  */
 var wordType = new Schema({
+
+    //basic morphological data:
+    ID: Number,
+    "word": String, //originally  -'form'
+    "lemma": String,
+    "cpos" : String, //TODO - enum
+    "pos": String, //TODO - enum
+    "prefix": String,
+    "base": String,
+    "suffix": String,
+    //FEATS
+    "gender":{type : String, enum: ['_','m', 'f', 'mf']},
+    "number":{type: String, enum: ['sp','s','p','d','dp','_']},// "comment" : "singular/plural or non. check if plural is signaled by p!",
+    "construct": String,
+    "polarity": {type: String}, //  "comment" : "probably contains: (pos) | (neg) | _"
+    "person":{type: String},//, enum: ['1','2','3']},
+    "tense": String,
+    "def": Boolean,
+    "binyan" : {type: String, enum: ['PAAL','NIFAL','HIFIL','HUFAL','PIEL','PUAL','HITPAEL', '_']},
+    "otherFeats" : String,
+    //FEATS-end
+
+    //dependency related data:
+    "deprel": String, //TODO - enum
+    "head" : String,  //Number
+    "Phead" : String, //Number
+    "pdeprel": String, //TODO - enum
+
+
+    //extra calculated fields:
+    "height": Number,
+    "id": Number,
+    "pardist": Number,
+    "parpos": String,
+    "parword": String,
+    "special": Boolean,
+    "specTrans" : String
+},{strict: false});
+
+
+var wordType2 = new Schema({
     "word": String,
     "prefix": String,
     "base": String,
@@ -255,6 +308,7 @@ var wordType1 = new Schema({
 var ConllJson31Type = new Schema({
     sentenceProperties: {
         "length" : Number,
+        "wordsNum": Number,
         "height" :Number,
         "root_location" :Number,
         "root_pos" : String,
@@ -262,23 +316,9 @@ var ConllJson31Type = new Schema({
     },
     "words" :[wordType],
     "valid": Boolean,
-    "original": Boolean
+    "text": String
+    //"original": Boolean
 },{_id:false});
-
-
-
-
-var ConllJson31Type2 = new Schema({
-    "length" : Number,
-    "height" :Number,
-    "root_location" :Number,
-    "root_pos" : String,
-    "pattern" :  String,
-    "words" :[wordType],
-    "valid": Boolean,
-    "original": Boolean
-});
-
 
 
 
@@ -289,7 +329,7 @@ var ConllJson31Type2 = new Schema({
 var hebsentenceSchema = exports.hebsentenceSchema = new Schema({
     "text":String,
     "content" : [ConllJson31Type], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
-    "lus":[String],//save the related LU ids
+    "lus":[String],//save the related LU ids framename_luname
     "ID":ObjectId,
     "source": {type: String, enum: ["corpus", "manual", "translation"]},
     //"comment":"sentences can also be manually inserted",
@@ -300,7 +340,7 @@ var hebsentenceSchema = exports.hebsentenceSchema = new Schema({
         "docId":IDType,
         "corpID":IDType
     }
-});
+},{strict:false});
 
 var heblabelType = new Schema({
     "name":String,
@@ -344,17 +384,17 @@ var heblayerType = new Schema({
 
 
 var annotatedSentenceType = new Schema({
-    "ID":IDType,// in the sentenceType - there is annotations list - referring to this ID  TODO change to _id?
+    "ID":ObjectId,// in the sentenceType - there is annotations list - referring to this ID  TODO change to _id?
     "validVersion" : Boolean,
     "status": String,
     "cDate": dateTimeType,
     "cBy": String, //username
-    "sentenceId" : IDType, //the id of the sentence in the sentences collection
+    "sentenceId" : ObjectId, //the id of the sentence in the sentences collection
     //"sentenceContent": ConllJson31Type, //only the relevant one - the one which this annotation is being made on (the valid one!)
-    "segmentationID" : ObjectId, //each sentence has one or more versions - according to the original imported sentence and its corrections, only one of those will be valid
+    //"segmentationID" : ObjectId, //each sentence has one or more versions - according to the original imported sentence and its corrections, only one of those will be valid
     //in case that this version is not valid  - all the annotation set will be marked as not valid
     "layer":[heblayerType]
-});
+},{strict: false});
 
 
 /**
@@ -364,11 +404,15 @@ var annotatedSentenceType = new Schema({
  */
 var luSentenceSchema = exports.luSentenceSchema = new Schema({
     "sentenceID" : ObjectId,
-    "luId": ObjectId, //the id of the annotated lexical unit.
+    "luId": String, //the id of the annotated lexical unit.
     "luName": String, //optimization
     "frameID": IDType, //the id of the frame which this lu is related to  (search and data retrieval optimization)
     "frameName": String,
-    "annotations": [annotatedSentenceType]
+    "annotations": [annotatedSentenceType],
+    "comments": [commentType],
+    "text": String,
+    cDate: Date,
+    cBy: String
 },{strict: false});
 
 
@@ -397,7 +441,7 @@ var decisionSchema = exports.decisionSchema = new Schema({
     "hasInquiries":Boolean,
     "inquiryContent":[inquiryType]
 
-},{_id:false    , __v:false, strict : false});
+},{_id:false, strict : false});
 
 decisionSchema.tooltip={aa:"aaaaa"};
 
@@ -410,9 +454,6 @@ exports.luSentenceModel = mongoose.model(coll.hebLuSent, luSentenceSchema, coll.
 exports.annotatorDecisionsModel = mongoose.model(coll.hebDecisions, decisionSchema, coll.hebDecisions);
 exports.historyModel = mongoose.model(coll.history, historySchema,coll.history);
 
-//TODO - remove
-
-exports.tmodel = mongoose.model('t', new Schema({id:Number, subdoc: [{id:Number, text:String}]}), 't');
 
 
 

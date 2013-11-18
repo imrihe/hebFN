@@ -26,8 +26,8 @@ module.exports = function(app) {
     app.post('/heb/addsentence',/*auth  .ensureAuthenticated,*/ hebControl.addSentenceToDB);  //process the query data, submit to DB and return the results
     //app.post('/ajax/heb/addsentence',/*auth.ensureAuthenticated,*/ hebControl.addSentenceToDB);  //process the query data, submit to DB and return the results
 
-    app.get( '/heb/addSentencesToLuPost', function(req,res) {res.render('addSentencesToLuPost.jade')});
-    app.post( '/heb/addSentencesToLU', hebControl.addSentencesToLu);
+    app.get( '/heb/addSentencesToLuPost', function(req,res) {res.render('addSentencesToLuPost2.jade')});
+    app.post( '/heb/addSentencesToLU', hebControl.addSentenceToLu);
 
 
     app.get('/heb/createannotation', function(req,res){res.render('createAnnotation.jade')});
@@ -58,6 +58,15 @@ module.exports = function(app) {
     app.get('/heb/editlu', hebControl.posteditLU)
     app.post('/heb/editlu', hebControl.posteditLU)
 
+
+    app.post('/heb/rmSentFromLu', hebControl.delSentFromLU);
+    app.post('/heb/markbadseg', hebControl.markAsBadSegmentd);
+    app.get('/heb/lulock', hebControl.luLock);
+
     app.get('/heb/', function(req,res){ res.redirect(hp)});
+    app.get('/heb/trysemtype', function (req,res){res.render('trysemtype.jade')});
+
+    app.post('/heb/trysemtype', function (req,res){console.log(req.body); res.send('OK')})
+
 };  //main!
 

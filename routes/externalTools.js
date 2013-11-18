@@ -13,6 +13,8 @@ module.exports = function(app) {
      */
     app.get('/external/searchSentence', externalTools.getSE);
 
+    app.get('/external/exampleSentences', externalTools.getExampleSentences);
+
 
     app.get('/external/morph', function(req, res) {
         // Set flag that the route controller can use
@@ -30,4 +32,5 @@ module.exports = function(app) {
     });
     //app.get('/external/morph', function(req,res){res.});
     app.post('/external/depparse', externalTools.getDepParse);
+    app.get('/external/parsesentence', externalTools.getDepParse);
 };

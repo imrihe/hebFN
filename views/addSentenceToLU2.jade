@@ -1,0 +1,36 @@
+p add sentence to LU
+if typeof(sentJson)==object
+    p 1231231
+    //p yayyy!!!! #{sentJson.length}
+    for sent in sentJson
+        p  #{JSON.stringify(sent['sentenceProperties'])}
+if message
+    p #{message}
+p
+    if !sentenceid
+        a(href='addsentence?sentenceid=1') click here to add a sentence from DB (by id) to LU
+    else
+        a(href='addsentence') click here to add a sentence by JSON format
+        br
+        a(href='../external/depparse') click here to add a sentence by text - before parsing
+p please type a sentence or resend the request with 'sentenceid=1' in order to type sentence id 11
+    form(method='post' ,action='../heb/addsentence')
+        fieldset
+            legend add sentence to lu
+            -var sentenceJson=''
+            if sentJson
+                -sentence = JSON.stringify(sentJson[0])
+            if !sentenceid
+                p full sentence
+                    textarea(name="sentence",rows=15, cols=100, id="sentence" ) #{sentence}
+                    br
+            else
+                label sentence id (objectID type)
+                    input(type="text", name="sentenceid", id="sentenceid" )
+                    br
+            label luid
+                input(type="text", name="luid", id="luid", value='5223509c50ede08002000035')
+                br
+            label frameid
+                input(type="text", name="frameid", id="frameid", value='777777' )
+            input(type="submit", value="Submit", style="height:50px; width:100%")

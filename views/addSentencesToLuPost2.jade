@@ -1,7 +1,6 @@
 ///POST: (format: body.sentences<sentence>=list of sentences, luid, frameid, user.username, sentence={conll31, badSegmentation?, addTOLU?, inDB, db})
 -var exmSent= JSON.stringify({"words":[{"ID":"1.0","word":"ה","lemma":"_","cpos":"DEF","pos":"DEF","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":true,"special":false},{"ID":"1.1","word":"ילד","lemma":"_","cpos":"NN","pos":"NN","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"2.0","word":"הלך","lemma":"_","cpos":"VB","pos":"VB","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"3","tense":"past","binyan":"_","def":false,"special":false},{"ID":"3.0","word":"ל","lemma":"_","cpos":"PREPOSITION","pos":"PREPOSITION","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"3.1","word":"בית","lemma":"_","cpos":"NNT","pos":"NNT","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"4.0","word":"ה","lemma":"_","cpos":"DEF","pos":"DEF","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":true,"special":false},{"ID":"4.1","word":"ספר","lemma":"_","cpos":"NN","pos":"NN","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"5.0","word":"אתמול","lemma":"_","cpos":"RB","pos":"RB","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"6.0","word":"אחרי","lemma":"_","cpos":"IN","pos":"IN","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"7.0","word":"ה","lemma":"_","cpos":"DEF","pos":"DEF","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":true,"special":false},{"ID":"7.1","word":"צהרים","lemma":"_","cpos":"NN","pos":"NN","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"m","number":"p","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"8.0","word":"ב","lemma":"_","cpos":"PREPOSITION","pos":"PREPOSITION","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"8.1","word":"שעה","lemma":"_","cpos":"NN","pos":"NN","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"f","number":"s","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"9.0","word":"3","lemma":"_","cpos":"CD","pos":"CD","head":"0","deprel":"dep","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false}],"valid":true,"text":"ה ילד הלך ל בית ה ספר אתמול אחרי ה צהרים ב שעה 3","sentenceProperties":{"length":14,"wordsNum":9}})
 -var sentNum=3
-p kaki
 form(method='post', action='addSentencesToLU')
     fieldset
         legend general data
@@ -15,43 +14,20 @@ form(method='post', action='addSentencesToLU')
             input(type='text', name='data[db]', value='haaretz')
         input(type='text', name='data[source]', value='manual', hidden)
     fieldset
-        legend sentences
-        //key sentence1  <br>
-            key content
-                input(type='text', name='sentences[0][content]',value="#{exmSent}")
-            key bad segmentation?
-                input(type='checkbox', name='sentences[0][badseg]')
-            key addTOLU
-                input(type='checkbox', name='sentences[0][addtolu]')
-            key inDB
-                input(type='checkbox', name='sentences[0][indb]')
-        //key sentence2  <br>
-            key content
-                input(type='text', name='sentences[1][content]', value="#{exmSent}")
-            key bad segmentation
-                input(type='checkbox', name='sentences[1][badseg]')
-            key addTOLU
-                input(type='checkbox', name='sentences[1][addtolu]')
-            key inDB
-                input(type='checkbox', name='sentences[1][indb]')
-        //key sentence3  <br>
-            key content
-                input(type='text', name='sentences[2][content]', value="#{exmSent}")
-            key bad segmentation
-                input(type='checkbox', name='sentences[2][badseg]')
-            key addTOLU
-                input(type='checkbox', name='sentences[2][addtolu]')
-            key inDB
-                input(type='checkbox', name='sentences[2][indb]')
-        -for(var i=0; i<sentNum; i++)
+        legend sentence
+
             b <br> sentence#{i}  <br>
             key content
-                input(type='text', name='sentences[#{i}][content]', value="#{exmSent}")
+                //input(type='text', name='sentence[content]', value="#{exmSent}")
+                textarea(name='sentence[content]',rows=15, cols=100, text=exmSent, id="lexUnit" ) #{exmSent}
             key <br> action
-                select(name='sentences[#{i}][action]')
-                    option(value='nothing') nothing
+                select(name='sentence[action]')
                     option(value='addtolu') addtolu
                     option(value='badseg') mark badseg
             br
 
-    input(type='submit')
+        input(type='submit')
+
+
+
+            '{"words":[{"ID":"1.0","word":"ה","lemma":"ה","cpos":"DEF","pos":"DEF","head":"1.1","deprel":"def","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":true,"special":false},{"ID":"1.1","word":"כובע","lemma":"כובע","cpos":"NN","pos":"NN","head":"3.0","deprel":"subj","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"2.0","word":"שלי","lemma":"של","cpos":"POS","pos":"POS+PRP","head":"1.1","deprel":"posspmod","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"2.1","word":"*PRP*","lemma":"_","cpos":"PRP","pos":"PRP","head":"2.0","deprel":"gobj","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"1","tense":"_","binyan":"_","def":false,"special":true,"specTrans":"שלי"},{"ID":"3.0","word":"הלך","lemma":"הלך","cpos":"VB","pos":"VB","head":"0","deprel":"prd","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"3","tense":"past","binyan":"_","def":false,"special":false},{"ID":"4.0","word":"ל","lemma":"ל","cpos":"PREPOSITION","pos":"PREPOSITION","head":"3.0","deprel":"prepmod","Phead":"_","pdeprel":"_","gender":"_","number":"_","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false},{"ID":"4.1","word":"איבוד","lemma":"איבוד","cpos":"NNT","pos":"NNT","head":"4.0","deprel":"pobj","Phead":"_","pdeprel":"_","gender":"m","number":"s","construct":"_","polarity":"_","person":"_","tense":"_","binyan":"_","def":false,"special":false}],"valid":true,"text":"ה כובע שלי {שלי} הלך ל איבוד","sentenceProperties":{"length":7,"wordsNum":4}}'

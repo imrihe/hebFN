@@ -259,7 +259,9 @@ function listSchemaTypes(){
     resultObj = {}
     var mainSchemes ={
         eng:['engFrameSchema', 'translationSchema', 'lexUnit'],
+        //eng: [],
         heb: ['decisionSchema','hebFrameLUSchema', 'luSentenceSchema', 'hebsentenceSchema', 'hebFrameType']
+        //heb: ['hebFrameLUSchema']
     }
     for (schema in mainSchemes){
         //console.log(schema)

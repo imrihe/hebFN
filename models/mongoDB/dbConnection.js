@@ -17,12 +17,13 @@ var options ={  //TODO: check the good and right settings...
 
 //console.log("DEBUG: trying to connect to DB:",'mongodb://'+conf.host+'/'+conf.dbname);
 var //db = mongoose.connect('mongodb://localhost/HebFrameNetDB'),
-    db = mongoose.connect('mongodb://'+conf.dbhost+':'+conf.dbport+'/'+conf.dbname,options,  function(err)
+    //db = mongoose.connect('mongodb://'+conf.dbhost+':'+conf.dbport+'/'+conf.dbname,options,  function(err)
+    db = mongoose.connect('mongodb://'+conf.dbusername + ':'+ conf.dbpassword+  '@'+conf.dbhost+':'+conf.dbport+'/'+conf.dbname,options,  function(err)
             {if (err){
                 console.error("connection problem!! EXITING..");
-                require('../../tools/mailer.js').sendMail("imirhe@gmail.com", 'monogdb is down', "mongoDB is down")
-                process.exit(code=8);
-            }
+                require('../../tools/mailer.js').sendMail("imrihe@gmail.com", 'mongoDB connection is down', "mongoDB connection is down",
+                    function(err,resullts){process.exit(code=8);})
+                 }
                     }),  //TODO { server: { auto_reconnect: false }}
     schema = mongoose.Schema;
 

@@ -15,6 +15,7 @@ var q2coll = require('../tools/utils.js').queryToCollectionQ,
     utils =require('../tools/utils.js');
 var async = require('async'); //using async.parallel in order to gather frameData
 var engControl = require("./english.js");
+var extControl = require("./externalTools.js")
 
 
 
@@ -31,11 +32,29 @@ var engControl = require("./english.js");
  */
 var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
     console.log("DEBUG: handling load-hebrew-frame request");
-    var  engframeModel = Models.frameModel,
-        q = q2coll(query, '@ID @name lexUnit.@ID lexUnit.@name - -'),
+    var q = q2coll(query, '- @name - lexUnit.@name - -'),
         qOptions = options ? options : {limit: 50, sort: {'@name' :1}};
     //console.log(q, proj, qOptions)
-    Models.hebFrameModel.find(q,proj,qOptions,cb);
+    Models.hebFrameModel.findOne(q,proj,qOptions,
+        function(err,results){
+            //console.log(err, results);
+            if (err || !results || results.length==0 || query.nofilter) return cb(err,results)
+            else {
+                //results = results.toObject();
+                var newRes = results['lexUnit'];
+                console.log("before filter",results.to)
+                newRes = _.filter(newRes, function(obj) {
+                    //console.log('checking for lu : ', obj.decision, obj['@name'])
+                    console.log('checking for lu with stat:',obj.decision.currStat['stat']);
+                    return _.indexOf(['delete', 'approve_delete', 'reject_add'], obj.decision.currStat['stat']) ==-1
+                    //return (obj.decision.currStat['stat'] == params.lu.luname);})
+                });
+                results['lexUnit'] = newRes
+                console.log("after filter",newRes)
+                cb(err, results);
+
+            }
+        });
 };
 
 
@@ -59,6 +78,8 @@ exports.getFrame = function getFrame(req, res){
  */
 //TODO: need to index the luID and the lu.@name
 var loadLu = exports.loadLu = function loadLu (query, proj, options, cb) {
+    console.log("DDD the query is:", JSON.stringify(query))
+
     var qProj = proj || {"@ID":1, '@name':1, 'lexUnit':1}
     console.log("DEBUG: handling load hebrew lu request");
     if (!((query.luid || query.luname) && (query.framename || query.frameid)) ) return cb(new Error("some parameters are missing"),null);
@@ -70,13 +91,18 @@ var loadLu = exports.loadLu = function loadLu (query, proj, options, cb) {
     q['lexUnit'] = {'$exists':true}; //query optimization
 
     if (query.luid ){ //return single results - use element-match
-        proj['lexUnit'] =  { '$elemMatch': { '@ID': objID(query.luid)}}   //this options is to return only the first element in the array that matches to the query
+        qProj['lexUnit'] =  { '$elemMatch': { '@ID': objID(query.luid)}}   //this options is to return only the first element in the array that matches to the query
     }
     if (query.luname ){ //return single results - use element-match
-        proj['lexUnit'] =  { '$elemMatch': { '@name': query.luname}}      //this options is to return only the first element in the array that matches to the query
+        qProj['lexUnit'] =  { '$elemMatch': { '@name': query.luname}}      //this options is to return only the first element in the array that matches to the query
+    }
+    console.log("DDD the query is-2:", q)
+    Models.hebFrameModel.findOne(q,qProj, qOptions,function(err, results){
+        if (!err && results) return cb(err, results['lexUnit'][0])
+        else cb(err,results)
     }
 
-    Models.hebFrameModel.findOne(q,qProj, qOptions, cb)
+        )
 };
 
 //bridge TODO - move to routes
@@ -88,7 +114,7 @@ exports.getLu = function getLu(req, res){
 
 
 
-/**search in the history database
+/**search in the history database  - returns all history of the object found
  *
  * @param query  - contains parameters to filter the history by - framename, luname, sentenceid (one or more), type<framelu, lusent, sentanno>
  * @param proj - will be forworded to the mongoDB query as projection parameter
@@ -100,6 +126,7 @@ function searchHistory(query, proj, options, cb){
     //({framename: "asdasd",luname: "refs.luname"}, query) = > {asdasd: query['framename'], 'refs.luname': query['luname']}
     var q  =q2coll(query, '- refs.frameName - refs.luName sentenceID -')
     if (query['type']) q['type']  = query['type'];
+    if (query['username']) q['actions.cBy']  = query['username'];
     if (query['decisionid']) q['action._id']  = query['decisionid'];
     Models.historyModel.find(q, proj, options,cb);
 }
@@ -218,16 +245,35 @@ exports.getPageFrames = function (req,res) {pageFrames(req.query,res, handleHttp
 function listSentences(req,res,cb){
     console.log("DEBUG: handling listAllSentences method" );
     //var q = q2coll("frameid")
-    var query=  {};
+    var query=  {}, proj={};
     //if (req.query.luid) query.lus=req.query.luid;
-    if (req.query.luname) query.lus=req.query.luname;     //TODO - use q2coll
+    if (req.query.luid) query.lus=req.query.luid;     //TODO - use q2coll
     if (req.query.sentenceid) query.ID=req.query.sentenceid;
 
-    Models.hebSentenceModel.find(query, {'sentenceOrigin': 0},{'limit': 200}, cb)
+
+    if (req.param('valid')==1){
+        proj = {'content.$':1, text:1, sentenceProperties: 1 , ID: 1}
+        query['content.valid']=true;
+        console.log("valid is true")
+    }
+    console.log('this this2',JSON.stringify(query), 'proj:',JSON.stringify(proj))
+    Models.hebSentenceModel.find(query, proj,{'limit': 200, sort: {ID: 1}}, function(err, results){
+        //return cb(err,results)
+        if (err || !results) return cb(err,results)
+        //console.log('is results array', Array.isArray(results))
+        console.log('RESULTS number',results.length)
+        var updatedRes =  _.map(results, function(sent){
+            var newSent=  sent.toObject();
+            newSent['content']=newSent['content'][0]
+            return newSent;
+        })
+        cb(err, updatedRes)
+    })
 };
 
 
 exports.getListSentences = function getListSentences(req,res,cb){
+    if (req.param('luname') && req.param('framename')) req.query.luid =  req.param('framename')+ '#'+  req.param('luname')
     listSentences(req,res, handleHttpResults(req,res))};
 /**
  * returns a list of all the lu-sentence relations (each sentence-lu is a record which contains list of annotations)
@@ -238,11 +284,35 @@ exports.getListSentences = function getListSentences(req,res,cb){
 function luSentence(req,res, cb){
     console.log("DEBUG: handling luSentence method" );
     //var query ={};
-    var query = q2coll(req.query, 'frameID frameName - luName sentenceID');
+    var query = q2coll(req.query, '- frameName - luName sentenceID');
     //if (req.query.sentenceid) query.sentenceID = req.query.sentenceid;
     //console.log(query)
-    //console.log("DEBUG-luSentence: using query:",query);
-    Models.luSentenceModel.find(query, {"_id":0, "__v":0},{'limit': 20}, cb)
+    console.log("DEBUG-luSentence: using query:",JSON.stringify(query));
+
+    Models.luSentenceModel.find(query, {"_id":0, "__v":0},{'limit': 20,sort: {'sentenceID':1}}, function(err, result){
+        console.log("lu sentence reusklts num:", result.length)
+        var newRes = {};
+        newRes.rowData= result;
+        newRes.annotations = {};
+        if (result){
+            for (sen in result){
+                var anno;
+                var FELayer;
+                var targetLayer;
+                anno = result[sen]['annotations'];
+                //last annotation is the valid one
+                anno = Array.isArray(anno) && anno.length >0 ? anno[anno.length-1] : null;
+                FELayer = anno ? _.filter(anno['layer'], function(obj) {return obj['name']=='FE'}) : null;
+                FELayer = FELayer ? FELayer[0] : {name: 'FE',label: []}
+                targetLayer = anno ? _.filter(anno['layer'], function(obj) {return obj['name']=='Target'}) : null;
+                if (!targetLayer) console.log("ERROR: ", 'no target for this sentence - creating stub')
+                targetLayer = targetLayer ? targetLayer[0] : {name: 'Target',label: [{name: 'Target',tokens: [-1]}]}
+                newRes.annotations[sen] = {Target: targetLayer, FE: FELayer, sentenceID: result[sen]['sentenceID']};
+
+            }
+        }//for sentence ins result
+     cb(err, newRes);
+    })
 }
 
 //wrapper function for luSentence - creates a CB function
@@ -259,6 +329,8 @@ exports.getLuSentence = function(req,res){
  */
 exports.luAnnotationsData = function  luAnnotationsData(req,res,cb){
     if (!(req.param('luname') && req.param('framename'))) return cb(new Error("some of the parameters are missing"))
+    req.query.valid=true;
+    req.query.luid = req.param('framename')+  '#' + req.param('luname');
     //load frame data with lu
     //load the lu-sentence for this lu
     //load the sentences related to this lu
@@ -283,21 +355,6 @@ exports.luAnnotationsData = function  luAnnotationsData(req,res,cb){
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**return object of sorted FES from given list of FEs:
  * {core: [{name: thename, ID: the-@ID, def: 'the definition'}], nonCore: [{name: thename, ID: the-@ID, def: 'the definition'}] ]
   * @param fes
@@ -314,7 +371,6 @@ function orderFes(fes){
     //console.log("CORE",core);
     //console.log("nonCore",nonCore);
     return {core: core, nonCore: nonCore}
-
 }
 
 
@@ -331,16 +387,18 @@ function orderFes(fes){
 exports.loadFrameData = function loadFrameData(req,res,cb){
     delete req.query['luid']
     delete req.query['luname']
-    //console.log("QUERY AFTER DELETE:", req.query)
-    if (!req.query.frameid && !req.query.framename) {res.send(400)}
+    delete req.query['frameid']
+    console.log("QUERY AFTER DELETE:", JSON.stringify(req.query))
+    if (!req.query.framename) {return res.send(400)}
+    console.log("asd")
     async.parallel({
             //get the hebrew frame data - with the hebrew lus and all the FEs
             hebData: function(cb){
                 req.query.strict=1;
                 loadFrame(req.query, {}, null, function(err, results){
-                    //console.log(results)
-                    if (results && results.length>0) cb(err, results[0]);
-                    else cb(206, results);})
+                    console.log('load hebrew:',results)
+                    if (results) cb(err, results);
+                    else cb(303, results);})
             },
             //get the english lexical units list
             engData: function(cb){
@@ -379,8 +437,39 @@ exports.loadFrameData = function loadFrameData(req,res,cb){
 
 
 
+function fesByFrame(fName,cb ){
+    if (!fName) return cb(new Error("you must specify framename"), null)
+    Models.hebFrameModel.findOne({'@name': fName}, {'FE.@name': 1 }, function(err, result) {
+        console.log(err,result)
+        cb(err, _.pluck(result.FE,'@name'))})
+
+}
+exports.getFes = function(req,res){fesByFrame(req.param('framename'), handleHttpResults(req,res))}
 
 
+/**search all the actions - addlu, addsentence,editlu, annotatesnetence by username
+ * retruns flat list of the user sorted bt the cDate (no filters)
+ *  frame-cBy,lu-cBy,
+ * @param username
+ * @param cb
+ */
+function historyByUser(username, cb){
+    //TODO: add filters
+    console.log("DEBUG: historyByUser")
+    if (!username) return cb(new Error('you must supply username'))
+    var q= {'actions.cBy': username};
+    Models.historyModel.aggregate(
+        {$unwind : "$actions" },    //this operator splits each array of lus  - to N documents - each one with single lu
+        {$match: q},                //this filter the result of the prior phase
+        //{$project: {"_id":0,"@name":1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1,'lexUnit.@POS':1}}, //handele projection
+        //{$project: {"_id":0,framename: "$lexUnit.@frame", frameid: '$lexUnit.@frameID', luname: '$lexUnit.@name', luid: '$lexUnit.@ID'}},
+        {$sort: {"actions.cDate": 1}},
+        cb);
+}
+
+exports.getHistoryByUser = function(req,res){
+    historyByUser(req.param('user'), handleHttpResults(req,res));
+}
 
 
 
@@ -592,12 +681,12 @@ function isInDB(sentenceText,cb){
     Models.hebSentenceModel.findOne({"text": sentenceText}, {"ID":1},function(err, resObj){
         if (!err){
             console.log("DEBUG-isInDB: text search result in sentences coll:", resObj);
-            if (resObj) cb(resObj.ID, 'good');
+            if (resObj) cb(null, resObj.ID, 'good');
             else Models.hebBadSentenceModel.findOne({"text": sentenceText}, {"ID":1},function(err, resObj2){
                 if (!err){
                     //console.log("DEBUG: text search result in badSentences coll", resObj2);
-                    if (resObj2) cb(resObj2.ID, 'bad');
-                    else cb(resObj2);
+                    if (resObj2) cb(null, resObj2.ID, 'bad');
+                    else cb(null, null, null);
                 }});
             }
         else throw new Error("connetion error with DB : isInDB");
@@ -615,13 +704,19 @@ function isInDB(sentenceText,cb){
  * @param sentId
  * @returns {{text: *, sentenceProperties: *, content: Array, ID: *, source: *}}
  */
-function createSentenceJson(sentString, data){
-    console.log("DEBUG: createSentenceJson", typeof(sentString),"   ",sentString );
-    var sentObj = JSON.parse(sentString);
+function createSentenceJson(sentence, data){
+    //console.log("DEBUG: createSentenceJson", typeof(sentString),"   ",sentString );
+    try {
+    sentence  = (typeof(sentence)=='string') ? JSON.parse(sentence) : sentence ; //make sure the sentence is object and not String!
+    }catch (er){
+        return (null)
+
+    }
+
     return {
-        "text": utils.linearizeConllSentence(sentObj['words']),//TODO
-        "sentenceProperties" : sentObj['sentenceProperties'],
-        "content" : [{"words": sentObj['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+        "text": utils.linearizeSentence2(sentence['words']),//TODO
+        "sentenceProperties" : sentence['sentenceProperties'],
+        "content" : [{"words": sentence['words'],valid: true}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
         //"lus":[IDType],//save the related LU ids
         //"ID": sentId ? objID(sentId) : objID(),
         "source": data ? data['source'] : 'manual'//{type: String, enum: ["corpus", "manual", "translation"]},//TODO
@@ -635,21 +730,20 @@ function createSentenceJson(sentString, data){
  * @param sentJson
  * @returns {*}
  */
-function processBadSentence(sentJson, data, control, id){
+function processBadSentence(sentJson, data, control, id,coll,cb){
     "add the sentence to the bad sentences collection"
     console.log("DEBUG: processing processBadSentence",id);
-    var succ = ("the sentence was added to the bad sentences collection with id: " + id);
     //var sentObj = new badSentenceModel(sentJson);
     sentJson['ID'] = id ?id : objID();
+    //TODO: need to make sure i split - if the sentence doesn't exist continue, otherwise call the 'markbad seg' finction
     new Models.hebBadSentenceModel(sentJson).save(function(err){
         if (err) {
+            cb(err)
             console.log("error saving sentence", err);
             control.write("error saving sentence" + sentJson);
             control.dec();
         }
-        console.log(succ);
-        control.write("the bad-segmented-sentence was saved successfully -!" + sentJson['ID']);
-        control.dec();
+        else cb(null, "Ok, the snetence wass add to bad sentences list")
     });
 }
 
@@ -659,34 +753,40 @@ function processBadSentence(sentJson, data, control, id){
  * @param sentJson - valid sentence JSON, no ID
  * @returns {*}
  */
-function addNewSentenceToLU(sentJson,data,control,id){
+function addNewSentenceToLU(sentJson,data,control,id,coll,cb){
     console.log("DEBUG: processing addNewSentenceToLU");
     //1.add sentence to the sentences DB
     var id = objID();
     sentJson['ID'] = id;
     //2.add luid to the sentence 'lus' field
-    var luid = objID(data['luid']);
+    var luid = data['framename']+'#'+data['luname'];
     sentJson['lus'] =luid;
+
+
+    console.log(sentJson);
     new Models.hebSentenceModel(sentJson).save(function(err){
         if (err) {
-            console.error("DEBUG-addNewSentenceToLU: error saving sentence to DB addNewSentenceToLU-phase-1");
-            control.write("error saving sentence to DB addNewSentenceToLU-phase-1");
-            control.dec();
+            cb(err)
+            console.error("DEBUG-addNewSentenceToLU: error saving sentence to DB addNewSentenceToLU-phase-1" +err);
+            //control.write("error saving sentence to DB addNewSentenceToLU-phase-1");
+            //control.dec();
         }
         else {
-            console.log('"DEBUG-addNewSentenceToLU:: the sentence was saved to BD with Id', id);
+            console.log('"DEBUG-addNewSentenceToLU:: the sentence was saved to DB with Id', id);
             //3. add the sentenceid, frameid, luid to the sentence-lu collection
-            var luSent  = {sentenceID: id, luId: luid, frameID: data['frameid']};
+            var luSent  = {cDate: new Date(), cBy: data.username, sentenceID: id, luname: data['luname'],luId: luid, frameName: data['framename'], text: sentJson.text};
             new Models.luSentenceModel(luSent).save(function(err){
                 if (err) {
-                    control.write("error saving sentence-lu to DB addNewSentenceToLU-phase-2"+ err);
-                    control.dec();
                     console.error("DEBUG-addNewSentenceToLU: error saving sentence-lu to DB addNewSentenceToLU-phase-2",err);
+                    cb(err)
+                    //control.write("error saving sentence-lu to DB addNewSentenceToLU-phase-2"+ err);
+                    //control.dec();
                 }
                 else {
-                    control.write("the sentence-lu was saved"+ luSent.sentenceID + " " + luSent.luId);
-                    control.dec();
                     console.log("DEBUG-addNewSentenceToLU: the sentence-lu was saved", JSON.stringify(luSent));
+                    cb(null, "the sentence was added succesfully to the DB and to the LU")
+                    //control.write("the sentence-lu was saved "+ luSent.sentenceID + " " + luSent.luId);
+                    //control.dec();
                 }
             });
         }
@@ -700,7 +800,7 @@ function addNewSentenceToLU(sentJson,data,control,id){
  * @param data
  * @returns {*}
  */
-function addExistSentenceToLU(sentJson, data,control,id,coll){
+function addExistSentenceToLU(sentJson, data,control,id,coll,cb){
     console.log("DEBUG: processing addExistSentenceToLU",id, data['luid']);
     //1. check if we have already sentence-lu association
     //1.1 if exists - return -"association exists"
@@ -708,46 +808,49 @@ function addExistSentenceToLU(sentJson, data,control,id,coll){
     //1.2.1 add the lu to the sentence['lus'] list
     //1.2.2 add triple - sent-lu-frame to luSentence collection
     //var id = sentJson['ID'];
-    var luid = objID(data['luid']);
+    //var luid = objID(data['luid']);
+    var luid = data['framename']+'#'+data['luname'];
     console.log("DEBUG-addExistSentenceToLU:searching for id:", luid, "sentId:", id);
     //Models.hebSentenceModel.findOne({'ID':id,'lus': luid}, function(err, resObj){
     Models.hebSentenceModel.find({'ID':id, 'lus': luid}, function(err, resObj){
-        var associated;
         if (err) {
             console.error("DEBUG-addExistSentenceToLU: error searching for lu in sentence");
-            control.write("error searching for lu in sentence");
-            control.dec();
+            cb(error)
+            //control.write("error searching for lu in sentence");
+            //control.dec();
         }
         else {
             if (resObj && resObj.length >0){
+                cb(null, "OK, the sentence is already associated to the lu")
                 console.log("DEBUG-addExistSentenceToLU: the sentence and lu are already associated");
-                associated= true;
-                control.write("the sentence and lu are already associated");
-                control.dec();
+                //control.write("the sentence and lu are already associated");
+                //control.dec();
 
             }else {
-                associated=false
                 //processUnAssociated(sentJson, data);
                 //1.2.1 add the lu to the sentence['lus'] list
                 Models.hebSentenceModel.findOneAndUpdate({'ID':id}, {$push: {"lus":luid}}, function(err, returnedObj) {
                     if (err) console.log("DEBUG-addExistSentenceToLU: error adding lu to sentence lus list");
                     else if (!returnedObj) {
+                        cb("couldn't fint the sentence")
                         console.log("DEBUG-addExistSentenceToLU: couldn't fint the sentence");
-                        control.write("couldn't fint the sentence");
-                        control.dec();
+                        //control.write("couldn't fint the sentence");
+                        //control.dec();
                     }
                     else {
                         console.log("DEBUG: success - the lu was added to the sentence", id);
-                        var luSent  = {sentenceID: id, luId: luid, frameID: data['frameid']};
+                        var luSent  = {cDate: new Date(), text: sentJson.text, sentenceID: id, luId: luid, frameID: data['frameid']};
                         new Models.luSentenceModel(luSent).save(function(err){
                             if (err){
+                                cb("error saving sentence-lu to DB")
                                 console.log(err);
-                                throw new Error("addExistSentenceToLU: error saving sentence-lu to DB addNewSentenceToLU-phase-2"+err);
+                                //throw new Error("addExistSentenceToLU: error saving sentence-lu to DB addNewSentenceToLU-phase-2"+err);
                             }
                             else {
                                 console.log("DEBUG-addExistSentenceToLU: addExistSentenceToLU: the sentence-lu was saved", luSent);
-                                control.write("addExistSentenceToLU: the sentence-lu was saved");
-                                control.dec();
+                                cb(null, "the sentence was added succesgully to the lu")
+                                //control.write("addExistSentenceToLU: the sentence-lu was saved");
+                                //control.dec();
                             }
                         });
                     }
@@ -778,7 +881,7 @@ function addExistSentenceToLU(sentJson, data,control,id,coll){
 /**
  *
  * @param sent - string representing the sentence in the following format:
- *  {inddb=objID\true\ubdefined, content=string of 31-conll sentence format}
+ *  {inddb=objID\true\ubdefined, content=string of 31-conll sentence format (see conll31Type)}
  * @param data
  * @returns {*}
  */
@@ -786,17 +889,21 @@ function processSentence(sent, data, control, sentenceNumber){
     var func;
     var action  = sent['action'];
     console.log('processing sentence number:', sentenceNumber, "action:", sent['action']);
+    //var sentJson
+    //extControl.parseText(sent, function(resSent){
     var sentJson  = createSentenceJson(sent['content'], data); //(sent['indb'] ? (sent['indb']) : undefined) ); //parse the sentence by schema
     var msg;
+
     function skipSentence (){
         console.log("no action was chosen for the sentence", msg);
-        control.write("no action was chosen for the sentence " + msg);
+        //control.write("no action was chosen for the sentence " + msg);
+        control.write("OK");
         control.dec();
     }
 
     //
-    isInDB(sentJson['text'], function(id, coll){
-        console.log("DEBUG: processSentence CB function: recieved id:",id);
+    isInDB(sentJson['text'], function(err, id, coll){
+        console.log("DEBUG: processSentence CB function: received id:",id);
         switch (action) {
             case 'badseg':
                 if (id && coll=='bad') {
@@ -825,6 +932,50 @@ function processSentence(sent, data, control, sentenceNumber){
 }
 
 
+function processSentence2(sent, data, control,cb ){
+
+    var func;
+    var action  = sent['action'];
+    console.log('DEBUG: processSentence2', action);
+    var sentJson  = createSentenceJson(sent['content'], data); //(sent['indb'] ? (sent['indb']) : undefined) ); //parse the sentence by schema
+    if (!sentJson) return cb("the sentence is not valid JSON")
+    var msg;
+
+    function skipSentence (){
+        console.log("no action was chosen for the sentence", sentJson.text);
+        return cb(null, "nothing need to be done")
+
+    }
+
+
+    isInDB(sentJson['text'], function(err, id, coll){
+        console.log(err, id, coll)
+        if (err) return cb(err);
+        console.log("DEBUG: processSentence CB function: received id:",id);
+        switch (action) {
+            case 'badseg':
+                if (id && coll=='bad') {
+                    msg = id +coll
+                    func=skipSentence
+                }
+                console.log("the id is: ", id)
+                if (id && coll=='good')  return markExistSentenceBadSeg(id, cb);
+                else func=processBadSentence;
+                break;
+            case 'addtolu':
+                if (id && coll=='good')  func=addExistSentenceToLU;
+                else if (!id) func=addNewSentenceToLU;
+                else {
+                    msg = id +coll
+                    func=skipSentence;
+                }
+                break;
+        }
+        if (func) return func(sentJson, data,  control,id, coll,cb);
+        else cb("wrong action parameter")
+    } );
+}
+
 /*if (action=='badseg') func=processBadSentence;
 else if (action['addtolu']){
 if (id)  func=addExistSentenceToLU;
@@ -840,20 +991,22 @@ control.dec();
 */
 
 
-/**
+/** the request should contain list of sentences, each one is an object: {action: <addtolu, badseg, nothing>, content: <a string that can be parsed to conll31type object>}
+ * the request should contatin 'data' object: {'data': {framename, luname, db(haaretz, blog, manual etc)}},
  *
  * @param req - req['method']==post, req['body']= {}
  * @param res
  */
+//@deprecated
 exports.addSentencesToLu = function addSentencesToLu(req,res) {
     console.log("DEBUG: addSentencesToLu");//reqbody:", req.body);
-    //res.send(req.body);
-    //return
-    var sentences= req.body.sentences;
-    var data = req.body.data    ;
+    var sentences= req.param('sentences');
+    var data = req.param('data')
+    data.username = req.session.user.username || 'unknown'
     //options: bad segmentation - add to 'badSentences', good- add to lu? check if already in DB and in LU? else - nothing
     res.charset='utf-8';
     //console.log("DEBUG-addSentencesToLu: data->", data);
+    //this is a data control object - b\c all the function are CB functions, they will update the contorl obj, the last and decrement the action counter
     var control = {results: [], counter : sentences.length,
         write : function(msg){this.results.push(msg);},
         end: function(){res.send(this.results)},
@@ -864,27 +1017,110 @@ exports.addSentencesToLu = function addSentencesToLu(req,res) {
     //console.log("control obj:", control);
     for (sentence in sentences){
         processSentence(sentences[sentence], data, control,sentence);
-        /*if (sentences[sentence]['addtolu'] || sentences[sentence]['badseg'])
-            resultsArr.push(processSentence(sentences[sentence], data, control, sentence));
-        else {
-            console.log("no action was chosen for the sentence");
-            control.write("no action was chosen for the sentence");
-            control.dec();
-        } */
-    }
 
-    //res.send(resultsArr);
+    }
+};
+
+
+//add single sentence
+exports.addSentenceToLu = function addSentenceToLu(req,res) {
+    //"use strict";
+    console.log("DEBUG: add sentence to lu (single sentence)");//reqbody:", req.body);
+    console.log("the request is: \n",JSON.stringify(req.body) )
+
+    var sentence= req.param('sentence');
+    var data = req.param('data');
+    //options: bad segmentation - add to 'badSentences', good- add to lu? check if already in DB and in LU? else - nothing
+    res.charset='utf-8';
+    //console.log("DEBUG-addSentencesToLu: data->", data);
+    //this is a data control object - b\c all the function are CB functions, they will update the contorl obj, the last and decrement the action counter
+    var control = {results: [], counter : 1,
+        write : function(msg){this.results = msg;},
+        end: function(){res.send(this.results)},
+        dec:function(){
+            this.counter= this.counter-1;
+            if (this.counter==0) this.end();
+        } };
+    processSentence2(sentence, data, control, handleHttpResults(req,res))
+
+
 };
 
 
 
+function removeSentenceFromLU(frame, lu, sentenceId,cb){
+    console.log("DEBUG: removeSentenceFromLU ->",frame, lu, sentenceId);
+    //delete the sentence from the sentences.lus
+    var luid = frame+ '#' + lu;
+    if (typeof(sentenceId) == 'string') sentenceId = objID(sentenceId)
+
+    var sentId = sentenceId;
+
+    Models.hebSentenceModel.update({ 'ID': sentId, lus: luid  }, { $pull: { lus: luid } } ,function(err, results){
+        console.log('phase 1 resutls:', err, results)
+        if (err || !results || results.length==0) cb(err, results)
+        else{
+            console.log('phase 2 before')
+            Models.luSentenceModel.remove({"frameName": frame, luName: lu, sentenceID: sentId}, function(err, results){
+                console.log("deletion result:", err, results)
+                cb(err,results)})
+
+        }
+    });
+
+    //delete the sentence from the lu-sentence entry
+}
+
+exports.delSentFromLU = function (req,res){
+    console.log("deleting sentence from lu")
+    removeSentenceFromLU(req.param('framename'), req.param('luname'), req.param('sentenceid'), handleHttpResults(req,res));
+
+
+}
+
+function markExistSentenceBadSeg(sentID, cb){
+    console.log("markExistSentenceBadSeg;sentence id is:", sentID)
+    Models.hebSentenceModel.findOne({ID: sentID}, function(err, results){
+        if (err || !results) return cb(err,results)
+        var results= results.toObject();
+        var lu;
+        var fn;
+        var count = results.lus.length+1;
+        var delSentAndRespond = function(err2, result){
+            count= count-1;
+            if (count==0) {
+                Models.hebSentenceModel.remove({"ID": sentID},cb);
+            }
+
+        }
+        console.log("going ot delete", JSON.stringify(results))
+
+        for (i in results.lus){
+            console.log("results.lus[",i,']', results.lus[i])
+        }
+        for (i in results.lus){
+            lu = (results.lus[i]).split('#')[1]
+            fn =(results.lus[i]).split('#')[0]
+            removeSentenceFromLU(fn, lu, sentID, delSentAndRespond)
+
+        }
+        //add the sentence to bad segmentation colelction
+        console.log("saving the sentence for bad segmentation", JSON.stringify(results));
+        new Models.hebBadSentenceModel(results).save(delSentAndRespond);
+    })
+}
+
+
+exports.markAsBadSegmentd = function (req,res){
+    markExistSentenceBadSeg(req.param('sentenceid'), handleHttpResults(req,res))
+}
 
 //add the sorounding labels to array of labels and cretes FE annotation object to be saved in the DB
 function createFEAnnotation(anno){
     console.log("DEBUG -createFEAnnotation - input " , anno);
     return {
         name :'FE',
-        label : JSON.parse(anno), //this needs to be the contenct form the client- array of labels  each one corresponds to 'heblabelType'
+        label : anno, //this needs to be the contenct form the client- array of labels  each one corresponds to 'heblabelType'
         rank : 1,
         status: 'decision'
     }
@@ -898,33 +1134,67 @@ function createFEAnnotation(anno){
  * @param cb
  */
 exports.addAnnotation = function addAnnotation(req,res,cb) {
-    console.log("DEBUG: handling addAnnotation");
+    console.log("DEBUG: handling addAnnotation", JSON.stringify(req.body));
     var body =req.body;
+    var msgList = [];
     //check if the req contains all the relevant data
-    if (!(body.frameid && body.luid && body.sentenceid && body.annotation && body.segid)) return cb(new Error("one of the parameters is missing - abort"));
+    if (!(body.framename && body.luname &&  body.annotations /*&& body.segid TODO */)) return cb(new Error("one of the parameters is missing - abort"));
     //phase 1: save new annotation to the lu-sentence collection - return error if fails to find
-    var query =  {
-        sentenceID : body.sentenceid ,
-        luId : body.luid,
-        frameID: body.frameid
-    };
-    var anno = createFEAnnotation(body.annotation)
-    var annotation ={
-        ID: objID(),
-        validVersion: false,
-        status: 'pending',
-        cDate: new Date(),
-        cBy: req.user ? req.user.username : 'unknown',
-        sentenceId:  body.sentenceid,
-        segmentationID: body.segid,
-        layer : [anno]
-    };
-    console.log("DEBUG-addAnnotation query is:", query);
-    console.log("DEBUG-addAnnotation anno is:", anno);
+    var counter = body.annotations.length;
+    console.log('counter value is: ',counter)
+    console.log('received annotations: ',JSON.stringify(body.annotations));
+    //return res.send("done");
+
+    for (sent in body.annotations){
+        console.log(body.annotations[sent]['sentenceID'])
+        console.log("updating sentence",(body.annotations[sent]['sentenceID']))
+        var query =  {
+            sentenceID : objID(body.annotations[sent]['sentenceID']) ,
+            luName : body.luname,
+            frameName: body.framename
+        };
+
+
+        //return res.send(200, body)
+
+
+        var annotation ={
+            ID: objID(),
+            validVersion: true,
+            status: 'pending',
+            cDate: new Date(),
+            cBy: req.user ? req.user.username : 'unknown',
+            sentenceId:  body.sentenceid,
+            //segmentationID: body.segid,
+            layer : []//body.annotations[sent]['FE']['label'];; //['layer'] //TODO: for now i don't deal with editing existing layers or annotations
+        };
+
+        //insert target layer
+        annotation.layer.push(body.annotations[sent]['Target'])
+        ////insert FE layer
+        annotation.layer.push(body.annotations[sent]['FE'])
+
+
+    //TODO - i stopped here!!!
+    //var anno = createFEAnnotation(body.annotation)
+
+    console.log("DEBUG-addAnnotation query is:", JSON.stringify(query));
+    console.log("DEBUG-addAnnotation anno is:", JSON.stringify(annotation));
     Models.luSentenceModel.findOneAndUpdate(query, {$push: {"annotations": annotation}}, function(err, returnedObj) {
-        console.log("DEBUG-addAnnotation reulst is:", err, JSON.stringify(returnedObj));
-        cb(err, returnedObj);
+    //Models.luSentenceModel.findOneAndUpdate(query,{$push: {"annotations": {status: 'pending1'}}}, function(err, returnedObj) {
+        //console.log("DEBUG-addAnnotation reulst is:", err, JSON.stringify(returnedObj))
+        if (!returnedObj) {
+            msgList.push("sentence doesn't exists")
+        }else {
+            msgList.push("annotation added, sentID: ", returnedObj.sentenceID)
+            //console.log("GOOD ANNOTATION!", JSON.stringify(returnedObj))
+        }
+        //cb(err, returnedObj);
+        counter = counter-1;
+        console.log("reducing counter- counter value:", counter)
+        if (counter <=0) cb(err, {status: 'OK',msg: msgList})
     });
+    }
 
 
 };
@@ -936,7 +1206,7 @@ exports.addAnnotation = function addAnnotation(req,res,cb) {
 function addBasicLUToFrame(params, cb){
     console.log('DEBUG: addBasicLUToFrame');
     var mod = Models.hebFrameModel;
-
+    if (!params.lu) return cb(new Error("the request is not valid"), null);
     var lu = {
         "status": 'initial',
         "sentenceCount":{
@@ -946,20 +1216,21 @@ function addBasicLUToFrame(params, cb){
         "@name":params.lu.luname, //{required: true, type: String, match: /^.+\..+/},
         "@POS": params.lu.lupos,
         "@cDate": new Date(),
-        "@cBy":params.other.username
+        "@cBy":params.other.username,
+        "@eBy":params.other.username
     };
+    lu['@eDate'] = lu['@cDate'];
     if (params.other.trans)  lu.translatedFrom = {
         "frameName":params.other.trans.framename,
         "lexUnitName":params.other.trans.luname
     };
-    if (!lu) return cb(new Error("the request is not valid"), null);
 
     //search for the frame itself - return error if not exists
     mod.findOneAndUpdate({'@name' :params.frame.framename},{'$push': {lexUnit: lu}}, {new:true},
                 function(err, resu){
                     //console.log('LLLL',JSON.stringify(params), err, resu)
                     if (err) return cb(err, null);
-                    //if (!resu2) return cb(new Error("there was a problem with the update"), null);
+                    if (!resu) return cb(new Error("there was a problem with the update"), null);
                     //return cb(null, {msg: 'the lu was added',content: resu2});
                     return cb(null, {msg: 'the lu was added',content: resu});
                 });//func2
@@ -1000,23 +1271,25 @@ function addDecision(params, type, cb){
 //(refs.luname, refs.frameName, subtype,username
 
 function setLUdecisionStatus(params, cb){
-    console.log('DEBUG: setLUdecisionStatus')
+    console.log('DEBUG: setLUdecisionStatus', JSON.stringify(params))
     var update = {};
     //case: this is add or remove action
-    if (-1 != _.indexOf(['add','delete'], params.other.action))
+    if (-1 != _.indexOf(['add','delete'], params.other.action)){
         update = {'$set':{
             'lexUnit.$.decision.currStat.stat': params.other.action,
             'lexUnit.$.decision.currStat.cBy': params.other.username,
             'lexUnit.$.decision.currStat.cDate': new Date()
         }};
+    }
     //case: this is a query action
-    //case: this is areviewer decision
+    //case: this is a reviewer decision
     else if (params.other.action != 'query' )
         update = {'$set':{
             'lexUnit.$.decision.appStat.stat': params.other.action,
             'lexUnit.$.decision.appStat.cBy': params.other.username,
             'lexUnit.$.decision.appStat.cDate': new Date()
         }};
+    update['$set']['lexUnit.$.translatedFrom']= params.lu.trans
     Models.hebFrameModel.findOneAndUpdate(
         {'@name': params.frame.framename, 'lexUnit.@name': params.lu.luname},
         update,
@@ -1043,16 +1316,22 @@ function addFrameLuDecision(params, type, callBack){
                 setLUdecisionStatus(params,
                     function(err,results) {
                         var newRes =results;
-                        console.log(JSON.stringify(params), newRes)
+                        //console.log(JSON.stringify(params), newRes)
                         if (newRes){
-                            //console.log("luid:",typeof(luid) ,luid);
-                            newRes= _.filter(newRes.lexUnit, function(obj) {
-                                return (obj['@name'] == params.lu.luname);})
+                            newRes=newRes.lexUnit;
+                            console.log("lus:",newRes[0]);
+                            //TODO: filter the results - by decision status
+                            newRes= _.filter(newRes, function(obj) {
+                                console.log('checking for lu with stat:',obj.decision.currStat['stat']);
+                                return _.indexOf(['delete', 'approve_delete', 'reject_add'], obj.decision.currStat['stat']) ==-1
+                                //return (obj.decision.currStat['stat'] == params.lu.luname);})
+                            });
                         }
                         cb(err, newRes)
                     }
 
-                )}
+                )},
+            status: function(cb){cb(null,'OK')}
         },
         callBack)
 
@@ -1071,31 +1350,38 @@ addFrameLuAssociation(luname,framename,action){
     setframeLudecision(fname,luname, action)
 */
 
+
+//add or remove lu to/from frame
 function createFrameLuAssociation(params, cb){
     console.log('DEBUG: frameLuAssociationAction')
-    //if (!luinframe(luname,framename)):
-    //console.log(lu)
+    //validate: luname is given
     if (!params.lu.luname) return cb(new Error("you must specify lu name (lu.luname) in the request"))
-    //Models.hebFrameModel.findOne({'@name': params.frame.framename, 'lexUnit.@name':params.lu.luname}, {'lexUnit.@name':1},
+
+    //check if the lu already associated to the frame
+    //first - fetch the frame's lus list
     Models.hebFrameModel.findOne({'@name': params.frame.framename}, {'lexUnit.@name':1},
         function(err,results){
             console.log("DEBUG: frameLuAssociationAction->findOne")
             if (err) return cb(err)
-            console.log("findone:", err, results)
             if (!results) { //if frame doesn't exists!
                 return cb(new Error("the requested frame doesn't exists"))
             }
             //if action==delete and the lu is not in the frame
-            else if (!_.find(results.lexUnit, function(obj){return  obj['@name']== params.lu.luname} ) &&  params.other.action=='delete'){
-                return cb(new Error("you cannot delete lu from frame if it is not added first"));
-            }
-            else {
-                if (!params.lu.lupos) return cb(new Error("you have to specify the POS of the lexical unit before adding it to frame"))
-                addBasicLUToFrame(params,
-                    function(addError, addResult){
-                        addFrameLuDecision(params,'framelu',cb)
-                    })
-                addFrameLuDecision(params,'framelu',cb)
+            else //frame exists
+            {
+                var luexists = _.find(results.lexUnit, function(obj){return  obj['@name']== params.lu.luname}); //check - lu in frame?
+                if (!luexists &&  params.other.action=='delete'){ //trying to delete non associated lu - error
+                    return cb(new Error("you cannot delete lu from frame if it is not added first"));
+                }
+                else {
+                    if (!params.lu.lupos) return cb(new Error("you have to specify the POS of the lexical unit before adding it to frame"))
+                    if (!luexists)                //case: the lu is new - add to frame and then add to lu
+                        addBasicLUToFrame(params,
+                            function(addError, addResult){
+                                addFrameLuDecision(params,'framelu',cb)
+                            });
+                    else addFrameLuDecision(params,'framelu',cb)
+                }
             }
         })
 }
@@ -1133,15 +1419,45 @@ function setDecisionApproval(params, cb){
 exports.postCreateFrameLuAssociation = function(req,res){
     //TODO: check that the frame exists before posting a decision? make sure
     //TODO: organize the validation of data - it's critical here (check the lu name, etc)
-    console.log('DEBUG: postFrameLUDecision')
-    if (req.query.luname && req.query.lupos && req.query.luname.indexOf('.')==-1 ) req.query.luname = (req.query.luname + '.'+req.query.lupos).toLowerCase();
+    console.log('DEBUG: postFrameLUDecision', req.body)
+    if (req.param('luname') && req.param('lupos') && req.param('luname').indexOf('.')==-1 ) req.body.luName = (req.param('luname') + '.'+req.param('lupos')).toLowerCase();
+    if (req.query.luname ) if (req.param('luname') && req.param('lupos') && req.param('luname').indexOf('.')==-1 ) req.query.luname = (req.param('luname') + '.'+req.param('lupos')).toLowerCase();
     var params = utils.parseReqParams(req)
-    //console.log('PARAMS:',params)
+    console.log('PARAMS:',JSON.stringify(params))
     var valid = (params.other.action && (-1 != _.indexOf(['add', 'delete', 'query'], params.other.action)))
     valid = valid &&  params.frame.framename &&  params.lu.luname
-    if (!valid) throw new  Error("the selected action is not valid or some parameters are missing")
+    if (!valid) throw new  Error("the selected action is not valid or some parameters are missing " + valid)
     createFrameLuAssociation(params, handleHttpResults(req,res));
 }
+
+/**this function revieves an edited lu and saves it to the DB - all the given parameters will be changed (no roll back!)
+ *must contain at least - luname
+ * @param params
+ * @param cb
+ */
+function editLU(params, cb){
+    //[{asdas: asdasd, asd:{asdas:asdasd},asda:[{asd:asd}]}]
+    //verify that  both framename and luname are supplied
+    if (!params.frame.framename || !params.lu.luname) return cb(new Error('framename and luname must be supplied'));
+    var lu =params.lu;
+
+    lu.semType = _.map(lu.semType, function(obj){ return {'@name': obj.trim()}});
+
+    var query = {'@name': params.frame.framename, 'lexUnit.@name': lu.luname},
+        fields = {'lexUnit.$.definition': lu.definition, 'lexUnit.$.status': lu.status,'lexUnit.$.lexeme': lu.lexeme,
+            'lexUnit.$.semType': lu.semType,'lexUnit.$.@lemma': lu.lemma,'lexUnit.$.@incorporatedFE' : lu.incoFe ? lu.incoFe : '',
+            'lexUnit.$.@eDate' : new Date(), 'lexUnit.$.@eBy': params.other.username
+        },
+        uOptions={}//{new : true};
+
+    var update = {'$set':  (fields)}
+    console.log("EDITLU:", JSON.stringify(query), JSON.stringify(update));
+    Models.hebFrameModel.update(query, update, uOptions, cb);
+
+}
+
+
+
 
 exports.postSetDecisionApproval = function(req,res){
     console.log('DEBUG: postFrameLUDecision')
@@ -1154,29 +1470,7 @@ exports.postSetDecisionApproval = function(req,res){
 }
 
 
-
-
-/**this function revieves a edited lu and saves it to the DB - all the given parameters will be changed (no roll back!)
- *must contain at least - luname
- * @param params
- * @param cb
- */
-function editLU(params, cb){
-    //[{asdas: asdasd, asd:{asdas:asdasd},asda:[{asd:asd}]}]
-    //make sure that a framename and luname are supplied
-    if (!params.frame.framename || !params.lu.luname) return cb(new Error('framename and luname must be supplied'));
-    var lu =params.lu;
-
-    var query = {'@name': params.frame.framename, 'lexUnit.@name': lu.luname},
-        fields = {'lexUnit.$.definition': lu.definition, 'lexUnit.$.status': lu.status,'lexUnit.$.lexeme': lu.lexeme, 'lexUnit.$.semType': lu.semType,'lexUnit.$.@incorporatedFE' : lu.incoFe},
-        uOptions={}//{new : true};
-
-
-    var update = {'$set':  _.removeEmpties(fields)}
-    Models.hebFrameModel.update(query, update, uOptions, cb);
-
-}
-
+var editLuProj = {definition:1, '@name':1, '@POS':1, 'status':1, 'lexeme':1, '@lemma':1, semType:1, '@incorporatedFE':1 }
 //bridge=TODO: move to routes
 exports.posteditLU = function(req,res){
     var params = utils.parseReqParams(req, 'editlu')
@@ -1184,4 +1478,67 @@ exports.posteditLU = function(req,res){
     editLU(params,handleHttpResults(req,res))
 
 }
+
+//add/remove/update item from the locks list
+function updateLockInterval(action, frame, lu, uname, cb){
+    return function(err, results){
+        if (err || !results)  return cb(err, results)
+        if (action=='free'){
+            //release the lock from live lock
+
+        }
+        else if (action=='lock'){
+
+
+        }
+
+
+
+    }
+
+
+}
+function lockLu(action, frame, lu, uname ,cb){
+    var hours = 1;
+    //lock the lu:
+        //case 1: it is free
+        //case 2: it is locked by me (renew lock)
+        //case 3: it is locked for more than two hours
+
+    if (action == 'lock'){
+        console.log("DEBUG: locking lu",frame, lu)
+        Models.hebFrameModel.findOneAndUpdate(
+            {'@name': frame,'lexUnit.@name': lu,
+
+                '$or': [
+                    {'lexUnit.locked': false},
+                    {'$and': [{'lexUnit.locked': true}, {'lexUnit.lockedBy': uname}]},
+                    {'lexUnit.lockTime': {'$lt': (new Date()-60*1000)}}//new Date(new Date().getTime() - hours*3600*1000)}}
+                ]},
+            {'$set': {'lexUnit.$.locked': true, 'lexUnit.$.lockedBy': uname, 'lexUnit.$.lockTime': new Date()}},
+            cb)
+            //updateLockInterval('lock', cb))
+    }
+    //usage: explicitly exiting lu edit mode
+    else if (action == 'free'){
+        console.log("DEBUG: free lu lock",frame, lu)
+        Models.hebFrameModel.findOneAndUpdate({'@name': frame,'lexUnit.@name': lu, 'lexUnit.locked': true, 'lexUnit.lockedBy': uname},
+            {'$set': {'lexUnit.$.locked': false, 'lexUnit.$.lockedBy': null}},
+            cb) //updateLockInterval('free',frame, lu, cb))
+    }
+    else if (action == 'check') {
+        console.log("DEBUG: checking lu lock",frame, lu)
+        Models.hebFrameModel.findOne({'@name': frame,'lexUnit.@name': lu}, {'lexUnit.$.locked':1},cb)
+
+    }
+
+}
+
+
+exports.luLock= function(req,res){
+    //TODO - validate parameters
+    lockLu(req.param('action'),req.param('framename'), req.param('luname'), req.user && req.user.username || 'unknown', handleHttpResults(req,res))
+}
+
+
 

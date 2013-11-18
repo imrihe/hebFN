@@ -65,6 +65,7 @@ exports.handleHttpResults = function handleHttpResults(req,res){
     console.log("DEUBUG: handleHttpResults: ",req.path)
     return function (err,result){
         console.log("DEBUG: handleResultsFunc: ", req.path)
+        console.log("RESULT", JSON.stringify((result)))
         //throw new Error("handleResults: error retrieving results: "+err);
 
         if (err) {
@@ -73,13 +74,17 @@ exports.handleHttpResults = function handleHttpResults(req,res){
             res.render('error.jade', {err:err, req: req})//(("handleResults: error retrieving results: "+err)) //TODO - problem with error handling
             //next()
         }//
-        else if (!result ||result.length==0 ) res.send(206, "data not found");
-        else {
-            //console.log("DEBUG: sending", JSON.stringify(result))
-            res.charset='utf-8';
-            res.send(result);
+        else if (Array.isArray(result) && result.length ==0) res.send(200,[])
+        else if (! result || result==0 ) {
+            console.log("DEBUG: handleHttpResults-> no result or length==0")
+            res.send(204,"no results!");
         }
-        //console.log(err, result);
+        else {
+            console.log("DEBUG: sending", JSON.stringify(result))
+            res.charset='utf-8';
+            if (!_.isObject(result)) result = {"results": result};
+            res.send(200,result);
+        }
     }
 }
 
@@ -138,10 +143,14 @@ function parseReqParams(req, mode){
         other = {};
     if (req.param('action')) other['action'] =  req.param('action');
     if (req.param('comment')) other['comment'] =  req.param('comment');
-    if (req.param('luname')) lu['luname'] =  req.param('luname');
+    if (req.param('luname')) lu['luname'] =  req.param('luname').indexOf('.')==-1 ? req.body.luname = (req.param('luname') + '.'+req.param('lupos')).toLowerCase() : req.param('luname');
     if (req.param('luid')) lu['luid'] =  req.param('luid');
+    //if (req.param('origluid')) lu['origluid'] =  req.param('origluid');
+    if (req.param('origluname')) lu['trans'] = {luID:req.param('origluid'), luName: req.param('origluname'), frameName: req.param('framename') };
     if (req.param('lupos')) lu['lupos'] =  req.param('lupos').toUpperCase();
     if (req.param('trans')) lu['trans'] =  req.param('trans');
+    if (req.param('lemma')) lu['lemma'] =  req.param('lemma');
+    if (req.param('incoFe')) lu['incoFe'] =  req.param('incoFe');
     if (req.param('frameid')) frame['frameid'] =  req.param('frameid');
     if (req.param('framename')) frame['framename'] =  req.param('framename');
     if (req.param('decisionid')) other['decisionid'] =  objID(req.param('decisionid'));
@@ -177,3 +186,43 @@ function omitEmpties(obj){
     }
     return obj;
 }
+
+
+/**
+ * transform the POS such that it will suit the search sentences (alon's tool) format
+ * @param input
+ * @returns {*}
+ */
+exports.posFormat = function(input){
+    var pos = {
+        v: 'verb',
+        verb: 'verb',
+        n: 'noun',
+        noun: 'noun',
+        adv: 'adverb',
+        adverb: 'adverb',
+        adj: 'adjective',
+        a: 'adjective',
+        adjective: 'adjective',
+        prep: 'preposition',
+        preposition: 'preposition'
+    };
+    return pos[input.toLowerCase()]
+};
+
+
+exports.linearizeSentence2 = function linearizeSentence2(words){
+    var txt=[];
+    console.log('words: ',_.map(words, function(w){return w['word']}))
+    console.log('words: ',_.map(words, function(w){return w['special']}))
+    for (word in words ){
+        if (words[word]['special'] && words[word]['specTrans'][0] != '*' ) txt.push('{'+ words[word]['specTrans']+'}')
+        else if (!words[word]['special']) txt.push(words[word]['word'])
+        //if (words[word]['ID'].substr(words[word]['ID'].indexOf('.')+1) =='0') counter= counter +1;
+    }
+    console.log('linearization results: ',txt)
+    return txt.join(' ');
+
+}
+
+
