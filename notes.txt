@@ -169,3 +169,44 @@ lus:
 
 dashboard:
 -get all the frames and lus with priority -V
+
+
+
+
+meeting - 18.11.13:
+
+V-add 'translated from' to the hebrew lexical unit in the 'edit lu' screen
+
+history:
+V--do as activity feed - filter by type and references, oreder by date (decs)
+//TODO: leave lu-frame as it is, add special methods for the rest 'addLuSentHistory', 'addAnnotationHistory'
+V----lu-frame: framename, luname (and pos), username,cDate, action (add/remove/approve-add/approve-remove
+V----lu-sentence: framename,luname,sentenceid, sentence text, username, cDate action  ('sentence was added', 'sentence was removed')
+V----sentence-annotation (framename, luname, sentenceid), username, cDate, action ('X annotated this sentence')
+
+comments:
+V--add commenting option for each type:
+V-----frame (comments about the frame "i think הלך.v need to be in this frame, what do you think?") (framename)
+V-----lu  (comments about the lu - i think this lu need to have diffrent lemma/semtype etc) (luname, framename)
+V-----sentence-lu (i don't think this sentence needs to be in this lu, comments about annotations) (luname, framename, sentenceid)
+
+annotations:
+--add option to keep revision of annotation per user (for each sentence that was changed??)
+
+
+V-add lu - get semantic type from english in case it was translated from english lu.
+-add lock mechanism to edit-lu
+
+
+
+locks:
+-lu lock:
+-----editlu
+-----addSentences to lu
+-----annotate sentences for lu
+-frame lock:
+-----add lu to frame
+
+free lock:
+----after timeout (set inf conf?) - default is 4 hrs
+----postivie 'free' by user ('exit', 'logout' etc).

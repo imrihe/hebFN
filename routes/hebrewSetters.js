@@ -67,6 +67,7 @@ module.exports = function(app) {
     app.get('/heb/trysemtype', function (req,res){res.render('trysemtype.jade')});
 
     app.post('/heb/trysemtype', function (req,res){console.log(req.body); res.send('OK')})
-
+    app.post('/heb/addhistory', hebControl.postHistoryFeed);
+    app.post('/heb/addcomment', hebControl.postAddComment)
 };  //main!
 

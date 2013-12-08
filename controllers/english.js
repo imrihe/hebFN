@@ -240,3 +240,28 @@ exports.getTranslations = function(req,res) {
     var options ={"limit":100};
     loadTranslations(req.query,proj,options, handleHttpResults(req,res))
 }
+
+
+var getSemTypes = exports.getSemTypes = function (params, cb){
+    var query = {'lexUnit.@frame' : params.framename, 'lexUnit.@name': params.luname, 'lexUnit.semType': {'$exists': true}};
+    var proj = {'lexUnit.semType': 1};
+
+    console.log('QUERY',JSON.stringify(query))
+    console.log('PROJ',JSON.stringify(proj))
+    Models.luModel.findOne(query, proj,
+    function(err,result){
+        console.log('results is for getSemTypes', err,JSON.stringify(result))
+        if (err) cb(err)
+        else if (!result) cb(err, [])
+        else {
+            cb(err, _.map(result['lexUnit']['semType'], function(obj){
+                return obj['@name']
+            }))
+        }
+    }
+    )
+}
+
+exports.getListSemTypes= function(req,res){
+    getSemTypes(req.query, handleHttpResults(req,res))
+}

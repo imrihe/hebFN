@@ -126,8 +126,8 @@ function searchHistory(query, proj, options, cb){
     //({framename: "asdasd",luname: "refs.luname"}, query) = > {asdasd: query['framename'], 'refs.luname': query['luname']}
     var q  =q2coll(query, '- refs.frameName - refs.luName sentenceID -')
     if (query['type']) q['type']  = query['type'];
-    if (query['username']) q['actions.cBy']  = query['username'];
-    if (query['decisionid']) q['action._id']  = query['decisionid'];
+    if (query['username']) q['cBy']  = query['username'];
+    if (query['decisionid']) q['_id']  = query['decisionid'];
     Models.historyModel.find(q, proj, options,cb);
 }
 
@@ -457,18 +457,94 @@ function historyByUser(username, cb){
     //TODO: add filters
     console.log("DEBUG: historyByUser")
     if (!username) return cb(new Error('you must supply username'))
+    var q= {'cBy': username};
+    Models.historyModel.find(q,{},{sort: {cDate : -1}}, cb);
+
+}
+
+function historyByUser_archive(username, cb){
+    //TODO: add filters
+    console.log("DEBUG: historyByUser")
+    if (!username) return cb(new Error('you must supply username'))
     var q= {'actions.cBy': username};
     Models.historyModel.aggregate(
         {$unwind : "$actions" },    //this operator splits each array of lus  - to N documents - each one with single lu
         {$match: q},                //this filter the result of the prior phase
         //{$project: {"_id":0,"@name":1, '@ID':1, 'lexUnit.@name':1, 'lexUnit.@ID':1,'lexUnit.@POS':1}}, //handele projection
         //{$project: {"_id":0,framename: "$lexUnit.@frame", frameid: '$lexUnit.@frameID', luname: '$lexUnit.@name', luid: '$lexUnit.@ID'}},
-        {$sort: {"actions.cDate": 1}},
+        {$sort: {"actions.cDate": -1}},
         cb);
 }
 
+function historyNoFrameLu(cb){
+    console.log("DEBUG: historyNoFrameLu")
+    //var q= {'actions.cBy': username};
+    Models.historyModel.find({'type': {'$ne': 'frameLu'}},{},{limit: 50, sort: {cDate: -1}}, cb);
+}
+
+function historyAll(noLimit,cb){
+    console.log("DEBUG: historyAll")
+    var options = {sort: {cDate: -1}};
+    if (!noLimit || noLimit !=1) options.limit=50;
+    Models.historyModel.find({},{},options, cb);
+}
 exports.getHistoryByUser = function(req,res){
     historyByUser(req.param('user'), handleHttpResults(req,res));
+}
+
+/*heb/hist/byUser
+heb/hist/byFrame
+heb/hist/frameLu
+heb/hist/byLu
+heb/hist/sentLu
+heb/hist/luAnno*/
+var histTypes = ['byUser','byFrame','byLu', 'sentLu','luAnno','frameLu' , 'noFrameLu', 'all']
+
+function getHistoryBy (req,cb){
+    console.log("get history by: ", req.param('histType'))
+    var qType = req.param('histType');
+    if (histTypes.indexOf(qType)===-1) return cb("invalid type!")
+    var params = {type: qType};
+    switch (qType){
+        case ('all'):
+            console.log("case ('noFrameLu')")
+            return historyAll(req.param('noLimit'), cb);
+            break;
+
+        case ('noFrameLu'):
+            console.log("case ('noFrameLu')")
+            return historyNoFrameLu(cb)
+            break;
+        case ('byUser'):
+            console.log("case ('byUser')")
+            if (req.param('username')) params.cBy  =req.param('username');
+            else return cb("username has to be supplied")
+            return historyByUser(req.param('username'), cb)
+            break;
+        case ('byFrame'):
+            console.log("case ('byUser')")
+            if (req.param('framename')) {
+                params.framename  =req.param('framename');
+                console.log("setting framename")
+            }
+            else return cb("framename has to be supplied")
+            break;
+        default: // ('byLu' || 'sentLu' || 'luAnno' || 'frameLu'):
+            console.log("case ('byLu' || 'sentLu' || 'luAnno' || 'frameLu')", qType)
+            console.log("frameLu case", params)
+            if (req.param('luname')) params.luname  =req.param('luname');
+            else return cb("luname has to be supplied")
+            if (req.param('framename')) params.framename  =req.param('framename');
+            else return cb("framename has to be supplied")
+            break;
+    }
+    listHistory(params, cb);
+}
+
+
+
+module.exports.getHistory =function(req,res){
+    getHistoryBy(req,handleHttpResults(req,res));
 }
 
 
@@ -1058,7 +1134,8 @@ function removeSentenceFromLU(frame, lu, sentenceId,cb){
 
     Models.hebSentenceModel.update({ 'ID': sentId, lus: luid  }, { $pull: { lus: luid } } ,function(err, results){
         console.log('phase 1 resutls:', err, results)
-        if (err || !results || results.length==0) cb(err, results)
+        //if (err || !results || results.length==0) cb(err, results)
+        if (err) cb(err, results)
         else{
             console.log('phase 2 before')
             Models.luSentenceModel.remove({"frameName": frame, luName: lu, sentenceID: sentId}, function(err, results){
@@ -1072,7 +1149,8 @@ function removeSentenceFromLU(frame, lu, sentenceId,cb){
 }
 
 exports.delSentFromLU = function (req,res){
-    console.log("deleting sentence from lu")
+    console.log("deleting sentence from lu", JSON.stringify(req.body));
+    //res.send({results: 'OK'});
     removeSentenceFromLU(req.param('framename'), req.param('luname'), req.param('sentenceid'), handleHttpResults(req,res));
 
 
@@ -1224,6 +1302,7 @@ function addBasicLUToFrame(params, cb){
         "frameName":params.other.trans.framename,
         "lexUnitName":params.other.trans.luname
     };
+    if (params.lu.semType) lu['semType'] =  params.lu.semType;
 
     //search for the frame itself - return error if not exists
     mod.findOneAndUpdate({'@name' :params.frame.framename},{'$push': {lexUnit: lu}}, {new:true},
@@ -1241,11 +1320,30 @@ function addBasicLUToFrame(params, cb){
 /**add a new decision (annotator decision - not reviewer) to the db -
  *
  * @param refs - contatins the references - need to be relevant to the given type
- * @param type - one of framelu, lusent, sentanno
+ * @param type - one of frameLu, sentLu, luAnno
  * @param subtype - add, remove, query
  * @param comment
  */
 function addDecision(params, type, cb){
+    console.log('DEBUG: addDecision')
+    var histObj= {
+   refs : {
+        frameName: params.frame.framename,
+        luName: params.lu.luname
+   },
+    cBy: params.other.username,
+    cDate: new Date(),
+    action:  params.other.action,
+    comment: params.other.comment,
+    type: type,
+
+}
+    var histObjInstance = Models.historyModel(histObj)
+    histObjInstance.save(cb);
+}//adddecision
+
+
+function addDecision1(params, type, cb){
     console.log('DEBUG: addDecision')
     var refs = {
         frameName: params.frame.framename,
@@ -1258,7 +1356,7 @@ function addDecision(params, type, cb){
         comment: params.other.comment
     }
     var query = {
-       type: type,
+        type: type,
         refs: refs
     }
     Models.historyModel.findOneAndUpdate(
@@ -1298,6 +1396,13 @@ function setLUdecisionStatus(params, cb){
 }
 
 
+//get list of lus in frame, returns only the lus which their status is noe 'delete' 'approve_delete', 'reject_add'  - meaning only the approved added lus
+function filterByStatus(lus){
+    return _.filter(lus, function(obj) {
+        return _.indexOf(['delete', 'approve_delete', 'reject_add'], obj.decision.currStat['stat']) ==-1
+    });
+
+}
 /**adds a decision to the history collection and update the 'decision' field in the lexUnit object
  *
  * @param params
@@ -1308,33 +1413,22 @@ function addFrameLuDecision(params, type, callBack){
     console.log('DEBUG: addFrameLuDecision')
     async.parallel({
             luHistory: function(cb) {
-                //console.log('REFS:',refs);
                 addDecision(params, type, cb)
             },
             lexUnit: function(cb) {
-                //console.log("REFS-2:", refs)
                 setLUdecisionStatus(params,
                     function(err,results) {
                         var newRes =results;
-                        //console.log(JSON.stringify(params), newRes)
                         if (newRes){
                             newRes=newRes.lexUnit;
-                            console.log("lus:",newRes[0]);
-                            //TODO: filter the results - by decision status
-                            newRes= _.filter(newRes, function(obj) {
-                                console.log('checking for lu with stat:',obj.decision.currStat['stat']);
-                                return _.indexOf(['delete', 'approve_delete', 'reject_add'], obj.decision.currStat['stat']) ==-1
-                                //return (obj.decision.currStat['stat'] == params.lu.luname);})
-                            });
+                            newRes   = filterByStatus(newRes);
                         }
                         cb(err, newRes)
                     }
-
                 )},
-            status: function(cb){cb(null,'OK')}
+            status: function(cb){cb(null,'OK')}  //TODO: what is this???
         },
         callBack)
-
 }
 
 
@@ -1349,8 +1443,14 @@ addFrameLuAssociation(luname,framename,action){
 
     setframeLudecision(fname,luname, action)
 */
+function getSemTypes(params,cb){
+    console.log("semType!!")
+    if (params.other.trans)
+            engControl.getSemTypes({'framename':params.other.trans.framename, luname: params.other.trans.luname}, cb)
+    else cb(null,[]);
+}
 
-
+//TODO: updating multiple collections - add roleback on error option
 //add or remove lu to/from frame
 function createFrameLuAssociation(params, cb){
     console.log('DEBUG: frameLuAssociationAction')
@@ -1376,11 +1476,17 @@ function createFrameLuAssociation(params, cb){
                 else {
                     if (!params.lu.lupos) return cb(new Error("you have to specify the POS of the lexical unit before adding it to frame"))
                     if (!luexists)                //case: the lu is new - add to frame and then add to lu
-                        addBasicLUToFrame(params,
-                            function(addError, addResult){
-                                addFrameLuDecision(params,'framelu',cb)
+                        getSemTypes(params,  //get the semTypes if exists any from the english lu and add them as default to the hebrew lu  - in case that the lu was translated
+                            function(err,results){
+                                if (err )  return cb(err);
+                                if (results != []) params.lu.semType = results;
+                                console.log("the sem types are",params.lu.semType )
+                                addBasicLUToFrame(params,
+                                    function(addError, addResult){
+                                        addFrameLuDecision(params,'frameLu',cb)
+                                    });
                             });
-                    else addFrameLuDecision(params,'framelu',cb)
+                    else addFrameLuDecision(params,'frameLu',cb)
                 }
             }
         })
@@ -1392,10 +1498,9 @@ function setDecisionApproval(params, cb){
     //console.log("PARAMS2",params)
     if (params.other.action.indexOf('approve')==-1 && params.other.action.indexOf('reject')==-1 ) return cb(new Error("the action is not valid"));
     Models.historyModel.update(
-        {'refs.frameName': params.frame.framename, 'refs.luName': params.lu.luname, 'actions._id': params.other.decisionid},
+        {'refs.frameName': params.frame.framename, 'refs.luName': params.lu.luname, '_id': params.other.decisionid},
         {'$set':{
-            'actions.$.revCall': params.other.action}},
-        {new: true},
+            'revCall': params.other.action}},
         function(err,results){
             if (err) return cb(err)
             if (!results) {
@@ -1441,20 +1546,29 @@ function editLU(params, cb){
     if (!params.frame.framename || !params.lu.luname) return cb(new Error('framename and luname must be supplied'));
     var lu =params.lu;
 
+    //create semType list of objects of type semType (without ID)
     lu.semType = _.map(lu.semType, function(obj){ return {'@name': obj.trim()}});
+    var query = { //specify the lu to edit by fName and luName
+        '@name': params.frame.framename,
+        'lexUnit.@name': lu.luname};
+    var fields = {
+        'lexUnit.$.definition': lu.definition,
+        'lexUnit.$.status': lu.status,
+        'lexUnit.$.lexeme': lu.lexeme,
+        'lexUnit.$.semType': lu.semType,
+        'lexUnit.$.@lemma': lu.lemma,
+        'lexUnit.$.@incorporatedFE' : lu.incoFe ? lu.incoFe : '', //default empty string
+        'lexUnit.$.@eDate' : new Date(),
+        'lexUnit.$.@eBy': params.other.username,
+        'lexUnit.$.translatedFrom' : lu.trans
+    };
+    console.log("DEBUG: lu.trans in edit lu", lu.trans);
+    var update = {'$set':  (fields)};
+    var updateOptions={};  //set options if needed, see mongoose docs
 
-    var query = {'@name': params.frame.framename, 'lexUnit.@name': lu.luname},
-        fields = {'lexUnit.$.definition': lu.definition, 'lexUnit.$.status': lu.status,'lexUnit.$.lexeme': lu.lexeme,
-            'lexUnit.$.semType': lu.semType,'lexUnit.$.@lemma': lu.lemma,'lexUnit.$.@incorporatedFE' : lu.incoFe ? lu.incoFe : '',
-            'lexUnit.$.@eDate' : new Date(), 'lexUnit.$.@eBy': params.other.username
-        },
-        uOptions={}//{new : true};
-
-    var update = {'$set':  (fields)}
-    console.log("EDITLU:", JSON.stringify(query), JSON.stringify(update));
-    Models.hebFrameModel.update(query, update, uOptions, cb);
-
-}
+    //console.log("EDITLU:", JSON.stringify(query), JSON.stringify(update));
+    Models.hebFrameModel.update(query, update, updateOptions, cb);
+}//editLU
 
 
 
@@ -1540,5 +1654,225 @@ exports.luLock= function(req,res){
     lockLu(req.param('action'),req.param('framename'), req.param('luname'), req.user && req.user.username || 'unknown', handleHttpResults(req,res))
 }
 
+
+
+/*var historySchema22 =  {
+
+    type: {type: String, enum: ['framelu', 'lusent', 'sentanno']},
+    refs: {luName: String, sentenceID: ObjectId, frameName: String},
+    actions : [{
+        cBy: String,
+        cDate: Date,
+        type: {type:String, enum:['add','remove','query']},
+        comment: String,
+        discussionid: ObjectId,
+        revCall: {type: String, enum: ['approved','rejected']}}]
+} //history schema    */
+
+//----lu-sentence: framename,luname,sentenceid, sentence text, username, cDate action  ('sentence was added', 'sentence was removed')
+//----sentence-annotation (framename, luname, sentenceid), username, cDate, action ('X annotated this sentence')
+function createHistStr(type, params){
+    if (type === 'sentLu'){
+        return params.username + ' added sentence to lu <'+params.luname+'> in frame <'+params.framename +'>. the added sentence is: ' +params.sentText;
+    }else if (type ==='luAnno'){
+        return params.username + ' added annotation to a sentence in lu <'+params.luname+'> in frame <'+params.framename +'>. the annotated sentence: ' +params.sentText;
+    }else
+        return false
+}
+
+
+//add annotation feed or lu-senetence feed to history collection
+function addHistoryFeed(params, cb){
+    var timeStamp = new Date();
+    var id = objID();
+    var histObj ={
+        _id: id,
+        type: params.type,  //'lusent' or 'sentanno'
+        refs: {
+            frameName: params.framename,
+            luName: params.luname,
+            sentenceID: params.sentenceid
+        },
+        cDate : timeStamp,
+        cBy: params.username,
+        text: createHistStr(params.type, params)
+    };
+    var histMod = new Models.historyModel(histObj)
+    histMod.save(cb);
+};
+
+
+module.exports.postHistoryFeed = function(req,res){
+    var params = {
+        type: req.param('type'),
+        luname: req.param('luname'),
+        framename: req.param('framename'),
+        username: req.user && username || 'unknown',
+        sentenceid: req.param('sentenceid'),
+        sentText : req.param('sentencetext')
+    };
+    addHistoryFeed(params, handleHttpResults(req,res));
+};
+
+function listHistory(params, cb){
+    console.log("DEBUG: listHistory");
+    console.log("params- list history", JSON.stringify(params))
+    var type = params.type;
+    var query ={};
+    //'refs.luName' : params.luname,
+    //'refs.frameName' : params.framename
+    switch (type){
+        case ('byFrame') :
+            query['refs.frameName'] = params.framename;
+            break;
+        case ('frameLu'):
+            query['type'] = 'frameLu';
+            break;
+        case ('byLu'):
+            query['refs.frameName'] = params.framename;
+            query['refs.luName'] = params.luname;
+            break;
+        case ('sentLu'):
+        case ('luAnno'):
+            query['refs.frameName'] = params.framename;
+            query['refs.luName'] = params.luname;
+            query['type'] = type;
+            break;
+        default :
+            return cb(new Error("invalid type in 'listHistory': ", type))
+
+    }
+    Models.historyModel.find(query,{},{limit: 20, sort: {'cDate' : -1}} ,cb);
+}
+
+module.exports.getHistoryByType = function(req,res){
+   var params = {
+        type: req.param('type'),
+        luname: req.param('luname'),
+        framename: req.param('framename'),
+        username: req.user && username || 'unknown' //TODO: maybe change to specific 'by user' ant not by session
+    };
+
+    console.log('params: ', JSON.stringify(params))
+    listHistory(params, handleHttpResults(req,res))
+};
+
+
+
+
+function validateFields(names,params, cb){
+    var vars  = names.split(' ');
+    for (var name in vars){
+        if (!params[vars[name]]) {
+            cb(new Error('one of the parameters is missing'));
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
+/*comments:
+    --add commenting option for each type:
+    -----frame (comments about the frame "i think הלך.v need to be in this frame, what do you think?") (framename)
+-----lu  (comments about the lu - i think this lu need to have diffrent lemma/semtype etc) (luname, framename)
+-----sentence-lu (i don't think this sentence needs to be in this lu, comments about annotations) (luname, framename, sentenceid)
+*/
+function addComment(params, cb){
+    var comment = {
+        cBy: params.username,
+        content: params.comment,
+        cDate: new Date()
+    };
+    switch (params.type){
+        case 'frame':
+            if (!validateFields('framename comment', params,cb)) break;
+            Models.hebFrameModel.findOneAndUpdate({"@name": params.framename}, {$addToSet: {"comments": comment}}, cb );
+            break;
+        case 'lu':
+            if (!validateFields('framename luname comment', params,cb)) break;
+            var query = {'@name': params.framename, 'lexUnit.@name': params.luname};
+            var fields = {'lexUnit.$.comments': comment};
+            var uOptions={}; //{new : true};
+            var update = {'$set':  (fields)};
+            Models.hebFrameModel.update(query, update, uOptions, cb);
+            break;
+        case 'sentlu':
+            if (!validateFields('framename luname sentenceid comment', params,cb)) break;
+            Models.luSentenceModel.findOneAndUpdate(
+                {"frameName": params.framename, luName: params.luname, sentenceID: params.sentenceid},
+                {$addToSet: {"comments": comment}},
+                cb );
+            break;
+        default :
+            cb("the type doesn't match");
+    }
+
+}
+
+
+module.exports.postAddComment = function (req, res){
+    var params = {
+        type: req.param('type'),
+        luname: req.param('luname'),
+        framename: req.param('framename'),
+        username: req.user && username || 'unknown',
+        sentenceid: req.param('sentenceid'),
+        comment : req.param('comment')
+    };
+    addComment(params, handleHttpResults(req,res))
+};
+
+
+
+function listComments(params,cb){
+    console.log('DEBUG: ', 'listComments', params.type);
+    switch (params.type){
+        case 'frame':
+            if (!validateFields('framename', params,cb)) break;
+            Models.hebFrameModel.findOne({"@name": params.framename}, {comments: 1},
+                function(err,results){
+                    if (err || !results) cb(err,results);
+                    else cb(null, results.comments);
+                } );
+            break;
+        case 'lu':
+            if (!validateFields('framename luname', params,cb)) break;
+            var query = {'@name': params.framename, 'lexUnit.@name': params.luname};
+            var proj = {'lexUnit.$.comments': 1, 'lexUnit.comments': 1};
+            Models.hebFrameModel.findOne(query, proj, function(err, results){
+                if (err || !results) cb(err,results);
+                else if (!results.lexUnit) cb(null,[]);
+                else cb(null, results.lexUnit[0].comments);
+            });
+            break;
+        case 'sentlu':
+            if (!validateFields('framename luname sentenceid', params,cb)) break;
+            console.log("sent lu!!")
+            Models.luSentenceModel.findOne(
+                {"frameName": params.framename, luName: params.luname, sentenceID: params.sentenceid},
+                {"comments": 1},
+                function(err, results){
+                    if (err || !results) return cb(err,results);
+                    else cb(null, results.comments);
+                }
+                    );
+            break;
+        default :
+            cb(new Error("the type doesn't match"));
+    }
+}
+
+module.exports.getComments = function (req,res){
+    var params = {
+        type: req.param('type'),
+        luname: req.param('luname'),
+        framename: req.param('framename'),
+        sentenceid: req.param('sentenceid')
+    };
+
+    listComments(params, handleHttpResults(req,res))
+}
 
 

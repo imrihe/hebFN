@@ -64,9 +64,11 @@ module.exports = function(app) {
 
     app.get('/heb/prioritytasks', hebControl.getPriorityTasks);
     app.get('/heb/fesByFrame', hebControl.getFes);
-    app.get('/heb/historybyuser', hebControl.getHistoryByUser);
+    app.get('/heb/historybyuser', hebControl.getHistory);
+    app.get('/heb/getHistory', hebControl.getHistoryByType);
+    app.get('/heb/getcomments', hebControl.getComments);
 
-
+    app.get('/heb/hist/:histType', hebControl.getHistory)
     app.get('/fuck', function(req,res) {throw  new Error("fuck!!")}); //TODO- remove
     //app.get('/testadd/:num', hebControl.tryAdd); //TODO- remove
 

@@ -168,9 +168,21 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
 
 
 
-var historySchema =  new Schema({
 
-    type: {type: String, enum: ['framelu', 'lusent', 'sentanno']},
+var historySchema =  new Schema({
+    type: {type: String, enum: ['byUser','byFrame','byLu', 'sentLu','luAnno']},
+    refs: {luName: String, sentenceID: ObjectId, frameName: String},
+    action: {type:String, enum:['add','remove','query']},
+    cBy: String,
+    cDate: Date,
+    comment: String,
+    revCall: {type: String, enum: ['approved','rejected']}
+}, {strict: false}) //history schema
+
+
+var historySchema_archive =  new Schema({
+
+    type: {type: String, enum: ['byUser','byFrame','byLu', 'sentLu','luAnno']},
     refs: {luName: String, sentenceID: ObjectId, frameName: String},
     actions : [{
         cBy: String,
@@ -179,7 +191,7 @@ var historySchema =  new Schema({
         comment: String,
         discussionid: ObjectId,
         revCall: {type: String, enum: ['approved','rejected']}}]
-}) //history schema
+}, {strict: false}) //history schema
 
 
 
