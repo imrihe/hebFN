@@ -170,9 +170,9 @@ var hebFrameLUSchema = exports.hebFrameLUSchema = new Schema({
 
 
 var historySchema =  new Schema({
-    type: {type: String, enum: ['byUser','byFrame','byLu', 'sentLu','luAnno']},
+    type: {type: String, enum: ['byUser','byFrame','byLu', 'sentLu','luAnno','frameLu']},
     refs: {luName: String, sentenceID: ObjectId, frameName: String},
-    action: {type:String, enum:['add','remove','query']},
+    action: {type:String, enum:['add','delete','query']},
     cBy: String,
     cDate: Date,
     comment: String,
@@ -446,7 +446,7 @@ var decisionSchema = exports.decisionSchema = new Schema({
     reviewer: String,
     frameId: IDType,
     lexUnitID: ObjectId,
-    "type":{"type":String, enum : ["frame-lu","lu-sentence","sentence-annotation"]},
+    "type":{"type":String, enum : ["frameLu","frame-lu","lu-sentence","sentence-annotation"]},
     "content":Object,//the decision object
     "decisionExplanation":"String",
     "status":{type:String, enum: ["approved", "seen","unseen","rejected", "inquiry" ]},

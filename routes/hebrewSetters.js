@@ -17,8 +17,8 @@ module.exports = function(app) {
     //app.post('/heb/addlutoframe_old',auth.ensureAuthenticated, hebControl.postAddLuToFrame);
 
     //.app.post('/heb/addsentence', function (req,res) {console.log("hahaha"); res.send('good!');});
-    app.get('/heb/addsentence',/*auth.ensureAuthenticated,auth.ensureRole('reviewer'), */ hebControl.addSentenceToLUForm);  //get the form for submission
-    app.get('/ajax/heb/addsentence',/*auth.ensureAuthenticated,auth.ensureRole('reviewer'), */ function (req,res){
+    app.get('/heb/addsentence',auth.ensureAuthenticated,auth.ensureRole('reviewer'),  hebControl.addSentenceToLUForm);  //get the form for submission
+    app.get('/ajax/heb/addsentence',auth.ensureAuthenticated,auth.ensureRole('reviewer'),  function (req,res){
         req.isAjax =true;
         externalTools.getSE(req, res, hebControl.addSentenceToLUForm);
     });  //get the form for submission
@@ -47,16 +47,16 @@ module.exports = function(app) {
         })});*/
 
 
-    app.get('/heb/decision', hebControl.postCreateFrameLuAssociation)
-    app.get('/heb/frameLuAssociation', hebControl.postCreateFrameLuAssociation)
-    app.get('/heb/addlutoframe', hebControl.postCreateFrameLuAssociation)
-    app.post('/heb/frameLuAssociation', hebControl.postCreateFrameLuAssociation)
+    //app.get('/heb/decision', hebControl.postCreateFrameLuAssociation)
+    //app.get('/heb/frameLuAssociation', auth.ensureAuthenticated,hebControl.postCreateFrameLuAssociation)
+    //app.get('/heb/addlutoframe', hebControl.postCreateFrameLuAssociation)
+    app.post('/heb/frameLuAssociation',auth.ensureAuthenticated, hebControl.postCreateFrameLuAssociation)
 
 
     app.get('/heb/approvedecision', hebControl.postSetDecisionApproval)
 
-    app.get('/heb/editlu', hebControl.posteditLU)
-    app.post('/heb/editlu', hebControl.posteditLU)
+    //app.get('/heb/editlu', hebControl.posteditLU)
+    app.post('/heb/editlu',auth.ensureAuthenticated, hebControl.posteditLU)
 
 
     app.post('/heb/rmSentFromLu', hebControl.delSentFromLU);

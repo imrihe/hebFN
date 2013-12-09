@@ -63,6 +63,9 @@ app.get('/*', function(req,res,next){
 
 /******************general getters***************/
 require('./general.js')(app);
+
+require('./pages.js')(app);
+
 //add english -all (only getters)
 require('./english.js')(app);
 //add authentication routes
@@ -77,6 +80,6 @@ require('./hebrewSetters.js')(app);
 require('./externalTools.js')(app);
 
 //redirect all bad requests back to home page
-app.all("*", function(req,res) {res.redirect(hp)});
+/*app.all("*", function(req,res) {res.redirect(hp)});*/
 
 

@@ -21,8 +21,9 @@ var //db = mongoose.connect('mongodb://localhost/HebFrameNetDB'),
     db = mongoose.connect('mongodb://'+conf.dbusername + ':'+ conf.dbpassword+  '@'+conf.dbhost+':'+conf.dbport+'/'+conf.dbname,options,  function(err)
             {if (err){
                 console.error("connection problem!! EXITING..");
-                require('../../tools/mailer.js').sendMail("imrihe@gmail.com", 'mongoDB connection is down', "mongoDB connection is down",
-                    function(err,resullts){process.exit(code=8);})
+                require('../../tools/mailer.js').sendMail(["itay.mangshe@gmail.com","imrihe@gmail.com"], 'mongoDB connection is down', "mongoDB connection is down",
+                    function(err,resullts){
+                        process.exit(code=8);})
                  }
                     }),  //TODO { server: { auto_reconnect: false }}
     schema = mongoose.Schema;

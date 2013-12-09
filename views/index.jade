@@ -1,120 +1,31 @@
-//-var hp = '~imrihe/nodeJS1/'
-if message
-    h1 #{message}
+extends base
 
-if user
-    h2 hello #{user.username}
-//h1 "hie"
-//    script.
-//        alert("invalid login - hard coded!"+ user)
-p
-    ul
-        li user managment:
-            ul
-                li
-                    a(href='login') login
-                li
-                    a(href='logout') logout
-                li
-                    a(href='account') account
-                li
-                    a(href='auth') check if authorized
-                li
-                    a(href='admin/mailreviewers') send e-mail to all reviewers
-                li
-                    a(href='admin/listusers') list all users (without password)
+block content
+    
+    .container
+        .hero-unit
+            .container
+                h1=title
+            p.
+                Lorem ipsum dolor sit amet, 
+                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            p
+                .row.padTop20
+                    a.span2.offset2.btn.btn-inverse.btn-large(href="explore/") Explore #{title}
+                    h4.span1.text-center or
+                    a.span2.btn.btn-inverse.btn-large(href="#login",data-toggle="modal") Login
 
-        li general:
-            ul
-                li
-                    a(href='checkdbconnect') use this link to check DB connectivity
-                li
-                    a(href='findquery') type free query to DB
-        li external tools:
-            ul
-                li
-                    a(href='external/morph') link to Morphological Disambiguator via our server
-                li
-                    a(href='external/depparse') link to dependenct parser pipe - via our server
-                li
-                    a(href='external/searchSentence') search sentences by word\POS\lemma\base  - alon's search engine
-
-        li english data:
-            ul
-                li
-                    a(href='eng/frame', title="add '?id=123'") frame
-                li
-                    a(href='eng/lu', title="add '?luid=123' of '?frameid=123' for specification") lexical unit
-                li
-                    a(href='eng/lunames') lus names
-                li
-                    a(href='eng/framenames') frames names
-                li
-                    a(href='eng/translations', title = "add ?luid=6 for specification") lus translations
-                li
-                    a(href='eng/annotations', title = "add ?luid=6 for specification") lus annotations
-                li
-                    a(href='eng/searchframes') search the frames in the eng-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
-                li
-                    a(href='eng/searchlus') search the lus in the eng-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
-
-
-
-        li hebrew data:
-
-            li
-                b main process
-            ul
-
-                    li
-                        a(href='heb/framedata?framename=Communication') framedata - returns data for hebrew frame and english frame (with associated lus) by query (framid,name) (multiple DB calls)
-                    li
-                        a(href='heb/addlutoframe') add lu to frame
-                    li(hidden)
-                        a(href='heb/addsentence') add sentence to lexical unit
-                    li
-                        a(href='heb/addSentencesToLuPost') add sentence to lexical unit
-                    li
-                        a(href='heb/createannotation') add annotation - all fields must bu filled
-
-                li
-                    a(href='heb/frame', title="add '?id=123'") frame
-                li
-                    a(href='heb/lu?frameid=777777&luname=זז.v', title="add '?luid=123' of '?frameid=123' for specification") lexical unit
-                li
-                    a(href='heb/lunames') lus names
-                li
-                    a(href='heb/framenames') frames names
-                li
-                    b
-                        a(href='heb/framedata?framename=Communication') framedata - returns data for hebrew frame and english frame (with associated lus) by query (framid,name) (multiple DB calls)
-
-                li
-                    a(href='heb/addlutoframe') add lu to frame
-                li(hidden)
-                    a(href='heb/addsentence') add sentence to lexical unit
-                li
-                    a(href='heb/addSentencesToLuPost') add sentence to lexical unit
-                li
-                    a(href='ajax/heb/addsentence') add sentence to lexical unit - from search engine (alon).
-                    a    see
-                        a(href='http://www.cs.bgu.ac.il/~yoavg/nathanstatic/queries.html')    this link
-                    a  in order to understand the query language - but use only query=$w.lemma="הלך" and similar queries
-                li
-                    a(href='heb/sentences') list all sentences of filter by 'frameid' or 'luid'
-                li
-                    a(href='heb/lusentence') list sentence-lu entries, may filter by luid,frameid,sentenceid
-                li
-                    a(href='heb/getdecisions') list all the decisions or filted by 'decisionid=123423'
-                li
-                    a(href='heb/searchlus') search the lus in the heb-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
-                li
-                    a(href='heb/searchframes') search the frames in the heb-DB, filter by frameid, framename, luid, luname (use strict=1 for exact name matching)
-                li
-                    a(href='heb/pageframes?n=2&size=10') iterate over the heb-frames  - n- is the page number, size - number of results per page (maximum=20)
-
-
-
-
-
-
+         form(method="post",action="login",name="login_form")
+            #login.modal.fade(tabindex="-1",role="dialog",aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            button.close(type="button",class="close",data-dismiss="modal",aria-hidden="true") &times;
+                            h4.modal-title Login to HebFN
+                        .modal-body
+                            p
+                                input.span3(type="text",name="username",placeholder="Username")
+                            p
+                                input.span3(type="password",name="password",placeholder="Password")
+                        .modal-footer
+                            button.btn.btn-inverse(type="submit") Login

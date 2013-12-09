@@ -137,6 +137,8 @@ app.use(handleErrors);
 app.configure('development', function() {
     app.use(express.logger());
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    //app.use(express.errorHandler());
+    app.locals.pretty = true;
 });
 app.configure('production', function() {
     app.use(express.logger());

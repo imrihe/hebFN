@@ -102,37 +102,41 @@ exports.localStrategyFunc=function(username, password, done) {
 //middleware methode to ensure that the current user is authorised
 //TODO: expend by roles
 exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
+    console.log("authentication user!!", req.cookie)
+
     if (req.user){
-	    console.log("checking autentication for user:  " + req.user.username);
+	    console.log("checking autentication for user:  " + req.user.username, req.user);
+
 	    if (req.isAuthenticated()) { return next(); }
     }
     var us = null;
     if (req.user) us = req.user.username;
     console.log("DEBUG: user " + us +" is not authenticated.", "redirectiong to: " + hp+'login');
-	res.redirect(hp+'login');
+	//res.redirect(hp);
+    res.send(403);
 };
 
 
 //middleware methode to ensure that the current user had the relevant role
 exports.ensureReviewer = function ensureReviewer(req, res, next) {
-    if (req.user && _.indexOf(req.user.roles,'reviewer') !=-1)  return next()
+    if (req.user && _.indexOf(req.user.roles,'reviewer') !=-1)  return next();
     //else res.send(401,"only reviewer is allowed to do this action");
-    else next(new Error(401,"only reviewer is allowed to do this action"))//res.redirect(hp+'login');
+    else next(new Error(401,"only reviewer is allowed to do this action"));//res.redirect(hp+'login');
 };
 
 
 exports.ensureAdmin = function ensureAdmin(req, res, next) {
-    if (req.user && _.indexOf(req.user.roles,'admin') !=-1)  return next()
+    if (req.user && _.indexOf(req.user.roles,'admin') !=-1)  return next();
     else res.redirect(hp+'login');
 };
 
 
 exports.ensureRole = function (role){
     return function (req, res, next) {
-        if (req.user && _.indexOf(req.user.roles,role) !=-1)  return next()
-        else next(new Error(401,"the user doesn't have the relevant role: "+role))//res.redirect(hp+'login');
+        if (req.user && _.indexOf(req.user.roles,role) !=-1)  return next();
+        else next(new Error(401,"the user doesn't have the relevant role: "+role));//res.redirect(hp+'login');
     };
-}
+};
 
 
 

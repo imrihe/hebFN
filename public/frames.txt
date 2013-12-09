@@ -1,0 +1,6122 @@
+[
+  {
+    "frame": {
+      "@ID": 2031,
+      "@name": "Abandonment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 262,
+      "@name": "Abounding_with"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 830,
+      "@name": "Absorb_heat"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1602,
+      "@name": "Abundance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 482,
+      "@name": "Abusing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1871,
+      "@name": "Access_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 258,
+      "@name": "Accompaniment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1519,
+      "@name": "Accomplishment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 158,
+      "@name": "Accoutrements"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1903,
+      "@name": "Accuracy"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 403,
+      "@name": "Achieving_first"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1322,
+      "@name": "Active_substance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 124,
+      "@name": "Activity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 168,
+      "@name": "Activity_abandoned_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 182,
+      "@name": "Activity_done_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 165,
+      "@name": "Activity_finish"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 164,
+      "@name": "Activity_ongoing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 167,
+      "@name": "Activity_pause"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 181,
+      "@name": "Activity_paused_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 170,
+      "@name": "Activity_prepare"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 169,
+      "@name": "Activity_ready_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1156,
+      "@name": "Activity_resume"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 146,
+      "@name": "Activity_start"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 166,
+      "@name": "Activity_stop"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1580,
+      "@name": "Actually_occurring_entity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 213,
+      "@name": "Addiction"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 621,
+      "@name": "Adding_up"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1601,
+      "@name": "Adducing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1376,
+      "@name": "Adjusting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1590,
+      "@name": "Adopt_selection"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 76,
+      "@name": "Adorning"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1016,
+      "@name": "Aesthetics"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 972,
+      "@name": "Age"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 103,
+      "@name": "Aggregate"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1919,
+      "@name": "Aging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1625,
+      "@name": "Agree_or_refuse_to_act"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2012,
+      "@name": "Agriculture"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1901,
+      "@name": "Aiming"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2020,
+      "@name": "Alignment_image_schema"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1574,
+      "@name": "Alliance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 385,
+      "@name": "Altered_phase"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 790,
+      "@name": "Amalgamation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1482,
+      "@name": "Amassing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1052,
+      "@name": "Ambient_temperature"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1565,
+      "@name": "Ammunition"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 602,
+      "@name": "Amounting_to"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2049,
+      "@name": "Annoyance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 504,
+      "@name": "Appeal"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 67,
+      "@name": "Appearance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2390,
+      "@name": "Appellations"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 236,
+      "@name": "Apply_heat"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1925,
+      "@name": "Appointing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 971,
+      "@name": "Architectural_part"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2234,
+      "@name": "Arithmetic"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2245,
+      "@name": "Arithmetic_commutative"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2236,
+      "@name": "Arithmetic_non-commutative"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 120,
+      "@name": "Arraignment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 921,
+      "@name": "Arranging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 202,
+      "@name": "Arrest"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 54,
+      "@name": "Arriving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 138,
+      "@name": "Arson"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 421,
+      "@name": "Artifact"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1660,
+      "@name": "Artificiality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2237,
+      "@name": "Assemble"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 519,
+      "@name": "Assessing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 391,
+      "@name": "Assistance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 388,
+      "@name": "Atonement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 197,
+      "@name": "Attaching"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 424,
+      "@name": "Attack"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 116,
+      "@name": "Attempt"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1900,
+      "@name": "Attempt_distant_interaction_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2132,
+      "@name": "Attempt_means"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2007,
+      "@name": "Attempt_obtain_food_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2221,
+      "@name": "Attempt_obtain_mineral_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 87,
+      "@name": "Attempt_suasion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1683,
+      "@name": "Attempting_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2030,
+      "@name": "Attending"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 791,
+      "@name": "Attention"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 305,
+      "@name": "Attention_getting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1148,
+      "@name": "Attributed_information"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 964,
+      "@name": "Attributes"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 274,
+      "@name": "Avoiding"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 19,
+      "@name": "Awareness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 121,
+      "@name": "Bail_decision"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1380,
+      "@name": "Be_in_agreement_on_action"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1496,
+      "@name": "Be_in_agreement_on_assessment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1800,
+      "@name": "Be_in_control"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1818,
+      "@name": "Be_subset_of"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1655,
+      "@name": "Be_translation_equivalent"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 470,
+      "@name": "Bearing_arms"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2074,
+      "@name": "Beat_opponent"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 731,
+      "@name": "Become_silent"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1070,
+      "@name": "Becoming"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1733,
+      "@name": "Becoming_a_member"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 20,
+      "@name": "Becoming_aware"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1391,
+      "@name": "Becoming_detached"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2029,
+      "@name": "Becoming_dry"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1863,
+      "@name": "Becoming_separated"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 409,
+      "@name": "Behind_the_scenes"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1540,
+      "@name": "Being_active"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1560,
+      "@name": "Being_at_risk"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 307,
+      "@name": "Being_attached"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1681,
+      "@name": "Being_awake"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 793,
+      "@name": "Being_born"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1411,
+      "@name": "Being_detached"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 338,
+      "@name": "Being_dry"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 282,
+      "@name": "Being_employed"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1820,
+      "@name": "Being_in_category"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1510,
+      "@name": "Being_in_effect"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 880,
+      "@name": "Being_in_operation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1822,
+      "@name": "Being_included"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 960,
+      "@name": "Being_located"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 228,
+      "@name": "Being_named"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1157,
+      "@name": "Being_necessary"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 392,
+      "@name": "Being_obligated"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1164,
+      "@name": "Being_obligatory"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1200,
+      "@name": "Being_operational"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 346,
+      "@name": "Being_rotted"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2061,
+      "@name": "Being_strong"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1440,
+      "@name": "Being_up_to_it"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 332,
+      "@name": "Being_wet"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1817,
+      "@name": "Besieging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 356,
+      "@name": "Beyond_compare"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 193,
+      "@name": "Biological_area"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 394,
+      "@name": "Biological_urge"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 281,
+      "@name": "Birth"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1633,
+      "@name": "Board_vehicle"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 299,
+      "@name": "Body_decoration"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 157,
+      "@name": "Body_description_holistic"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 235,
+      "@name": "Body_description_part"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 393,
+      "@name": "Body_mark"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 16,
+      "@name": "Body_movement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2371,
+      "@name": "Bond_maturation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 329,
+      "@name": "Boundary"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 237,
+      "@name": "Bounded_entity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2019,
+      "@name": "Bounded_region"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1624,
+      "@name": "Bragging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1862,
+      "@name": "Breaking_apart"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1860,
+      "@name": "Breaking_off"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 272,
+      "@name": "Breathing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 240,
+      "@name": "Bringing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 259,
+      "@name": "Building"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 188,
+      "@name": "Building_subparts"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 173,
+      "@name": "Buildings"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 266,
+      "@name": "Bungling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 365,
+      "@name": "Businesses"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 229,
+      "@name": "Calendric_unit"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 32,
+      "@name": "Candidness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 990,
+      "@name": "Capability"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2138,
+      "@name": "Capacity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 218,
+      "@name": "Cardinal_numbers"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1850,
+      "@name": "Carry_goods"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 115,
+      "@name": "Catastrophe"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 21,
+      "@name": "Categorization"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 5,
+      "@name": "Causation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 217,
+      "@name": "Causation_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2320,
+      "@name": "Cause_bodily_experience"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 683,
+      "@name": "Cause_change"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 383,
+      "@name": "Cause_change_of_consistency"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 335,
+      "@name": "Cause_change_of_phase"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 96,
+      "@name": "Cause_change_of_position_on_a_scale"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1781,
+      "@name": "Cause_change_of_strength"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2041,
+      "@name": "Cause_emotion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 77,
+      "@name": "Cause_expansion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 920,
+      "@name": "Cause_fluidic_motion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 112,
+      "@name": "Cause_harm"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 395,
+      "@name": "Cause_impact"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 55,
+      "@name": "Cause_motion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1905,
+      "@name": "Cause_proliferation_in_number"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 334,
+      "@name": "Cause_temperature_change"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 13,
+      "@name": "Cause_to_amalgamate"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 337,
+      "@name": "Cause_to_be_dry"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2230,
+      "@name": "Cause_to_be_included"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1291,
+      "@name": "Cause_to_be_sharp"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 309,
+      "@name": "Cause_to_be_wet"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1060,
+      "@name": "Cause_to_continue"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1149,
+      "@name": "Cause_to_end"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 288,
+      "@name": "Cause_to_experience"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 414,
+      "@name": "Cause_to_fragment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 801,
+      "@name": "Cause_to_make_noise"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1349,
+      "@name": "Cause_to_make_progress"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 276,
+      "@name": "Cause_to_move_in_place"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2161,
+      "@name": "Cause_to_perceive"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1372,
+      "@name": "Cause_to_resume"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2248,
+      "@name": "Cause_to_rot"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 381,
+      "@name": "Cause_to_start"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 293,
+      "@name": "Cause_to_wake"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2104,
+      "@name": "Ceasing_to_be"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 141,
+      "@name": "Certainty"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1653,
+      "@name": "Change_direction"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1770,
+      "@name": "Change_event_duration"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 691,
+      "@name": "Change_event_time"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 341,
+      "@name": "Change_of_consistency"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 72,
+      "@name": "Change_of_leadership"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 336,
+      "@name": "Change_of_phase"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1281,
+      "@name": "Change_of_phase_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2201,
+      "@name": "Change_of_quantity_of_possession"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 186,
+      "@name": "Change_of_state_endstate"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 185,
+      "@name": "Change_of_state_initial_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 184,
+      "@name": "Change_of_state_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1688,
+      "@name": "Change_operational_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 91,
+      "@name": "Change_position_on_a_scale"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 770,
+      "@name": "Change_posture"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1782,
+      "@name": "Change_resistance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1173,
+      "@name": "Change_tool"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 910,
+      "@name": "Chatting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 271,
+      "@name": "Chemical-sense_description"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 352,
+      "@name": "Choosing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 550,
+      "@name": "Claim_ownership"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1562,
+      "@name": "Clarity_of_resolution"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1086,
+      "@name": "Clemency"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 254,
+      "@name": "Closure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 134,
+      "@name": "Clothing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 194,
+      "@name": "Clothing_parts"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 22,
+      "@name": "Cogitation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 720,
+      "@name": "Cognitive_connection"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1812,
+      "@name": "Coincidence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 418,
+      "@name": "Collaboration"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2018,
+      "@name": "Collocation_image_schema"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1794,
+      "@name": "Colonization"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 423,
+      "@name": "Color"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2270,
+      "@name": "Color_qualities"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 730,
+      "@name": "Come_together"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 316,
+      "@name": "Coming_to_be"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 23,
+      "@name": "Coming_to_believe"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 27,
+      "@name": "Coming_up_with"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 261,
+      "@name": "Commemorative"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 171,
+      "@name": "Commerce_buy"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 210,
+      "@name": "Commerce_collect"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 211,
+      "@name": "Commerce_goods-transfer"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 209,
+      "@name": "Commerce_money-transfer"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 180,
+      "@name": "Commerce_pay"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 82,
+      "@name": "Commerce_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 172,
+      "@name": "Commerce_sell"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 177,
+      "@name": "Commercial_transaction"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 33,
+      "@name": "Commitment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 700,
+      "@name": "Committing_crime"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 796,
+      "@name": "Communicate_categorization"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 6,
+      "@name": "Communication"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 38,
+      "@name": "Communication_manner"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 242,
+      "@name": "Communication_means"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 39,
+      "@name": "Communication_noise"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 42,
+      "@name": "Communication_response"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1088,
+      "@name": "Commutation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2243,
+      "@name": "Commutative_process"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2244,
+      "@name": "Commutative_statement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 360,
+      "@name": "Compatibility"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 241,
+      "@name": "Competition"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1621,
+      "@name": "Complaining"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1534,
+      "@name": "Completeness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 117,
+      "@name": "Compliance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2150,
+      "@name": "Concessive"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 491,
+      "@name": "Conduct"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2054,
+      "@name": "Confronting_problem"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1025,
+      "@name": "Connecting_architecture"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 419,
+      "@name": "Connectors"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2021,
+      "@name": "Conquering"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2024,
+      "@name": "Contact_image_schema"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 286,
+      "@name": "Contacting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2303,
+      "@name": "Container_focused_placing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2301,
+      "@name": "Container_focused_removing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 78,
+      "@name": "Containers"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 397,
+      "@name": "Containing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1174,
+      "@name": "Containment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1980,
+      "@name": "Containment_relation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1176,
+      "@name": "Containment_relation_IS"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 900,
+      "@name": "Contingency"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1594,
+      "@name": "Continued_state_of_affairs"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 382,
+      "@name": "Contrition"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1799,
+      "@name": "Control"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1543,
+      "@name": "Convey_importance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 268,
+      "@name": "Cooking_creation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 222,
+      "@name": "Corporal_punishment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1512,
+      "@name": "Correctness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 348,
+      "@name": "Corroding"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 350,
+      "@name": "Corroding_caused"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 56,
+      "@name": "Cotheme"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 507,
+      "@name": "Court_examination"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 981,
+      "@name": "Craft"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1658,
+      "@name": "Create_physical_artwork"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1657,
+      "@name": "Create_representation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 319,
+      "@name": "Creating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 692,
+      "@name": "Crime_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 500,
+      "@name": "Criminal_investigation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 200,
+      "@name": "Criminal_process"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 50,
+      "@name": "Cure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 380,
+      "@name": "Custom"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 265,
+      "@name": "Cutting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2100,
+      "@name": "Cycle_of_existence_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2106,
+      "@name": "Cycle_of_life_and_death"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 415,
+      "@name": "Damaging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 374,
+      "@name": "Daring"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 310,
+      "@name": "Dead_or_alive"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 53,
+      "@name": "Death"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 363,
+      "@name": "Deciding"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1330,
+      "@name": "Defend"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2001,
+      "@name": "Degree"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1159,
+      "@name": "Degree_of_processing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1680,
+      "@name": "Delimitation_of_diversity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2123,
+      "@name": "Delimited_state_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1344,
+      "@name": "Delivery"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 520,
+      "@name": "Deny_permission"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 57,
+      "@name": "Departing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 541,
+      "@name": "Deserving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 354,
+      "@name": "Desirability"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1383,
+      "@name": "Desirable_event"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 366,
+      "@name": "Desiring"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1801,
+      "@name": "Destiny"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 417,
+      "@name": "Destroying"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1390,
+      "@name": "Detaching"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 313,
+      "@name": "Detaining"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 24,
+      "@name": "Differentiation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 375,
+      "@name": "Difficulty"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 108,
+      "@name": "Dimension"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 215,
+      "@name": "Direction"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 34,
+      "@name": "Discussion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1634,
+      "@name": "Disembarking"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1612,
+      "@name": "Disgraceful_situation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 267,
+      "@name": "Dispersal"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1133,
+      "@name": "Distinctiveness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1893,
+      "@name": "Diversity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 560,
+      "@name": "Documents"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1303,
+      "@name": "Dodging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 430,
+      "@name": "Domain"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1796,
+      "@name": "Dominate_competitor"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1795,
+      "@name": "Dominate_situation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1797,
+      "@name": "Domination"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1421,
+      "@name": "Dough_rising"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1211,
+      "@name": "Dressing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1946,
+      "@name": "Drop_in_on"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2192,
+      "@name": "Dunking"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 11,
+      "@name": "Duplication"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 79,
+      "@name": "Duration_attribute"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2121,
+      "@name": "Duration_relation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2122,
+      "@name": "Duration_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2055,
+      "@name": "Dying"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1873,
+      "@name": "Earnings_and_losses"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 652,
+      "@name": "Eclipse"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1572,
+      "@name": "Economy"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 111,
+      "@name": "Education_teaching"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1535,
+      "@name": "Electricity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1305,
+      "@name": "Elusive_goal"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 361,
+      "@name": "Emanating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 359,
+      "@name": "Emitting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 45,
+      "@name": "Emotion_active"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 46,
+      "@name": "Emotion_directed"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 49,
+      "@name": "Emotion_heat"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1712,
+      "@name": "Emotions"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2051,
+      "@name": "Emotions_by_possibility"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2042,
+      "@name": "Emotions_by_stimulus"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2045,
+      "@name": "Emotions_of_mental_activity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2043,
+      "@name": "Emotions_success_or_failure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1061,
+      "@name": "Employee's_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1062,
+      "@name": "Employer's_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 323,
+      "@name": "Employing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 871,
+      "@name": "Employment_continue"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 872,
+      "@name": "Employment_end"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 321,
+      "@name": "Employment_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 870,
+      "@name": "Employment_start"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 58,
+      "@name": "Emptying"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 35,
+      "@name": "Encoding"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2249,
+      "@name": "Encounter"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 631,
+      "@name": "Endangering"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1813,
+      "@name": "Enforcing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 130,
+      "@name": "Entering_of_plea"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 251,
+      "@name": "Entity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 273,
+      "@name": "Escaping"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1516,
+      "@name": "Estimated_value"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1513,
+      "@name": "Estimating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 275,
+      "@name": "Evading"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 353,
+      "@name": "Evaluative_comparison"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 187,
+      "@name": "Event"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2101,
+      "@name": "Event_in_history"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2140,
+      "@name": "Event_instance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 88,
+      "@name": "Eventive_affecting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 98,
+      "@name": "Eventive_cognizer_affecting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 25,
+      "@name": "Evidence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1012,
+      "@name": "Evoking"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 107,
+      "@name": "Examination"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1170,
+      "@name": "Exchange"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1184,
+      "@name": "Exchange_currency"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1131,
+      "@name": "Exclude_member"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 270,
+      "@name": "Excreting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1726,
+      "@name": "Execute_plan"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 225,
+      "@name": "Execution"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2252,
+      "@name": "Exemplar"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2253,
+      "@name": "Exemplariness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2400,
+      "@name": "Exercising"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1563,
+      "@name": "Exertive_force"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2220,
+      "@name": "Exhaust_resource"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 660,
+      "@name": "Existence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 725,
+      "@name": "Expansion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 26,
+      "@name": "Expectation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1619,
+      "@name": "Expected_location_of_person"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 83,
+      "@name": "Expensiveness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 384,
+      "@name": "Experience_bodily_harm"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 48,
+      "@name": "Experiencer_focus"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 47,
+      "@name": "Experiencer_obj"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 136,
+      "@name": "Expertise"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1462,
+      "@name": "Explaining_the_facts"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1568,
+      "@name": "Exporting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1622,
+      "@name": "Expressing_publicly"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1370,
+      "@name": "Extradition"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1573,
+      "@name": "Extreme_point"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1596,
+      "@name": "Extreme_value"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 161,
+      "@name": "Facial_expression"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 376,
+      "@name": "Fairness_evaluation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 292,
+      "@name": "Fall_asleep"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1880,
+      "@name": "Fame"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1597,
+      "@name": "Familiarity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1598,
+      "@name": "Fastener"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2052,
+      "@name": "Fear"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 396,
+      "@name": "Feeling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 12,
+      "@name": "Feigning"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1345,
+      "@name": "Fields"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 563,
+      "@name": "Fighting_activity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 59,
+      "@name": "Filling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 223,
+      "@name": "Fining"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 798,
+      "@name": "Finish_competition"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2193,
+      "@name": "Finish_game"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 326,
+      "@name": "Firing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1027,
+      "@name": "First_experience"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 402,
+      "@name": "First_rank"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1659,
+      "@name": "Fleeing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 345,
+      "@name": "Fluidic_motion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 277,
+      "@name": "Food"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2008,
+      "@name": "Food_gathering"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1483,
+      "@name": "Foreign_or_domestic_country"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1661,
+      "@name": "Forging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 401,
+      "@name": "Forgiveness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1304,
+      "@name": "Forgoing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 723,
+      "@name": "Forming_relationships"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1861,
+      "@name": "Fragmentation_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 80,
+      "@name": "Frequency"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 820,
+      "@name": "Friction"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1734,
+      "@name": "Front_for"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 84,
+      "@name": "Frugality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 244,
+      "@name": "Fullness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 260,
+      "@name": "Gathering_up"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 36,
+      "@name": "Gesture"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 324,
+      "@name": "Get_a_job"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 179,
+      "@name": "Getting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1191,
+      "@name": "Getting_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1641,
+      "@name": "Getting_underway"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1420,
+      "@name": "Getting_up"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1387,
+      "@name": "Getting_vehicle_underway"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 139,
+      "@name": "Giving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1497,
+      "@name": "Giving_in"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1190,
+      "@name": "Giving_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 106,
+      "@name": "Gizmo"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2137,
+      "@name": "Go_into_shape"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1177,
+      "@name": "Goal"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1566,
+      "@name": "Going_back_on_a_commitment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1015,
+      "@name": "Gradable_attributes"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 506,
+      "@name": "Grant_permission"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 979,
+      "@name": "Grasp"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 351,
+      "@name": "Grinding"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 159,
+      "@name": "Grooming"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 357,
+      "@name": "Ground_up"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2014,
+      "@name": "Growing_food"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1890,
+      "@name": "Guest_and_host"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1110,
+      "@name": "Guilt_or_innocence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 126,
+      "@name": "Hair_configuration"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1024,
+      "@name": "Halt"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1491,
+      "@name": "Have_as_requirement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1654,
+      "@name": "Have_as_translation_equivalent"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1933,
+      "@name": "Have_associated"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1951,
+      "@name": "Have_visitor_over"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1577,
+      "@name": "Having_commercial_agreement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1870,
+      "@name": "Having_or_lacking_access"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 52,
+      "@name": "Health_response"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 37,
+      "@name": "Hear"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2284,
+      "@name": "Heat_potential"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1054,
+      "@name": "Heralding"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1673,
+      "@name": "Hiding_objects"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 480,
+      "@name": "Hindering"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 322,
+      "@name": "Hiring"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1908,
+      "@name": "Historic_event"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2113,
+      "@name": "History"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2110,
+      "@name": "History_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1902,
+      "@name": "Hit_or_miss"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 485,
+      "@name": "Hit_target"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1576,
+      "@name": "Holding_off_on"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1970,
+      "@name": "Hospitality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 93,
+      "@name": "Hostile_encounter"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2006,
+      "@name": "Hunting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2009,
+      "@name": "Hunting_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2010,
+      "@name": "Hunting_success_or_failure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1029,
+      "@name": "Identicality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 982,
+      "@name": "Idiosyncrasy"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2016,
+      "@name": "Image_schema"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1672,
+      "@name": "Imitating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 250,
+      "@name": "Immobilization"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 311,
+      "@name": "Impact"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 422,
+      "@name": "Import_export"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 407,
+      "@name": "Importance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1567,
+      "@name": "Importing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1494,
+      "@name": "Imposing_obligation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2262,
+      "@name": "Impression"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1111,
+      "@name": "Imprisonment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2031,
+      "@name": "Imri"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1178,
+      "@name": "In"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 306,
+      "@name": "Inchoative_attaching"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 797,
+      "@name": "Inchoative_change_of_temperature"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 377,
+      "@name": "Inclination"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1153,
+      "@name": "Inclusion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1821,
+      "@name": "Inclusion_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1001,
+      "@name": "Increment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2090,
+      "@name": "Indicating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1552,
+      "@name": "Indigenous_origin"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1906,
+      "@name": "Individual_history"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1930,
+      "@name": "Ineffability"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 97,
+      "@name": "Influence_of_event_on_cognizer"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1591,
+      "@name": "Information"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1481,
+      "@name": "Infrastructure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 386,
+      "@name": "Ingest_substance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 263,
+      "@name": "Ingestion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1348,
+      "@name": "Ingredients"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 245,
+      "@name": "Inhibit_movement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1262,
+      "@name": "Inspecting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1541,
+      "@name": "Installing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 132,
+      "@name": "Instance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1620,
+      "@name": "Institutionalization"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1604,
+      "@name": "Institutions"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1642,
+      "@name": "Intentional_traversing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 198,
+      "@name": "Intentionally_act"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 230,
+      "@name": "Intentionally_affect"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 280,
+      "@name": "Intentionally_create"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1522,
+      "@name": "Intercepting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1894,
+      "@name": "Interrupt_process"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1179,
+      "@name": "Into"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 390,
+      "@name": "Intoxicants"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 214,
+      "@name": "Intoxication"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2022,
+      "@name": "Invading"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2025,
+      "@name": "Invasion_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 420,
+      "@name": "Isolated_places"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 28,
+      "@name": "Judgment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 219,
+      "@name": "Judgment_communication"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 711,
+      "@name": "Judgment_direct_address"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1607,
+      "@name": "Judicial_body"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 296,
+      "@name": "Jury_deliberation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2050,
+      "@name": "Just_found_out"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 512,
+      "@name": "Justifying"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 122,
+      "@name": "Kidnapping"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 590,
+      "@name": "Killing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 104,
+      "@name": "Kinship"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 247,
+      "@name": "Knot_creation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1700,
+      "@name": "Knot_creation_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1250,
+      "@name": "Labeling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2164,
+      "@name": "Labor_product"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2070,
+      "@name": "Launch_process"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 950,
+      "@name": "Law"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 73,
+      "@name": "Leadership"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1041,
+      "@name": "Left_to_do"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 501,
+      "@name": "Legality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 131,
+      "@name": "Light_movement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 114,
+      "@name": "Likelihood"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 406,
+      "@name": "Linguistic_meaning"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1904,
+      "@name": "Lively_place"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 192,
+      "@name": "Locale"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1921,
+      "@name": "Locale_by_event"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2171,
+      "@name": "Locale_by_ownership"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 196,
+      "@name": "Locale_by_use"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 792,
+      "@name": "Locating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2141,
+      "@name": "Location_in_time"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 105,
+      "@name": "Location_of_light"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 199,
+      "@name": "Locative_relation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1917,
+      "@name": "Lodging_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2180,
+      "@name": "Long_or_short_selling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 206,
+      "@name": "Lose_possession"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 212,
+      "@name": "Lose_possession_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2197,
+      "@name": "Losing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 978,
+      "@name": "Losing_it"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2196,
+      "@name": "Losing_someone"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2198,
+      "@name": "Losing_track_of"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2200,
+      "@name": "Losing_track_of_perceiver"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2199,
+      "@name": "Losing_track_of_theme"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1811,
+      "@name": "Luck"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1085,
+      "@name": "Make_acquaintance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1342,
+      "@name": "Make_agreement_on_action"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 252,
+      "@name": "Make_cognitive_connection"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 69,
+      "@name": "Make_noise"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2011,
+      "@name": "Make_possible_to_do"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 794,
+      "@name": "Making_faces"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 92,
+      "@name": "Manipulate_into_doing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2136,
+      "@name": "Manipulate_into_shape"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 17,
+      "@name": "Manipulation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 408,
+      "@name": "Manufacturing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 284,
+      "@name": "Mass_motion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1790,
+      "@name": "Means"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 965,
+      "@name": "Measurable_attributes"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 156,
+      "@name": "Measure_area"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 810,
+      "@name": "Measure_by_action"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 224,
+      "@name": "Measure_duration"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 154,
+      "@name": "Measure_linear_extent"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 147,
+      "@name": "Measure_mass"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1687,
+      "@name": "Measure_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 155,
+      "@name": "Measure_volume"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1686,
+      "@name": "Measures"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 239,
+      "@name": "Medical_conditions"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 257,
+      "@name": "Medical_instruments"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 255,
+      "@name": "Medical_professionals"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 256,
+      "@name": "Medical_specialties"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2005,
+      "@name": "Medium"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2235,
+      "@name": "Meet_specifications"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2238,
+      "@name": "Meet_with"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2232,
+      "@name": "Meet_with_response"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1026,
+      "@name": "Membership"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1132,
+      "@name": "Memorization"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 135,
+      "@name": "Memory"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1710,
+      "@name": "Mental_activity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 29,
+      "@name": "Mental_property"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2044,
+      "@name": "Mental_stimulus_exp_focus"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2046,
+      "@name": "Mental_stimulus_stimulus_focus"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2080,
+      "@name": "Mention"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1514,
+      "@name": "Military"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2285,
+      "@name": "Mining"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1100,
+      "@name": "Misdeed"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1761,
+      "@name": "Money"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 370,
+      "@name": "Morality_evaluation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 7,
+      "@name": "Motion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 362,
+      "@name": "Motion_directional"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 60,
+      "@name": "Motion_noise"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 238,
+      "@name": "Motion_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 670,
+      "@name": "Moving_in_place"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 221,
+      "@name": "Name_conferral"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1252,
+      "@name": "Namesake"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 191,
+      "@name": "Natural_features"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1375,
+      "@name": "Needing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1611,
+      "@name": "Network"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1017,
+      "@name": "Noise_makers"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2246,
+      "@name": "Non-commutative_process"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2247,
+      "@name": "Non-commutative_statement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 129,
+      "@name": "Notification_of_charges"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1926,
+      "@name": "Nuclear_process"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1084,
+      "@name": "Objective_influence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1493,
+      "@name": "Obligation_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1881,
+      "@name": "Obscurity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 119,
+      "@name": "Observable_body_parts"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1360,
+      "@name": "Obviousness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1379,
+      "@name": "Occupy_rank"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 432,
+      "@name": "Offenses"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2239,
+      "@name": "Offering"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 412,
+      "@name": "Omen"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1872,
+      "@name": "Openness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 65,
+      "@name": "Operate_vehicle"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1495,
+      "@name": "Operating_a_system"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1301,
+      "@name": "Operational_testing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1412,
+      "@name": "Opinion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2350,
+      "@name": "Opportunity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2261,
+      "@name": "Optical_image"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1147,
+      "@name": "Ordinal_numbers"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1371,
+      "@name": "Organization"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1103,
+      "@name": "Origin"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2048,
+      "@name": "Others_situation_as_stimulus"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2105,
+      "@name": "Out_of_existence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 681,
+      "@name": "Pardon"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 330,
+      "@name": "Part_edge"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 327,
+      "@name": "Part_inner_outer"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 331,
+      "@name": "Part_ordered_segments"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 143,
+      "@name": "Part_orientational"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 142,
+      "@name": "Part_piece"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 140,
+      "@name": "Part_whole"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 349,
+      "@name": "Partiality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1144,
+      "@name": "Participation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1010,
+      "@name": "Partitive"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2071,
+      "@name": "Passing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1671,
+      "@name": "Passing_off"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 61,
+      "@name": "Path_shape"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1592,
+      "@name": "Path_traveled"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2133,
+      "@name": "Pattern"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 304,
+      "@name": "People"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1564,
+      "@name": "People_along_political_spectrum"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 973,
+      "@name": "People_by_age"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1023,
+      "@name": "People_by_jurisdiction"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1102,
+      "@name": "People_by_morality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 974,
+      "@name": "People_by_origin"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1021,
+      "@name": "People_by_religion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1143,
+      "@name": "People_by_residence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1071,
+      "@name": "People_by_vocation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 8,
+      "@name": "Perception"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 66,
+      "@name": "Perception_active"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 68,
+      "@name": "Perception_body"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 70,
+      "@name": "Perception_experience"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1080,
+      "@name": "Performers"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 413,
+      "@name": "Performers_and_roles"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 405,
+      "@name": "Performing_arts"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 515,
+      "@name": "Permitting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 102,
+      "@name": "Personal_relationship"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1656,
+      "@name": "Physical_artworks"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 302,
+      "@name": "Physical_entity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 123,
+      "@name": "Piracy"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1542,
+      "@name": "Place_weight_on"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 62,
+      "@name": "Placing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2302,
+      "@name": "Placing_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2015,
+      "@name": "Planting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1608,
+      "@name": "Point_of_dispute"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 195,
+      "@name": "Political_locales"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2380,
+      "@name": "Popularity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1670,
+      "@name": "Posing_as"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 95,
+      "@name": "Position_on_a_scale"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 118,
+      "@name": "Possession"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1931,
+      "@name": "Possibilities"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2120,
+      "@name": "Possibility"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1185,
+      "@name": "Post_getting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1187,
+      "@name": "Post_giving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 208,
+      "@name": "Post_lose_possession"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1182,
+      "@name": "Post_receiving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1189,
+      "@name": "Post_transfer"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 18,
+      "@name": "Posture"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 962,
+      "@name": "Practice"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 399,
+      "@name": "Praiseworthiness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1183,
+      "@name": "Pre_getting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1186,
+      "@name": "Pre_giving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 207,
+      "@name": "Pre_lose_possession"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1181,
+      "@name": "Pre_receiving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1188,
+      "@name": "Pre_transfer"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 314,
+      "@name": "Precipitation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 300,
+      "@name": "Predicament"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 425,
+      "@name": "Predicting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1626,
+      "@name": "Preference"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1928,
+      "@name": "Preliminaries"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1922,
+      "@name": "Presence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 339,
+      "@name": "Preserving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 287,
+      "@name": "Prevarication"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2056,
+      "@name": "Prevent_from_having"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 516,
+      "@name": "Preventing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 387,
+      "@name": "Prison"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2360,
+      "@name": "Probability"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 233,
+      "@name": "Process"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 234,
+      "@name": "Process_completed_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 145,
+      "@name": "Process_continue"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 232,
+      "@name": "Process_end"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 152,
+      "@name": "Process_initial_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1765,
+      "@name": "Process_pause"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 148,
+      "@name": "Process_resume"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 133,
+      "@name": "Process_start"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 144,
+      "@name": "Process_stop"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 153,
+      "@name": "Process_stopped_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1764,
+      "@name": "Process_uncompleted_state"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 620,
+      "@name": "Processing_materials"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1570,
+      "@name": "Product_delivery"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1340,
+      "@name": "Progress"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 521,
+      "@name": "Prohibiting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1158,
+      "@name": "Project"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1599,
+      "@name": "Proliferating_in_number"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1460,
+      "@name": "Prominence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1582,
+      "@name": "Proper_reference"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1631,
+      "@name": "Protecting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1916,
+      "@name": "Provide_lodging"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2017,
+      "@name": "Proximity_image_schema"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1605,
+      "@name": "Public_services"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2075,
+      "@name": "Punctual_perception"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 513,
+      "@name": "Purpose"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 189,
+      "@name": "Quantity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 710,
+      "@name": "Quarreling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 40,
+      "@name": "Questioning"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 325,
+      "@name": "Quitting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1644,
+      "@name": "Quitting_a_place"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2251,
+      "@name": "Race_descriptor"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1350,
+      "@name": "Range"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1377,
+      "@name": "Rank"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1533,
+      "@name": "Ranked_expectation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 127,
+      "@name": "Rape"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1581,
+      "@name": "Rashness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1351,
+      "@name": "Ratification"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 279,
+      "@name": "Reading"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2202,
+      "@name": "Reading_aloud"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 514,
+      "@name": "Reason"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 308,
+      "@name": "Reasoning"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1378,
+      "@name": "Reassuring"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1950,
+      "@name": "Receive_visitor_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 411,
+      "@name": "Receiving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1180,
+      "@name": "Receiving_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 9,
+      "@name": "Reciprocality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 226,
+      "@name": "Reciprocality_focus"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 227,
+      "@name": "Reciprocality_subordinate_event"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1615,
+      "@name": "Recording"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 51,
+      "@name": "Recovery"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1530,
+      "@name": "Redirecting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1924,
+      "@name": "Reference_text"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1253,
+      "@name": "Referring_by_name"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1571,
+      "@name": "Reforming_a_system"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1400,
+      "@name": "Regard"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2027,
+      "@name": "Region_with_portal"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1614,
+      "@name": "Rejuvenation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2060,
+      "@name": "Relating_concepts"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 248,
+      "@name": "Relation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1689,
+      "@name": "Relation_between_individuals"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1490,
+      "@name": "Relational_natural_features"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1883,
+      "@name": "Relational_political_locales"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1923,
+      "@name": "Relational_quantity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 81,
+      "@name": "Relative_time"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 317,
+      "@name": "Releasing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1724,
+      "@name": "Releasing_from_custody"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 901,
+      "@name": "Reliance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 902,
+      "@name": "Reliance_on_expectation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1019,
+      "@name": "Religious_belief"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1030,
+      "@name": "Remainder"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1222,
+      "@name": "Remembering_experience"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1220,
+      "@name": "Remembering_information"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1221,
+      "@name": "Remembering_to_do"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 63,
+      "@name": "Removing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1816,
+      "@name": "Removing_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 416,
+      "@name": "Render_nonfunctional"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1728,
+      "@name": "Renting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1729,
+      "@name": "Renting_out"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1231,
+      "@name": "Renunciation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 400,
+      "@name": "Reparation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2370,
+      "@name": "Repayment"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2026,
+      "@name": "Repel"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1121,
+      "@name": "Replacing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 483,
+      "@name": "Reporting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2162,
+      "@name": "Representing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 41,
+      "@name": "Request"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1381,
+      "@name": "Required_event"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1492,
+      "@name": "Requirement_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1152,
+      "@name": "Research"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 344,
+      "@name": "Reshaping"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 110,
+      "@name": "Residence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1682,
+      "@name": "Resolve_attempt_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1523,
+      "@name": "Resolve_problem"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1623,
+      "@name": "Respond_to_proposal"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1302,
+      "@name": "Response"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2231,
+      "@name": "Response_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1000,
+      "@name": "Rest"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1413,
+      "@name": "Resurrection"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1146,
+      "@name": "Reveal_secret"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 347,
+      "@name": "Revenge"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 216,
+      "@name": "Rewards_and_punishments"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 690,
+      "@name": "Ride_vehicle"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1441,
+      "@name": "Rising_to_a_challenge"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1763,
+      "@name": "Risk_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1762,
+      "@name": "Risky_situation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 301,
+      "@name": "Rite"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 203,
+      "@name": "Roadways"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 99,
+      "@name": "Robbery"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 246,
+      "@name": "Rope_manipulation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 340,
+      "@name": "Rotting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2076,
+      "@name": "Ruling_legally"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 378,
+      "@name": "Run_risk"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2233,
+      "@name": "Satisfying"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1603,
+      "@name": "Scarcity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1927,
+      "@name": "Scope"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1263,
+      "@name": "Scouring"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1684,
+      "@name": "Scrutinizing_for"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 31,
+      "@name": "Scrutiny"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1685,
+      "@name": "Searching_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1145,
+      "@name": "Secrecy_status"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 269,
+      "@name": "Seeking"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1480,
+      "@name": "Seeking_to_achieve"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 64,
+      "@name": "Self_motion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 243,
+      "@name": "Sending"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 71,
+      "@name": "Sensation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1609,
+      "@name": "Sent_items"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 297,
+      "@name": "Sentencing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 15,
+      "@name": "Separating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2135,
+      "@name": "Sequence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1617,
+      "@name": "Set_of_interrelated_entities"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1823,
+      "@name": "Set_relation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 283,
+      "@name": "Setting_fire"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1650,
+      "@name": "Setting_out"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 517,
+      "@name": "Severity_of_offense"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 970,
+      "@name": "Shaped_part"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 328,
+      "@name": "Shapes"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1271,
+      "@name": "Sharpness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 289,
+      "@name": "Shoot_projectiles"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1727,
+      "@name": "Shooting_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1882,
+      "@name": "Shopping"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1430,
+      "@name": "Sidereal_appearance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 428,
+      "@name": "Sign"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1151,
+      "@name": "Sign_agreement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 285,
+      "@name": "Silencing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 481,
+      "@name": "Similarity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1260,
+      "@name": "Simple_name"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1261,
+      "@name": "Simple_naming"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1897,
+      "@name": "Simultaneity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2282,
+      "@name": "Size"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 264,
+      "@name": "Sleep"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 294,
+      "@name": "Sleep_wake_cycle"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 175,
+      "@name": "Smuggling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 333,
+      "@name": "Soaking"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2032,
+      "@name": "Soaking_up"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 74,
+      "@name": "Sociability"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 369,
+      "@name": "Social_behavior_evaluation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 253,
+      "@name": "Social_connection"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 125,
+      "@name": "Social_event"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2281,
+      "@name": "Social_event_collective"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2280,
+      "@name": "Social_event_individuals"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 372,
+      "@name": "Social_interaction_evaluation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2102,
+      "@name": "Socially_significant_history_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 355,
+      "@name": "Sole_instance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2170,
+      "@name": "Sound_level"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 860,
+      "@name": "Sound_movement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 850,
+      "@name": "Sounds"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1347,
+      "@name": "Source_of_getting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1161,
+      "@name": "Source_path_goal"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 523,
+      "@name": "Speak_on_topic"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 966,
+      "@name": "Speed"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1081,
+      "@name": "Spelling_and_pronouncing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1341,
+      "@name": "Stage_of_progress"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 150,
+      "@name": "State"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1155,
+      "@name": "State_continue"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1600,
+      "@name": "State_of_entity"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 43,
+      "@name": "Statement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 364,
+      "@name": "Stimulus_focus"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 724,
+      "@name": "Stinginess"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1511,
+      "@name": "Store"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1550,
+      "@name": "Storing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 75,
+      "@name": "Strictness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1130,
+      "@name": "Studying"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 89,
+      "@name": "Suasion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1083,
+      "@name": "Subjective_influence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2286,
+      "@name": "Subjective_temperature"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1521,
+      "@name": "Submitting_documents"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 530,
+      "@name": "Subordinates_and_superiors"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1321,
+      "@name": "Substance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1090,
+      "@name": "Subversion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1388,
+      "@name": "Success_or_failure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1389,
+      "@name": "Successful_action"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1652,
+      "@name": "Successfully_communicate_message"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 342,
+      "@name": "Sufficiency"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 368,
+      "@name": "Suitability"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1722,
+      "@name": "Summarizing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1346,
+      "@name": "Supply"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2000,
+      "@name": "Supporting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 358,
+      "@name": "Surpassing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 502,
+      "@name": "Surrendering"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1500,
+      "@name": "Surrendering_possession"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1792,
+      "@name": "Surviving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 503,
+      "@name": "Suspicion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 531,
+      "@name": "Suspiciousness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1610,
+      "@name": "System"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1171,
+      "@name": "Take_place_of"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 410,
+      "@name": "Taking"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1306,
+      "@name": "Taking_sides"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 967,
+      "@name": "Taking_time"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 90,
+      "@name": "Talking_into"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2330,
+      "@name": "Tasting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 750,
+      "@name": "Telling"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1050,
+      "@name": "Temperature"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1895,
+      "@name": "Temporal_collocation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1040,
+      "@name": "Temporal_pattern"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1470,
+      "@name": "Temporal_subregion"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1885,
+      "@name": "Temporary_stay"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1531,
+      "@name": "Terms_of_agreement"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1750,
+      "@name": "Terrorism"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 298,
+      "@name": "Text"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 278,
+      "@name": "Text_creation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2004,
+      "@name": "Text_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 94,
+      "@name": "Theft"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1771,
+      "@name": "Thriving"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 518,
+      "@name": "Thwarting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2290,
+      "@name": "Time_period_of_action"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 379,
+      "@name": "Time_vector"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2142,
+      "@name": "Timespan"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2131,
+      "@name": "Tolerating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 373,
+      "@name": "Topic"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1907,
+      "@name": "Touring"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1163,
+      "@name": "Toxic_substance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1160,
+      "@name": "Trajector-Landmark"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 178,
+      "@name": "Transfer"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1192,
+      "@name": "Transfer_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 10,
+      "@name": "Transitive_action"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1645,
+      "@name": "Translating"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 343,
+      "@name": "Travel"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1310,
+      "@name": "Traversing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1884,
+      "@name": "Trendiness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 201,
+      "@name": "Trial"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1731,
+      "@name": "Trust"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 320,
+      "@name": "Try_defendant"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2340,
+      "@name": "Trying_out"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2191,
+      "@name": "Turning_out"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 128,
+      "@name": "Type"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1134,
+      "@name": "Typicality"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1154,
+      "@name": "Unattributed_information"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1172,
+      "@name": "Undergo_change"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1725,
+      "@name": "Undergoing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1210,
+      "@name": "Undressing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1606,
+      "@name": "Unemployment_rate"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 290,
+      "@name": "Use_firearm"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1690,
+      "@name": "Use_vehicle"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1532,
+      "@name": "Used_up"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 726,
+      "@name": "Usefulness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1141,
+      "@name": "Using"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 429,
+      "@name": "Vehicle"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 318,
+      "@name": "Verdict"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1230,
+      "@name": "Verification"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1960,
+      "@name": "Version_sequence"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1940,
+      "@name": "Visit_host"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1947,
+      "@name": "Visit_host_arrival"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1949,
+      "@name": "Visit_host_departure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1948,
+      "@name": "Visit_host_stay"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1911,
+      "@name": "Visiting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1941,
+      "@name": "Visiting_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1943,
+      "@name": "Visiting_scenario_arrival"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1944,
+      "@name": "Visiting_scenario_departing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1945,
+      "@name": "Visiting_scenario_stay"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1942,
+      "@name": "Visitor_and_host"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1913,
+      "@name": "Visitor_arrival"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1914,
+      "@name": "Visitor_departure"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1912,
+      "@name": "Visitor_scenario"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1840,
+      "@name": "Vocalizations"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 44,
+      "@name": "Volubility"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2241,
+      "@name": "Wagering"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1561,
+      "@name": "Waiting"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 295,
+      "@name": "Waking_up"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 505,
+      "@name": "Want_suspect"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1578,
+      "@name": "Waver_between_options"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 85,
+      "@name": "Wealthiness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 426,
+      "@name": "Weapon"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 160,
+      "@name": "Wearing"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 303,
+      "@name": "Weather"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1830,
+      "@name": "Wholes_and_parts"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1632,
+      "@name": "Willingness"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 2072,
+      "@name": "Win_prize"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1518,
+      "@name": "Withdraw_from_participation"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1461,
+      "@name": "Within_distance"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 404,
+      "@name": "Word_relations"
+    }
+  },
+  {
+    "frame": {
+      "@ID": 1892,
+      "@name": "Working_on"
+    }
+  }
+]

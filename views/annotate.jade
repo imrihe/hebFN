@@ -1,0 +1,39 @@
+doctype 5
+html(ng-app="annotate")
+  head
+    title HebFN
+    
+    link(rel='stylesheet', href='libs/bootstrap/css/bootstrap.min.css',media="screen")
+    
+    //meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    //link(rel='stylesheet', href='/libs/bootstrap/css/bootstrap-responsive.min.css',media="screen")
+    link(rel='stylesheet', href='stylesheets/style.css')
+    link(rel='stylesheet', href='stylesheets/no-style.css')
+    
+  body(ng-controller="AnnotateCtrl")
+    include navbar.jade
+    div(ng-view).hebfn-content.container
+    include error-modal.jade    
+
+    script(src="libs/jquery/jquery-2.0.3.min.js")
+    script(src="libs/bootstrap/js/bootstrap.min.js")
+    script(src="libs/angular.js")
+    script(src="libs/angular-touch.min.js")
+    script(src="libs/angular-route.min.js")
+    script(src="libs/keypress/keypress.js")
+
+    //script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-sanitize.js")
+    //script(src="https://www.google.com/jsapi")
+    //script(src="javascripts/gauges.js")
+    script(src="javascripts/ang_globals.js")
+    
+    script(src="javascripts/ang_controllers/annotate-global.js")
+    script(src="javascripts/ang_controllers/frame-full.js")
+    script(src="javascripts/ang_controllers/home.js")
+    script(src="javascripts/ang_controllers/add-lus.js")
+    script(src="javascripts/ang_controllers/add-sents.js")
+    script(src="javascripts/ang_controllers/marker.js")
+    script(src="javascripts/ang_controllers/edit-lu.js")
+
+    script(src="javascripts/annotate.js")
+    

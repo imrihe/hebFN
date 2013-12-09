@@ -11,7 +11,7 @@ printModule("controllers/externalTools");
 var morphServer = 'http://www.cs.bgu.ac.il/~nlpproj/demo/tag.php';
 //var dependencyParserServer = 'http://www.cs.bgu.ac.il/~yoavg/depparse/parse';
 var dependencyParserServer = 'http://localhost:8081/parse';
-var searchEngineServer = 'http://elhadad2:35005/';
+var searchEngineServer = 'http://elhadad2:5005/';
 var searchEngineServer2 = 'http://localhost';
 var handleHttpResults = require('../tools/utils.js').handleHttpResults;
 var util = require('../tools/utils.js');
@@ -342,7 +342,7 @@ http://localhost:5005/HBCTPWeb/search?db=haaretz&from=1&to=2&diversity=false&que
 //var q = 'HBCTPWeb/search?db=test&from=1&to=2&diversity=false?query=$w.pos="noun"%20;%20$w'
 //console.log('q:',q);
 //console.log('q:',encodeURI(q));
-var qFull  ='/HBCTPWeb/search?db=test2&from=1&to=30&diversity=true&query=$w.word="ילד" ; $w';
+var qFull  ='/HBCTPWeb/search?db=haaretz&from=1&to=30&diversity=true&query=$w.word="ילד" ; $w';
 var qBase  ={
         base:'/HBCTPWeb/search?',
         db : 'test2',
@@ -402,7 +402,7 @@ function searchSentencesCorpus(query, cb) {
     q = q['base'] + '&db=' + q['db'] + '&from='  + q['from'] + '&to='  + q['to'] +'&diversity='  + q['diversity'] + '&query=' + q['query']+q['queryEnd'];
     var tmp ="";
     //console.log("DEBUG: search engine --> the query is:<br>", q);
-    http.get({ port: 35005, host: searchEngineServer, path: encodeURI(q)}, function(response) {
+    http.get({ port: 5005, host: searchEngineServer, path: encodeURI(q)}, function(response) {
 
         //console.log('response:', response);
         //console.log('parse of response:', typeof(response));

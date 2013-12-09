@@ -1,0 +1,179 @@
+[
+  {
+    "_id": "521b003ea3ea5c1fdc8b678c",
+    "frameID": 1657,
+    "luID": 15079,
+    "name": "cast",
+    "pos": "V",
+    "translation": [
+      {
+        "pos": "noun",
+        "vals": [
+          "השלכה",
+          "ידוי",
+          "הטלה",
+          "יציקה",
+          "גבס",
+          "חכה",
+          "צוות משתתפים",
+          "מראה חיצוני",
+          "סוג",
+          "מין",
+          "נטיה",
+          "פזילה",
+          "נחוש"
+        ]
+      },
+      {
+        "pos": "verb",
+        "vals": [
+          "זרק",
+          "השליך",
+          "הטיל",
+          "סלק",
+          "להק",
+          "חשב",
+          "יצק",
+          "עצב"
+        ]
+      },
+      {
+        "pos": "adjective",
+        "vals": [
+          "יצוק"
+        ]
+      }
+    ],
+    "frameName": "Create_representation"
+  },
+  {
+    "_id": "521b0044a3ea5c1fdc8b84a3",
+    "frameID": 1657,
+    "luID": 12965,
+    "name": "sketch",
+    "pos": "V",
+    "translation": [
+      {
+        "pos": "noun",
+        "vals": [
+          "רשום",
+          "סקיצה",
+          "מתוה",
+          "מערכון"
+        ]
+      },
+      {
+        "pos": "verb",
+        "vals": [
+          "רשם",
+          "שרטט",
+          "התוה"
+        ]
+      }
+    ],
+    "frameName": "Create_representation"
+  },
+  {
+    "_id": "521b003ea3ea5c1fdc8b6977",
+    "frameID": 1657,
+    "luID": 12957,
+    "name": "photograph",
+    "pos": "V",
+    "translation": [
+      {
+        "pos": "noun",
+        "vals": [
+          "תמונה",
+          "תצלום",
+          "פוטוגרף"
+        ]
+      },
+      {
+        "pos": "verb",
+        "vals": [
+          "צלם"
+        ]
+      }
+    ],
+    "frameName": "Create_representation"
+  },
+  {
+    "_id": "521b0040a3ea5c1fdc8b702b",
+    "frameID": 1657,
+    "luID": 12956,
+    "name": "paint",
+    "pos": "V",
+    "translation": [
+      {
+        "pos": "noun",
+        "vals": [
+          "צבע"
+        ]
+      },
+      {
+        "pos": "verb",
+        "vals": [
+          "צבע",
+          "ציר"
+        ]
+      }
+    ],
+    "frameName": "Create_representation"
+  },
+  {
+    "_id": "521b0044a3ea5c1fdc8b84fd",
+    "frameID": 1657,
+    "luID": 12958,
+    "name": "draw",
+    "pos": "V",
+    "translation": [
+      {
+        "pos": "verb",
+        "vals": [
+          "משך",
+          "הוציא",
+          "שלף",
+          "שאב",
+          "הזרים",
+          "הסיק",
+          "רשם",
+          "התוה",
+          "כתב",
+          "שאף"
+        ]
+      },
+      {
+        "pos": "noun",
+        "vals": [
+          "משיכה",
+          "ציור",
+          "רשום",
+          "הגרלה",
+          "תיקו"
+        ]
+      }
+    ],
+    "frameName": "Create_representation"
+  },
+  {
+    "_id": "521b0042a3ea5c1fdc8b7841",
+    "frameID": 1657,
+    "luID": 12959,
+    "name": "carve",
+    "pos": "V",
+    "translation": [
+      {
+        "pos": "verb",
+        "vals": [
+          "פרס",
+          "חתך",
+          "בתר",
+          "חרט",
+          "גלף",
+          "חקק"
+        ]
+      }
+    ],
+    "frameName": "Create_representation"
+  }
+]

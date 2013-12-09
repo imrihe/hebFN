@@ -50,7 +50,7 @@ var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
                     //return (obj.decision.currStat['stat'] == params.lu.luname);})
                 });
                 results['lexUnit'] = newRes
-                console.log("after filter",newRes)
+                //console.log("after filter",newRes)
                 cb(err, results);
 
             }
@@ -396,7 +396,7 @@ exports.loadFrameData = function loadFrameData(req,res,cb){
             hebData: function(cb){
                 req.query.strict=1;
                 loadFrame(req.query, {}, null, function(err, results){
-                    console.log('load hebrew:',results)
+                    //console.log('load hebrew:',results)
                     if (results) cb(err, results);
                     else cb(303, results);})
             },
@@ -1388,6 +1388,7 @@ function setLUdecisionStatus(params, cb){
             'lexUnit.$.decision.appStat.cDate': new Date()
         }};
     update['$set']['lexUnit.$.translatedFrom']= params.lu.trans
+    console.log("update::", JSON.stringify(update))
     Models.hebFrameModel.findOneAndUpdate(
         {'@name': params.frame.framename, 'lexUnit.@name': params.lu.luname},
         update,
@@ -1413,11 +1414,15 @@ function addFrameLuDecision(params, type, callBack){
     console.log('DEBUG: addFrameLuDecision')
     async.parallel({
             luHistory: function(cb) {
+                console.log("111111")
                 addDecision(params, type, cb)
             },
             lexUnit: function(cb) {
+                console.log("22222")
                 setLUdecisionStatus(params,
+
                     function(err,results) {
+
                         var newRes =results;
                         if (newRes){
                             newRes=newRes.lexUnit;

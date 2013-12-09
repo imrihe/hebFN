@@ -1,0 +1,165 @@
+
+div#annoToolMain().row.bckgr
+    div.span12
+        div#annoToolTop(ng-keyup="keyup($event)").row
+            div.span12
+
+                    h2 Annotate sentences of lu {{luname}} in frame {{frameLU['@name']}}
+                    h4 Number of sentences in this lu: {{sentences.length}}
+                    h5 Select a sentence from the list to annotate:
+                div.row
+                    div.text-right.span12
+                        table#sentenceList.table.table-bordered(ng-style="{background: 'AliceBlue'}").text-border
+                            tbody
+                                tr.rtl(
+
+                                ng-repeat="sent in sentences"
+                                ng-click="selectSentence($index)",
+                                ng-class="{'selected-sent': chosenSentence==$index, taggedSentence: false && isTaggedSent($index)}"
+
+
+                                )
+
+                                    td.text-center.clickable.rtl
+                                        span(ng-repeat="word in sentences[$index]['content']['words']",
+                                                ng-style ="getColorsByToken1($index, $parent.$index)"
+                                                ng-hide="word['word']=='*POS*'")
+                                            | {{analWord(word)}}
+                                            | &nbsp
+                                        span
+                                            | . &nbsp
+                                        span(ng-repeat="(key, val) in NIAnnotations[$index]",
+                                            ng-style ="getFEColors(key)"
+                                            )
+                                            | {{val}}
+                                    td.text-center
+                                        i.icon-remove-circle(ng-click="removeFromLu($index)", title="remove from lu").clickable
+                                        | &nbsp
+                                        i.icon-flag(ng-click="badSeg($index)", title="bad segmentation").clickable
+                                        //button.btn.btn-warning(ng-click="badSeg($index)", title="bad segmentation")
+
+                                        //button.btn.btn-danger(ng-click="removeFromLu($index)", title="remove from lu")
+
+
+
+
+
+
+        div#annoToolBootom.row(ng-mouseleave="endSelection($index)")
+            div.span3
+                div#fe-list(ng-mouseleave="endSelection($index)")
+                    //p.inline-header   select sentence from the list above to annotate:
+                    div.row
+                        table#target.table.table-bordered
+                            thead
+                                tr
+                                    th Target LU:
+                            tbody
+                                //tr(ng-repeat="fe in frameLU['FE']")
+                                tr()
+                                    td(ng-click="tagTarget('Target')", ng-style="getFEColors('Target')").clickable
+                                        |Target
+                    div.row
+                        table#coreFes.table-bordered.table
+                            thead
+                                tr
+                                    th(colspan="2") Core FEs:
+                            tbody
+                                tr(ng-repeat="fe in fes['core']")
+                                    td( ng-click="chosenTokens.length ==0 || tagTokens(fe['@name'])",
+
+                                        ng-class="{'unselectable': isTaggedFE(fe['@name']), 'hover': isMouseOver()}").clickable
+                                        div.fe-box(ng-style="getFEColors(fe['@name'])")
+                                        | &nbsp
+                                        | {{fe['@name']}}
+                                    td
+                                        select.clickable(
+                                           style="width: 110%",
+                                           ng-disabled="disableNITags(fe['@name'])",
+                                            ng-model="NIAnnotations[chosenSentence][fe['@name']]",
+                                            ng-change="changeNI(NIAnnotations[chosenSentence][fe['@name']], fe['@name'])",
+                                            ng-options="val for val in nullInsts")
+                                            option(value='')
+                     div.row
+                            table#nonCoreFes.table.table-bordered.table-striped
+                                thead
+                                    tr
+                                        th Non-Core FEs:
+                                tbody
+                                    //tr(ng-repeat="fe in frameLU['FE']")
+                                    tr(ng-class="{'hover': isMouseOver()}", ng-repeat="fe in fes['nonCore']")
+                                        td( ng-click="tagTokens(fe['@name'])").clickable
+                                            div.fe-box(ng-style="getFEColors(fe['@name'])")
+                                            | &nbsp
+                                            |{{fe['@name']}}
+
+            div.span9
+                    br
+                    br
+                    div#annotateSentence(ng-mouseleave="endSelection($index)")
+                        div.row
+
+                            div#thesentence.span9.lead.rtl.text-right
+                                div.white-bckg.padAround10.text-border
+                                    span.wordStyle(ng-repeat="word in (sentences[chosenSentence]['content']['words'])",
+                                            ng-mousedown="startSelection($index)",
+                                            ng-mouseup="endSelection($index)",
+                                            ng-mouseenter="extendSelection($index)",
+                                            ng-swipe-left="doSomething()",
+                                            ng-hide="word['word']=='*POS*'",
+                                            ng-class="{selected: isSelectedNew($index), selected_right: isRightWord($index), selected_left: isLeftWord($index)}",
+                                            ng-style ="getColorsByToken1($index, chosenSentence)",
+
+                                            )
+                                        span.rtl().clickable.text-right.unselectable
+                                            | {{analWord(word)}}
+                                        span.unselectable
+                                            | &nbsp
+                                    span(ng-style="{background: 'white'}")
+                                        | . &nbsp
+                                    span(ng-repeat="(neKey, neVal) in NIAnnotations[chosenSentence]",
+                                        ng-style ="getFEColors(neKey)"
+                                        )
+                                        | {{neVal}}
+                        br
+                        br
+                        div.row
+                            div.span6.offset1.text-left
+                                //<a class="btn btn-large" href="#"><i class="icon-star"></i> Star</a>
+                                button.btn(ng-hide='true', type="reset",value="clear chosen tokens", name="clear tokens", ng-click="clearTokens()", style="{width: '150px'}").clickable.btn
+                                    | clear chosen tokens
+                                    i.icon-remove
+                                button.btn(type="reset",title="load last saved annotations of this sentence", name="clear tokens", ng-click="loadOrigAnno(chosenSentence)", style="{width: '150px'}").clickable.btn
+                                    | refresh
+                                    i.icon-repeat
+                                button.btn(type="reset",title="delete all tags for this sentence", name="clear tokens", ng-click="deleteAnnotations(chosenSentence)", style="{width: '150px'}").clickable.btn
+                                    | delete
+                                    i.icon-remove
+                                buttonbtn.btn(type="reset",value="save all",title="save all", name="saveall", ng-click="packNSaveAnnotations()", style="{width: '150px'}").clickable.btn
+                                    | save
+                                    i.icon-ok
+                                //button(hidden='true', type="reset",value="clear chosen tokens", name="clear tokens", ng-click="clearTokens()", style="{width: '150px'}").clickable.btn
+                                    | temp save
+                                br
+                        div.row
+                            div.span8.offset1
+                                table.table.text-center.table-bordered
+                                    thead
+                                        tr.text-center
+                                            th FE
+                                            th Tokens
+                                            th Remove
+                                    tbody
+                                        tr(ng-repeat="(key,val) in annotations1[chosenSentence]['FE']['label']").text-center
+                                            td {{val.name}}
+                                            td {{val.tokens.length==0 && val.itype || val.tokens}}
+                                            td
+                                                button(ng-click="removeTags(val.name,val.tokens)",ng-style="getFEColors(val.name)") remove
+
+
+                                //buttonbtn.btn.btn-large.btn-success(type="reset",value="save all", name="saveall", ng-click="compareAnnotation()", style="{width: '150px'}").clickable.btn
+
+
+
+//p {{annotations1}}
+//p {{sentences}}

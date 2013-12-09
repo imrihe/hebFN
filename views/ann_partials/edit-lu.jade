@@ -1,0 +1,36 @@
+
+#edit-lu
+    H1 Edit LU Details
+    H4 Frame: {{frameName}}
+    .compact
+        include frame-full
+    form.form-horizontal
+                .control-group
+                    label.control-label LU Name
+                    span.controls.help-inline {{selectedLU['@name'].split(".")[0]}}
+                .control-group
+                    label.control-label LU POS
+                    span.controls.help-inline {{selectedLU['@POS']}}
+                .control-group
+                    label.control-label LU Status 
+                    select.controls(ng-model="luStatus",ng-options="value for value in constants.luStatus.values")
+                .control-group.padTop20
+                    label.control-label Defenition
+                    textarea#edit-lu-defenition.controls(rows="3",ng-model="luDefenition") 
+                .control-group.padTop20
+                    label.control-label Semantic Type
+                    select.controls.input-large(ng-model="selectedSemType",ng-options="value for value in constants.semType.values")
+                    button.btn.btn-inverse.marg5(type="button",ng-click="addSelectedSemType()")
+                        | ADD
+                .control-group(ng-class="{error:isSemTypeValid()}")
+                    textarea#new-sem-type(rows="3",ng-model="semType") 
+                .control-group.padTop20
+                    label.control-label Lemma
+                    textarea#edit-lu-defenition.controls(rows="3",ng-model="luLemma")
+                .control-group.padTop20
+                    label.control-label IncoFe
+                    select.controls(ng-model="luIncoFe",ng-options="value for value in getListOfFes()")
+                .control-group#add-lu-submit
+                        button.btn.btn-inverse.btn-large(type="button",ng-click="editLu()")
+                            |Commit Changes
+                

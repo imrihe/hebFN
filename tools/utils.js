@@ -64,8 +64,8 @@ exports.handleHttpResults = function handleHttpResults(req,res){
     //console.log("handleHttpResults", cb)
     console.log("DEUBUG: handleHttpResults: ",req.path)
     return function (err,result){
-        console.log("DEBUG: handleResultsFunc: ", req.path)
-        console.log("RESULT", JSON.stringify((result)))
+        //console.log("DEBUG: handleResultsFunc: ", req.path)
+        //console.log("RESULT", JSON.stringify((result)))
         //throw new Error("handleResults: error retrieving results: "+err);
 
         if (err) {
@@ -80,7 +80,7 @@ exports.handleHttpResults = function handleHttpResults(req,res){
             res.send(204,"no results!");
         }
         else {
-            console.log("DEBUG: sending", JSON.stringify(result))
+            //console.log("DEBUG: sending", JSON.stringify(result))
             res.charset='utf-8';
             if (!_.isObject(result)) result = {"results": result};
             res.send(200,result);

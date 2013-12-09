@@ -1,0 +1,111 @@
+
+//|{{selectedFrame.engData[0].frame['@name']}}
+H1.compact-hidden {{selectedFrame.engData.frame['@name']}}
+p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-frame-def
+.miniable
+    H3 Frame elements
+    .miniable-full
+        p Click on an element to expand its defenition
+        .row
+            .half-space
+                table.table.table-bordered.table-striped.fes-table(ng-show="selectedFrame.engData.fes.core!='' && selectedFrame.engData.fes.core.length>0")
+                    thead
+                        tr
+                            th 
+                                h5 Core FE 
+                    tbody
+                        tr(ng-repeat="fe in selectedFrame.engData.fes.core")
+                            td(ng-click="showHideID('fe-def-'+fe['ID'])").clickable
+                                a 
+                                    |{{fe['name']}}
+                                div(id="fe-def-{{fe['ID']}}").hide
+                                    p(ng-bind-html-unsafe="fe['def']")
+            .half-space
+                table.table.table-bordered.table-striped.fes-table(ng-show="selectedFrame.engData.fes.nonCore!='' && selectedFrame.engData.fes.nonCore.length>0")
+                    thead
+                        tr
+                            th 
+                                h5 Non-core FE
+                    tbody
+                        tr(ng-repeat="fe in selectedFrame.engData.fes.nonCore")
+                            td(ng-click="showHideID('fe-def-'+fe['ID'])").clickable
+                                a 
+                                    |{{fe['name']}}
+                                div(id="fe-def-{{fe['ID']}}").hide
+                                    p(ng-bind-html-unsafe="fe['def']")
+    .miniable-short
+        div
+            .inline-header Core:&nbsp;
+            ul.comma-list
+                li(ng-repeat="fe in selectedFrame.engData.fes.core")
+                    |{{fe.name}}
+        div
+            .inline-header Non-Core:&nbsp;
+            ul.comma-list
+                li(ng-repeat="fe in selectedFrame.engData.fes.nonCore")
+                    |{{fe.name}}
+.miniable.compact-hidden                               
+    H3 Associated Lexical Units
+    .miniable-full
+        .row
+            .half-space
+                table.table.table-bordered.table-striped.fes-table(ng-show="selectedFrame.engData.fes.core!='' && selectedFrame.engData.fes.core.length>0")
+                    thead
+                        tr
+                            th(colspan=2) 
+                                h3 English LUs
+                        tr
+                            th LU
+                            th Status
+                    tbody
+                        tr(ng-repeat="lu in selectedFrame.engData.frame.lexUnit")
+                            td {{lu['@name']}}
+                            td {{lu['@status']}}
+                                    
+            .half-space
+                table.table.table-bordered.table-striped.fes-table
+                    thead
+                        tr
+                            th(colspan=3)
+                                h3.inline-header Hebrew LUs
+                                a(href="#/add-lus/{{selectedFrame.engData.frame['@name']}}")
+                                    button(type="button").btn.pull-right#add-lus 
+                                        i.icon-plus-sign
+                                        |&nbsp;Add LUs
+                        tr
+                            th LU
+                            th Status
+                            th 
+                    tbody
+                        tr(ng-repeat="lu in selectedFrame.hebData.lexUnit")
+                            td {{lu['@name']}}
+                            td {{lu['@status']}}
+                            td
+                                a(href="#/add-sentences/{{selectedFrame.engData.frame['@name']}}/{{lu['@name']}}")
+                                    button(type="button").btn.pull-right.btn-mini 
+                                        i.icon-plus-sign
+                                        |&nbsp;Add Sentences
+    .miniable-short
+        div(ng-show="selectedFrame.engData.fes.core!='' && selectedFrame.engData.fes.core.length>0")
+            .inline-header English:&nbsp;
+            ul.comma-list
+                li(ng-repeat="lu in selectedFrame.engData.frame.lexUnit")
+                    |{{lu['@name']}}
+        div(ng-show="selectedFrame.hebData.lexUnit!='' && selectedFrame.hebData.lexUnit>0")
+            .inline-header Hebrew:&nbsp;
+            ul.comma-list
+                li(ng-repeat="lu in selectedFrame.hebData.frame.lexUnit")
+                    |{{lu['@name']}}
+    
+.compact-hidden
+    H3 Frame-frame relations
+    .row
+        .span10
+            .ff-relations(ng-repeat="sfr in selectedFrame.engData.frame.frameRelation")
+                h4.ff-relations-title(ng-show="sfr.relatedFrame.length > 0") {{sfr['@type'] +": "}}
+                span.ff-relations-frames(ng-repeat="f in sfr.relatedFrame")
+                    a.clickable(ng-click="chooseFrame(f)")
+                        |{{$last && f || f+', '}}
+        
+                            
+                            

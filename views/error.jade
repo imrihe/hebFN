@@ -1,4 +1,11 @@
-h1 An Error has occoured (500): #{req.message}
-p req.body: #{JSON.stringify(req.body)}
-p req.query: #{JSON.stringify(req.query)}
-p #{err}
+extends base
+
+block content
+    
+    .container
+        .hero-unit
+            .container
+                h1 Error
+                p=details
+             
+       

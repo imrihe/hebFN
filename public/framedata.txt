@@ -1,0 +1,1525 @@
+{
+  "translations": [
+    {
+      "_id": "521b003ea3ea5c1fdc8b6724",
+      "frameID": 590,
+      "luID": 9093,
+      "name": "silence",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "שקט",
+            "דממה",
+            "דומיה"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "השתיק",
+            "החשה",
+            "החריש",
+            "השקיט"
+          ]
+        }
+      ],
+      "frameName": "Killing"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b675a",
+      "frameID": 61,
+      "luID": 1060,
+      "name": "drop",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "טפה",
+            "נפילה",
+            "צניחה"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "צנח",
+            "נפל",
+            "נטף",
+            "הפיל",
+            "שמט"
+          ]
+        }
+      ],
+      "frameName": "Path_shape"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b678b",
+      "frameID": 2076,
+      "luID": 15140,
+      "name": "rule",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "חק",
+            "הוראה",
+            "שלטון"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "משל",
+            "שלט",
+            "פסק",
+            "גזר",
+            "קבע"
+          ]
+        }
+      ],
+      "frameName": "Ruling_legally"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b678c",
+      "frameID": 1657,
+      "luID": 15079,
+      "name": "cast",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "השלכה",
+            "ידוי",
+            "הטלה",
+            "יציקה",
+            "גבס",
+            "חכה",
+            "צוות משתתפים",
+            "מראה חיצוני",
+            "סוג",
+            "מין",
+            "נטיה",
+            "פזילה",
+            "נחוש"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "זרק",
+            "השליך",
+            "הטיל",
+            "סלק",
+            "להק",
+            "חשב",
+            "יצק",
+            "עצב"
+          ]
+        },
+        {
+          "pos": "adjective",
+          "vals": [
+            "יצוק"
+          ]
+        }
+      ],
+      "frameName": "Create_representation"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b678d",
+      "frameID": 112,
+      "luID": 2322,
+      "name": "clout",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "(בלשון הדיבור) מכה",
+            "מהלומה",
+            "השפעה",
+            "כח (בייחוד בפוליטיקה)",
+            "מטלית",
+            "סחבה",
+            "טלאי",
+            "מטרה (בספורט הקליעה בחץ וקשת)"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "(בלשון הדיבור) הכה",
+            "הלם (בעיקר עם היד)",
+            "הדביק",
+            "הטליא"
+          ]
+        }
+      ],
+      "frameName": "Cause_harm"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6798",
+      "frameID": 333,
+      "luID": 5889,
+      "name": "soak",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "השרה",
+            "הטביל",
+            "הספיג"
+          ]
+        },
+        {
+          "pos": "noun",
+          "vals": [
+            "השריה",
+            "שריה"
+          ]
+        }
+      ],
+      "frameName": "Soaking"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67a1",
+      "frameID": 1103,
+      "luID": 10586,
+      "name": "vietnamese",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "ויטנאמי",
+            "תושב וייטנאם",
+            "ויטנאמית (שפה)"
+          ]
+        },
+        {
+          "pos": "plural noun",
+          "vals": [
+            "ויטנאמי",
+            "שקשור לוייטנאם"
+          ]
+        }
+      ],
+      "frameName": "Origin"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67a7",
+      "frameID": 1790,
+      "luID": 13556,
+      "name": "means",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "ממצע",
+            "אמצע",
+            "מרכז"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "התכון"
+          ]
+        },
+        {
+          "pos": "noun",
+          "vals": [
+            "אמצעי",
+            "משאבים",
+            "הכנסה"
+          ]
+        }
+      ],
+      "frameName": "Means"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67d5",
+      "frameID": 7,
+      "luID": 12976,
+      "name": "wind",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "רוח",
+            "משב",
+            "כלי נשיפה",
+            "גז (במעיים)",
+            "מגמה",
+            "רמז",
+            "שמועה"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "פתל",
+            "עקל",
+            "לפף",
+            "גולל"
+          ]
+        }
+      ],
+      "frameName": "Motion"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67ee",
+      "frameID": 270,
+      "luID": 4924,
+      "name": "belch",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "יריקת אש",
+            "פליטה",
+            "גהוק"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "גהק",
+            "ירק אש"
+          ]
+        }
+      ],
+      "frameName": "Excreting"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67f1",
+      "frameID": 240,
+      "luID": 12026,
+      "name": "bear",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "דב"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "נשא",
+            "סבל",
+            "תמך",
+            "הוליד",
+            "הניב"
+          ]
+        }
+      ],
+      "frameName": "Bringing"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67f8",
+      "frameID": 2074,
+      "luID": 15131,
+      "name": "rout",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "תבוסה",
+            "נסיגה",
+            "מנוסה",
+            "אספסוף",
+            "המון"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "הביס",
+            "מגר",
+            "הסיג",
+            "הניס"
+          ]
+        }
+      ],
+      "frameName": "Beat_opponent"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6800",
+      "frameID": 360,
+      "luID": 6229,
+      "name": "consonant",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "עצור",
+            "קונסוננט"
+          ]
+        },
+        {
+          "pos": "adjective",
+          "vals": [
+            "הרמוני",
+            "תואם",
+            "הולם",
+            "מתאים"
+          ]
+        }
+      ],
+      "frameName": "Compatibility"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b680f",
+      "frameID": 390,
+      "luID": 7078,
+      "name": "grass",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "דשא",
+            "עשב",
+            "(סלנג) גראס",
+            "מריחואנה",
+            "חשיש"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "התכסה בדשא",
+            "האכיל בעשב"
+          ]
+        }
+      ],
+      "frameName": "Intoxicants"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6725",
+      "frameID": 271,
+      "luID": 4975,
+      "name": "bland",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "adjective",
+          "vals": [
+            "תפל",
+            "חסר טעם",
+            "עדין",
+            "מנמס",
+            "מעדן",
+            "נטול רגשות"
+          ]
+        }
+      ],
+      "frameName": "Chemical-sense_description"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6748",
+      "frameID": 46,
+      "luID": 6937,
+      "name": "excited",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "רגש",
+            "הלהיב",
+            "עורר",
+            "גרה",
+            "לבה",
+            "הניע",
+            "דרבן"
+          ]
+        },
+        {
+          "pos": "adjective",
+          "vals": [
+            "מרגש",
+            "נרגש"
+          ]
+        }
+      ],
+      "frameName": "Emotion_directed"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b675c",
+      "frameID": 147,
+      "luID": 2808,
+      "name": "pound",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "פאונד",
+            "יחידת משקל בריטית השווה ל-454 גרם בקירוב",
+            "לירה שטרלינג"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "חבט",
+            "הלם"
+          ]
+        }
+      ],
+      "frameName": "Measure_mass"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b675f",
+      "frameID": 172,
+      "luID": 2986,
+      "name": "sell",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "מכר"
+          ]
+        },
+        {
+          "pos": "noun",
+          "vals": [
+            "מכירה",
+            "(בלשון הדיבור) תעלול",
+            "הונאה"
+          ]
+        }
+      ],
+      "frameName": "Commerce_sell"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6773",
+      "frameID": 31,
+      "luID": 14006,
+      "name": "surveillance",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "פקוח",
+            "מעקב",
+            "השגחה"
+          ]
+        }
+      ],
+      "frameName": "Scrutiny"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6729",
+      "frameID": 32,
+      "luID": 7651,
+      "name": "candour",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "כנות",
+            "גלוי לב",
+            "הגינות"
+          ]
+        }
+      ],
+      "frameName": "Candidness"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b672a",
+      "frameID": 978,
+      "luID": 11134,
+      "name": "freak",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "unknownPOS",
+          "vals": [
+            "להשתגע"
+          ]
+        }
+      ],
+      "frameName": "Losing_it"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b672c",
+      "frameID": 216,
+      "luID": 3849,
+      "name": "reward",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "פרס",
+            "גמול"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "גמל",
+            "תגמל"
+          ]
+        }
+      ],
+      "frameName": "Rewards_and_punishments"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b672e",
+      "frameID": 78,
+      "luID": 4269,
+      "name": "grail",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "הגביע הקדוש",
+            "גביע"
+          ]
+        }
+      ],
+      "frameName": "Containers"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6733",
+      "frameID": 284,
+      "luID": 5203,
+      "name": "flock",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "קבץ",
+            "נהר"
+          ]
+        },
+        {
+          "pos": "noun",
+          "vals": [
+            "עדר",
+            "המון",
+            "מרעית"
+          ]
+        }
+      ],
+      "frameName": "Mass_motion"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b673f",
+      "frameID": 269,
+      "luID": 4906,
+      "name": "hunt",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "מצוד",
+            "ציד"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "צד"
+          ]
+        }
+      ],
+      "frameName": "Seeking"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6746",
+      "frameID": 38,
+      "luID": 561,
+      "name": "simper",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "חיוך מטופש"
+          ]
+        }
+      ],
+      "frameName": "Communication_manner"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b674c",
+      "frameID": 164,
+      "luID": 13201,
+      "name": "keep",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "unknownPOS",
+          "vals": [
+            ". תמשיך"
+          ]
+        }
+      ],
+      "frameName": "Activity_ongoing"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6751",
+      "frameID": 1210,
+      "luID": 10964,
+      "name": "take",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "unknownPOS",
+          "vals": [
+            "תוריד"
+          ]
+        }
+      ],
+      "frameName": "Undressing"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6754",
+      "frameID": 64,
+      "luID": 1188,
+      "name": "lope",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "דהרה"
+          ]
+        }
+      ],
+      "frameName": "Self_motion"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6759",
+      "frameID": 278,
+      "luID": 5067,
+      "name": "write",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "כתב"
+          ]
+        }
+      ],
+      "frameName": "Text_creation"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6761",
+      "frameID": 316,
+      "luID": 5754,
+      "name": "take",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "unknownPOS",
+          "vals": [
+            "מקבל צורה"
+          ]
+        }
+      ],
+      "frameName": "Coming_to_be"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b676f",
+      "frameID": 373,
+      "luID": 6536,
+      "name": "discuss",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "דן",
+            "שוחח"
+          ]
+        }
+      ],
+      "frameName": "Topic"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6776",
+      "frameID": 143,
+      "luID": 5872,
+      "name": "northern",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "adjective",
+          "vals": [
+            "צפוני"
+          ]
+        }
+      ],
+      "frameName": "Part_orientational"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b678f",
+      "frameID": 1027,
+      "luID": 10286,
+      "name": "first",
+      "pos": "ADV",
+      "translation": [
+        {
+          "pos": "adjective",
+          "vals": [
+            "ראשון"
+          ]
+        },
+        {
+          "pos": "noun",
+          "vals": [
+            "התחלה",
+            "ראשון"
+          ]
+        },
+        {
+          "pos": "adverb",
+          "vals": [
+            "קדם כל"
+          ]
+        }
+      ],
+      "frameName": "First_experience"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67c1",
+      "frameID": 364,
+      "luID": 6406,
+      "name": "disconcerting",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "הפריע",
+            "הטריד"
+          ]
+        },
+        {
+          "pos": "adjective",
+          "vals": [
+            "מביך",
+            "מדאיג"
+          ]
+        }
+      ],
+      "frameName": "Stimulus_focus"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67ca",
+      "frameID": 1513,
+      "luID": 13464,
+      "name": "guess",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "נחש",
+            "העריך",
+            "סבר",
+            "שער"
+          ]
+        },
+        {
+          "pos": "noun",
+          "vals": [
+            "נחוש",
+            "סברה"
+          ]
+        }
+      ],
+      "frameName": "Estimating"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67d4",
+      "frameID": 1021,
+      "luID": 10222,
+      "name": "muslim",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "מסלמי",
+            "בן לדת המוסלמית"
+          ]
+        },
+        {
+          "pos": "adjective",
+          "vals": [
+            "מסלמי",
+            "שקשור לדת המוסלמית"
+          ]
+        }
+      ],
+      "frameName": "People_by_religion"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67d7",
+      "frameID": 222,
+      "luID": 3869,
+      "name": "lash",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "הצלפה",
+            "שוט",
+            "(קיצור) ריס"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "הלקה",
+            "הצליף"
+          ]
+        }
+      ],
+      "frameName": "Corporal_punishment"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67e8",
+      "frameID": 310,
+      "luID": 5647,
+      "name": "undead",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "אל-מת (ישות שמתה",
+            "אך מסיבה כלשהי ממשיכה להתקיים בעולם החיים)"
+          ]
+        }
+      ],
+      "frameName": "Dead_or_alive"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67fe",
+      "frameID": 2248,
+      "luID": 15676,
+      "name": "rot",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "רקבון",
+            "רקב",
+            "שטות"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "הרקיב",
+            "נרקב"
+          ]
+        }
+      ],
+      "frameName": "Cause_to_rot"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b680b",
+      "frameID": 1863,
+      "luID": 13704,
+      "name": "divide",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "פרשת מים",
+            "חלקה",
+            "פצול"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "חלק",
+            "פצל",
+            "סוג",
+            "עורר מחלוקת",
+            "גרם לריב"
+          ]
+        }
+      ],
+      "frameName": "Becoming_separated"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b682f",
+      "frameID": 1371,
+      "luID": 11786,
+      "name": "cartel",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "קרטל",
+            "התאגדות של גופים מסחריים המגבילה את התחרות ביניהם"
+          ]
+        }
+      ],
+      "frameName": "Organization"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67c4",
+      "frameID": 383,
+      "luID": 6886,
+      "name": "harden",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "הקשה"
+          ]
+        }
+      ],
+      "frameName": "Cause_change_of_consistency"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b683c",
+      "frameID": 974,
+      "luID": 13886,
+      "name": "irish",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "אירים",
+            "תושבי אירלנד (כשם קיבוצי)",
+            "אירית (שפה)"
+          ]
+        },
+        {
+          "pos": "adjective",
+          "vals": [
+            "אירי",
+            "שקשור באירלנד"
+          ]
+        }
+      ],
+      "frameName": "People_by_origin"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6855",
+      "frameID": 1656,
+      "luID": 12970,
+      "name": "diagram",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "שרטט דיאגרמה"
+          ]
+        },
+        {
+          "pos": "noun",
+          "vals": [
+            "דיאגרמה",
+            "שרטוט",
+            "תרשים"
+          ]
+        }
+      ],
+      "frameName": "Physical_artworks"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6856",
+      "frameID": 2161,
+      "luID": 15460,
+      "name": "show",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "הצגה",
+            "הופעה",
+            "מופע",
+            "רשם"
+          ]
+        },
+        {
+          "pos": "verb",
+          "vals": [
+            "הראה",
+            "הציג",
+            "הופיע"
+          ]
+        }
+      ],
+      "frameName": "Cause_to_perceive"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b6795",
+      "frameID": 46,
+      "luID": 6949,
+      "name": "startled",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "הבהיל",
+            "החריד",
+            "הקפיץ"
+          ]
+        }
+      ],
+      "frameName": "Emotion_directed"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b679f",
+      "frameID": 48,
+      "luID": 6706,
+      "name": "adoration",
+      "pos": "N",
+      "translation": [
+        {
+          "pos": "noun",
+          "vals": [
+            "הערצה",
+            "אהבה עזה"
+          ]
+        }
+      ],
+      "frameName": "Experiencer_focus"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67bc",
+      "frameID": 123,
+      "luID": 2471,
+      "name": "hijack",
+      "pos": "V",
+      "translation": [
+        {
+          "pos": "verb",
+          "vals": [
+            "חטף (מטוס",
+            "כלי שיט)"
+          ]
+        }
+      ],
+      "frameName": "Piracy"
+    },
+    {
+      "_id": "521b003ea3ea5c1fdc8b67bd",
+      "frameID": 32,
+      "luID": 470,
+      "name": "secretive",
+      "pos": "A",
+      "translation": [
+        {
+          "pos": "adjective",
+          "vals": [
+            "חשאי",
+            "כמוס",
+            "חידתי",
+            "מסתורי"
+          ]
+        }
+      ],
+      "frameName": "Candidness"
+    }
+  ],
+  "hebData": {
+    "_id": "521b38b548906b34b46bb127",
+    "@ID": 1501,
+    "lexUnit": [
+      {
+        "priority": 0,
+        "definition": "bla bla bla",
+        "status": "approved",
+        "@name": "מודעות",
+        "POS": "N",
+        "@status": "GOOD",
+        "annotations": [],
+        "valences": {
+          "FEGroupRealization": [],
+          "FERealization": [],
+          "governor": []
+        },
+        "semType": [],
+        "lexeme": [],
+        "sentenceCount": {
+          "total": 0,
+          "annotated": 0
+        },
+        "translatedFrom": {
+          "frameId": 19,
+          "lexUnitID": 150,
+          "lexUnitName": "Awareness"
+        }
+      }
+    ],
+    "frameRelation": [],
+    "FEcoreSet": [],
+    "FE": [],
+    "semType": []
+  },
+  "engData": {
+    "fes": {
+      "core": [
+        {
+          "name": "Agent",
+          "ID": 12338,
+          "def": "<def-root>The <fex name=\"Agent\">Agent</fex> is the person who acts to leave behind the <fen>Theme</fen>.</def-root>"
+        },
+        {
+          "name": "Theme",
+          "ID": 12339,
+          "def": "<def-root>The <fex name=\"Theme\">Theme</fex> is the entity that is relinguished to no one from the <fex name=\"Agent\">Agent</fex>'s possession.</def-root>"
+        }
+      ],
+      "nonCore": [
+        {
+          "name": "Place",
+          "ID": 12340,
+          "def": "<def-root>The location where the <fen>Agent</fen> gives up the <fen>Theme</fen>.</def-root>"
+        },
+        {
+          "name": "Time",
+          "ID": 12341,
+          "def": "<def-root>When the <fen>Agent</fen> gives up the <fen>Theme</fen>.</def-root>"
+        },
+        {
+          "name": "Manner",
+          "ID": 12342,
+          "def": "<def-root>The style in which the <fen>Agent</fen> gives up the <fen>Theme</fen>.</def-root>"
+        },
+        {
+          "name": "Duration",
+          "ID": 12343,
+          "def": "<def-root>For what expanse of time the <fen>Agent</fen> has given up the <fen>Theme</fen>.</def-root>"
+        },
+        {
+          "name": "Explanation",
+          "ID": 12861,
+          "def": "<def-root><fen>Explanation</fen> denotes a proposition from which the act of abandonment logically follows.</def-root>"
+        },
+        {
+          "name": "Depictive",
+          "ID": 12862,
+          "def": "<def-root>The FE <fen>Depictive</fen> describes the <fen>Agent</fen> during the abandoning event.</def-root>"
+        }
+      ]
+    },
+    "frame": {
+      "semType": [],
+      "FE": [
+        {
+          "definition": "<def-root>The <fex name=\"Agent\">Agent</fex> is the person who acts to leave behind the <fen>Theme</fen>.</def-root>",
+          "@name": "Agent",
+          "@ID": 12338,
+          "@fgColor": "FFFFFF",
+          "@abbrev": "Age",
+          "@coreType": "Core",
+          "@cBy": "361",
+          "@bgColor": "FF0000",
+          "excludesFE": [],
+          "requiresFE": []
+        },
+        {
+          "definition": "<def-root>The <fex name=\"Theme\">Theme</fex> is the entity that is relinguished to no one from the <fex name=\"Agent\">Agent</fex>'s possession.</def-root>",
+          "@name": "Theme",
+          "@ID": 12339,
+          "@fgColor": "FFFFFF",
+          "@abbrev": "The",
+          "@coreType": "Core",
+          "@cBy": "361",
+          "@bgColor": "0000FF",
+          "excludesFE": [],
+          "requiresFE": []
+        },
+        {
+          "definition": "<def-root>The location where the <fen>Agent</fen> gives up the <fen>Theme</fen>.</def-root>",
+          "@name": "Place",
+          "@ID": 12340,
+          "@fgColor": "FFFFFF",
+          "@abbrev": "Pla",
+          "@coreType": "Peripheral",
+          "@cBy": "361",
+          "@bgColor": "008000",
+          "excludesFE": [],
+          "requiresFE": []
+        },
+        {
+          "definition": "<def-root>When the <fen>Agent</fen> gives up the <fen>Theme</fen>.</def-root>",
+          "@name": "Time",
+          "@ID": 12341,
+          "@fgColor": "FFFFFF",
+          "@abbrev": "Tim",
+          "@coreType": "Peripheral",
+          "@cBy": "361",
+          "@bgColor": "FFA500",
+          "excludesFE": [],
+          "requiresFE": []
+        },
+        {
+          "definition": "<def-root>The style in which the <fen>Agent</fen> gives up the <fen>Theme</fen>.</def-root>",
+          "@name": "Manner",
+          "@ID": 12342,
+          "@fgColor": "FFFFFF",
+          "@abbrev": "Man",
+          "@coreType": "Peripheral",
+          "@cBy": "361",
+          "@bgColor": "FF00FF",
+          "excludesFE": [],
+          "requiresFE": []
+        },
+        {
+          "definition": "<def-root>For what expanse of time the <fen>Agent</fen> has given up the <fen>Theme</fen>.</def-root>",
+          "@name": "Duration",
+          "@ID": 12343,
+          "@fgColor": "FFFFFF",
+          "@abbrev": "Dur",
+          "@coreType": "Peripheral",
+          "@cBy": "361",
+          "@bgColor": "FF69B4",
+          "excludesFE": [],
+          "requiresFE": []
+        },
+        {
+          "definition": "<def-root><fen>Explanation</fen> denotes a proposition from which the act of abandonment logically follows.</def-root>",
+          "@name": "Explanation",
+          "@ID": 12861,
+          "@fgColor": "FFFFFF",
+          "@abbrev": null,
+          "@coreType": "Extra-Thematic",
+          "@cBy": "597",
+          "@bgColor": "00008B",
+          "excludesFE": [],
+          "requiresFE": []
+        },
+        {
+          "definition": "<def-root>The FE <fen>Depictive</fen> describes the <fen>Agent</fen> during the abandoning event.</def-root>",
+          "@name": "Depictive",
+          "@ID": 12862,
+          "@fgColor": "FFFFFF",
+          "@abbrev": null,
+          "@coreType": "Extra-Thematic",
+          "@cBy": "597",
+          "@bgColor": "2E8B57",
+          "excludesFE": [],
+          "requiresFE": []
+        }
+      ],
+      "FEcoreSet": [],
+      "frameRelation": [
+        {
+          "@type": "Inherits from",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Is Inherited by",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Perspective on",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Is Perspectivized in",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Uses",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Is Used by",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Subframe of",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Has Subframe(s)",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Precedes",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Is Preceded by",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Is Inchoative of",
+          "relatedFrame": []
+        },
+        {
+          "@type": "Is Causative of",
+          "relatedFrame": []
+        },
+        {
+          "@type": "See also",
+          "relatedFrame": []
+        }
+      ],
+      "lexUnit": [
+        {
+          "@status": "Finished_Initial",
+          "@name": "abandon.v",
+          "definition": "FN: leave behind",
+          "@ID": 14839,
+          "@POS": "V",
+          "@lemmaID": 74,
+          "@cBy": "361",
+          "semType": [
+            {
+              "@name": "Intentional_act",
+              "@ID": 181
+            }
+          ],
+          "lexeme": [
+            {
+              "@breakBefore": false,
+              "@POS": "V",
+              "@headword": false,
+              "@name": "abandon",
+              "@order": 1
+            }
+          ],
+          "sentenceCount": {
+            "@total": 175,
+            "@annotated": 20
+          }
+        },
+        {
+          "@status": "Created",
+          "@name": "leave.v",
+          "definition": "FN: let remain in another place as abondoned",
+          "@ID": 14841,
+          "@POS": "V",
+          "@lemmaID": 21967,
+          "@cBy": "361",
+          "semType": [],
+          "lexeme": [
+            {
+              "@breakBefore": false,
+              "@POS": "V",
+              "@headword": false,
+              "@name": "leave",
+              "@order": 1
+            }
+          ],
+          "sentenceCount": {
+            "@total": 0,
+            "@annotated": 0
+          }
+        },
+        {
+          "@status": "Created",
+          "@name": "abandonment.n",
+          "definition": "FN: the act of relinquishing to no one",
+          "@ID": 14842,
+          "@POS": "N",
+          "@lemmaID": 76,
+          "@cBy": "361",
+          "semType": [],
+          "lexeme": [
+            {
+              "@breakBefore": false,
+              "@POS": "N",
+              "@headword": false,
+              "@name": "abandonment",
+              "@order": 1
+            }
+          ],
+          "sentenceCount": {
+            "@total": 0,
+            "@annotated": 0
+          }
+        },
+        {
+          "@status": "Finished_Initial",
+          "@name": "abandoned.a",
+          "definition": "FN: the state of being left behind",
+          "@ID": 14843,
+          "@POS": "A",
+          "@lemmaID": 75,
+          "@cBy": "361",
+          "semType": [],
+          "lexeme": [
+            {
+              "@breakBefore": false,
+              "@POS": "A",
+              "@headword": false,
+              "@name": "abandoned",
+              "@order": 1
+            }
+          ],
+          "sentenceCount": {
+            "@total": 70,
+            "@annotated": 21
+          }
+        },
+        {
+          "@status": "Finished_Initial",
+          "@name": "forget.v",
+          "definition": "FN: leave something behind unintentionally",
+          "@ID": 15317,
+          "@POS": "V",
+          "@lemmaID": 15109,
+          "@cBy": "597",
+          "semType": [],
+          "lexeme": [
+            {
+              "@breakBefore": false,
+              "@POS": "V",
+              "@headword": false,
+              "@name": "forget",
+              "@order": 1
+            }
+          ],
+          "sentenceCount": {
+            "@total": 283,
+            "@annotated": 9
+          }
+        }
+      ],
+      "definition": "<def-root>An <fex name=\"Agent\">Agent</fex> leaves behind a <fex name=\"Theme\">Theme</fex> effectively rendering it no longer within their control or of the normal security as one's property. \n\n<ex><fex name=\"Agent\">Carolyn</fex> <t>abandoned</t> <fex name=\"Theme\">her car</fex> and jumped on a red double decker bus.</ex>\n\n<ex>Perhaps <fex name=\"Agent\">he</fex> <t>left</t> <fex name=\"Theme\">the key</fex> in the ignition</ex>\n\n<ex><t>Abandonment</t> <fex name=\"Theme\">of a child</fex> is considered to be a serious crime in many jurisdictions.</ex></def-root>",
+      "@schemaLocation": "../schema/frame.xsd",
+      "@name": "Abandonment",
+      "@cBy": "361",
+      "@ID": 2031
+    }
+  }
+}

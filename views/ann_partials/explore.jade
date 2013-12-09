@@ -1,0 +1,31 @@
+.row
+    .row
+        .span12
+            a(href="#") Annotate 
+            | >> 
+            a Explore
+    .row.padTop20
+        .span2
+            .row
+                .span2
+                    input#frame-search.search-query.span2(type='text', placeholder='Search',ng-model="query")
+            .row(ng-show="numberOfPages() != 1")
+                .span2.text-center
+                    button(ng-disabled="currentPage == 0",ng-click="currentPage=currentPage-1").pull-left.blue-butt
+                        i.icon-arrow-left.icon-white
+                    span(ng-bind="(currentPage+1).toString()+ '/'+numberOfPages().toString()")
+                    button(ng-disabled="currentPage+1 == numberOfPages()",ng-click="currentPage=currentPage+1").pull-right.blue-butt
+                        i.icon-arrow-right.icon-white
+            .row.padTop10
+                .span2
+                    table#lu-table.table.table-bordered.table-striped
+                        thead
+                            tr
+                                th Frames
+                        tbody
+                            tr(ng-repeat="f in filteredFrames | startFrom:currentPage*pageSize | limitTo:pageSize ")
+                                td(ng-click="chooseFrame(f.frame['@name'])").clickable
+                                    a {{shortendString(f.frame['@name'],15)}} 
+        #selected-frame-info-loading.loading-gif.span10.offset4.hide
+        #selected-frame-info.span10.hide
+            include frame-full.jade

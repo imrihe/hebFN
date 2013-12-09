@@ -78,7 +78,7 @@ exports.getUsers = function(req,res,cb){
  * @param cb
  */
 function mailUser(user, data, cb){
-    user.email="imrihe@gmail.com";
+    //user.email="imrihe@gmail.com";
     mailer.sendMail(userToEmail(user), "your new account to hebrew frameNet", JSON.stringify(data), cb);
 
 
