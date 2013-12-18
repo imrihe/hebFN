@@ -33,4 +33,7 @@ module.exports = function(app) {
     //app.get('/external/morph', function(req,res){res.});
     app.post('/external/depparse', externalTools.getDepParse);
     app.get('/external/parsesentence', externalTools.getDepParse);
+    app.get('/external/esQuery', function (req,res){
+        externalTools.esQuery(null, function (err,result){res.send(result)});
+    });
 };

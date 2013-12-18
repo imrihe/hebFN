@@ -38,11 +38,21 @@ function FramesIdxCtrl($scope, $routeParams,$location,utils ) {
     $scope.$watch('frames', function(newValue, oldValue) {$scope.updateFilteredFrames();});
    
     utils.CallServerGet("eng/framenames",{},function(out)
-        {$scope.frames=out;
+        {
+            $scope.frames=out;
+            if($routeParams.hasOwnProperty("frame"))
+            {
+                $scope.chooseFrame($routeParams.frame);
+            }
+            else
+            {
+                $scope.chooseFrame($scope.frames[0].frame['@name']  );
+            }
+
             $scope.$apply();
         });
     
-    
+
     $scope.selectedFrame=[];
     $scope.chooseFrame=function(name)
     {
@@ -56,10 +66,7 @@ function FramesIdxCtrl($scope, $routeParams,$location,utils ) {
                 $scope.$apply();
             } );  
     };
-    if($routeParams.hasOwnProperty("frame"))
-    {
-        $scope.chooseFrame($routeParams.frame);
-    }
+
     
     
     $scope.shortendString=utils.shortendString;
@@ -98,5 +105,5 @@ function FramesIdxCtrl($scope, $routeParams,$location,utils ) {
             return 1;
         }
     };
-    
+
 }

@@ -191,10 +191,14 @@ body:after
 content: url(/images/loading.gif);
 display:none;
 }*/
-
+#frame-full-top-add
+{
+    top: -60px;
+    position: relative;
+}
 .loading-gif
 {
-    background-image:url(/images/loading.gif);
+    background-image:url(../images/loading.gif);
 
     display:block;
 

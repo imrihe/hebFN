@@ -1,10 +1,10 @@
 .row
     .row
         .span12
-            a(href="#") Annotate 
-            | >> 
-            a(href="#/explore") Explore
-            | >>
+            a(href="#") Dashboard
+            | &nbsp;>>  &nbsp;
+            a(href="#/explore?frame={{selectedFrameName}}") Explore
+            | &nbsp;>>  &nbsp;
             a Add LUs to {{selectedFrameName}}
             .pull-right
                 //button.btn.btn-inverse.btn-large#finishedButton(type="button")
@@ -33,12 +33,31 @@
                     tr(ng-repeat="lu in frameLus",ng-click="updateLuTranslations($index)",ng-class="{selected: $index==selectedEngLUIdx}")
                         td {{lu.name}} ({{lu.pos | lowercase}})
         .span4.rtl
+            //table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
+            table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
+                thead
+                    tr
+                        th#add-lus-th
+                            h4 Add Free-Text LU
+                            p.no-bold Look for sentences and add custom LUs
+
+
+                tbody
+                    tr
+                        td
+                            |מותאם אישית
+                            .pull-left
+                                i.icon-search.clickable.padded5(ng-click="selectHebLU(-1)")
+                                //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU(-1)")
+                                i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU(-1)")
+
             table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus(ng-show="luTranslations != ''")
                 thead
                     tr
                         th#add-lus-th
-                            h4 Hebrew Translations of {{frameLus[selectedEngLUIdx].name}}
-                            p.no-bold Associate with frame or show translations
+                            //h4 Hebrew Translations of {{frameLus[selectedEngLUIdx].name}}
+                            h4 Translations of <u> {{frameLus[selectedEngLUIdx].name}} </u>
+                            p.no-bold Associate with frame or show example sentences
 
                 tbody
                     tr(ng-repeat="t in luTranslations")
@@ -49,23 +68,8 @@
                                 //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU($index)")
                                 i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU($index)")
                                 
-            table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
-                thead
-                    tr
-                        th#add-lus-th
-                            h4 Custom Units
-                            p.no-bold Look for sentences and add custom LUs
 
 
-                tbody
-                    tr
-                        td 
-                            |מותאם אישית
-                            .pull-left
-                                i.icon-search.clickable.padded5(ng-click="selectHebLU(-1)")
-                                //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU(-1)")
-                                i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU(-1)")
-                         
         .span4.rtl
             table.table.table-bordered.table-hover.table-striped.lus-table.special-table
                 thead

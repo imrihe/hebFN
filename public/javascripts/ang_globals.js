@@ -1,4 +1,6 @@
-angular.module('utils',['ui.keypress','ngRoute'],function($provide) {
+//angular.module('utils',['ui.keypress','ngRoute'],function($provide) {
+angular.module('utils',[],function($provide) {
+
 
     /*var underscore = angular.module('underscore', []);
      underscore.factory('_', function() {

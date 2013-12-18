@@ -333,6 +333,7 @@ var ConllJson31Type = new Schema({
 },{_id:false});
 
 
+//var ConllJson31Type = require('sentenceSchema.js').sentenceSchema;
 
 /**
  *"description":"sentence will contaion the basic POS, parse trees and morphology along with list of annotationSet ids",

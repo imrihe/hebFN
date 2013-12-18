@@ -2,12 +2,12 @@ var version ='1.0';
 printModule("configuration file - version "+version);
 module.exports= {
     version :   version,
-    dbusername: 'stub',
-    dbpassword: 'stub',
+    dbusername: 'hebfnserver',
+    dbpassword: 'elhadad2',
     emailusername: 'hebrew.framenet.bgu@gmail.com',
     emailpassword: 'kaci1501',
     hp: (process.argv[2] ? '/~imrihe/nodeJS1/':  '/~imrihe/nodeJS3/'),
-    port: 3003,
+    port: 3003, //3003
     server: 'localhost',
     dbhost: 'elhadad2',
     dbport: '27017', //default port
@@ -23,7 +23,9 @@ module.exports= {
         engFrames:      'frame',
         engLUs:         'lu',
         engFullText:    'fulltext',
-        history:        'history'
+        history:        'history',
+        constants:      'constants'
+
 
     }
 }

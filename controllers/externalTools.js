@@ -10,12 +10,13 @@ printModule("controllers/externalTools");
 
 var morphServer = 'http://www.cs.bgu.ac.il/~nlpproj/demo/tag.php';
 //var dependencyParserServer = 'http://www.cs.bgu.ac.il/~yoavg/depparse/parse';
-var dependencyParserServer = 'http://localhost:8081/parse';
+var dependencyParserServer = 'http://elhadad2:8081/parse';
 var searchEngineServer = 'http://elhadad2:5005/';
 var searchEngineServer2 = 'http://localhost';
 var handleHttpResults = require('../tools/utils.js').handleHttpResults;
 var util = require('../tools/utils.js');
-
+var esServer = 'http://www.cs.bgu.ac.il/~itayman/hebfn/search/rest'
+var newSearchEngine = 'http://elhadad2:8089/';
 var request = require('request');
 exports.getMorph = function(req,res) {
     console.log("DEBUG: handling get-morph post request");
@@ -260,7 +261,7 @@ function conll2006ToJson(conll){
 
 function parseText(text, cb) {
     console.log("DEBUG: handling getDepParse post request");
-    console.log("the request body is:", text);
+    //console.log("the request body is:", text);
     //res.redirect(hp+"try");
     //req.body.json='on'; //set the json on - no matter what the other fields are TODO - fix this
     request.post(
@@ -269,7 +270,7 @@ function parseText(text, cb) {
         function (error, response, body) {
             //return cb(null,body)
             if (!error && response.statusCode == 200) {
-                //console.log("result from Yoav-dependency parser: ",body);
+                console.log("result from Yoav-dependency parser: ",JSON.stringify(body));
 
                 return cb(null, conll2006ToJson(body)) //TODO
 
@@ -388,9 +389,27 @@ function parseConll31Json(resTxt){
 
 var dbs = ['haaretz','medical','tapuz','themarker','literary','knesset']
 
+function searchSentencesCorpus2(query, cb) {
+    var q = "search/rest?w1.word=קפץ&w1.word=הלך&"
+    http.get({ port: 5005, host: newSearchEngine, path: encodeURI(q)}, function(response) {
+        response.setEncoding('utf8');
+        response.on('data', function(chunk) {
+            tmp = tmp + chunk;
+        });
+            return response.on('end',
+                function(){
+                    var resJson = parseConll31Json(tmp.replace(/&quot;/g, "\""));
+                    if (true) {
+                        cb(null,resJson || []);
+                    }
+                    else res.send(JSON.stringify(resJson));
+                });
+        }).on('error',
+            function(err) {
+                console.log('Error %s', err.message);}
+        )};
 
-
-function searchSentencesCorpus(query, cb) {
+    function searchSentencesCorpus(query, cb) {
     console.log("DEBUG: searchSentencesCorpus");
     var q =JSON.parse(JSON.stringify(qBase)); //clone the qBase object
     if (query['db']) q['db'] = query['db'];
@@ -475,5 +494,56 @@ function exampleSentences(q,cb){
 
 }
 //TODO - breidge, move to routes
+
+
+/*w1...wx
+   -specify token as you wish (w.pos=asdasd)
+   -diversify=true\false
+   -results=N   (how many results to return)
+   -s.text,
+ */
+function newExampleSentences(q,cb){
+    //TODO: see https://github.com/substack/node-ent
+    console.log("DEBGU: newExampleSentences")
+    if (!q.luname || !q.lupos) return cb(new Error("you must supply luname and lupos"));
+    if (!util.posFormat(q['lupos'])) return cb(new Error("the POS specified is not acceptable"));
+    q['db'] = dbs[_.random(0, 4)]
+    q['from'] = 1
+    q['to'] = 10
+    q['diversity'] =true;
+    q['query'] ="$w.lemma=\""+ q['luname']+"\" " +"$w.pos=\""+ util.posFormat(q['lupos'])+"\"";
+    //q['queryEnd'] = query['queryEnd'];
+    //console.log("exampleSentences --> query BEFORE SEND:",q);
+    searchSentencesCorpus(q,function(err,results){
+        if (err) return cb(err,results);
+        //if (results.indexOf('No Results')!=-1 || results.indexOf('Invalid query')!=-1) cb(err, "no results or invalid query");
+        var newRes = _.isArray(results) ? _.map(results,function(obj){ return util.linearizeConllSentence(obj['words'])/*.replace(/&#039;/g, "'")*/}) : results;
+        //var newRes = _.isArray(results) ? _.map(results,function(obj){ return (util.linearizeConllSentence(obj['words'])).replace(/###NUMBER###/g, _.random(1,100))}) : results;
+
+        //console.log(newRes.length,newRes)
+        //console.log(util.linearizeConllSentence(results))
+
+        cb(null, newRes)
+
+
+
+
+    });
+
+}
 exports.getExampleSentences = function(req,res){ exampleSentences(req.query, handleHttpResults(req,res))};
 
+
+var qs = require('querystring');
+function esQuery(query, cb){
+    query = {'must.range.w1.word': 'נקלענו', 'must_not.match.w2.lemma': 'הלך'};
+    console.log("query:", esServer+'?' + qs.stringify(query))
+    request(esServer+'?' + qs.stringify(query), function (error, response, body){
+        console.log(body);
+        cb(null, body)
+    });
+
+
+}
+
+exports.esQuery = esQuery;

@@ -18,7 +18,10 @@ function AnnotateCtrl($scope,utils )
             {
                 $(".miniable:not(.processed) .miniable-full").show();
                 $(".miniable:not(.processed) .miniable-short").hide();
-                
+
+                $(".miniable.default-mini:not(.processed) .miniable-full").hide();
+                $(".miniable.default-mini:not(.processed) .miniable-short").show();
+
                 $(".compact .miniable:not(.processed) .miniable-full").hide();
                 $(".compact .miniable:not(.processed) .miniable-short").show();
                 
@@ -31,6 +34,7 @@ function AnnotateCtrl($scope,utils )
                 
                 $(".miniable:not(.processed)").prepend( icon );
                 $(".compact .miniable:not(.processed) .icon-minus-sign").toggleClass("icon-plus-sign icon-minus-sign");
+                $(".miniable.default-mini:not(.processed) .icon-minus-sign").toggleClass("icon-plus-sign icon-minus-sign");
                 $(".miniable:not(.processed)").addClass("processed");
             }
 

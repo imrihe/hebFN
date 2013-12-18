@@ -1,8 +1,12 @@
-
+#frame-full-top-add
+    a(href="#/add-lus/{{selectedFrame.engData.frame['@name']}}")
+        button(type="button").btn.compact-hidden.pull-right#add-lus
+            i.icon-plus-sign
+            |&nbsp;Add LUs
 //|{{selectedFrame.engData[0].frame['@name']}}
 H1.compact-hidden {{selectedFrame.engData.frame['@name']}}
 p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-frame-def
-.miniable
+.miniable.default-mini#frame-elements
     H3 Frame elements
     .miniable-full
         p Click on an element to expand its defenition
