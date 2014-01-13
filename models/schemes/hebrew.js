@@ -176,7 +176,8 @@ var historySchema =  new Schema({
     cBy: String,
     cDate: Date,
     comment: String,
-    revCall: {type: String, enum: ['approved','rejected']}
+    revCall: {type: String, enum: ['approved','rejected']},
+    text: String
 }, {strict: false}) //history schema
 
 
@@ -456,16 +457,20 @@ var decisionSchema = exports.decisionSchema = new Schema({
 
 },{_id:false, strict : false});
 
-decisionSchema.tooltip={aa:"aaaaa"};
+var luSentCorrelationScheme = new Schema({},{strict: false}
+)
+
+
 
 console.log("DEBUG: creating hebrew models - << models/schemes/hebrew >>");
 exports.hebFrameModel = mongoose.model(coll.hebframes, hebFrameSchema, coll.hebframes );
 exports.hebSentenceModel = mongoose.model(coll.hebSent, hebsentenceSchema, coll.hebSent);
 exports.hebBadSentenceModel = mongoose.model(coll.hebBadSent, hebsentenceSchema, coll.hebBadSent);
-//exports.hebBadSentenceModel = mongoose.model(badSentencesCollectionName, new Schema({}, {strict: false}), badSentencesCollectionName);
+
 exports.luSentenceModel = mongoose.model(coll.hebLuSent, luSentenceSchema, coll.hebLuSent);
 exports.annotatorDecisionsModel = mongoose.model(coll.hebDecisions, decisionSchema, coll.hebDecisions);
 exports.historyModel = mongoose.model(coll.history, historySchema,coll.history);
+exports.luSentCorrelationModel = mongoose.model(coll.luSentCorrelation, luSentCorrelationScheme, coll.luSentCorrelation );
 
 
 

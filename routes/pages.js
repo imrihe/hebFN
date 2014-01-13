@@ -17,7 +17,7 @@ module.exports = function(app){
     var fs = require('fs');
 
     function home(req, res){
-        res.render('index', { title: 'HebFN' });
+        res.render('index', { title: 'HebFN', user: req.user });
     }
 
     function serialize(obj) {

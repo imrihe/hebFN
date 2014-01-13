@@ -5,18 +5,38 @@
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a.brand(href="#") HebFN
+            a.brand(href="#") HebFN &nbsp
+                i.icon-home.icon-white
             .nav-collapse.collapse
                 ul.nav
-                    //li.active
-                    //    a(href="/") Home
-                    //li
-                        a(href="#") Explore
-                    //li
-                        a(href="#") About
-                    //li
-                        a(href="#") Contact
+                    li.dropdown
+                            a.dropdown-toggle(id="dLabel",role="button", data-toggle="dropdown", data-target="#",href="/index.html", ng-click="getFrameHist()"  )
+                                | LINKS
+                                b.caret
+                            ul.dropdown-menu(role="menu", aria-labelledby="dLabel", style="{height: 100px; overflow-y: auto;}")
+                                li
+                                    a(href="https://framenet.icsi.berkeley.edu/fndrupal/" ,target="_blank") English FN
+                                li
+                                    a(href="https://drive.google.com/file/d/0B6Ynt-H6OkTBUFgyWjBxdHJmdVU/edit?usp=sharing" ,target="_blank") FN Book
+                                li(hidden)
+                                    a.hide(href="https://framenet.icsi.berkeley.edu/fndrupal/" ,target="_blank") English FN
                     li
-                        a(href="logout") Logout
+                        a(href="")
+                            | Heb Annotator Guide &nbsp
+                            i.icon-align-justify.icon-white
+
+
+                ul.nav.pull-right
+                    li
+                        a(href="mailto:hebrew.framenet.bgu@gmail.com")
+                            | hebrew.framenet.bgu@gmail.com &nbsp
+                            i.icon-envelope.icon-white
+                    li
+                        a(href="logout") Logout &nbsp
+                            i.icon-remove-circle.icon-white
+
+
+
+
 
                 

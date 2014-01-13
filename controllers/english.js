@@ -265,3 +265,21 @@ var getSemTypes = exports.getSemTypes = function (params, cb){
 exports.getListSemTypes= function(req,res){
     getSemTypes(req.query, handleHttpResults(req,res))
 }
+
+
+module.exports.countLus = function(fn, cb){
+    var q = {};
+    if (fn) q = {'lexUnit.@frame': fn};
+    Models.luModel.count(q,function(err, result){
+        //console.log("eng count: ",err, result);
+        //console.log('eng count cb',cb);
+        cb(err,result)
+
+    });
+    //Models.luModel.count(cb);
+}
+
+
+module.exports.countLus2 = function(req,res){
+    Models.luModel.count(function(err, result){console.log(err, result), res.send({err:err,res:result})});
+}

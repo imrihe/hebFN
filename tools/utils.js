@@ -226,3 +226,47 @@ exports.linearizeSentence2 = function linearizeSentence2(words){
 }
 
 
+exports.skip = function ( req,res,next){next()};
+
+
+exports.esPos = {
+    'v' : 'VB',  //verb
+    'a' : 'JJ', //adjective
+    'n': 'NN', //noun
+    'prep': 'IN / PREPOSITION', //preposition
+    'adv': 'RB'     //adverb
+
+}
+
+var SHORTPOS = {
+    'ADJECTIVE':         'JJ',
+    'ADVERB':            'RB',
+    'CONJUNCTION':       'CC',
+    'AT_PREP':           'AT',
+    'NEGATION':          'NEG',
+    'NOUN':              'NN',
+    'NUMERAL':           'CD',
+    'PREPOSITION':       'IN',
+    'PRONOUN':           'PRP',
+    'PROPERNAME':        'NNP',
+    'VERB':              'VB',
+    'PUNCUATION':        'PUNC',
+    'INTERROGATIVE':     'QW',
+    'INTERJECTION':      'INTJ',
+    'UNKNOWN':           'UNK',
+    'QUANTIFIER':        'DT',
+    'EXISTENTIAL':       'EX',
+    'MODAL':             'MD',
+    'PREFIX':            'P',
+    'URL':               'URL',
+    'FOREIGN':           'FW',
+    'JUNK':              'JNK',
+    'PARTICIPLE':        'BN',
+    'COPULA':            'COP',
+    'NUMEXP':            'NCD',
+    'TITULA':            'TTL',
+    'SHEL_PREP':         'POS',
+    'PARTICLE':          'PRT',
+    '' : ''
+}
+

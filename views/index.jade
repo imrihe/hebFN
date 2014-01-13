@@ -1,22 +1,28 @@
 extends base
 
 block content
-    
+
     .container
         .hero-unit
             .container
-                h1=title
+                span
+                    h1 #{title}
+                    .muted version 0.5
             p.
-                Lorem ipsum dolor sit amet, 
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Welcome To The Hebrew FrameNet,
+                Version 0.5 is available for annotators only.
+                <br> we are currently working on the full version, see you in the future
             p
                 .row.padTop20
-                    a.span2.offset2.btn.btn-inverse.btn-large(href="explore/") Explore #{title}
+                    a.span2.offset2.btn.btn-inverse.btn-large(href="explore/") Explore #{title} (under construction)
                     h4.span1.text-center or
-                    a.span2.btn.btn-inverse.btn-large(href="#login",data-toggle="modal") Login
+                    if user
+                        a.span2.btn.btn-inverse.btn-large(href="annotate") Annotate
+                    else
+                        a.span2.btn.btn-inverse.btn-large(href="#login",data-toggle="modal") Annotate (Login)
 
          form(method="post",action="login",name="login_form")
-            #login.modal.fade(tabindex="-1",role="dialog",aria-hidden="true")
+            #login.modal.fade.hide(tabindex="-1",role="dialog",aria-hidden="true")
                 .modal-dialog
                     .modal-content
                         .modal-header

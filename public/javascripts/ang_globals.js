@@ -141,6 +141,20 @@ angular.module('utils',[],function($provide) {
                 });
 
         };
+        //console.log("asdasdasdasd")
+        //TODO - check this one out.. do we need this?
+        UtilsServiceInstance.createHistStr = function(hist){
+            console.log(hist)
+            if (hist.type === 'sentLu'){
+                return hist.cBy + ' added sentence to lu <'+hist.refs.luName+'> in frame <'+hist.refs.frameName +'>. the added sentence is: ' +hist.sentText;
+            }else if (hist.type ==='luAnno'){
+                return hist.cBy + ' added annotation to a sentence in lu <'+hist.refs.luName+'> in frame <'+hist.refs.frameName +'>. the annotated sentence: ' +hist.sentText;
+            }
+            //else if (hist.type === 'frameLu') {
+            //    return hist['cBy'] + ' added LU <' hist.refs.luName + '> to the frame <'+hist.refs.frameName + '>';
+            //} else return false
+        }
+
 
         return UtilsServiceInstance;
     }

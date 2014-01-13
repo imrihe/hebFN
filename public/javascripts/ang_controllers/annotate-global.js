@@ -39,7 +39,12 @@ function AnnotateCtrl($scope,utils )
             }
 
         });
-    $scope.constants={};    
+
+
+
+
+
+    $scope.constants={};
     utils.CallServerGet("constants",
         {},
         function(out){
@@ -48,7 +53,42 @@ function AnnotateCtrl($scope,utils )
             {
                 $scope.constants[out[i].name]=out[i];
             }
-           
-            $scope.$apply();});
-    
+
+            $scope.$apply();}
+    );
+
+
+    $scope.lusProgress = {
+
+
+    };
+
+    //get the lus progress and statistics from the server
+    $scope.getLusProgress = function () {
+        utils.CallServerGet("heb/lusProgress",{},
+            function(out){
+                $scope.lusProgress= out;
+                $scope.$apply();});
+
+    };
+
+    //activate the function
+    $scope.getLusProgress();
+
+    $scope.ActionsHist = []
+    $scope.getHist = function(){
+        console.log("getting hist   ")
+        utils.CallServerGet("heb/history",
+            {},
+            function(out){
+                $scope.ActionsHist=out;
+                $scope.$apply();});
+    };
+
+    $scope.getHist();
+
+
+
 }
+
+

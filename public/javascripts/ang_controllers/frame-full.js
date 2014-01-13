@@ -68,7 +68,7 @@ function FramesIdxCtrl($scope, $routeParams,$location,utils ) {
     };
 
     
-    
+
     $scope.shortendString=utils.shortendString;
     
     //$scope.stripTags=utils.stripTags;

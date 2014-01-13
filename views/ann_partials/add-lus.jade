@@ -11,14 +11,30 @@
                     |I've finished!
     .row
         .span12
+            <a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">Tooltip on right</a>
             H2 Add LUs To {{selectedFrameName}}
+    .row
+
+        .span8
+            div.dropdown
+                a.dropdown-toggle(id="dLabel",role="button", data-toggle="dropdown", data-target="#",href="/index.html", ng-click="getFrameHist()"  ) Actions History
+                    b.caret
+                ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
+                    //li(ng-repeat="entry in frameHist") &nbsp  {{getDate(entry.cDate)}} {{entry.cBy}} {{entry.action}} {{entry.refs.luName}} &nbsp
+                    li(ng-repeat="entry in frameHist") &nbsp  {{getDate(entry.cDate)}} {{entry.text}} &nbsp
+                    //li(ng-repeat="entry in frameHist") &nbsp  {{createHistStr(entry)}} &nbsp
+
+
+            ul#top
+        .span2
+            a(href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame="+"{{selectedFrame.engData.frame['@name']}}", target="_blank")
+                | open frame in engFN
+
     .row
         .span12(style="display:none",ng-show="selectedFrame!=''")
                 .compact
                     include frame-full
-                    
-                    
-            
+
     .row
         .span4
             table.table.table-bordered.table-hover.table-striped.lus-table
@@ -32,6 +48,10 @@
                 tbody
                     tr(ng-repeat="lu in frameLus",ng-click="updateLuTranslations($index)",ng-class="{selected: $index==selectedEngLUIdx}")
                         td {{lu.name}} ({{lu.pos | lowercase}})
+                        td
+                            label.checkbox.inline
+                                input(type="checkbox", id="inlineCheckbox1" ,value="option1")
+                                    |1
         .span4.rtl
             //table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
             table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
@@ -67,8 +87,6 @@
                                 i.icon-search.clickable.padded5(ng-click="selectHebLU($index)")
                                 //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU($index)")
                                 i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU($index)")
-                                
-
 
         .span4.rtl
             table.table.table-bordered.table-hover.table-striped.lus-table.special-table
@@ -85,43 +103,64 @@
                                     i.icon-edit.padded5.clickable
                                 //i.icon-question-sign.padded5.clickable(ng-click="")
                                 i.icon-minus-sign.padded5.clickable(ng-click="removeHebLU(lu.name,lu.pos)")
-                                
+
+
         .add-lus-tooltip#sentences
             i.icon-remove.pull-right.clickable
             
             H4 
                 |Sentences containing 
-                input.controls.input-mini(type="text",placeholder="LU Name({{getSelectedHebLU().name}})",ng-model="newLUName")
+                //input.controls.input-mini(type="text",placeholder="LU Name({{getSelectedHebLU().name}})",ng-model="newLUName")
+                input.controls.input-mini(type="text",placeholder="LU Name", value="{{getSelectedHebLU().name}}",ng-model="newLUName")
                 |(
                 select.controls.input-mini(ng-model="newLUPos",ng-options="value for (key,value) in POSs")
                 |) &nbsp;&nbsp;
+                select.controls.input-small(ng-model="searchWhat",ng-options="value for value in queryFields")
+                | &nbsp;&nbsp;
                 i.icon-search.clickable(ng-click="loadSentencesForSelecteHebLU()")
             .loading-gif(ng-show="lastSentCallInProgress")
-            ul.rtl(ng-show="!lastSentCallInProgress")
-                li(ng-repeat="sent in foundSentences")
-                    |{{sent}}
-            div(ng-show="foundSentences!=-1 && foundSentences.length()==0")
+            table.rtl(ng-show="!lastSentCallInProgress")
+                tr(ng-repeat="sent in foundSentences")
+                    td.btn-group(data-toggle-name="is_private", data-toggle="buttons-radio")#sent-corr
+                        div(ng-hide="!getSelectedHebLU().name")
+                            button.btn.btn-mini(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="setLuSentCorrelation(sent.id,'good',sent.text)" ,data-toggle="button tooltip",title="the sentence is suitable for this lu")
+                                i.icon-ok
+                            button.btn.btn-mini(type="button", value="1",ng-class="{active: (sent.status == 'bad') }" ,ng-click="setLuSentCorrelation(sent.id,'bad',sent.text)", data-toggle="button",title="this sentence is NOT suitable for this lu")
+                                i.icon-remove
+                            button.btn.btn-mini(type="button", value="2", ng-class="{active: (sent.status == 'maybe') }",ng-click="setLuSentCorrelation(sent.id,'maybe',sent.text)", data-toggle="button",title="this sentence may be suitable for this lu")
+                                i.icon-question-sign
+                    td#sent-searched  {{sent.text}}
+                    //i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU(-1)").text-left
+                    //button.btn-small.btn.clickable(ng-click="markSuitableSent(sent.id)",title="the sentence is suitable for this lu").text-left
+                        |good
+                    //button.btn-small.btn.clickable(ng-click="markSuitableSent(sent.id)",title="this sentence is NOT suitable for this lu").text-left
+                        |bad
+                    //button.btn-small.btn.clickable(ng-click="markSuitableSent(sent.id)",title="this sentence might be suitable for this lu").text-left
+                        |unsure
+
+
+            div(ng-show="foundSentences!=-1 && foundSentences.length==0")
                 |No matching sentences were found
         .add-lus-tooltip#add-heb-lus
             i.icon-remove.pull-right.clickable 
             H4 {{addingSeggustion && "Add" || "Suggest Adding" }} Hebrew LU {{newLUName}} ({{newLUPos}}) To Frame {{selectedFrameName}}
             form.form-horizontal
                 .control-group(ng-class="{error: !newLUName.length>0}")
-                    label.control-label(for="new-lu-name") LU Name 
+                    label.control-label(for="new-lu-name") LU Name
                     input.controls#new-lu-name.input-xlarge(type="text",placeholder="LU Name {{getSelectedHebLU().name!=undefined && ('('+getSelectedHebLU().name+')') || '' }}",ng-model="newLUName") 
                     span.help-inline(ng-hide="newLUName.length>0") Name cannot be empty
                 .control-group(ng-class="{error: !newLUPos.length>0}")
                     label.control-label(for="new-lu-pos") LU POS 
                     select.controls#new-lu-pos.input-small(ng-model="newLUPos",ng-options="value for (key,value) in POSs")
                     span.help-inline(ng-hide="newLUPos.length>0") Pos cannot be empty
-                .control-group
+                //.control-group
                     label.control-label(for="new-lu-not-suggest") I'm sure this is a valid LU
                     input.controls#new-lu-not-suggest(type="checkbox",ng-model="addingSeggustion")
                 .control-group
                     label.control-label(for="new-lu-name") Comment(optional) 
-                    input.controls.input-xlarge#new-lu-name(type="text",ng-model="newLUComment") 
+                    textarea.rtl.controls.input-xlarge#new-lu-name(type="text",ng-model="newLUComment")
                 .control-group(ng-show="selectedEngLUIdx!=-1")
-                    label.control-label(for="new-lu-not-suggest") Translated from {{frameLus[selectedEngLUIdx].name}}
+                    label.control-label(for="new-lu-not-suggest") Translated from <b> {{frameLus[selectedEngLUIdx].name}} ({{frameLus[selectedEngLUIdx].pos.toLowerCase()}}) </b>
                     input.controls#new-lu-not-suggest(type="checkbox",ng-model="newLUWasTranslated")
                 .control-group#add-lu-submit
                         button.btn.btn-inverse.btn-large.controls(type="button",ng-click="addHebLU(newLUName,newLUPos,addingSeggustion,newLUComment,newLUWasTranslated)")
@@ -133,5 +172,6 @@
                     |Yes
                 button.btn.btn-inverse.btn-large.controls(type="button")
                     |Cancel
+
 .white-space                   
             

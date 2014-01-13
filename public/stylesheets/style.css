@@ -161,6 +161,7 @@ table .selected td
 {
     line-height: 1.7;
 }
+
 #selected-frame-def fen,#selected-frame-def fex{
     background-color: #DCE2F1;
  
@@ -393,4 +394,13 @@ span.wordStyle {
     border: 2px black solid;
     margin: 2px;
     padding: 2px 2px 2px;
+}
+
+#sent-corr{
+    direction: ltr;
+}
+#sent-searched
+{
+    padding-bottom: 15px;
+    padding-right: 10px;
 }

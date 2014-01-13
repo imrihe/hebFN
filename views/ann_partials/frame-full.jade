@@ -3,13 +3,17 @@
         button(type="button").btn.compact-hidden.pull-right#add-lus
             i.icon-plus-sign
             |&nbsp;Add LUs
+    a(href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame="+"{{selectedFrame.engData.frame['@name']}}", target="_blank")
+        button(type="button").btn.compact-hidden.pull-right#add-lus
+            |open frame in engFN
+
 //|{{selectedFrame.engData[0].frame['@name']}}
 H1.compact-hidden {{selectedFrame.engData.frame['@name']}}
 p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-frame-def
 .miniable.default-mini#frame-elements
     H3 Frame elements
     .miniable-full
-        p Click on an element to expand its defenition
+        p Click on an element to expand its definition
         .row
             .half-space
                 table.table.table-bordered.table-striped.fes-table(ng-show="selectedFrame.engData.fes.core!='' && selectedFrame.engData.fes.core.length>0")
@@ -83,10 +87,11 @@ p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-fram
                     tbody
                         tr(ng-repeat="lu in selectedFrame.hebData.lexUnit")
                             td {{lu['@name']}}
-                            td {{lu['@status']}}
+                            td {{lu['status']}}
                             td
-                                a(href="#/add-sentences/{{selectedFrame.engData.frame['@name']}}/{{lu['@name']}}")
-                                    button(type="button").btn.pull-right.btn-mini 
+                                //a#addSentencesButton(href="#/add-sentences/{{selectedFrame.engData.frame['@name']}}/{{lu['@name']}}")
+                                a#addSentencesButton()
+                                    button.hide(onclick="alert('under construction')", type="button").btn.pull-right.btn-mini
                                         i.icon-plus-sign
                                         |&nbsp;Add Sentences
     .miniable-short

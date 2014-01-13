@@ -41,6 +41,7 @@ module.exports = function(app){
 //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/eng/translations?luid=XXXX
     app.get('/eng/translations', engControl.getTranslations);
     app.get('/eng/semTypes', engControl.getListSemTypes);
+    app.get('/eng/lus2', engControl.countLus2);
 
     app.get('/eng/', function(req,res){ res.redirect(hp)});
 }

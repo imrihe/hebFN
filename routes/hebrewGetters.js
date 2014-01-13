@@ -16,32 +16,10 @@ module.exports = function(app) {
      * request parameters: frameid, framename, luname, luid - will filter the response (number of returned frames is limited to 20 at a time)
      * @link /eng/pageframes for paginating
      */
-    app.get('/heb/frame', isAjax, hebControl.getFrame);
+    app.get('/heb/frame', hebControl.getFrame);
     app.get('/heb/framedata',  hebControl.loadFrameData);
 
-    /**
-     * use this call in order to get data of an english frame\s
-     * request parameters: frameid, framename, luname, luid - will filter the response (number of returned frames is limited to 20 at a time)
-     * @link /eng/pageframes for paginating
-     */
-    app.get('/talAjax1', function(req,res){res.render('tal.jade')});//TODO- remove
 
-    app.post('/talAjax', function(req, res){ //TODO- remove
-        var data;
-        console.log("TAL:");
-        console.log(req.body['text1']);
-        console.log(req.body['text2']);
-        console.log(req.body['text3']);
-        var fs = require('fs');
-        fs.writeFile("tmp/tititi2", "Hey there!", function(err) {
-            if(err) {
-                console.log(err);
-            } else {
-                console.log("The file was saved!");
-            }
-        });
-        res.send(req.body);
-    } );
     //http://www.cs.bgu.ac.il/~imrihe/nodeJS1/lu/?id=320
     app.get('/heb/lu',hebControl.getLu);
 
@@ -67,11 +45,15 @@ module.exports = function(app) {
     app.get('/heb/historybyuser', hebControl.getHistory);
     app.get('/heb/getHistory', hebControl.getHistoryByType);
     app.get('/heb/getcomments', hebControl.getComments);
+    app.get('/heb/lusProgress', hebControl.getLusProgress);
+
+    app.get('/heb/getexmsentencebylu', hebControl.getSentencesByLu);
 
     app.get('/heb/hist/:histType', hebControl.getHistory)
     app.get('/fuck', function(req,res) {throw  new Error("fuck!!")}); //TODO- remove
     //app.get('/testadd/:num', hebControl.tryAdd); //TODO- remove
 
     app.get('/heb/', function(req,res){ res.redirect(hp)});
+
 
 };

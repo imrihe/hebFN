@@ -34,23 +34,17 @@ var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
     console.log("DEBUG: handling load-hebrew-frame request");
     var q = q2coll(query, '- @name - lexUnit.@name - -'),
         qOptions = options ? options : {limit: 50, sort: {'@name' :1}};
-    //console.log(q, proj, qOptions)
     Models.hebFrameModel.findOne(q,proj,qOptions,
         function(err,results){
-            //console.log(err, results);
             if (err || !results || results.length==0 || query.nofilter) return cb(err,results)
             else {
-                //results = results.toObject();
                 var newRes = results['lexUnit'];
                 console.log("before filter",results.to)
                 newRes = _.filter(newRes, function(obj) {
-                    //console.log('checking for lu : ', obj.decision, obj['@name'])
                     console.log('checking for lu with stat:',obj.decision.currStat['stat']);
                     return _.indexOf(['delete', 'approve_delete', 'reject_add'], obj.decision.currStat['stat']) ==-1
-                    //return (obj.decision.currStat['stat'] == params.lu.luname);})
                 });
                 results['lexUnit'] = newRes
-                //console.log("after filter",newRes)
                 cb(err, results);
 
             }
@@ -125,6 +119,9 @@ function searchHistory(query, proj, options, cb){
     console.log('DEBUG: searchDecisions')
     //({framename: "asdasd",luname: "refs.luname"}, query) = > {asdasd: query['framename'], 'refs.luname': query['luname']}
     var q  =q2coll(query, '- refs.frameName - refs.luName sentenceID -')
+    console.log("history query is: ", JSON.stringify(q));
+    if (query['framename']) q['refs.frameName'] = query['framename'];
+    console.log("history query is: ", JSON.stringify(q));
     if (query['type']) q['type']  = query['type'];
     if (query['username']) q['cBy']  = query['username'];
     if (query['decisionid']) q['_id']  = query['decisionid'];
@@ -138,7 +135,7 @@ function searchHistory(query, proj, options, cb){
  */
 exports.getSearchHistory = function(req,res) {
     console.log('DEBUG: getSearchDecisions')
-    searchHistory(req.query, {},{limit:100, sort: 'refs.frameName'}, handleHttpResults(req,res));
+    searchHistory(req.query, {},{limit:100, sort: { 'cDate': -1}}, handleHttpResults(req,res)); //'refs.frameName': 1
 }
 
 
@@ -1253,25 +1250,25 @@ exports.addAnnotation = function addAnnotation(req,res,cb) {
         annotation.layer.push(body.annotations[sent]['FE'])
 
 
-    //TODO - i stopped here!!!
-    //var anno = createFEAnnotation(body.annotation)
+        //TODO - i stopped here!!!
+        //var anno = createFEAnnotation(body.annotation)
 
-    console.log("DEBUG-addAnnotation query is:", JSON.stringify(query));
-    console.log("DEBUG-addAnnotation anno is:", JSON.stringify(annotation));
-    Models.luSentenceModel.findOneAndUpdate(query, {$push: {"annotations": annotation}}, function(err, returnedObj) {
-    //Models.luSentenceModel.findOneAndUpdate(query,{$push: {"annotations": {status: 'pending1'}}}, function(err, returnedObj) {
-        //console.log("DEBUG-addAnnotation reulst is:", err, JSON.stringify(returnedObj))
-        if (!returnedObj) {
-            msgList.push("sentence doesn't exists")
-        }else {
-            msgList.push("annotation added, sentID: ", returnedObj.sentenceID)
-            //console.log("GOOD ANNOTATION!", JSON.stringify(returnedObj))
-        }
-        //cb(err, returnedObj);
-        counter = counter-1;
-        console.log("reducing counter- counter value:", counter)
-        if (counter <=0) cb(err, {status: 'OK',msg: msgList})
-    });
+        console.log("DEBUG-addAnnotation query is:", JSON.stringify(query));
+        console.log("DEBUG-addAnnotation anno is:", JSON.stringify(annotation));
+        Models.luSentenceModel.findOneAndUpdate(query, {$push: {"annotations": annotation}}, function(err, returnedObj) {
+            //Models.luSentenceModel.findOneAndUpdate(query,{$push: {"annotations": {status: 'pending1'}}}, function(err, returnedObj) {
+            //console.log("DEBUG-addAnnotation reulst is:", err, JSON.stringify(returnedObj))
+            if (!returnedObj) {
+                msgList.push("sentence doesn't exists")
+            }else {
+                msgList.push("annotation added, sentID: ", returnedObj.sentenceID)
+                //console.log("GOOD ANNOTATION!", JSON.stringify(returnedObj))
+            }
+            //cb(err, returnedObj);
+            counter = counter-1;
+            console.log("reducing counter- counter value:", counter)
+            if (counter <=0) cb(err, {status: 'OK',msg: msgList})
+        });
     }
 
 
@@ -1336,6 +1333,7 @@ function addDecision(params, type, cb){
     action:  params.other.action,
     comment: params.other.comment,
     type: type,
+    text: params.other.username + (params.other.action =='add' ? ' added ' : ' deleted ')  + 'the LU [' + params.lu.luname +'] to/from frame [' +  params.frame.framename+ ']'
 
 }
     var histObjInstance = Models.historyModel(histObj)
@@ -1678,16 +1676,17 @@ exports.luLock= function(req,res){
 //----sentence-annotation (framename, luname, sentenceid), username, cDate, action ('X annotated this sentence')
 function createHistStr(type, params){
     if (type === 'sentLu'){
-        return params.username + ' added sentence to lu <'+params.luname+'> in frame <'+params.framename +'>. the added sentence is: ' +params.sentText;
+        return params.username + ' added sentence to lu ['+params.luname+'] in frame ['+params.framename +']. the added sentence is: ' +params.sentText;
     }else if (type ==='luAnno'){
-        return params.username + ' added annotation to a sentence in lu <'+params.luname+'> in frame <'+params.framename +'>. the annotated sentence: ' +params.sentText;
+        return params.username + ' added annotation to a sentence in lu ['+params.luname+'] in frame ['+params.framename +']. the annotated sentence: ' +params.sentText;
     }else
         return false
 }
 
 
-//add annotation feed or lu-senetence feed to history collection
+//add annotation feed or lu-senetence feed to a collection
 function addHistoryFeed(params, cb){
+    //
     var timeStamp = new Date();
     var id = objID();
     var histObj ={
@@ -1879,5 +1878,111 @@ module.exports.getComments = function (req,res){
 
     listComments(params, handleHttpResults(req,res))
 }
+
+
+function calcLusProgress(fn, orig_cb){
+    console.log('DEBUG: calcLusProgress')
+    return engControl.countLus(fn,function(e,r){
+        console.log("eng result:", e, r);
+        var matchQ = {'lexUnit': {$exists: true}, 'lexUnit.decision.currStat.stat': 'add'}
+        if (fn) matchQ['@name'] =fn;
+        Models.hebFrameModel.aggregate(
+            {'$project': {"_id":0,'lexUnit.@name': 1, '@name':1,'lexUnit.decision.currStat.stat': 1}},
+            {$unwind : "$lexUnit" },
+            {$match: matchQ},
+            function(e2,r2){
+                console.log('almost there', e2, JSON.stringify(r2))
+                if (!e2)
+                    orig_cb(e2,
+                        {prec: (r2.length/r*100).toFixed(1), engCount: r, hebCount:  r2.length})
+                else orig_cb(e2);
+
+
+        //orig_cb(e,r)
+       })
+    })
+
+}
+
+
+exports.getLusProgress = function (req,res){
+    //if 'frameName' is not given, the query will be about all the frames
+    calcLusProgress(req.param('frameName'), handleHttpResults(req,res))
+}
+
+
+function setSentLuCorrelation(query,cb){ //TODO: define the scheme - for now it is defined as 'not strict'
+    updateQuery = {status: query.status};
+    console.log(query.comment);
+    if (query.comment) updateQuery.comment = query.comment;
+     Models.luSentCorrelationModel.update({luName: query.luname, frameName: query.framename, esSentId: query.sentid, text: query.text}, updateQuery, {upsert: true}, cb);
+
+}
+
+module.exports.setLuSentCorr = function (req,res){
+    console.log(req.method);
+    var q = (req.method == 'GET') ? req.query : req.body;
+    setSentLuCorrelation(q, handleHttpResults(req,res));
+}
+
+function getSentLuCorrelation(query,cb){
+    Models.luSentCorrelationModel.findOne({luName: query.luname, frameName: query.framename, esSentId: query.sentid},  cb);
+
+}
+
+module.exports.getLuSentCorr = function (req,res){
+    console.log(req.method);
+    var q = (req.method == 'GET') ? req.query : req.body;
+    getSentLuCorrelation(q, handleHttpResults(req,res));
+}
+
+
+
+
+function sentencesByLu(query,cb){
+    //extControl.esQuery()
+    Models.luSentCorrelationModel.find({luName: query.luname, frameName: query.framename},  cb);
+
+}
+
+module.exports.getSentencesByLu = function (req,res){
+    console.log(req.method);
+    var q = (req.method == 'GET') ? req.query : req.body;
+    sentencesByLu(q, handleHttpResults(req,res));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

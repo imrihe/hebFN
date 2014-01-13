@@ -15,6 +15,7 @@ var searchEngineServer = 'http://elhadad2:5005/';
 var searchEngineServer2 = 'http://localhost';
 var handleHttpResults = require('../tools/utils.js').handleHttpResults;
 var util = require('../tools/utils.js');
+//var esServer = 'http://www.cs.bgu.ac.il/~itayman/hebfn/search/rest'
 var esServer = 'http://www.cs.bgu.ac.il/~itayman/hebfn/search/rest'
 var newSearchEngine = 'http://elhadad2:8089/';
 var request = require('request');
@@ -409,7 +410,7 @@ function searchSentencesCorpus2(query, cb) {
                 console.log('Error %s', err.message);}
         )};
 
-    function searchSentencesCorpus(query, cb) {
+function searchSentencesCorpus(query, cb) {
     console.log("DEBUG: searchSentencesCorpus");
     var q =JSON.parse(JSON.stringify(qBase)); //clone the qBase object
     if (query['db']) q['db'] = query['db'];
@@ -442,7 +443,7 @@ function searchSentencesCorpus2(query, cb) {
                 //console.log((tmp.replace(/&quot;/g, "\"")));
                 //console.log('DEBUG: getSE- all chunks and "END" sig were sent');
                 var resJson = parseConll31Json(tmp.replace(/&quot;/g, "\""));
-               // console.log("resJson is:",resJson);
+                // console.log("resJson is:",resJson);
                 if (true) {
                     //console.log("DEBUG: returning ajax",resJson);
                     //req['resJson'] = resJson;
@@ -531,19 +532,54 @@ function newExampleSentences(q,cb){
     });
 
 }
-exports.getExampleSentences = function(req,res){ exampleSentences(req.query, handleHttpResults(req,res))};
-
+exports.getExampleSentences1 = function(req,res){ exampleSentences(req.query, handleHttpResults(req,res))};
+//http://www.cs.bgu.ac.il/~itayman/hebfn/search/rest?w1.lemma=%D7%9E%D7%95%D7%A8%D7%A9%D7%AA&results=50
 
 var qs = require('querystring');
 function esQuery(query, cb){
-    query = {'must.range.w1.word': 'נקלענו', 'must_not.match.w2.lemma': 'הלך'};
+    //query = {'w1.word': 'ש','results': 8, diversify: 'true'}// , 'must_not.match.w2.lemma': 'הלך'};
     console.log("query:", esServer+'?' + qs.stringify(query))
     request(esServer+'?' + qs.stringify(query), function (error, response, body){
-        console.log(body);
+        if (error) return cb(error);
         cb(null, body)
     });
-
-
 }
 
-exports.esQuery = esQuery;
+
+//w1.pos.must.match=הלך
+//s.genre.must_not.match=blog7
+//s.length.must.range=2,3
+//s.length.must.range.lt/lte/gt/gte=3
+// w1.word.must.match=הלך&w2.word.mus t.match=קפץ&w1~w2=3  //currently working only with words
+function searchSentencesES(reqQuery, cb){
+    var query = {
+        results: 10,
+        diversify: "low",
+        page: 1 //1 and above
+    };
+    if (reqQuery['pos'])     query['w1.pos.must.match'] =  util.esPos[reqQuery.pos];
+    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text
+
+    esQuery(query, function(err, result){
+        if (err ) cb(err);
+        else if (!result) cb("no results!");
+        else {
+            result = JSON.parse(result);
+
+            //console.log(result);
+            var sentences = _.map(result.hits, function(sent) {return {text: sent.text, id: sent._id}; })
+            cb(null, sentences);
+
+
+        }
+    })
+}
+
+exports.getExampleSentences = function(req,res){ searchSentencesES(
+    req.query,
+    handleHttpResults(req,res))
+};
+
+
+
+exports.esQuery = searchSentencesES;

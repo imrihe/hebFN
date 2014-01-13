@@ -1,7 +1,16 @@
 .row
     .well
-        h2 Announcments
-        p Welcome
+        h2 Welcome to The HebFN Annotator Dashboard
+        p 22/12: we currently have only 'add lu' flow working
+.row
+
+    div.dropdown.span12
+        a.dropdown-toggle(id="dLabel",role="button", data-toggle="dropdown", data-target="#",href="/index.html", ng-click="getHist()"  )
+            | Last Activities
+            b.caret
+        ul.dropdown-menu(role="menu", aria-labelledby="dLabel", style="{height: 100px; overflow-y: auto;}")
+            li(ng-repeat="entry in ActionsHist") &nbsp  {{entry.cDate}} {{entry.text}}
+
 .row
     ul.thumbnails
         li.span3
@@ -13,27 +22,30 @@
               .modal-footer
                 .text-left
                     .progress.progress-striped.active.dark-bg
-                      .bar(style='width: 20%;')
+                      //.bar(style='width: 20%;')
+                      .bar(style='width: {{lusProgress.prec}}%;')
                     .row-fluid
                       .span4
-                        b 0
+                        b {{lusProgress.hebCount}}
                         br
                         small Done
                       .span4
-                        b 300
+                        b {{lusProgress.engCount}}
                         br
                         small Target
                       .span4
-                        b 0
+                        b {{lusProgress.prec}}
                         br
                         small %
-        li.span3
+        li.span3()
             .thumbnail(style='padding: 0;')
               .caption.annotate-goal
-                a(href="#/explore")
-                    h4 Choose Sentences
-                p Find LUs examples
-              .modal-footer
+                a().muted
+                    h4 Edit LUs
+                //a(href="#/explore")
+                    h4 Edit LUs
+                p Add additional data to the LUs
+              div(hidden).modal-footer
                 .text-left
                     .progress.progress-striped.active.dark-bg
                       .bar(style='width: 20%;')
@@ -50,13 +62,15 @@
                         b 0
                         br
                         small %
-        li.span3
+        li.span3()
             .thumbnail(style='padding: 0;')
               .caption.annotate-goal
-                a(href="#/explore")
-                    h4 Choose Sentences
-                p Find LUs examples
-              .modal-footer
+                a()
+                    h4.muted Add Sentences To LUs
+                //a(href="#/explore")
+                    h4 Add Sentences To LUs
+                p Add relevant sentences to the LUs
+              div(hidden).modal-footer
                 .text-left
                     .progress.progress-striped.active.dark-bg
                       .bar(style='width: 20%;')
@@ -73,13 +87,15 @@
                         b 0
                         br
                         small %
-        li.span3
+        li.span3()
             .thumbnail(style='padding: 0;')
               .caption.annotate-goal
-                a(href="#/explore")
-                    h4 Choose Sentances
-                p Find LUs examples
-              .modal-footer
+                a()
+                    h4.muted Annotate Sentences
+                //a(href="#/explore")
+                    h4 Annotate Sentences
+                p Annotated sentences of specific LU
+              div(hidden).modal-footer
                 .text-left
                     .progress.progress-striped.active.dark-bg
                       .bar(style='width: 20%;')
