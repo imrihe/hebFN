@@ -537,7 +537,7 @@ exports.getExampleSentences1 = function(req,res){ exampleSentences(req.query, ha
 
 var qs = require('querystring');
 function esQuery(query, cb){
-    //query = {'w1.word': 'ש','results': 8, diversify: 'true'}// , 'must_not.match.w2.lemma': 'הלך'};
+    //query = {'w1.word': 'ש','results': 8, diversify: 'true'}// , 'must_not.match.w2.lemma': 'הלך'}
     console.log("query:", esServer+'?' + qs.stringify(query))
     request(esServer+'?' + qs.stringify(query), function (error, response, body){
         if (error) return cb(error);
@@ -545,7 +545,11 @@ function esQuery(query, cb){
     });
 }
 
-
+/**search sentencs in elasticSearch corpora DB via itay_mangashe's server
+ *
+ * @param reqQuery
+ * @param cb
+ */
 //w1.pos.must.match=הלך
 //s.genre.must_not.match=blog7
 //s.length.must.range=2,3
@@ -553,13 +557,14 @@ function esQuery(query, cb){
 // w1.word.must.match=הלך&w2.word.mus t.match=קפץ&w1~w2=3  //currently working only with words
 function searchSentencesES(reqQuery, cb){
     var query = {
-        results: 10,
-        diversify: "low",
-        page: 1 //1 and above
+        results: reqQuery['results']  ?  reqQuery['results'] : 20,
+        diversify: reqQuery['diversify'] ? reqQuery['diversify'] : "low",
+        page: reqQuery['page']? reqQuery['page'] : 1 //1 and above
     };
     if (reqQuery['pos'])     query['w1.pos.must.match'] =  util.esPos[reqQuery.pos];
-    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text
 
+    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text
+     console.log("search query: ",JSON.stringify(query));
     esQuery(query, function(err, result){
         if (err ) cb(err);
         else if (!result) cb("no results!");
@@ -580,6 +585,8 @@ exports.getExampleSentences = function(req,res){ searchSentencesES(
     handleHttpResults(req,res))
 };
 
+//delete sentence: http://www.cs.bgu.ac.il/~itayman/hebfn/delete/id?id=t600aUiqS8-o2vhL56pHcg
+//search sentence: http://www.cs.bgu.ac.il/~itayman/hebfn/search/id?id=t600aUiqS8-o2vhL56pHcg
 
 
 exports.esQuery = searchSentencesES;

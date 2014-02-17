@@ -165,6 +165,10 @@ if (!module.parent) {
 
 }else console.log("hebFNApp is running as sub-server");
 
+/**@class MyClass
+ *
+ * @type {*}
+ */
 exports = module.exports = app;
 //require('./models/schemes/test.js');
 //require('./checkMilog.js');

@@ -9,15 +9,13 @@ printModule('controllers/hebrew');
 
 var Models = require("../models/schemes/hebrew.js");
 var userControl = require('../controllers/users.js');
-var objID = require('mongoose').Types.ObjectId;
+var objID = require('mongoose').Types.ObjectId;                                 //objectID type from of mongoDB
 var q2coll = require('../tools/utils.js').queryToCollectionQ,
     handleHttpResults = require('../tools/utils.js').handleHttpResults,
     utils =require('../tools/utils.js');
-var async = require('async'); //using async.parallel in order to gather frameData
+var async = require('async');                                                   //flow control for better coding
 var engControl = require("./english.js");
 var extControl = require("./externalTools.js")
-
-
 
 
 /******************************************READ actions****************************************/

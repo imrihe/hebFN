@@ -230,7 +230,8 @@ function MarkerCtrl($scope, $window, $timeout,$routeParams,utils) {
 
 
     //colors by token id in the given sentence
-    $scope.getColorsByToken1 = function(ind, sentNum){
+    $scope.getColorsByToken1 = function(ind, sentNum,isSpace){
+
         var style = {};
 
         if (!$scope.isTagged1(ind, sentNum)){

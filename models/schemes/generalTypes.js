@@ -45,7 +45,7 @@ var internalFrameRelationFEType  =module.exports.internalFrameRelationFEType = n
 
 var FEType =module.exports.FEType=   new Schema({
     "definition": String,
-    "semType": {type:[semTypeRefType], select: false},     //TODO - remove the select field
+    "semType": {type: [semTypeRefType], select: true},     //TODO - remove the select field
     "requiresFE": [internalFrameRelationFEType],
     "excludesFE": [internalFrameRelationFEType],
     "@ID": basicTypes.IDType,

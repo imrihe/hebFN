@@ -26,7 +26,9 @@ app.all('/ajax/*', function(req, res, next) {
 });
 
 
-
+app.get('/docs/corpora', function (req,res){
+    res.redirect('http://www.cs.bgu.ac.il/~imrihe/nodeJS3/documentation/HebFN_website/index.html');
+})
 
 /******************general getters***************/
 require('./general.js')(app);

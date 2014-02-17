@@ -293,7 +293,12 @@ display:none;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;*/
     border-radius: 4px;
-    padding:10px;
+    /*padding-right:20px;*/
+
+}
+
+.margin5{
+    margin-right: 20px;
 
 }
 .text-border{
@@ -321,7 +326,12 @@ display:none;
 
 }
 
+.add-lus-modal
+{
+      width:800px;
+      margin-left: -400px;
 
+}
 span.selected {
     border-top: solid 1px red;
     border-bottom: solid 1px red;
@@ -403,4 +413,11 @@ span.wordStyle {
 {
     padding-bottom: 15px;
     padding-right: 10px;
+}
+
+.img_thumb {
+    height: 35px
+}
+.small-text  {
+    font-size: 12px;
 }

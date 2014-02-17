@@ -106,4 +106,19 @@ function FramesIdxCtrl($scope, $routeParams,$location,utils ) {
         }
     };
 
+    $scope.getFERealtions= function(fe){
+        var fes = $scope.selectedFrame.engData.frame.FE;
+        var feRel = {ex: null, req: null, semType: null};
+        for (feObj in fes){
+            if (fes[feObj]['@name'] == fe){
+                feRel.ex =  fes[feObj]['excludesFE']
+                feRel.req = fes[feObj]['requiresFE']
+                feRel.semType =fes[feObj]['semType']
+                break;
+            }
+
+        }
+        return feRel;
+    }
+
 }

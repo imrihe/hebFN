@@ -55,14 +55,15 @@ function AddLUsCtrl($scope, $routeParams,utils) {
           
     $scope.luTranslations=[];
     $scope.selectedEngLUIdx=-1;
-    $scope.selectedHebLUIdx=-1; 
     
     $scope.addHebLU=function(name,pos,sure,comment,isTranslated)
     {
+        sure=true; //TODO - this is hard coded - fix the bug!! @asaf
+        console.log("sure:", sure, "\n cond:", (sure && "add" || "query"))
         var data= {   framename:$scope.selectedFrameName,
             luname:name,
             lupos:pos,
-            action:(sure && "add" ||"query")
+            action:(sure && "add" || "query")
 
             };
         if(comment!==undefined && comment!=="")
@@ -81,7 +82,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
         }
         
         $scope.selectedFrameHebLUs[HashLU(name,pos)]={pos:pos,name:name};
-        $(".add-lus-tooltip").hide();
+        $('#add-modal').modal('hide')
         utils.CallServerPost("heb/frameLuAssociation", data,
         function(out){
             if(out.status!==undefined && out.status=="OK")
@@ -130,25 +131,47 @@ function AddLUsCtrl($scope, $routeParams,utils) {
         $scope.luTranslations=newTranslations;
     };
     
-
+    $scope.setSelectedhebLU=function(name,pos)
+    {
+        $scope.selectedHebLU={name:name,pos:pos};
+    }
     $scope.getSelectedHebLU=function()
     {
-        if($scope.selectedHebLUIdx==-1)
-        {
-            return {};
-        }
-        return $scope.luTranslations[$scope.selectedHebLUIdx];
-    };
+        return $scope.selectedHebLU;
 
+        //return $scope.luTranslations[$scope.selectedHebLUIdx];
+    };
+    $scope.page = 1;
     $scope.foundSentences=-1;
     $scope.lastSentCall={};
     $scope.lastSentCallInProgress=false;
-    $scope.loadSentencesForSelecteHebLU=function()
+
+    $scope.loadAndInc = function(){
+        $scope.page++;
+        $scope.loadSentencesForSearch();
+    }
+
+    $scope.loadAndDec = function(){
+        if ($scope.page > 1){
+            $scope.page=Math.max(1,$scope.page-1);
+            $scope.loadSentencesForSearch();
+        }
+    }
+    $scope.loadFirst = function(){
+        if ($scope.page > 1){
+            $scope.page=1;
+            $scope.loadSentencesForSearch();
+        }
+    }
+    $scope.loadSentencesForSearch=function()
     {
 
-        var pos=$scope.newLUPos;
-        var name=$scope.newLUName;
+
+        var diversify = $scope.noDiversify ? 'false' : 'low';
+        var name=$scope.searchName;
+        var pos=$scope.searchPos;
         var what=$scope.searchWhat;
+        var page=$scope.page
 
         //if(pos===undefined||name===undefined||pos===""||name==="")
         if(name===undefined||name==="")
@@ -162,7 +185,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
             $scope.lastSentCall.abort();
         }
         $scope.lastSentCallInProgress=true;
-        $scope.lastSentCall=utils.CallServerGet("external/exampleSentences",{pos:pos,text:name, field: what},function(out)
+        $scope.lastSentCall=utils.CallServerGet("external/exampleSentences",{pos:pos,text:name, field: what, page: page, diversify : diversify},function(out)
             {
                 $scope.foundSentences=out;
 
@@ -205,28 +228,37 @@ function AddLUsCtrl($scope, $routeParams,utils) {
             });
         }
     }
-
-
-    $scope.newLUWasTranslated=false;
-    $scope.selectHebLU=function(idx)
+    $scope.searchSentencesIconClicked= function(name,pos)
     {
-        console.log("this is here: ", idx)
-        $scope.selectedHebLUIdx=idx;
-        if(idx!=-1)
+        $scope.selectedhe=
+        $scope.searchWhat="lemma";
+        $scope.searchPos=pos?pos:"";
+        $scope.searchName=name?name:"";
+        $scope.setSelectedhebLU(name,pos);
+        $scope.loadSentencesForSearch();
+        $('#search-modal').modal();
+    };
+    $scope.addLuIconClicked=function(name,pos)
+    {
+        $scope.LuToBeAddedComment="";
+        if(name && pos)
         {
-            $scope.newLUPos=$scope.getSelectedHebLU().pos;
-            $scope.newLUName=$scope.getSelectedHebLU().name;
-            $scope.newLUWasTranslated=true;
+            $scope.LuToBeAddedName=name;
+            $scope.LuToBeAddedPos=pos;
+            $scope.LuToBeAddedWasTranslated=true;
         }
         else
         {
-            $scope.newLUPos="";
-            $scope.newLUName="";
-            $scope.newLUWasTranslated=false;
+            $scope.LuToBeAddedName="";
+            $scope.LuToBeAddedPos="";
+            $scope.LuToBeAddedWasTranslated=false;
         }
+        $('#add-modal').modal();
     };
+    $scope.newLUWasTranslated=false;
+
     
-    $scope.addingSeggustion=false;
+    //$scope.addingSeggustion=false;
     
     var addTooltip=function(elemId,iconClass,onDone)
     {
@@ -249,14 +281,16 @@ function AddLUsCtrl($scope, $routeParams,utils) {
             $("#"+elemId).hide()});
         
     };
-    addTooltip("sentences","icon-search",function(){$scope.loadSentencesForSelecteHebLU()});
-    addTooltip("add-heb-lus","icon-question-sign",function(){ $scope.addingSeggustion=false});
-    addTooltip("add-heb-lus","icon-plus-sign",function(){ $scope.addingSeggustion=true});
+    //addTooltip("sentences","icon-search",function(){$scope.loadSentencesForSelecteHebLU()});
+    //addTooltip("add-heb-lus","icon-question-sign",function(){ $scope.addingSeggustion=false});
+    //addTooltip("add-heb-lus","icon-plus-sign",function(){ $scope.addingSeggustion=true});
          
     $scope.newLUPos="";
     $scope.newLUName="";
-    $scope.searchWhat="lemma";
-    $scope.searchPos="";
+
+
+
+
 
 
     $scope.frameHist = [];
@@ -282,7 +316,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
 
     $scope.setLuSentCorrelation  =function(sentid, status,text){
         //console.log(sentid,status)
-       var lu = $scope.getSelectedHebLU();
+       var lu = $scope.getSelectedHebLU();   //TODO - update if needed
         var data  ={
             luname: lu.name +'.'+ lu.pos.toLowerCase(),
             framename: $scope.currLu.frameName,
@@ -302,7 +336,22 @@ function AddLUsCtrl($scope, $routeParams,utils) {
 
 
     }
+
     $scope.ajaxresults = {};
+
+    $scope.checkTranslation = function(trans){
+
+        var transToCheck = trans.name+ '#'+trans.pos;
+        var res = $scope.selectedFrameHebLUs[transToCheck];
+        //console.log('trans is',res, trans)
+        if (res) return true
+        else return false
+        //return false;
+
+    }
+
+
+
 
     //TODO: finish to update this shit!!
 

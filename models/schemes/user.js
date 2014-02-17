@@ -13,6 +13,13 @@ printModule('models/schemes/user');
 //require the relevant schemes module from mongoose
 var Schema = require('mongoose').Schema;
 
+/**this is the function do noting comment
+ *
+ */
+function donothing(){
+
+
+}
 //each user has list of roles
 var roleType = {type: String, enum:["annotator", "reviewer","planner","admin","guest"]};
 
@@ -47,7 +54,7 @@ userSchema.methods.validPassword = function (candidatePassword, cb) {
 	  } */
 };
 
-
+/** @define {boolean} */
 userSchema.pre('save',function(next)
     { var user = this;
 // only hash the password if it has been modified (or is new)
@@ -70,7 +77,18 @@ userSchema.pre('save',function(next)
 
 /**
  * english frame schema ande related subSchemes
+ * @param kaki
  */
 //console.log(userSchema);
 var userModel = exports.userModel  =require('mongoose').model(conf.coll.users, userSchema, conf.coll.users);
 
+
+/**
+ * @param {T} a  this is the description
+ * @return {UserSchema}
+ * @template T
+ */
+var ias  = function(a){
+
+
+}
