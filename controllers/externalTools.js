@@ -563,19 +563,22 @@ function searchSentencesES(reqQuery, cb){
     };
     if (reqQuery['pos'])     query['w1.pos.must.match'] =  util.esPos[reqQuery.pos];
 
-    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text
+    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname
      console.log("search query: ",JSON.stringify(query));
     esQuery(query, function(err, result){
         if (err ) cb(err);
         else if (!result) cb("no results!");
         else {
             result = JSON.parse(result);
-
-            //console.log(result);
-            var sentences = _.map(result.hits, function(sent) {return {text: sent.text, id: sent._id}; })
+            console.log("es result:")
+            console.log(result);
+            var sentences = _.map(result.hits, function(sent) {
+                var resultStruct = {text: sent.text, id: sent._id}
+                reqQuery['full']=true;
+                if (reqQuery['full'] ==true) resultStruct.fullSentence = sent;
+                return resultStruct;
+            });
             cb(null, sentences);
-
-
         }
     })
 }

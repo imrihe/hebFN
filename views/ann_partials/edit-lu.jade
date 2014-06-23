@@ -16,7 +16,8 @@
                     select.controls(ng-model="luStatus",ng-options="value for value in constants.luStatus.values")
                 .control-group.padTop20
                     label.control-label Definition
-                    textarea#edit-lu-defenition.controls(rows="3",ng-model="luDefenition") 
+                    textarea#edit-lu-defenition.controls(rows="3",ng-model="luDefenition")
+                    a(href="http://he.wiktionary.org/wiki/{{selectedLU['@name']}}") wikimilon
                 .control-group.padTop20
                     label.control-label Semantic Type
                     select.controls.input-large(ng-model="selectedSemType",ng-options="value for value in constants.semType.values")

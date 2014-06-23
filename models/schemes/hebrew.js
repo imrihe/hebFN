@@ -104,6 +104,8 @@ var commentType = new Schema({
     content: String,
     cDate: Date
 })
+
+module.exports.commentType = commentType;
 /**
  * "description":"an attributes-only lexeme element",
  * @type {Schema}
@@ -410,6 +412,7 @@ var annotatedSentenceType = new Schema({
     "layer":[heblayerType]
 },{strict: false});
 
+module.exports.annotatedSentenceType=annotatedSentenceType;
 
 /**
  * "description":"this is a N-2-N relationshop table between LU and sentences - will contain all the annotations which are related to the pair",

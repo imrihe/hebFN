@@ -8,6 +8,8 @@
 printModule('controllers/hebrew');
 
 var Models = require("../models/schemes/hebrew.js");
+var sentenceModel  =require('mongoose').model('sentences');// require("../models/schemes/sentenceSchema.js").hebSentenceModel
+var  hebSentenceModel =sentenceModel;
 var userControl = require('../controllers/users.js');
 var objID = require('mongoose').Types.ObjectId;                                 //objectID type from of mongoDB
 var q2coll = require('../tools/utils.js').queryToCollectionQ,
@@ -252,7 +254,7 @@ function listSentences(req,res,cb){
         console.log("valid is true")
     }
     console.log('this this2',JSON.stringify(query), 'proj:',JSON.stringify(proj))
-    Models.hebSentenceModel.find(query, proj,{'limit': 200, sort: {ID: 1}}, function(err, results){
+    hebSentenceModel.find(query, proj,{'limit': 200, sort: {ID: 1}}, function(err, results){
         //return cb(err,results)
         if (err || !results) return cb(err,results)
         //console.log('is results array', Array.isArray(results))
@@ -613,7 +615,7 @@ var addLUToSentence = exports.addLUToSentence = function addLUToSentence (req,re
     var lu = req.body.luid;
     if (!lu) res.send ("please specify luid in order to add LU to the sentence")
     else{
-        var sentModel = Models.hebSentenceModel;
+        var sentModel = hebSentenceModel;
         //sentModel.findOneAndUpdate({},);
         console.log('DEBUG: ', 'request is: ', req.body, req['sentenceid']);
         sentModel.findOneAndUpdate({"ID": req['body']['sentenceid']}, {$addToSet: {"lus":lu}}, function(err, returnedObj) {
@@ -706,7 +708,7 @@ exports.addSentenceToDB = function addSentenceToDB(req,res){
     else {
 
         if (sentence){
-            var  sentenceModel =Models.hebSentenceModel;
+            var  sentenceModel =hebSentenceModel;
             var sentJson = {
                 "text": utils.linearizeConllSentence(JSON.parse(sentence)['words']),//TODO
                 "sentenceProperties" : sentence['sentenceProperties'],
@@ -749,7 +751,7 @@ exports.addSentenceToDB = function addSentenceToDB(req,res){
  */
 function isInDB(sentenceText,cb){
     console.log("DEBUG: isInDB ");
-    Models.hebSentenceModel.findOne({"text": sentenceText}, {"ID":1},function(err, resObj){
+    hebSentenceModel.findOne({"text": sentenceText}, {"ID":1},function(err, resObj){
         if (!err){
             console.log("DEBUG-isInDB: text search result in sentences coll:", resObj);
             if (resObj) cb(null, resObj.ID, 'good');
@@ -783,15 +785,17 @@ function createSentenceJson(sentence, data){
         return (null)
 
     }
-
-    return {
-        "text": utils.linearizeSentence2(sentence['words']),//TODO
-        "sentenceProperties" : sentence['sentenceProperties'],
+    //the sentence is the new itaySentenceSchema
+    return sentence;
+    /*return {
+        "text": sentence.text,//utils.linearizeSentence2(sentence['words']),//TODO
         "content" : [{"words": sentence['words'],valid: true}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+        "sentenceProperties" : sentence['sentenceProperties'] = sentence,
+
         //"lus":[IDType],//save the related LU ids
         //"ID": sentId ? objID(sentId) : objID(),
-        "source": data ? data['source'] : 'manual'//{type: String, enum: ["corpus", "manual", "translation"]},//TODO
-    };
+        //"source": data ? data['source'] : 'manual'//{type: String, enum: ["corpus", "manual", "translation"]},//TODO
+    };*/
 
 }
 
@@ -835,7 +839,7 @@ function addNewSentenceToLU(sentJson,data,control,id,coll,cb){
 
 
     console.log(sentJson);
-    new Models.hebSentenceModel(sentJson).save(function(err){
+    new hebSentenceModel(sentJson).save(function(err){
         if (err) {
             cb(err)
             console.error("DEBUG-addNewSentenceToLU: error saving sentence to DB addNewSentenceToLU-phase-1" +err);
@@ -883,7 +887,7 @@ function addExistSentenceToLU(sentJson, data,control,id,coll,cb){
     var luid = data['framename']+'#'+data['luname'];
     console.log("DEBUG-addExistSentenceToLU:searching for id:", luid, "sentId:", id);
     //Models.hebSentenceModel.findOne({'ID':id,'lus': luid}, function(err, resObj){
-    Models.hebSentenceModel.find({'ID':id, 'lus': luid}, function(err, resObj){
+    hebSentenceModel.find({'ID':id, 'lus': luid}, function(err, resObj){
         if (err) {
             console.error("DEBUG-addExistSentenceToLU: error searching for lu in sentence");
             cb(error)
@@ -900,7 +904,7 @@ function addExistSentenceToLU(sentJson, data,control,id,coll,cb){
             }else {
                 //processUnAssociated(sentJson, data);
                 //1.2.1 add the lu to the sentence['lus'] list
-                Models.hebSentenceModel.findOneAndUpdate({'ID':id}, {$push: {"lus":luid}}, function(err, returnedObj) {
+                hebSentenceModel.findOneAndUpdate({'ID':id}, {$push: {"lus":luid}}, function(err, returnedObj) {
                     if (err) console.log("DEBUG-addExistSentenceToLU: error adding lu to sentence lus list");
                     else if (!returnedObj) {
                         cb("couldn't fint the sentence")
@@ -956,6 +960,7 @@ function addExistSentenceToLU(sentJson, data,control,id,coll,cb){
  * @param data
  * @returns {*}
  */
+//@deprecated
 function processSentence(sent, data, control, sentenceNumber){
     var func;
     var action  = sent['action'];
@@ -1127,7 +1132,7 @@ function removeSentenceFromLU(frame, lu, sentenceId,cb){
 
     var sentId = sentenceId;
 
-    Models.hebSentenceModel.update({ 'ID': sentId, lus: luid  }, { $pull: { lus: luid } } ,function(err, results){
+    hebSentenceModel.update({ 'ID': sentId, lus: luid  }, { $pull: { lus: luid } } ,function(err, results){
         console.log('phase 1 resutls:', err, results)
         //if (err || !results || results.length==0) cb(err, results)
         if (err) cb(err, results)
@@ -1153,7 +1158,7 @@ exports.delSentFromLU = function (req,res){
 
 function markExistSentenceBadSeg(sentID, cb){
     console.log("markExistSentenceBadSeg;sentence id is:", sentID)
-    Models.hebSentenceModel.findOne({ID: sentID}, function(err, results){
+    hebSentenceModel.findOne({ID: sentID}, function(err, results){
         if (err || !results) return cb(err,results)
         var results= results.toObject();
         var lu;
@@ -1162,7 +1167,7 @@ function markExistSentenceBadSeg(sentID, cb){
         var delSentAndRespond = function(err2, result){
             count= count-1;
             if (count==0) {
-                Models.hebSentenceModel.remove({"ID": sentID},cb);
+                hebSentenceModel.remove({"ID": sentID},cb);
             }
 
         }

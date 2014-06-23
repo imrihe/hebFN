@@ -8,24 +8,33 @@
             a Add Sentences To LU
     .row(style="display:none",ng-show="selectedFrame!=''")
         .span12
-            H2 Add Sentences To {{selectedFrameName}} 
+            H2 Add Sentences To {{selectedFrameName}}
+    .row
+        .span12
+            a(href="#/marker/{{selectedFrameName}}/{{selectedLUName}}" ) annotate this LU
     .row
         .span12
             h4 Matching Sentences Found
             p.no-bold Click actions to associate sentences with the frame or mark them as wronglfully parsed
-            
-            h4 Cuurent Sentences
+
+            h4 recomanded sentences
+            ul.rtl(ng-show="correlatedSentences.length > 0")
+                li(ng-repeat="sent in correlatedSentences")
+                    | {{sent.text}}
+            h4 associated Sentences
             ul.rtl(ng-show="currentSentences.length > 0")
                 li(ng-repeat="sent in currentSentences")
-                    |{{sent}}        
+                    |{{sent.text}}
             #no-sentences-current(ng-show="currentSentences.length == 0")
                 |No sentences 
                 
-            h4 Sentences from search
+            h4 Sentences from search engine
+            br
+            .loading-gif(ng-show="showLoader")
             ul.rtl(ng-show="foundSentences.length > 0")
                 li(ng-repeat="sent in foundSentences")
-                    |{{sent}}   
-            #no-sentences-found(ng-show="foundSentences.length == 0")
+                    |{{sent.text}}
+            #no-sentences-found(ng-show="foundSentences.length == 0 && !showLoader")
                 |No sentences found
 
             

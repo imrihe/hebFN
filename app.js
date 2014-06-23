@@ -140,10 +140,12 @@ app.configure('development', function() {
     //app.use(express.errorHandler());
     app.locals.pretty = true;
 });
+
 app.configure('production', function() {
     app.use(express.logger());
     app.use(express.errorHandler());
 });
+
 
 //app.set('jsonp callback', true);
 
@@ -165,10 +167,4 @@ if (!module.parent) {
 
 }else console.log("hebFNApp is running as sub-server");
 
-/**@class MyClass
- *
- * @type {*}
- */
 exports = module.exports = app;
-//require('./models/schemes/test.js');
-//require('./checkMilog.js');

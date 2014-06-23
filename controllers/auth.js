@@ -102,8 +102,7 @@ exports.localStrategyFunc=function(username, password, done) {
 //middleware methode to ensure that the current user is authorised
 //TODO: expend by roles
 exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
-    //return next(); //TODO: removE!!!
-    console.log("authentication user!!", req.cookie)
+    console.log("authenticating user!!", req.cookie)
 
     if (req.user){
 	    console.log("checking autentication for user:  " + req.user.username, req.user);

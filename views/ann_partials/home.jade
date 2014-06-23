@@ -10,7 +10,9 @@
             | Last Activities
             b.caret
         ul.dropdown-menu(role="menu", aria-labelledby="dLabel", style="{height: 100px; overflow-y: auto;}")
-            li(ng-repeat="entry in ActionsHist") &nbsp  {{entry.cDate}} {{entry.text}}
+            li(ng-repeat="entry in ActionsHist")
+                //a(href="#/add-sentences/Abandonment1/%D7%94%D7%9C%D7%9A.v")
+                a(href="#/add-lus/{{entry.refs.frameName}}/") {{entry.cDate}} {{entry.text}}
 
 .row
     ul.thumbnails
@@ -67,8 +69,9 @@
             .thumbnail(style='padding: 0;')
               .caption.annotate-goal
                 a()
-                    h4.muted Add Sentences To LUs
+                    //h4.muted Add Sentences To LUs
                 //a(href="#/explore")
+                a(href="#/add-sentences/Abandonment1/%D7%94%D7%9C%D7%9A.v")
                     h4 Add Sentences To LUs
                 p Add relevant sentences to the LUs
               div(hidden).modal-footer

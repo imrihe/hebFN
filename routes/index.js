@@ -27,7 +27,7 @@ app.all('/ajax/*', function(req, res, next) {
 
 
 app.get('/docs/corpora', function (req,res){
-    res.redirect('http://www.cs.bgu.ac.il/~imrihe/nodeJS3/documentation/HebFN_website/index.html');
+    res.redirect(hp + 'documentation/HebFN_website/index.html');
 })
 
 app.get('/docs/about', function (req,res){ res.render('about.jade')});

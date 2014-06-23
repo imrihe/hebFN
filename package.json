@@ -1,31 +1,36 @@
 {
     "name": "hebFNServer",
-    "description": "hebrew framenet",
-    "version": "0.0.1",
+    "description": "the project of hebrew framenet, based on the barkely created framenet project",
+    "keywords": ["framenet","nlp", "ben gurion","fillmroe"],
+    "homepgae": "http://www.cs.bgu.ac.il/~nlpproj/hebfn/annotate#/",
+    "bugs": {"email": "hebrew.framenet.bgu@gmail.com"},
+    "version": "0.0.2",
     "private": true,
     "scripts": {
         "start": "node app.js"
     },
     "dependencies": {
-        "express": "*",
-        "jade": ">= 0",
-        "stylus": ">= 0",
-        "mongoose": "*",
-        "expresso": "*",
-        "connect-flash": "*",
-        "passport" : "*",
-        "passport-local" :"*",
+        "express": "3.3.5",
+        "jade": "0.34.1",
+        "stylus": "0.36.1",
+        "mongoose": "3.6.18",
+        "expresso": "0.9.2",
+        "connect-flash": "0.1.1",
+        "passport" : "0.1.17",
+        "passport-local" :"0.1.6",
+        "underscore": "1.5.2",
+        "mongoose-forms": "0.0.5",
+        "request" : "2.27.0",
+        "async" : "0.2.9",
+        "nodemailer": "0.5.2",
+        "bcrypt": "0.7.7",
+        "forms-mongoose": "0.0.6",
+        "strftime": "0.6.2",
+        "console-stamp":"0.1.1",
+        "toobusy": "0.2.3"
 
-        "mongoose-forms": "*",
-        "request" : "*",
-        "async" : "*",
-        "nodemailer": "*",
-        "bcrypt": "*",
-        "forms-mongoose": "*",
-        "strftime": "*",
-        "console-stamp":"*"
-
-    }
+    },
+    "engines" : { "node" : ">=0.10.21 <0.11" }
 }
 
 
