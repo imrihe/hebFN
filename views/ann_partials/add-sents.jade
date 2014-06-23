@@ -17,23 +17,25 @@
             h4 Matching Sentences Found
             p.no-bold Click actions to associate sentences with the frame or mark them as wronglfully parsed
 
-            h4 recomanded sentences
+            h4 Recommended Sentences
             div.rtl(ng-show="correlatedSentences.length > 0")
-                p(ng-repeat="sent in correlatedSentences")
-                    button.btn.btn-mini(type="button", value="0")
+                p.row(ng-repeat="sent in correlatedSentences")
+                    span.span10
+                        | {{sent.text}}
+                    button.btn.btn-mini.span1(type="button", value="0")
+                        i.icon-flag(ng-click="badSegRec($index)", title="bad segmentation").clickable
+                    button.btn.btn-mini.span1(type="button", value="0")
                         i.icon-plus-sign(ng-click="getSentenceData($index)", title="Associate this sentence with the current LU").clickable
-                    button.btn.btn-mini(type="button", value="0")
-                        i.icon-flag(ng-click="badSeg($index)", title="bad segmentation").clickable
-                    | {{sent.text}}
 
-            h4 associated Sentences
+            h4 Associated Sentences
             div.rtl(ng-show="currentSentences.length > 0")
-                p(ng-repeat="sent in currentSentences")
-                    button.btn.btn-mini(type="button", value="0")
+                p.row(ng-repeat="sent in currentSentences")
+                    span.span10
+                        |{{sent.text}}
+                    button.btn.btn-mini.span1(type="button", value="0")
+                        i.icon-flag(ng-click="badSegAss($index)", title="bad segmentation").clickable
+                    button.btn.btn-mini.span1(type="button", value="0")
                         i.icon-remove-sign(ng-click="removeFromLu($index)", title="remove from lu").clickable
-                    button.btn.btn-mini(type="button", value="0")
-                        i.icon-flag(ng-click="badSeg($index)", title="bad segmentation").clickable
-                    |{{sent.text}}
             #no-sentences-current(ng-show="currentSentences.length == 0")
                 |No sentences 
                 
@@ -41,10 +43,10 @@
             div(id="sentences-list")
                 .loading-gif(ng-show="showLoader")
                 div.rtl(ng-show="foundSentences.length > 0")
-                    p(ng-repeat="sent in foundSentences", class="row")
-                        span(class="sentence span11")
+                    p.row(ng-repeat="sent in foundSentences")
+                        span.sentence.span11
                             |{{sent.text}}
-                        button.btn.btn-mini(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="associateSentence(sent)",title="Associate this sentence with the current LU", class="span1")
+                        button.btn.btn-mini.span1(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="associateSentence(sent)",title="Associate this sentence with the current LU")
                             i.icon-ok
                 #no-sentences-found(ng-show="foundSentences.length == 0 && !showLoader")
                     |No sentences found
