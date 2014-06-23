@@ -21,7 +21,7 @@
             div.rtl(ng-show="correlatedSentences.length > 0")
                 p(ng-repeat="sent in correlatedSentences")
                     button.btn.btn-mini(type="button", value="0")
-                        i.icon-plus-sign(ng-click="removeFromLu($index)", title="remove from lu").clickable
+                        i.icon-plus-sign(ng-click="getSentenceData($index)", title="Associate this sentence with the current LU").clickable
                     button.btn.btn-mini(type="button", value="0")
                         i.icon-flag(ng-click="badSeg($index)", title="bad segmentation").clickable
                     | {{sent.text}}
