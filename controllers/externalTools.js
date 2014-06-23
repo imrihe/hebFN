@@ -16,7 +16,9 @@ var searchEngineServer2 = 'http://localhost';
 var handleHttpResults = require('../tools/utils.js').handleHttpResults;
 var util = require('../tools/utils.js');
 //var esServer = 'http://www.cs.bgu.ac.il/~itayman/hebfn/search/rest'
-var esServer = 'http://www.cs.bgu.ac.il/~itayman/hebfn/search/rest'
+var esServer = 'http://www.cs.bgu.ac.il/~itayman/hebfn/';
+var searchRest = 'search/rest';
+var searchByIdUrl =   'search/id';
 var newSearchEngine = 'http://elhadad2:8089/';
 var request = require('request');
 exports.getMorph = function(req,res) {
@@ -375,7 +377,7 @@ function parseConll31Json(resTxt){
         var resJson = JSON.parse(resTxt.substring(resTxt.indexOf('***JSON_START***')+16, resTxt.indexOf('***JSON_END***')));
         //console.log("DEBUG: sentence meta-data: ", resJson["hitCount"], resJson["from"],resJson["to"] );
         //console.log(JSON.stringify(resJson['results']))
-        for (sent in resJson['results']){
+        for (var sent in resJson['results']){
             //console.log(JSON.stringify(resJson['results'][sent]));
             results.push(resJson['results'][sent]);
             //results.push('<br>**********************************<br>');
@@ -538,8 +540,8 @@ exports.getExampleSentences1 = function(req,res){ exampleSentences(req.query, ha
 var qs = require('querystring');
 function esQuery(query, cb){
     //query = {'w1.word': 'ש','results': 8, diversify: 'true'}// , 'must_not.match.w2.lemma': 'הלך'}
-    console.log("query:", esServer+'?' + qs.stringify(query))
-    request(esServer+'?' + qs.stringify(query), function (error, response, body){
+    console.log("query:", esServer+searchRest+'?' + qs.stringify(query))
+    request(esServer+searchRest+'?' + qs.stringify(query), function (error, response, body){
         if (error) return cb(error);
         cb(null, body)
     });
@@ -563,17 +565,17 @@ function searchSentencesES(reqQuery, cb){
     };
     if (reqQuery['pos'])     query['w1.pos.must.match'] =  util.esPos[reqQuery.pos];
 
-    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname
+    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname;
      console.log("search query: ",JSON.stringify(query));
     esQuery(query, function(err, result){
         if (err ) cb(err);
         else if (!result) cb("no results!");
         else {
             result = JSON.parse(result);
-            console.log("es result:")
+            console.log("es result:");
             console.log(result);
             var sentences = _.map(result.hits, function(sent) {
-                var resultStruct = {text: sent.text, id: sent._id}
+                var resultStruct = {text: sent.text, id: sent._id};
                 reqQuery['full']=true;
                 if (reqQuery['full'] ==true) resultStruct.fullSentence = sent;
                 return resultStruct;
@@ -583,8 +585,21 @@ function searchSentencesES(reqQuery, cb){
     })
 }
 
+function searchSentencesByIdES(reqQuery, cb){
+    request(esServer+searchByIdUrl+'?' + qs.stringify(reqQuery), function (error, response, body){
+        if (error) return cb(error);
+        cb(null, body)
+    });
+
+}
+
 exports.getExampleSentences = function(req,res){ searchSentencesES(
     req.query,
+    handleHttpResults(req,res))
+};
+
+exports.searchById = function(req,res){ searchSentencesByIdES(
+    {id: req.param('id')},
     handleHttpResults(req,res))
 };
 

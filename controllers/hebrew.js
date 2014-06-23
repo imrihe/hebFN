@@ -712,7 +712,7 @@ exports.addSentenceToDB = function addSentenceToDB(req,res){
             var sentJson = {
                 "text": utils.linearizeConllSentence(JSON.parse(sentence)['words']),//TODO
                 "sentenceProperties" : sentence['sentenceProperties'],
-                "content" : [{"words": JSON.parse(sentence)['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
+                "content" : [{valid: true,"words": JSON.parse(sentence)['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
                 //"lus":[IDType],//save the related LU ids
                 "ID":objID(),
                 "source": 'manual'//{type: String, enum: ["corpus", "manual", "translation"]},//TODO

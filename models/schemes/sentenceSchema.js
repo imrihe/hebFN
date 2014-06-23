@@ -236,7 +236,7 @@ var hebsentenceSchema = new Schema({
         "docId":IDType,
         "corpID":IDType
     }
-},{strict:false});
+},{strict:true});
 
 /**
  * "description":"this is a N-2-N relationshop table between LU and sentences - will contain all the annotations which are related to the pair",
@@ -257,7 +257,7 @@ var luSentenceSchema = exports.luSentenceSchema = new Schema({
 },{strict: false});
 
 //exports.hebFrameModel = mongoose.model(coll.hebframes, hebFrameSchema, coll.hebframes );
-exports.hebSentenceModel = mongoose.model(coll.hebSent, itaySentenceSchema, coll.hebSent);
+exports.hebSentenceModel = mongoose.model(coll.hebSent, hebsentenceSchema, coll.hebSent);
 exports.hebBadSentenceModel = mongoose.model(coll.hebBadSent, itaySentenceSchema, coll.hebBadSent);
 
 

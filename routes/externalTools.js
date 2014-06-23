@@ -15,6 +15,8 @@ module.exports = function(app) {
 
 
     app.get('/external/exampleSentences', externalTools.getExampleSentences);
+    app.get('/external/searchById', externalTools.searchById);
+
 
 
     app.get('/external/morph', function(req, res) {
