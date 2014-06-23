@@ -99,10 +99,10 @@ function AddSentsCtrl($scope, $routeParams,utils) {
 
     $scope.getSentenceData = function(ind){
 	var sentid = $scope.currentSentences[ind]['ID'];
-	
+
 	utils.CallServerGet("external/searchById", {id: sentid}, function(sent){
 	    console.log(sent);
-	    //$scope.associateSentence(sent);
+	    $scope.associateSentence(sent.sentence);
 	});	
     };
 
