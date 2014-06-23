@@ -23,11 +23,11 @@ module.exports = function(app) {
         externalTools.getSE(req, res, hebControl.addSentenceToLUForm);
     });  //get the form for submission
 
-    app.post('/heb/addsentence',auth.ensureAuthenticated, hebControl.addSentenceToDB);  //process the query data, submit to DB and return the results
+    //app.post('/heb/addsentence',auth.ensureAuthenticated, hebControl.addSentenceToDB);  //process the query data, submit to DB and return the results
     //app.post('/ajax/heb/addsentence',auth.ensureAuthenticated, hebControl.addSentenceToDB);  //process the query data, submit to DB and return the results
 
     //app.get( '/heb/addSentencesToLuPost', function(req,res) {res.render('addSentencesToLuPost2.jade')});
-    app.post( '/heb/addSentencesToLU' ,auth.ensureAuthenticated, hebControl.addSentenceToLu);
+    app.post( '/heb/addSentenceToLU' ,auth.ensureAuthenticated, hebControl.addSentenceToLu);
 
 
     //app.get('/heb/createannotation', function(req,res){res.render('createAnnotation.jade')});

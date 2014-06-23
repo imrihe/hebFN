@@ -13,6 +13,7 @@ module.exports = function(app) {
      */
     app.get('/external/searchSentence', externalTools.getSE);
 
+
     app.get('/external/exampleSentences', externalTools.getExampleSentences);
 
 
