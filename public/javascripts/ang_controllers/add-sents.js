@@ -53,10 +53,10 @@ function AddSentsCtrl($scope, $routeParams,utils) {
 
     utils.CallServerGet("heb/getexmsentencebylu",
         {
-            framename: "Accuracy", //$scope.selectedFrameName, TODO: remove stub
-            luname: "תבע.v" //$scope.selectedLUName TODO: remove stub
-        },        function(out)
-        {
+            framename: $scope.selectedFrameName, //TODO: remove stub
+            luname: $scope.selectedLUName //TODO: remove stub
+        },
+	function(out) {
             $scope.correlatedSentences=out;
             $scope.$apply();
         });
