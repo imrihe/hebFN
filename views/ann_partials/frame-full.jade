@@ -28,6 +28,15 @@ p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-fram
                                     |{{fe['name']}}
                                 div(id="fe-def-{{fe['ID']}}").hide
                                     p(ng-bind-html-unsafe="fe['def']")
+                                    ul(ng-repeat="ex in getFERealtions(fe['name']).ex")
+                                        |Excludes:
+                                        li.help-inline {{ex['@name']}}
+                                    ul(ng-repeat="ex in getFERealtions(fe['name']).req")
+                                        |Requires:
+                                        li.help-inline {{ex['@name']}}
+                                    ul(ng-repeat="ex in getFERealtions(fe['name']).semType")
+                                        |Semantic Type:
+                                        li.help-inline {{ex['@name']}}
             .half-space
                 table.table.table-bordered.table-striped.fes-table(ng-show="selectedFrame.engData.fes.nonCore!='' && selectedFrame.engData.fes.nonCore.length>0")
                     thead
@@ -41,6 +50,12 @@ p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-fram
                                     |{{fe['name']}}
                                 div(id="fe-def-{{fe['ID']}}").hide
                                     p(ng-bind-html-unsafe="fe['def']")
+                                    ul(ng-repeat="ex in getFERealtions(fe['name']).ex")
+                                        |Excludes:
+                                        li.help-inline {{ex['@name']}}
+                                    ul(ng-repeat="ex in getFERealtions(fe['name']).req")
+                                        |Requires:
+                                        li.help-inline {{ex['@name']}}
     .miniable-short
         div
             .inline-header Core:&nbsp;

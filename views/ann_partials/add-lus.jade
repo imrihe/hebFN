@@ -67,9 +67,9 @@
                         td
                             |מותאם אישית
                             .pull-left
-                                i.icon-search.clickable.padded5(ng-click="selectHebLU(-1)")
+                                i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked()")
                                 //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU(-1)")
-                                i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU(-1)")
+                                i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked()")
 
             table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus(ng-show="luTranslations != ''")
                 thead
@@ -81,12 +81,11 @@
 
                 tbody
                     tr(ng-repeat="t in luTranslations")
-                        td 
+                        td(ng-hide="checkTranslation(t)")
                             |{{t.name}} ({{t.pos}})
                             .pull-left
-                                i.icon-search.clickable.padded5(ng-click="selectHebLU($index)")
                                 //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU($index)")
-                                i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU($index)")
+                                i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked(t.name,t.pos)")
 
         .span4.rtl
             table.table.table-bordered.table-hover.table-striped.lus-table.special-table
@@ -99,72 +98,18 @@
                         td 
                             |{{lu.name}} ({{lu.pos}})
                             .pull-left
+                                i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked(lu.name,lu.pos)")
                                 a(href="#/edit-lu/{{selectedFrameName}}/{{lu.name}}/{{lu.pos}}")
                                     i.icon-edit.padded5.clickable
                                 //i.icon-question-sign.padded5.clickable(ng-click="")
                                 i.icon-minus-sign.padded5.clickable(ng-click="removeHebLU(lu.name,lu.pos)")
 
 
-        .add-lus-tooltip#sentences
-            i.icon-remove.pull-right.clickable
-            
-            H4 
-                |Sentences containing 
-                //input.controls.input-mini(type="text",placeholder="LU Name({{getSelectedHebLU().name}})",ng-model="newLUName")
-                input.controls.input-mini(type="text",placeholder="LU Name", value="{{getSelectedHebLU().name}}",ng-model="newLUName")
-                |(
-                select.controls.input-mini(ng-model="newLUPos",ng-options="value for (key,value) in POSs")
-                |) &nbsp;&nbsp;
-                select.controls.input-small(ng-model="searchWhat",ng-options="value for value in queryFields")
-                | &nbsp;&nbsp;
-                i.icon-search.clickable(ng-click="loadSentencesForSelecteHebLU()")
-            .loading-gif(ng-show="lastSentCallInProgress")
-            table.rtl(ng-show="!lastSentCallInProgress")
-                tr(ng-repeat="sent in foundSentences")
-                    td.btn-group(data-toggle-name="is_private", data-toggle="buttons-radio")#sent-corr
-                        div(ng-hide="!getSelectedHebLU().name")
-                            button.btn.btn-mini(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="setLuSentCorrelation(sent.id,'good',sent.text)" ,data-toggle="button tooltip",title="the sentence is suitable for this lu")
-                                i.icon-ok
-                            button.btn.btn-mini(type="button", value="1",ng-class="{active: (sent.status == 'bad') }" ,ng-click="setLuSentCorrelation(sent.id,'bad',sent.text)", data-toggle="button",title="this sentence is NOT suitable for this lu")
-                                i.icon-remove
-                            button.btn.btn-mini(type="button", value="2", ng-class="{active: (sent.status == 'maybe') }",ng-click="setLuSentCorrelation(sent.id,'maybe',sent.text)", data-toggle="button",title="this sentence may be suitable for this lu")
-                                i.icon-question-sign
-                    td#sent-searched  {{sent.text}}
-                    //i.icon-plus-sign.clickable.padded5(ng-click="selectHebLU(-1)").text-left
-                    //button.btn-small.btn.clickable(ng-click="markSuitableSent(sent.id)",title="the sentence is suitable for this lu").text-left
-                        |good
-                    //button.btn-small.btn.clickable(ng-click="markSuitableSent(sent.id)",title="this sentence is NOT suitable for this lu").text-left
-                        |bad
-                    //button.btn-small.btn.clickable(ng-click="markSuitableSent(sent.id)",title="this sentence might be suitable for this lu").text-left
-                        |unsure
 
 
-            div(ng-show="foundSentences!=-1 && foundSentences.length==0")
-                |No matching sentences were found
-        .add-lus-tooltip#add-heb-lus
-            i.icon-remove.pull-right.clickable 
-            H4 {{addingSeggustion && "Add" || "Suggest Adding" }} Hebrew LU {{newLUName}} ({{newLUPos}}) To Frame {{selectedFrameName}}
-            form.form-horizontal
-                .control-group(ng-class="{error: !newLUName.length>0}")
-                    label.control-label(for="new-lu-name") LU Name
-                    input.controls#new-lu-name.input-xlarge(type="text",placeholder="LU Name {{getSelectedHebLU().name!=undefined && ('('+getSelectedHebLU().name+')') || '' }}",ng-model="newLUName") 
-                    span.help-inline(ng-hide="newLUName.length>0") Name cannot be empty
-                .control-group(ng-class="{error: !newLUPos.length>0}")
-                    label.control-label(for="new-lu-pos") LU POS 
-                    select.controls#new-lu-pos.input-small(ng-model="newLUPos",ng-options="value for (key,value) in POSs")
-                    span.help-inline(ng-hide="newLUPos.length>0") Pos cannot be empty
-                //.control-group
-                    label.control-label(for="new-lu-not-suggest") I'm sure this is a valid LU
-                    input.controls#new-lu-not-suggest(type="checkbox",ng-model="addingSeggustion")
-                .control-group
-                    label.control-label(for="new-lu-name") Comment(optional) 
-                    textarea.rtl.controls.input-xlarge#new-lu-name(type="text",ng-model="newLUComment")
-                .control-group(ng-show="selectedEngLUIdx!=-1")
-                    label.control-label(for="new-lu-not-suggest") Translated from <b> {{frameLus[selectedEngLUIdx].name}} ({{frameLus[selectedEngLUIdx].pos.toLowerCase()}}) </b>
-                    input.controls#new-lu-not-suggest(type="checkbox",ng-model="newLUWasTranslated")
-                .control-group#add-lu-submit
-                        button.btn.btn-inverse.btn-large.controls(type="button",ng-click="addHebLU(newLUName,newLUPos,addingSeggustion,newLUComment,newLUWasTranslated)")
-                            |{{addingSeggustion && "Add" || "Suggest" }}
+
+
+
         .add-lus-tooltip#approve-delete
             i.icon-remove.pull-right.clickable 
             H4 Are you sure you would like to {{}} 
@@ -172,6 +117,86 @@
                     |Yes
                 button.btn.btn-inverse.btn-large.controls(type="button")
                     |Cancel
+
+
+
+        form.form-horizontal
+            #search-modal.add-lus-modal.modal.fade.hide(tabindex="-1",role="dialog",aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            button.close(type="button",class="close",data-dismiss="modal",aria-hidden="true") &times;
+                            h4.modal-title
+                                |Sentences containing
+                                input.input-mini(type="text",placeholder="LU Name",ng-model="searchName", ng-disabled="getSelectedHebLU().name")
+                                |(
+                                select.input-mini(ng-model="searchPos",ng-options="value for (key,value) in POSs", ng-disabled="getSelectedHebLU().name")
+                                |) &nbsp;&nbsp;
+                                select.input-small(ng-model="searchWhat",ng-options="value for value in queryFields")
+                                | &nbsp;&nbsp;
+                                span.small-text.padded5
+                                    input(type="checkbox",ng-model="noDiversify")
+                                    &nbsp; Cancel diversification
+                                | &nbsp;&nbsp;
+                                i.icon-search.clickable(ng-click="page=1; loadSentencesForSearch()")
+                    .modal-body
+                        .loading-gif(ng-show="lastSentCallInProgress")
+                        table.rtl(ng-show="!lastSentCallInProgress && foundSentences.length>0")
+                            tr(ng-repeat="sent in foundSentences")
+                                td.btn-group(data-toggle-name="is_private", data-toggle="buttons-radio")#sent-corr
+                                    div(ng-hide="!getSelectedHebLU().name")
+                                        button.btn.btn-mini(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="setLuSentCorrelation(sent.id,'good',sent.text)" ,data-toggle="button tooltip",title="the sentence is suitable for this lu")
+                                            i.icon-ok
+                                        button.btn.btn-mini(type="button", value="1",ng-class="{active: (sent.status == 'bad') }" ,ng-click="setLuSentCorrelation(sent.id,'bad',sent.text)", data-toggle="button",title="this sentence is NOT suitable for this lu")
+                                            i.icon-remove
+                                        button.btn.btn-mini(type="button", value="2", ng-class="{active: (sent.status == 'maybe') }",ng-click="setLuSentCorrelation(sent.id,'maybe',sent.text)", data-toggle="button",title="this sentence may be suitable for this lu")
+                                            i.icon-question-sign
+                                td#sent-searched  {{sent.text}}
+                        div(ng-show="foundSentences!=-1 && foundSentences.length==0")
+                            |No matching sentences were found
+
+                    .modal-footer
+                        span.pagination
+                            p.help-inline [{{page}}]
+                            ul
+                                li
+                                    a(ng-click="loadFirst()") first
+                                li
+                                    a(ng-click="loadAndDec()") Prev
+                                li
+                                    a(ng-click="loadAndInc()") Next
+
+
+
+        form.form-horizontal
+            #add-modal.add-lus-modal.modal.fade.hide(tabindex="-1",role="dialog",aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            button.close(type="button",class="close",data-dismiss="modal",aria-hidden="true") &times;
+                            h4.modal-title Add Hebrew LU {{LuToBeAddedName}} ({{LuToBeAddedPos}}) To Frame {{selectedFrameName}}
+                        .modal-body
+                            .control-group(ng-class="{error: !LuToBeAddedName.length>0}")
+                                label.control-label(for="new-lu-name") LU Name
+                                input.controls#new-lu-name.input-xlarge(type="text",placeholder="LU Name",ng-model="LuToBeAddedName")
+                                span.help-inline(ng-hide="LuToBeAddedName.length>0") Name cannot be empty
+                            .control-group(ng-class="{error: !LuToBeAddedPos.length>0}")
+                                label.control-label(for="new-lu-pos") LU POS
+                                select.controls#new-lu-pos.input-small(ng-model="LuToBeAddedPos",ng-options="value for (key,value) in POSs")
+                                span.help-inline(ng-hide="LuToBeAddedPos.length>0") Pos cannot be empty
+                            //.control-group
+                                label.control-label(for="new-lu-not-suggest") I'm sure this is a valid LU
+                                input.controls#new-lu-not-suggest(type="checkbox",ng-model="addingSeggustion")
+                            .control-group
+                                label.control-label(for="new-lu-name") Comment(optional)
+                                textarea.rtl.controls.input-xlarge#new-lu-name(type="text",ng-model="LuToBeAddedComment")
+                            .control-group(ng-show="selectedEngLUIdx!=-1")
+                                label.control-label(for="new-lu-not-suggest") Translated from <b> {{frameLus[selectedEngLUIdx].name}} ({{frameLus[selectedEngLUIdx].pos.toLowerCase()}}) </b>
+                                input.controls#new-lu-not-suggest(type="checkbox",ng-model="LuToBeAddedWasTranslated")
+                    .modal-footer
+                        .control-group#add-lu-submit
+                            button.btn.btn-inverse.btn-large(type="button",ng-click="addHebLU(LuToBeAddedName,LuToBeAddedPos,addingSeggustion,LuToBeAddedComment,LuToBeAddedWasTranslated)")
+                                | Add
 
 .white-space                   
             

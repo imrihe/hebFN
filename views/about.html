@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head>
+    <title></title>
+    <link href=
+    "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel=
+    "stylesheet">
+    <script src=
+    "//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+</head>
+
+<body>
+    <div class="container">
+        <img class="pull-right" src=
+        "http://www.cs.bgu.ac.il/~ibs05/images/bgu_logo_with_title.gif">
+
+        <h1>Hebrew FrameNet Annotation Server</h1>
+
+        <p class="lead">Project reference</p>
+        <hr>
+
+        <h3>Participants</h3>
+
+        <ul>
+            <li>Imri Heppner - Server side development</li>
+
+            <li>Asaf Amrami - Client side development</li>
+        </ul>
+
+        <h3>Guided by</h3>
+
+        <ul>
+            <li>Prof Michael Elhadad</li>
+        </ul>
+        <hr>
+
+        <h3>Contents</h3>
+
+        <ul>
+            <li>
+                <h4><a href="#background">Background and introduction to Frame
+                semantics</a></h4>
+            </li>
+
+            <li>
+                <h4><a href="#hebrew-framenet">The Hebrew Framenet migration
+                system</a></h4>
+            </li>
+
+            <li>
+                <h4><a href="#implemntation">Implementation</a></h4>
+            </li>
+
+            <li>
+                <h4><a href="#references">References</a></h4>
+            </li>
+        </ul>
+        <hr>
+        <a id="background" name="background"></a>
+
+        <h3>Background and introduction to Frame semantics</h3>
+
+        <p>From Wikipedia:</p>
+
+        <p>Frame semantics is a theory of linguistic meaning that extends
+        Charles J. Fillmore's, <a href="#references">Fillmore (1976)</a>,case
+        grammar. It relates linguistic semantics to encyclopaedic knowledge.
+        The basic idea is that one cannot understand the meaning of a single
+        word without access to all the essential knowledge that relates to that
+        word. For example, one would not be able to understand the word "sell"
+        without knowing anything about the situation of commercial transfer,
+        which also involves, among other things, a seller, a buyer, goods,
+        money, the relation between the money and the goods, the relations
+        between the seller and the goods and the money, the relation between
+        the buyer and the goods and the money and so on.</p>
+
+        <p>Thus, a word activates, or evokes, a frame of semantic knowledge
+        relating to the specific concept it refers to (or highlights, in frame
+        semantic terminology).</p>
+
+        <p>A semantic frame is a collection of facts that specify
+        "characteristic features, attributes, and functions of a denotatum, and
+        its characteristic interactions with things necessarily or typically
+        associated with it." A semantic frame can also be defined as a coherent
+        structure of related concepts that are related such that without
+        knowledge of all of them, one does not have complete knowledge of any
+        one; they are in that sense types of gestalt. Frames are based on
+        recurring experiences. So the commercial transaction frame is based on
+        recurring experiences of commercial transactions.</p>
+
+        <p>Words not only highlight individual concepts, but also specify a
+        certain perspective from which the frame is viewed. For example "sell"
+        views the situation from the perspective of the seller and "buy" from
+        the perspective of the buyer. This, according to Fillmore, explains the
+        observed asymmetries in many lexical relations.</p>
+
+        <h4>FrameNet</h4>
+
+        <p>The <a href=
+        "https://framenet.icsi.berkeley.edu/fndrupal/">FrameNet</a> project's
+        goal is to build a database for semantic frames, their elements and
+        associated sentences.</p>
+
+        <p>The original FrameNet database was created by hand: frames were
+        defined along with their elements, lexical units were added to those
+        elements and finally sentences were associated with the lexical units.
+        The English FrameNet is constantly growing and now contains over a 1000
+        frames. The database is available for public use and can be used for
+        various NLP tasks.</p>
+
+        <p>While the FrameNet annotated sentences are language specific, the
+        frames themselves: their elements and hierarchy, are universal and can
+        be used as a base for creating a similar database for languages other
+        than the original English database and German, Japanese, Spanish and
+        Danish FrameNets were created by doing just that.</p>
+        <hr>
+        <a id="hebrew-framenet" name="hebrew-framenet"></a>
+
+        <h3>The Hebrew FrameNet migration system</h3>
+
+        <p>The first step of creating the Hebrew FrameNet was importing the
+        frame hierarchy form the English FrameNet, as the frame structure is
+        universal.</p>
+
+        <p>Next, lexical units, their sentences and the sentences' lexical
+        annotation, all of which are language specific, must be specified. This
+        task is not a trivial one and must be done manually.</p>
+
+        <p>Our project goal was creating a system which will assist inserting
+        this data.</p>
+
+        <p>System main requirements:</p>
+
+        <ul>
+            <li>Easy to use GUI which will allow quick insertation of lexical
+            units, sentence association and sentance annotation</li>
+
+            <li>Intergarion with external tools such as automatic translation
+            of English lexical units and automatic sentences searching
+            systems</li>
+
+            <li>Users must be able to work simpultanously</li>
+
+            <li>Added content should be able to be reviewed and if neccessery
+            corrected before inserated to the production DB</li>
+
+            <li>Expose an API for public use of the data gathered</li>
+        </ul>
+        <hr>
+        <a id="implemntation" name="implemntation"></a>
+
+        <h3>Implementation</h3>
+
+        <h4>The Server-side</h4>
+
+        <ul>
+            <li><strong>MongoDB</strong>- A non-SQL back-end database for
+            storing and querying the FrameNet data</li>
+
+            <li><strong>NodeJS</strong>- An asynochronous Javascript based
+            platform we used for our web server</li>
+        </ul>
+
+        <h4>The Client-side</h4>
+
+        <ul>
+            <li><strong>Twitter Bootstrap</strong>- Modern look styling</li>
+
+            <li><strong>AngularJS</strong>- Dynamic content handling</li>
+        </ul>
+        <hr>
+        <a id="references" name="references"></a>
+
+        <h3>References</h3>
+
+        <ul>
+            <li>Fillmore, Charles J. (1976). "Frame Semantics and the Nature of
+            Language," in: Annals of the New York Academy of Sciences:
+            Conference on the Origin and Development of Language and Speech.
+            Volume 280: 20-32</li>
+        </ul>
+    </div>
+</body>
+</html>

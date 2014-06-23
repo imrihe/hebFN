@@ -1,0 +1,127 @@
+doctype 5
+html
+    head
+        title=title
+
+
+
+        link(href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css", rel="stylesheet")
+        script(src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js")
+
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    body
+        .container
+            img.pull-right(src="http://www.cs.bgu.ac.il/~ibs05/images/bgu_logo_with_title.gif")
+            H1 Hebrew FrameNet (HebFN)
+            p.lead Project reference
+            a(href="http://www.cs.bgu.ac.il/~nlpproj/hebfn/")
+                | HebFN Home Page
+            HR
+            H3 Participants
+            ul
+                li Imri Heppner - Server side development
+                li Asaf Amrami - Client side development
+            H3 Guided by
+            ul
+                li Prof Michael Elhadad
+            H3 Related projects
+            ul
+                li Hebrew Constituency parser (Yoav Goldberg) &nbsp
+                    a(href="http://www.cs.bgu.ac.il/~nlpproj/")
+                        | [link]
+                li Hebrew Dependency parser V.2 (Yoav Goldberg) &nbsp
+                    a(href="http://www.cs.bgu.ac.il/~nlpproj/")
+                        | [link]
+                li Morphological Disambiguator for Hebrew (Meny Adler) &nbsp
+                    a(href="http://www.cs.bgu.ac.il/~nlpproj/")
+                        | [link]
+                li Hebrew corpora DBMS (Itay Mangshe) &nbsp
+                    a(href="http://www.cs.bgu.ac.il/~nlpproj/")
+                        | [link]p
+                li English FrameNet (Barkeley university) &nbsp
+                    a(href="https://framenet.icsi.berkeley.edu/fndrupal/")
+                        | [link]
+
+            HR
+
+            H3 Contents
+            ul
+                li
+                    H4
+                        a(href="https://github.com/imrihe/hebFN") Github project, readme and installation instructions
+                li
+                    H4
+                        a(href="#background") Background and introduction to Frame semantics
+                li
+                    H4
+                        a(href="#hebrew-framenet") The Hebrew Framenet migration system
+                li
+                    H4
+                        a(href="#implemntation") Implementation
+                li
+                    H4
+                        a(href="#references") References
+
+            HR
+            a(name="background")
+            H3 Background and introduction to Frame semantics
+            P From Wikipedia:
+            P Frame semantics is a theory of linguistic meaning that extends Charles J. Fillmore's,
+                a(href="#references")
+                    | Fillmore (1976)
+                | ,case grammar. It relates linguistic semantics to encyclopaedic knowledge. The basic idea is that one cannot understand the meaning of a single word without access to all the essential knowledge that relates to that word. For example, one would not be able to understand the word "sell" without knowing anything about the situation of commercial transfer, which also involves, among other things, a seller, a buyer, goods, money, the relation between the money and the goods, the relations between the seller and the goods and the money, the relation between the buyer and the goods and the money and so on.
+            P Thus, a word activates, or evokes, a frame of semantic knowledge relating to the specific concept it refers to (or highlights, in frame semantic terminology).
+            P A semantic frame is a collection of facts that specify "characteristic features, attributes, and functions of a denotatum, and its characteristic interactions with things necessarily or typically associated with it." A semantic frame can also be defined as a coherent structure of related concepts that are related such that without knowledge of all of them, one does not have complete knowledge of any one; they are in that sense types of gestalt. Frames are based on recurring experiences. So the commercial transaction frame is based on recurring experiences of commercial transactions.
+            P Words not only highlight individual concepts, but also specify a certain perspective from which the frame is viewed. For example "sell" views the situation from the perspective of the seller and "buy" from the perspective of the buyer. This, according to Fillmore, explains the observed asymmetries in many lexical relations.
+
+
+            H4 FrameNet
+            P The
+                a(href="https://framenet.icsi.berkeley.edu/fndrupal/")
+                    | &nbsp FrameNet &nbsp
+                | project's goal is to build a database for semantic frames, their elements and associated sentences.
+            p The original FrameNet database was created by hand: frames were defined along with their elements, lexical units were added to those elements and finally sentences were associated  with the lexical units. The English FrameNet is constantly growing and now contains over a 1000 frames. The database is available for public use and can be used for various NLP tasks.
+            p While the FrameNet annotated sentences are language specific, the frames themselves: their elements and hierarchy, are universal and can be used as a base for creating a similar database for languages other than the original English database and German, Japanese, Spanish and Danish FrameNets were created by doing just that.
+
+
+            HR
+            a(name="hebrew-framenet")
+            H3 The Hebrew FrameNet migration system
+            p The first step of creating the Hebrew FrameNet was importing the frame hierarchy form the English FrameNet, as the frame structure is universal.
+            p Next, lexical units, their sentences and the sentences' lexical annotation, all of which are language specific, must be specified. This task is not a trivial one and must be done manually.
+            p Our project goal was creating a system which will assist inserting this data.
+            p System main requirements:
+                ul
+                    li Easy to use GUI which will allow quick insertation of lexical units, sentence association and sentance annotation
+                    li Intergarion with external tools such as automatic translation of English lexical units and automatic sentences searching systems
+                    li Users must be able to work ãimultaneously
+                    li New content should be able to be reviewed and if necessary corrected before inserted to the production DB
+                    li Expose an API for public use of the data gathered
+
+            HR
+            a(name="implemntation")
+            H3 Implementation
+            H4 The Server-side
+            ul
+                li
+                    strong MongoDB
+                    | - A non-SQL back-end database for storing and querying the FrameNet data
+                li
+                    strong NodeJS
+                    | - An asynochronous Javascript based platform we used for our web server
+            H4 The Client-side
+            ul
+                li
+                    strong Twitter Bootstrap
+                    | - Modern look styling
+                li
+                    strong AngularJS
+                    | - Dynamic content handling
+            HR
+            a(name="references")
+            H3 References
+            ul
+                li Fillmore, Charles J. (1976). "Frame Semantics and the Nature of Language," in: Annals of the New York Academy of Sciences: Conference on the Origin and Development of Language and Speech. Volume 280: 20-32
+                li Petruck, Miriam,(2009). "Typological Considerations in constructing a Hebrew FrameNet" in: Multilingual FrameNets in Computational Lexicography. 183-205
