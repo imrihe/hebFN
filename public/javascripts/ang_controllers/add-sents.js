@@ -21,8 +21,28 @@ function AddSentsCtrl($scope, $routeParams,utils) {
     };
     $scope.updateCurrentSents();
 
+    var obj = {
+	data: {
+	    luname: $scope.selectedLUName,
+	    framename: $scope.selectedFrameName
+	},
+	sentence: {
+	    action: "addtolu",
+	    content: {}
+	}
+    };
+
+    $scope.associateSentence = function(sent){
+	obj.sentence.content = sent.fullSentence;
+	console.log(obj);
+	utils.CallServerPost("heb/addSentenceToLU", obj, function(out){
+	    $scope.updateCurrentSents();
+	    console.log(out);
+	});
+    };
+
     $scope.showLoader = true;
-    utils.CallServerGet("external/exampleSentences",{lupos:$scope.selectedLUShortPos,luname:$scope.selectedLUShortName},function(out)
+    utils.CallServerGet("external/exampleSentences",{lupos:$scope.selectedLUShortPos,luname:$scope.selectedLUShortName,diversify:false},function(out)
     {
         $scope.foundSentences=out;
         $scope.showLoader = false;

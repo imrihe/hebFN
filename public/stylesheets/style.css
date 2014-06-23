@@ -283,7 +283,7 @@ display:none;
     border: 1px black solid;
     display: inline-block;
     height: 1.2em;
-    width: 1.2em;"
+    width: 1.2em;
 }
 .bckgr{
     /*background-color: cornsilk;*/
@@ -420,4 +420,13 @@ span.wordStyle {
 }
 .small-text  {
     font-size: 12px;
+}
+
+#sentences-list{
+    margin-top: 20px;
+}
+
+.sentence {
+    display: inline-block;
+    vertical-align: middle;
 }

@@ -18,23 +18,35 @@
             p.no-bold Click actions to associate sentences with the frame or mark them as wronglfully parsed
 
             h4 recomanded sentences
-            ul.rtl(ng-show="correlatedSentences.length > 0")
-                li(ng-repeat="sent in correlatedSentences")
+            div.rtl(ng-show="correlatedSentences.length > 0")
+                p(ng-repeat="sent in correlatedSentences")
+                    button.btn.btn-mini(type="button", value="0")
+                        i.icon-plus-sign(ng-click="removeFromLu($index)", title="remove from lu").clickable
+                    button.btn.btn-mini(type="button", value="0")
+                        i.icon-flag(ng-click="badSeg($index)", title="bad segmentation").clickable
                     | {{sent.text}}
+
             h4 associated Sentences
-            ul.rtl(ng-show="currentSentences.length > 0")
-                li(ng-repeat="sent in currentSentences")
+            div.rtl(ng-show="currentSentences.length > 0")
+                p(ng-repeat="sent in currentSentences")
+                    button.btn.btn-mini(type="button", value="0")
+                        i.icon-remove-sign(ng-click="removeFromLu($index)", title="remove from lu").clickable
+                    button.btn.btn-mini(type="button", value="0")
+                        i.icon-flag(ng-click="badSeg($index)", title="bad segmentation").clickable
                     |{{sent.text}}
             #no-sentences-current(ng-show="currentSentences.length == 0")
                 |No sentences 
                 
             h4 Sentences from search engine
-            br
-            .loading-gif(ng-show="showLoader")
-            ul.rtl(ng-show="foundSentences.length > 0")
-                li(ng-repeat="sent in foundSentences")
-                    |{{sent.text}}
-            #no-sentences-found(ng-show="foundSentences.length == 0 && !showLoader")
-                |No sentences found
+            div(id="sentences-list")
+                .loading-gif(ng-show="showLoader")
+                div.rtl(ng-show="foundSentences.length > 0")
+                    p(ng-repeat="sent in foundSentences", class="row")
+                        span(class="sentence span11")
+                            |{{sent.text}}
+                        button.btn.btn-mini(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="associateSentence(sent)",title="Associate this sentence with the current LU", class="span1")
+                            i.icon-ok
+                #no-sentences-found(ng-show="foundSentences.length == 0 && !showLoader")
+                    |No sentences found
 
             
