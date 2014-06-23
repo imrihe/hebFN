@@ -63,46 +63,53 @@ function AddSentsCtrl($scope, $routeParams,utils) {
 
      //remove the sentence from the lexical unit
     $scope.removeFromLu = function(ind) {
-        var sentid = $scope.sentences[ind]['ID']
-        $scope.packNSaveAnnotations();
+        var sentid = $scope.currentSentences[ind]['ID'];
         if (!confirm("Are you sure you want to delete this sentence from the LU? this action is unreversablbe")) {
 	    return false;
 	}
 
         utils.CallServerPost("heb/rmSentFromLu",
-            {'framename': $scope.frame, 'luname':$scope.luname, sentenceid: sentid},
+            {'framename': $scope.selectedFrameName, 'luname':$scope.selectedLUName, sentenceid: sentid},
             function (out) {
-                console.log("status: ",JSON.stringify(out))
-                alert("the sentence was removed")
-                $scope.getda
+                console.log("status: ",JSON.stringify(out));
+                alert("the sentence was removed");
                 $scope.$apply();
-                $scope.getData()
+                $scope.updateCurrentSents();
             });
     };
 
     //mark the segmentation of the sentence as fault
-    $scope.badSeg = function(ind){
-        var sentid = $scope.sentences[ind]['ID'];
-        console.log("removing sentene:", sentid, $scope.luname, $scope.frame);
+    var badSeg = function(ind, collection, idKey){
+        var sentid = collection[ind][idKey];
+	console.log(collection);
+        console.log("removing sentene:", sentid, $scope.selectedLUName, $scope.selectedFrameName);
         if (!confirm("Are you sure you want to mark this sentence as bad segmented? it will be deleted from all the lus and all it's annotations will be removed!")){
 	    return false;
 	}
 
         utils.CallServerPost("heb/markbadseg",
-            {'framename': $scope.frame, 'luname': $scope.luname, sentenceid: sentid },
+            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentenceid: sentid },
             function (out) {
                 console.log("status: ",JSON.stringify(out));
                 alert("the sentence was removed from DB and marked as bad segmented");
                 $scope.$apply();
             });
     };
+    
+    $scope.badSegAss = function(ind){
+	badSeg(ind, $scope.currentSentences, 'ID');
+    };
+
+    $scope.badSegRec = function(ind){
+	badSeg(ind, $scope.correlatedSentences, '_id');
+    };
 
     $scope.getSentenceData = function(ind){
 	var sentid = $scope.currentSentences[ind]['ID'];
-	
+
 	utils.CallServerGet("external/searchById", {id: sentid}, function(sent){
 	    console.log(sent);
-	    //$scope.associateSentence(sent);
+	    $scope.associateSentence({fullSentence:sent.sentence});
 	});	
     };
 
