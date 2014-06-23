@@ -5,33 +5,12 @@ printModule("routes/hebrewSetters");
 module.exports = function(app) {
     var auth = require('./../controllers/auth');
     var hebControl = require('../controllers/hebrew.js');
-    var externalTools =require('../controllers/externalTools.js');
     var skip = require('../tools/utils.js').skip;
-    //app.get('/heb/addlutoframe_old', hebControl.renderAddLUToFrame);  //get the form for submission
-    //app.post('/heb/addlutoframe',auth.ensureAuthenticated, hebControl.addLUToFrame);  //process the query data, submit to DB and return the results
-    /**the post should contatin:
-     * frameid, luname and lexUnit.
-     * the lexUnit should be a valid lu-schema type JSON
-     *
-     */
-    //app.post('/heb/addlutoframe_old',auth.ensureAuthenticated, hebControl.postAddLuToFrame);
 
-    //.app.post('/heb/addsentence', function (req,res) {console.log("hahaha"); res.send('good!');});
-    app.get('/heb/addsentence',auth.ensureAuthenticated,auth.ensureRole('reviewer'),  hebControl.addSentenceToLUForm);  //get the form for submission
-    app.get('/ajax/heb/addsentence',auth.ensureAuthenticated,auth.ensureRole('reviewer'),  function (req,res){
-        req.isAjax =true;
-        externalTools.getSE(req, res, hebControl.addSentenceToLUForm);
-    });  //get the form for submission
-
-    //app.post('/heb/addsentence',auth.ensureAuthenticated, hebControl.addSentenceToDB);  //process the query data, submit to DB and return the results
-    //app.post('/ajax/heb/addsentence',auth.ensureAuthenticated, hebControl.addSentenceToDB);  //process the query data, submit to DB and return the results
-
-    //app.get( '/heb/addSentencesToLuPost', function(req,res) {res.render('addSentencesToLuPost2.jade')});
-    app.post( '/heb/addSentenceToLU' ,auth.ensureAuthenticated, hebControl.addSentenceToLu);
+    app.post( '/heb/addSentenceToLU' ,auth.ensureAuthenticated, hebControl.addSentenceToLu); //TODO
 
 
-    //app.get('/heb/createannotation', function(req,res){res.render('createAnnotation.jade')});
-    app.post('/heb/createannotation',auth.ensureAuthenticated, function(req,res) {
+    app.post('/heb/createannotation',auth.ensureAuthenticated, function(req,res) { //TODO
         hebControl.addAnnotation(req,res, function(err, result){
             if (err) res.send("ERROR! "+ err);
             else res.send(result);
@@ -53,17 +32,17 @@ module.exports = function(app) {
     app.post('/heb/frameLuAssociation',auth.ensureAuthenticated, hebControl.postCreateFrameLuAssociation)
 
 
-    app.get('/heb/approvedecision',auth.ensureAuthenticated, hebControl.postSetDecisionApproval)
+    app.get('/heb/approvedecision',auth.ensureAuthenticated, hebControl.postSetDecisionApproval) //TODO
 
     //app.get('/heb/editlu', hebControl.posteditLU)
     app.post('/heb/editlu',auth.ensureAuthenticated, hebControl.posteditLU)
 
 
-    app.post('/heb/rmSentFromLu',skip, hebControl.delSentFromLU);
-    app.post('/heb/markbadseg', skip, hebControl.markAsBadSegmentd);
+    app.post('/heb/rmSentFromLu',skip, hebControl.delSentFromLU); //TODO
+    app.post('/heb/markbadseg', skip, hebControl.markAsBadSegmentd);     //TODO
     app.get('/heb/lulock',auth.ensureAuthenticated, hebControl.luLock);
     app.post('/heb/addhistory',skip, hebControl.postHistoryFeed);
-    app.post('/heb/addcomment',auth.ensureAuthenticated, hebControl.postAddComment)
+    app.post('/heb/addcomment',auth.ensureAuthenticated, hebControl.postAddComment)   //TODO
 
     app.get('/heb/getSentCorr', hebControl.getLuSentCorr);
     app.post('/heb/setSentCorr', hebControl.setLuSentCorr);

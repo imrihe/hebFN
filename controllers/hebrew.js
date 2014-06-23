@@ -8,8 +8,9 @@
 printModule('controllers/hebrew');
 
 var Models = require("../models/schemes/hebrew.js");
-var sentenceModel  =require('mongoose').model('sentences');// require("../models/schemes/sentenceSchema.js").hebSentenceModel
-var  hebSentenceModel =sentenceModel;
+var luSentenceModel =require("../models/schemes/hebrew.js").luSentenceModel;
+var  hebSentenceModel = require("../models/schemes/sentenceSchema.js").hebSentenceModel;
+var hebBadSentenceModel =require("../models/schemes/sentenceSchema.js").hebBadSentenceModel;
 var userControl = require('../controllers/users.js');
 var objID = require('mongoose').Types.ObjectId;                                 //objectID type from of mongoDB
 var q2coll = require('../tools/utils.js').queryToCollectionQ,
@@ -241,7 +242,6 @@ exports.getPageFrames = function (req,res) {pageFrames(req.query,res, handleHttp
  */
 function listSentences(req,res,cb){
     console.log("DEBUG: handling listAllSentences method" );
-    //var q = q2coll("frameid")
     var query=  {}, proj={};
     //if (req.query.luid) query.lus=req.query.luid;
     if (req.query.luid) query.lus=req.query.luid;     //TODO - use q2coll
@@ -249,16 +249,11 @@ function listSentences(req,res,cb){
 
 
     if (req.param('valid')==1){
-        proj = {'content.$':1, text:1, sentenceProperties: 1 , ID: 1}
+        proj = {'content.$':1, ID: 1}
         query['content.valid']=true;
-        console.log("valid is true")
     }
-    console.log('this this2',JSON.stringify(query), 'proj:',JSON.stringify(proj))
-    hebSentenceModel.find(query, proj,{'limit': 200, sort: {ID: 1}}, function(err, results){
-        //return cb(err,results)
+    hebSentenceModel.find(query, proj,{ sort: {ID: 1}}, function(err, results){ //TODO: add limit + paging
         if (err || !results) return cb(err,results)
-        //console.log('is results array', Array.isArray(results))
-        console.log('RESULTS number',results.length)
         var updatedRes =  _.map(results, function(sent){
             var newSent=  sent.toObject();
             newSent['content']=newSent['content'][0]
@@ -269,9 +264,6 @@ function listSentences(req,res,cb){
 };
 
 
-exports.getListSentences = function getListSentences(req,res,cb){
-    if (req.param('luname') && req.param('framename')) req.query.luid =  req.param('framename')+ '#'+  req.param('luname')
-    listSentences(req,res, handleHttpResults(req,res))};
 /**
  * returns a list of all the lu-sentence relations (each sentence-lu is a record which contains list of annotations)
  * if luid or sentenceid is given - use as filter
@@ -286,13 +278,13 @@ function luSentence(req,res, cb){
     //console.log(query)
     console.log("DEBUG-luSentence: using query:",JSON.stringify(query));
 
-    Models.luSentenceModel.find(query, {"_id":0, "__v":0},{'limit': 20,sort: {'sentenceID':1}}, function(err, result){
+    luSentenceModel.find(query, {"_id":0, "__v":0},{sort: {'sentenceID':1}}, function(err, result){
         console.log("lu sentence reusklts num:", result.length)
         var newRes = {};
         newRes.rowData= result;
         newRes.annotations = {};
         if (result){
-            for (sen in result){
+            for (var sen in result){
                 var anno;
                 var FELayer;
                 var targetLayer;
@@ -670,79 +662,6 @@ var addSentenceToLU = exports.addSentenceToLU = function addSentenceToLU(req,res
 
 
 
-/*
- 1	מה	_	QW	QW	_	2	SBJ	_	_
- 2	נשמע	_	VB	VB	M|S|3|PAST|NIFAL	3	SBJ	_	_
- 3	חבר	_	VB	VB	M|S|2|IMPERATIVE|PIEL	0	ROOT	_	_
- */
-
-
-/* adding a sentence to a LU is built from few steps:
- 1. add the sentence to the sentence collection if not exists.
- 2. add the lu to the sentence lus list.
- 3. add the sentence to the lu's sentences list.
-
- */
-/**step 2 in the process -
- *      part1 - add sentence to the sentences collection
- *      assuming that the sentence doesn't exist in the sentences collection
- *          the req body contains the sentence details:
- *          sentence JSON! after yoav and meni!
- * target word token ID
- *
- * @param req
- * @param res
- */
-exports.addSentenceToDB = function addSentenceToDB(req,res){
-    console.log("DEBUG: add sentence to lu - POST request");
-    var resBody = req.body;
-    var sentence = resBody['sentence'];
-    console.log("DEBUG: add sentence to lu - the recieved sentence is:", sentence);
-
-    var sentenceid = resBody['sentenceid'];
-    /*if (!(frameId && luid && sentenceTxt && targetID)){
-     console.log('DEBUG: not enough parameters for the request - one of the parameters is missing');
-     res.send("one of the parameters is missing");
-     } */
-    if ((! sentence && !sentenceid) || (sentence && ! valid31Format(sentence))) res.send("the sentence is not vaild conll31 format");  //TODO: valid31Format
-    else {
-
-        if (sentence){
-            var  sentenceModel =hebSentenceModel;
-            var sentJson = {
-                "text": utils.linearizeConllSentence(JSON.parse(sentence)['words']),//TODO
-                "sentenceProperties" : sentence['sentenceProperties'],
-                "content" : [{valid: true,"words": JSON.parse(sentence)['words']}], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
-                //"lus":[IDType],//save the related LU ids
-                "ID":objID(),
-                "source": 'manual'//{type: String, enum: ["corpus", "manual", "translation"]},//TODO
-            };
-            //sentJson['Content'] = [{a: "a"}];
-            //console.log('DEBUG: add sentencetoDB - the result JSON is:',JSON.stringify(sentJson));
-            //res.send(sentJson);
-            //console.log('content:', typeof(sentJson['content'][0]));
-            var sent = new sentenceModel(sentJson);
-            //console.log('DEBUG: the model is:',sent);
-            sent.save(function(err){
-                if (err){
-                    console.log('DEBUG: problem saving sentence', err);
-                    res.send("problem saving sentence - abort");
-                }
-                else {
-                    console.log('sentence was saved!, id:',sentJson["ID"]);
-                    req['body']['sentenceid'] = sentJson['ID'];
-                    addLUToSentence(req, res, addSentenceToLU);
-                }});//save
-        }else{ //case: no sentence, there is a sentence id
-            console.log('DEBUG: skipping <save sentence> adding lu to sentence')
-            addLUToSentence(req, res, addSentenceToLU);
-
-        }
-
-    }//else
-};//method export
-
-
 /**TODO
  * check if the sentence is in the data base -search by the text linearization, return the id if in DB else return undefined
  *
@@ -968,7 +887,6 @@ function processSentence(sent, data, control, sentenceNumber){
     var action  = sent['action'];
     console.log('processing sentence number:', sentenceNumber, "action:", sent['action']);
     //var sentJson
-    //extControl.parseText(sent, function(resSent){
     var sentJson  = createSentenceJson(sent['content'], data); //(sent['indb'] ? (sent['indb']) : undefined) ); //parse the sentence by schema
     var msg;
 
@@ -1011,7 +929,6 @@ function processSentence(sent, data, control, sentenceNumber){
 
 
 function processSentence2(sent, data, control,cb ){
-
     var func;
     var action  = sent['action'];
     console.log('DEBUG: processSentence2', action);
@@ -1146,15 +1063,133 @@ exports.addSentencesToLu = function addSentencesToLu(req,res) {
 };
 
 
-//add single sentence
-exports.addSentenceToLu = function addSentenceToLu(req,res) {
-    //"use strict";
-    console.log("DEBUG: add sentence to lu (single sentence)");//reqbody:", req.body);
-    //console.log("the request is: \n",JSON.stringify(req.body) )
+/**add a sentence to lexical unit
+ * if sentence already related to LU ->return error
+ * if sentence in badSegDB ->return error
+ * if sentence in goode DB:
+ *      -add lu to sentenece lus list
+ *      -add sentLu correlation
+ *
+ * @param req
+ * @param res
+ */
+exports.addSentenceToLu = function addSentenceToLu(req,res){
+    var sentence= req.param('sentence').content;
+    var data = req.param('data');
+    data.luid = data.framename+"#"+data.luname;
+    data.username= req.user.username;
+    console.log('DEBUG: addSentenceToLu',JSON.stringify(sentence))
+    var params = {inputSentence: sentence,data:data}
+    async.waterfall([
+        function(cb){
+            cb(null,params)
+        },
+        searchSentenceInBadSegDB, //call with error
+        searchSentenceInSentencesCollection, //mark sentenceExists=true/false, create: params.sentence
+        checkSentLURelation, //mark: if related -> sentenceRelated = true/false
+        function(params,cb){
+            if (params.sentenceRelated){
+                cb(null,params);
+            }else if (!params.sentenceExists){
+                //add sentence to database
+                console.log(params)
+                addSentenceToDB(params,function(addErr,addResult){
+                    if (addErr) cb(addErr)
+                    else{
+                        addLuSentEntry(params,cb);
+                    }
+                }); //creates params.sentence
+            }
+        },
+    ],function(err,result){
+        if (err) handleHttpResults(req,res)(err);
+        else handleHttpResults(req,res)(null,result);
+    })
+};
 
+
+function searchSentenceInBadSegDB(params,cb){
+    hebBadSentenceModel.findOne({"text": params.inputSentence.text}, {"ID":1},function(err, result){
+        if (!err){
+            if (result) cb({error: "sentence is marked as bad segmented - fix first"});
+            else cb(null,params);
+        }else cb(err);
+    });
+}
+
+function searchSentenceInSentencesCollection(params,cb){
+    hebSentenceModel.findOne({"text": params.inputSentence.text}, {"ID":1,text: 1,lus:1},function(err, result){
+        if (err){
+            cb(err)
+        }else{
+            if (result) {
+                params.sentence  = result.toObject();
+                params.sentenceExists=true;
+            }else {
+                params.sentenceExists=false;
+            }
+            cb(null,params);
+        }
+    });
+}
+
+function checkSentLURelation(params,cb){
+
+    params.sentenceRelated = params.sentenceExists && params.sentence;
+    params.sentenceRelated = params.sentenceRelated && _.contains(params.sentence.lus, params.data.luid);
+    cb(null,params);
+}
+
+function addSentenceToDB(params,cb){
+    console.log('addSentenceToDB')
+    console.log(params)
+    var inpSent = params.inputSentence;
+    inpSent.esId = inpSent._id;
+    var sentObj ={
+        ID: objID(),
+        text:  inpSent.text,
+        content: [{fullSentence: inpSent,valid: true}],
+        lus: [params.data.luid],
+        source: 'corpus'
+    }
+    new hebSentenceModel(sentObj).save(function(err,result){
+        if (err) cb(err)
+        else {
+            params.sentence = result.toObject();
+            cb(null,params);
+        }
+    });
+
+}
+
+
+function addLuSentEntry(params,cb){
+    var sent = params.sentence;
+    var luSentObj={
+        "sentenceID" : sent.ID,
+        "luId": params.data.luid,
+        "luName": params.data.luname,
+        "frameName": params.data.framename,
+        "annotations": [],
+        "comments": [],
+        "text": sent.text,
+
+        cBy: params.data.username
+    }
+    new luSentenceModel(luSentObj).save(function(err,result){
+        if (err) {
+            console.error("writing luSent entry error", params.data.luid,sent.ID,err);
+            //TODO: should rollback -> u are fucked
+            cb(err);
+        }else cb(null, params);
+    })
+}
+
+exports.addSentenceToLu_OLD = function addSentenceToLu_OLD(req,res) {
+
+    console.log("DEBUG: add sentence to lu (single sentence)");//reqbody:", req.body);
     var sentence= req.param('sentence');
     var data = req.param('data');
-    res.charset='utf-8';
     //this is a data control object - b\c all the function are CB functions, they will update the contorl obj, the last and decrement the action counter
     var control = {results: [], counter : 1,
         write : function(msg){this.results = msg;},
@@ -1987,7 +2022,6 @@ module.exports.getLuSentCorr = function (req,res){
 
 
 function sentencesByLu(query,cb){
-    //extControl.esQuery()
     Models.luSentCorrelationModel.find({luName: query.luname, frameName: query.framename},  cb);
 
 }

@@ -130,7 +130,7 @@ function handleErrors(err, req, res, next){
         res.render('error.jade', {err:err, req: req});
     }
 }
-app.use(handleErrors);
+//app.use(handleErrors);
 
 
 //development only
@@ -149,10 +149,10 @@ app.configure('production', function() {
 
 //app.set('jsonp callback', true);
 app.all("*",function(req,res,next){
-
-            res.header('Access-Control-Allow-Credentials', true);
-            res.header('Access-Control-Allow-Origin', '*')
-            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+            res.charset='utf-8';
+    //        res.header('Access-Control-Allow-Credentials', true);
+      //      res.header('Access-Control-Allow-Origin', '*')
+        //    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
             //res.header('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
             next();
 })

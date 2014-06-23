@@ -33,13 +33,12 @@ module.exports = function(app) {
     app.get('/heb/searchlus', hebControl.getSearchLus);
 
 
-    app.get('/heb/sentences', hebControl.getListSentences);
-
     app.get('/heb/lusentence', hebControl.getLuSentence);
     app.get('/heb/ludata', hebControl.luAnnotationsData);
+
+
     app.get('/heb/history', hebControl.getSearchHistory);
     app.get('/heb/pageframes', hebControl.getPageFrames);
-
     app.get('/heb/prioritytasks', hebControl.getPriorityTasks);
     app.get('/heb/fesByFrame', hebControl.getFes);
     app.get('/heb/historybyuser', hebControl.getHistory);
@@ -50,9 +49,6 @@ module.exports = function(app) {
     app.get('/heb/getexmsentencebylu', hebControl.getSentencesByLu);
 
     app.get('/heb/hist/:histType', hebControl.getHistory)
-    app.get('/fuck', function(req,res) {throw  new Error("fuck!!")}); //TODO- remove
-    //app.get('/testadd/:num', hebControl.tryAdd); //TODO- remove
-
     app.get('/heb/', function(req,res){ res.redirect(hp)});
 
 

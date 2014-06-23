@@ -69,6 +69,7 @@ exports.handleHttpResults = function handleHttpResults(req,res){
         //throw new Error("handleResults: error retrieving results: "+err);
 
         if (err) {
+            return res.send(err.code,err); //TODO: this will break asaf code???
             console.error("ERROR: handling error", err, err.stack);
             res.charset='utf-8'
             res.render('error.jade', {err:err, req: req})//(("handleResults: error retrieving results: "+err)) //TODO - problem with error handling

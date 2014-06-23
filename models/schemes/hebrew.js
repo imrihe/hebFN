@@ -84,20 +84,9 @@ var memberFEtype   = types.memberFEtype;
 
 /**
  * general types
- *
  */
 var hebPOSType = {required: true, type: String, enum:  [ "N","V", "A", "ADV","PRON","PREP","NUM","C","INTJ","ART","SCON","CCON","AVP"]};
 
-/**
- * hebrew corpora schema
- * "description":"contains information about the different corpora used.",
- */
-var corporaSchema = new Schema({
-    "id":IDType,
-    "name": String,
-    "description": String,
-    "status":{"type":String, enum:["active","requested","unactive","wip"]}
-});
 
 var commentType = new Schema({
     cBy: String,
@@ -183,20 +172,6 @@ var historySchema =  new Schema({
 }, {strict: false}) //history schema
 
 
-var historySchema_archive =  new Schema({
-
-    type: {type: String, enum: ['byUser','byFrame','byLu', 'sentLu','luAnno']},
-    refs: {luName: String, sentenceID: ObjectId, frameName: String},
-    actions : [{
-        cBy: String,
-        cDate: Date,
-        type: {type:String, enum:['add','remove','query']},
-        comment: String,
-        discussionid: ObjectId,
-        revCall: {type: String, enum: ['approved','rejected']}}]
-}, {strict: false}) //history schema
-
-
 
 /**
  * hebrew frame schema
@@ -220,143 +195,7 @@ var hebFrameSchema = exports.hebFrameType = new Schema({
 });
 
 
-/**
- * this is how the word (in a snetnece)is represented according to alon's search engine,
- * TODO: add description to each one of the fields
- * @type {Schema}
- */
-var wordType = new Schema({
 
-    //basic morphological data:
-    ID: Number,
-    "word": String, //originally  -'form'
-    "lemma": String,
-    "cpos" : String, //TODO - enum
-    "pos": String, //TODO - enum
-    "prefix": String,
-    "base": String,
-    "suffix": String,
-    //FEATS
-    "gender":{type : String, enum: ['_','m', 'f', 'mf']},
-    "number":{type: String, enum: ['sp','s','p','d','dp','_']},// "comment" : "singular/plural or non. check if plural is signaled by p!",
-    "construct": String,
-    "polarity": {type: String}, //  "comment" : "probably contains: (pos) | (neg) | _"
-    "person":{type: String},//, enum: ['1','2','3']},
-    "tense": String,
-    "def": Boolean,
-    "binyan" : {type: String, enum: ['PAAL','NIFAL','HIFIL','HUFAL','PIEL','PUAL','HITPAEL', '_']},
-    "otherFeats" : String,
-    //FEATS-end
-
-    //dependency related data:
-    "deprel": String, //TODO - enum
-    "head" : String,  //Number
-    "Phead" : String, //Number
-    "pdeprel": String, //TODO - enum
-
-
-    //extra calculated fields:
-    "height": Number,
-    "id": Number,
-    "pardist": Number,
-    "parpos": String,
-    "parword": String,
-    "special": Boolean,
-    "specTrans" : String
-},{strict: false});
-
-
-var wordType2 = new Schema({
-    "word": String,
-    "prefix": String,
-    "base": String,
-    "suffix": String,
-    "lemma": String,
-    "pos": String,
-    "postype": String,
-    "gender":{type : String, enum: ['_','m', 'f', 'mf']},
-    "number":{type: String, enum: ['sp','s','p','_']},// "comment" : "singular/plural or non. check if plural is signaled by p!",
-    "construct": String,
-    "polarity": {type: String}, //  "comment" : "probably contains: (pos) | (neg) | _"
-    "person":{type: String},//, enum: ['1','2','3']},
-    "tense": String,
-    "def": Boolean,
-    "pconj": Boolean ,
-    "pint": Boolean,
-    "pprep": Boolean,
-    "psub": Boolean,
-    "ptemp": Boolean,
-    "prb": Boolean,
-    "suftype": String,
-    "sufgen": Boolean,
-    "sufnum": String,
-    "sufperson":{type: String},//, enum:['1','2','3']},
-    "chunk": String,
-    "height": Number,
-    "id": Number,
-    "parid": Number,
-    "pardist": Number,
-    "parpos": String,
-    "parword": String
-},{_id:false});
-
-var wordType1 = new Schema({
-    id: String,
-    word: String,
-    f2: String,
-    pos1: String,
-    pos2: String,
-    tags: String,
-    parID: String,
-    role: String,
-    f8: String,
-    f9: String
-}, {_id: false});
-
-//ConllJson31Type
-/**TODO: complete this according to alon's type - 31 json response
- *comment : "the json as received by alon's search tool",
- * @type {Schema}
- */
-
-
-var ConllJson31Type = new Schema({
-    sentenceProperties: {
-        "length" : Number,
-        "wordsNum": Number,
-        "height" :Number,
-        "root_location" :Number,
-        "root_pos" : String,
-        "pattern" :  String
-    },
-    "words" :[wordType],
-    "valid": Boolean,
-    "text": String
-    //"original": Boolean
-},{_id:false});
-
-
-//var ConllJson31Type = require('sentenceSchema.js').sentenceSchema;
-
-/**
- *"description":"sentence will contaion the basic POS, parse trees and morphology along with list of annotationSet ids",
- * @type {Schema}
- */
-var hebsentenceSchema = exports.hebsentenceSchema = new Schema({
-    "text":String,
-    "content" : [ConllJson31Type], //array with possible segmentations of the sentence, only one will be marked as 'original' and one as 'valid'
-    "lus":[String],//save the related LU ids framename_luname
-    "ID":ObjectId,
-    "source": {type: String, enum: ["corpus", "manual", "translation"]},
-    //"comment":"sentences can also be manually inserted",
-    "sentenceOrigin": {
-        "aPos": extSentRefType,
-        "paragNo":orderType,
-        "sentNo":orderType,
-        "docId":IDType,
-        "corpID":IDType
-    }
-},{strict:false});
 
 var heblabelType = new Schema({
     "name":String,
@@ -423,14 +262,13 @@ var luSentenceSchema = exports.luSentenceSchema = new Schema({
     "sentenceID" : ObjectId,
     "luId": String, //the id of the annotated lexical unit.
     "luName": String, //optimization
-    "frameID": IDType, //the id of the frame which this lu is related to  (search and data retrieval optimization)
     "frameName": String,
     "annotations": [annotatedSentenceType],
     "comments": [commentType],
     "text": String,
-    cDate: Date,
+    cDate: {type: Date, default: new Date()},
     cBy: String
-},{strict: false});
+},{strict: true});
 
 
 
@@ -467,8 +305,8 @@ var luSentCorrelationScheme = new Schema({},{strict: false}
 
 console.log("DEBUG: creating hebrew models - << models/schemes/hebrew >>");
 exports.hebFrameModel = mongoose.model(coll.hebframes, hebFrameSchema, coll.hebframes );
-exports.hebSentenceModel = mongoose.model(coll.hebSent, hebsentenceSchema, coll.hebSent);
-exports.hebBadSentenceModel = mongoose.model(coll.hebBadSent, hebsentenceSchema, coll.hebBadSent);
+//exports.hebSentenceModel = mongoose.model(coll.hebSent, hebsentenceSchema, coll.hebSent);
+//exports.hebBadSentenceModel = mongoose.model(coll.hebBadSent, hebsentenceSchema, coll.hebBadSent);
 
 exports.luSentenceModel = mongoose.model(coll.hebLuSent, luSentenceSchema, coll.hebLuSent);
 exports.annotatorDecisionsModel = mongoose.model(coll.hebDecisions, decisionSchema, coll.hebDecisions);
