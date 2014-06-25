@@ -105,7 +105,7 @@ function AddSentsCtrl($scope, $routeParams,utils) {
     };
 
     $scope.getSentenceData = function(ind){
-	var sentid = $scope.currentSentences[ind]['ID'];
+	var sentid = $scope.correlatedSentences[ind]['_id'];
 
 	utils.CallServerGet("external/searchById", {id: sentid}, function(sent){
 	    console.log(sent);
