@@ -21,13 +21,13 @@ div#annoToolMain().row.bckgr
                                 )
 
                                     td.text-center.clickable.rtl
-                                        span(ng-repeat="word in sentences[$index]['content']['words']",
+                                        span(ng-repeat="word in sentences[$index]['content']['fullSentence']['words']",
                                                 ng-style ="getColorsByToken1($index, $parent.$index)"
                                                 ng-hide="word['word']=='*POS*'")
                                             | {{analWord(word)}}
                                             | &nbsp
                                         span
-                                            | . &nbsp
+                                            |  &nbsp
                                         span(ng-repeat="(key, val) in NIAnnotations[$index]",
                                             ng-style ="getFEColors(key)"
                                             )
@@ -100,7 +100,7 @@ div#annoToolMain().row.bckgr
                         div
                             div#thesentence.lead.rtl.text-right
                                 div.white-bckg.padded5.text-border.padAround10
-                                    span.wordStyle(ng-repeat="word in (sentences[chosenSentence]['content']['words'])",
+                                    span.wordStyle(ng-repeat="word in (sentences[chosenSentence]['content']['fullSentence']['words'])",
                                             ng-mousedown="startSelection($index)",
                                             ng-mouseup="endSelection($index)",
                                             ng-mouseenter="extendSelection($index)",
@@ -115,7 +115,7 @@ div#annoToolMain().row.bckgr
                                         span.unselectable(ng-style="getColorsByToken1($index, chosenSentence, true)")
                                             | &nbsp
                                     span(ng-style="{background: 'white'}")
-                                        | . &nbsp
+                                        |  &nbsp
                                     span(ng-repeat="(neKey, neVal) in NIAnnotations[chosenSentence]",
                                         ng-style ="getFEColors(neKey)"
                                         )
