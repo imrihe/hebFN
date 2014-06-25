@@ -7,6 +7,13 @@ function AddSentsCtrl($scope, $routeParams,utils) {
     $scope.selectedFrameName=$routeParams.framename;
     $scope.currentSentences=[];
     $scope.foundSentences=[];
+
+    var associatedSentenceESIds = [];
+
+    $scope.filterAssociatedFromList = function(s){
+	return !($.inArray(s.esSentId, associatedSentenceESIds) >= 0);
+    };
+    
     $scope.updateCurrentSents=function()
     {
         utils.CallServerGet("heb/ludata",
@@ -16,7 +23,13 @@ function AddSentsCtrl($scope, $routeParams,utils) {
             },
             function(out){
                 $scope.currentSentences=out.sentences;
-                $scope.$apply();
+
+		associatedSentenceESIds = $.map($scope.currentSentences, 
+						function(s){
+						    return s.content.fullSentence.esId;
+						});
+
+		$scope.$apply();
 	    }
         );
     };
@@ -58,7 +71,7 @@ function AddSentsCtrl($scope, $routeParams,utils) {
         },
 	function(out) {
             $scope.correlatedSentences=out;
-            $scope.$apply();
+	    $scope.$apply();
         });
 
      //remove the sentence from the lexical unit

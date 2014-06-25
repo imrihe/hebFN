@@ -19,7 +19,7 @@
 
             h4 Recommended Sentences
             div.rtl(ng-show="correlatedSentences.length > 0")
-                p.row(ng-repeat="sent in correlatedSentences")
+                p.row(ng-repeat="sent in correlatedSentences | filter:filterAssociatedFromList")
                     span.span10
                         | {{sent.text}}
                     button.btn.btn-mini.span1(type="button", value="0")
