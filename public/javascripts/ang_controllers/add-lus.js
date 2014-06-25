@@ -210,7 +210,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
         if (lu.name){
         var data  ={
             luname: lu.name + '.' + lu.pos.toLowerCase(),
-            framename: $scope.currLu.frameName,
+            framename: $scope.selectedFrameName,
             sentid: currSent.id,
         }
 
@@ -319,7 +319,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
        var lu = $scope.getSelectedHebLU();   //TODO - update if needed
         var data  ={
             luname: lu.name +'.'+ lu.pos.toLowerCase(),
-            framename: $scope.currLu.frameName,
+            framename: $scope.selectedFrameName,
             sentid: sentid,
             status: status,
             text: text
