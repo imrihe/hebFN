@@ -1127,7 +1127,7 @@ function searchSentenceInBadSegDB(params,cb){
     console.log('DEBUG: in searchSentenceInBadSegDB');
     hebBadSentenceModel.findOne({"text": params.inputSentence.text}, {"ID":1},function(err, result){
         if (!err){
-            if (result) cb({error: "sentence is marked as bad segmented - fix first"});
+            if (result) cb({code: 500, error: "sentence is marked as bad segmented - fix first"});
             else cb(null,params);
         }else cb(err);
     });
