@@ -31,7 +31,7 @@
             div.rtl(ng-show="currentSentences.length > 0")
                 p.row(ng-repeat="sent in currentSentences")
                     span.span10
-                        |{{sent.text}}
+                        |{{sent.content.fullSentence.text}}
                     button.btn.btn-mini.span1(type="button", value="0")
                         i.icon-flag(ng-click="badSegAss($index)", title="bad segmentation").clickable
                     button.btn.btn-mini.span1(type="button", value="0")
