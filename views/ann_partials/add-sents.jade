@@ -12,11 +12,10 @@
     .row
         .span12
             a(href="#/marker/{{selectedFrameName}}/{{selectedLUName}}" ) annotate this LU
-    // .row
-    //     .span12
-    //         h4 Matching Sentences Found
-    //         p.no-bold Click actions to associate sentences with the frame or mark them as wronglfully 
-            parsed
+    .row
+        .span12
+            // h4 Matching Sentences Found
+            // p.no-bold Click actions to associate sentences with the frame or mark them as wronglfully parsed
 
             h4 Recommended Sentences
             div.rtl(ng-show="correlatedSentences.length > 0")
