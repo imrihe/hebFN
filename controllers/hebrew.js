@@ -1088,10 +1088,13 @@ exports.addSentenceToLu = function addSentenceToLu(req,res){
         searchSentenceInSentencesCollection, //mark sentenceExists=true/false, create: params.sentence
         checkSentLURelation, //mark: if related -> sentenceRelated = true/false
         function(params,cb){
+	    console.log('DEBUG: in anonfunc in waterfall');
             if (params.sentenceRelated){
+		console.log('DEBUG: sentence is related');
                 cb(null,params);
             }else if (!params.sentenceExists){
                 //add sentence to database
+		console.log('DEBUG: sentence is NOT related');
                 console.log(params)
                 addSentenceToDB(params,function(addErr,addResult){
                     if (addErr) cb(addErr)
@@ -1099,7 +1102,19 @@ exports.addSentenceToLu = function addSentenceToLu(req,res){
                         addLuSentEntry(params,cb);
                     }
                 }); //creates params.sentence
-            }
+            } else {
+		(function(params, cb){
+		    hebSentenceModel.update(
+			{'ID': params.sentence.ID},
+			{$push: {lus: params.data.luid}},
+			function(err, results){
+			    if (err) cb(err);
+			    else{
+				addLuSentEntry(params, cb);
+			    }
+			});
+		})(params, cb);
+	    }
         },
     ],function(err,result){
         if (err) handleHttpResults(req,res)(err);
@@ -1109,6 +1124,7 @@ exports.addSentenceToLu = function addSentenceToLu(req,res){
 
 
 function searchSentenceInBadSegDB(params,cb){
+    console.log('DEBUG: in searchSentenceInBadSegDB');
     hebBadSentenceModel.findOne({"text": params.inputSentence.text}, {"ID":1},function(err, result){
         if (!err){
             if (result) cb({error: "sentence is marked as bad segmented - fix first"});
@@ -1118,6 +1134,7 @@ function searchSentenceInBadSegDB(params,cb){
 }
 
 function searchSentenceInSentencesCollection(params,cb){
+    console.log('DEBUG: in searchSentenceInSentencesCollection');
     hebSentenceModel.findOne({"text": params.inputSentence.text}, {"ID":1,text: 1,lus:1},function(err, result){
         if (err){
             cb(err)
@@ -1134,14 +1151,14 @@ function searchSentenceInSentencesCollection(params,cb){
 }
 
 function checkSentLURelation(params,cb){
-
+    console.log('DEBUG: in checkSentLURelation');
     params.sentenceRelated = params.sentenceExists && params.sentence;
     params.sentenceRelated = params.sentenceRelated && _.contains(params.sentence.lus, params.data.luid);
     cb(null,params);
 }
 
 function addSentenceToDB(params,cb){
-    console.log('addSentenceToDB')
+    console.log('DEBUG: in addSentenceToDB')
     console.log(params)
     var inpSent = params.inputSentence;
     inpSent.esId = inpSent._id;
@@ -1164,6 +1181,7 @@ function addSentenceToDB(params,cb){
 
 
 function addLuSentEntry(params,cb){
+    console.log('DEBUG: in addLuSentEntry')
     var sent = params.sentence;
     var luSentObj={
         "sentenceID" : sent.ID,
