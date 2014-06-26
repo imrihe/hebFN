@@ -1160,23 +1160,26 @@ function checkSentLURelation(params,cb){
 function addSentenceToDB(params,cb){
     console.log('DEBUG: in addSentenceToDB')
     console.log(params)
-    var inpSent = params.inputSentence;
-    inpSent.esId = inpSent._id;
-    var sentObj ={
-        ID: objID(),
-        text:  inpSent.text,
-        content: [{fullSentence: inpSent,valid: true}],
-        lus: [params.data.luid],
-        source: 'corpus'
+    if (params.sentenceExists){
+	cb(null, params);
+    } else {
+	var inpSent = params.inputSentence;
+	inpSent.esId = inpSent._id;
+	var sentObj ={
+            ID: objID(),
+            text:  inpSent.text,
+            content: [{fullSentence: inpSent,valid: true}],
+            lus: [params.data.luid],
+            source: 'corpus'
+	}
+	new hebSentenceModel(sentObj).save(function(err,result){
+            if (err) cb(err)
+            else {
+		params.sentence = result.toObject();
+		cb(null,params);
+            }
+	});
     }
-    new hebSentenceModel(sentObj).save(function(err,result){
-        if (err) cb(err)
-        else {
-            params.sentence = result.toObject();
-            cb(null,params);
-        }
-    });
-
 }
 
 
@@ -1269,7 +1272,7 @@ function markExistSentenceBadSeg(sentID, cb){
 
         }
         console.log("going ot delete", JSON.stringify(results))
-
+	
         for (var i in results.lus){
             console.log("results.lus[",i,']', results.lus[i])
         }
@@ -1281,13 +1284,44 @@ function markExistSentenceBadSeg(sentID, cb){
         }
         //add the sentence to bad segmentation colelction
         console.log("saving the sentence for bad segmentation", JSON.stringify(results));
-        new Models.hebBadSentenceModel(results).save(delSentAndRespond);
+        var a = new hebBadSentenceModel(results);
+	a.save(delSentAndRespond);
     })
 }
 
 
 exports.markAsBadSegmentd = function (req,res){
-    markExistSentenceBadSeg(req.param('sentenceid'), handleHttpResults(req,res))
+    var sent = req.param('sentence');
+    var framename = req.param('framename');
+    var luname = req.param('luname');
+    if (sent){
+	var params = {
+	    inputSentence: sent,
+	    data: {
+		framename: framename,
+		luname: luname,
+		luid:  framename + '#' + luname,
+		username: req.user.username
+	    }
+	}
+	async.waterfall([
+	    function(cb){
+		cb(null, params);
+	    },
+	    searchSentenceInSentencesCollection,
+	    addSentenceToDB,
+	    function(params, cb){
+		params.sentence = params.sentence || params.inputSentence;
+		markExistSentenceBadSeg(params.sentence.ID, cb);
+		cb({error:'DEBUG: markAsBadSegmentd - something went wrong'});
+	    }
+	], function(err,result){
+	    if (err) handleHttpResults(req,res)(err);
+	    else handleHttpResults(req,res)(null,result);
+	});
+    } else {
+	markExistSentenceBadSeg(req.param('sentenceid'), handleHttpResults(req,res));
+    }
 }
 
 //add the sorounding labels to array of labels and cretes FE annotation object to be saved in the DB

@@ -100,7 +100,7 @@ function AddSentsCtrl($scope, $routeParams,utils) {
 	}
 
         utils.CallServerPost("heb/markbadseg",
-            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentenceid: sentid },
+            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentence: sent, sentenceid: sentid },
             function (out) {
                 console.log("status: ",JSON.stringify(out));
                 alert("the sentence was removed from DB and marked as bad segmented");
