@@ -75,8 +75,8 @@ function AddSentsCtrl($scope, $routeParams,utils) {
         });
 
      //remove the sentence from the lexical unit
-    $scope.removeFromLu = function(ind) {
-        var sentid = $scope.currentSentences[ind]['ID'];
+    $scope.removeFromLu = function(sent) {
+        var sentid = sent.ID;
         if (!confirm("Are you sure you want to delete this sentence from the LU? this action is unreversablbe")) {
 	    return false;
 	}
@@ -92,9 +92,8 @@ function AddSentsCtrl($scope, $routeParams,utils) {
     };
 
     //mark the segmentation of the sentence as fault
-    var badSeg = function(ind, collection, idKey){
-        var sentid = collection[ind][idKey];
-	console.log(collection);
+    var badSeg = function(sent, idKey){
+        var sentid = sent[idKey];
         console.log("removing sentene:", sentid, $scope.selectedLUName, $scope.selectedFrameName);
         if (!confirm("Are you sure you want to mark this sentence as bad segmented? it will be deleted from all the lus and all it's annotations will be removed!")){
 	    return false;
@@ -109,19 +108,21 @@ function AddSentsCtrl($scope, $routeParams,utils) {
             });
     };
     
-    $scope.badSegAss = function(ind){
-	badSeg(ind, $scope.currentSentences, 'ID');
+    $scope.badSegAss = function(sent){
+	badSeg(sent, 'ID');
     };
 
-    $scope.badSegRec = function(ind){
-	badSeg(ind, $scope.correlatedSentences, '_id');
+    $scope.badSegRec = function(sent){
+	badSeg(sent, '_id');
     };
 
-    $scope.getSentenceData = function(ind){
-	var sentid = $scope.correlatedSentences[ind].esSentId;
+    $scope.getSentenceData = function(sent){
+	var sentid = sent.esSentId;
+	console.log(sentid);
 
-	utils.CallServerGet("external/searchById", {id: sentid}, function(sent){
-	    $scope.associateSentence({fullSentence:sent.fullSentence});
+	utils.CallServerGet("external/searchById", {id: sentid}, function(sentObj){
+	    console.log(sentObj);
+	    $scope.associateSentence({fullSentence:sentObj.fullSentence});
 	});	
     };
 
