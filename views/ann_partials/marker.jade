@@ -45,9 +45,9 @@ div#annoToolMain().row.bckgr
 
 
 
-        div#annoToolBootom.row(ng-mouseleave="endSelection($index)")
+        div#annoToolBootom.row
             div.span3
-                div#fe-list(ng-mouseleave="endSelection($index)")
+                div#fe-list
                     //p.inline-header   select sentence from the list above to annotate:
                     div.row
                         table#target.table.table-bordered
@@ -96,7 +96,7 @@ div#annoToolMain().row.bckgr
             div.span9
                     br
                     br
-                    div#annotateSentence(ng-mouseleave="endSelection($index)").margin5
+                    div#annotateSentence.margin5
                         div
                             div#thesentence.lead.rtl.text-right
                                 div.white-bckg.padded5.text-border.padAround10

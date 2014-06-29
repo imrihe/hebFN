@@ -394,6 +394,7 @@ span.selected {
 
 span.wordStyle {
     padding: 5px 0px 5px;
+    display: inline-block;
 }
 
 *.mark {

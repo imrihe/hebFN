@@ -571,7 +571,8 @@ function MarkerCtrl($scope, $window, $timeout,$routeParams,utils) {
 
                 console.log("status: ",JSON.stringify(out))
                 alert("the sentence was removed from DB and marked as bad segmented")
-                $scope.$apply();
+		$scope.$apply();
+		$scope.getData();
             });
 
     }
