@@ -2075,8 +2075,18 @@ module.exports.getLuSentCorr = function (req,res){
 
 
 function sentencesByLu(query,cb){
-    Models.luSentCorrelationModel.find({luName: query.luname, frameName: query.framename},  cb);
-
+    hebBadSentenceModel.find({}, {'content.fullSentence.esId': 1}, function(err, res){
+	if (err) {
+	    cb(err);
+	} else {
+	    var badSegs = _.map(res, function(o){return o.content[0].fullSentence.esId;});
+	    Models.luSentCorrelationModel.find({
+		luName: query.luname, 
+		frameName: query.framename,
+		esSentId: {$nin : badSegs}
+	    },  cb);
+	}
+    });
 }
 
 module.exports.getSentencesByLu = function (req,res){
@@ -2084,40 +2094,4 @@ module.exports.getSentencesByLu = function (req,res){
     var q = (req.method == 'GET') ? req.query : req.body;
     sentencesByLu(q, handleHttpResults(req,res));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

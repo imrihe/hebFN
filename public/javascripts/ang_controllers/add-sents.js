@@ -68,17 +68,20 @@ function AddSentsCtrl($scope, $routeParams,utils) {
 
     });
 
+var updateCorrelatedSentences = function(){
     utils.CallServerGet("heb/getexmsentencebylu",
-        {
-            framename: $scope.selectedFrameName, //TODO: remove stub
-            luname: $scope.selectedLUName //TODO: remove stub
-        },
-	function(out) {
-            $scope.correlatedSentences=out;
-	    $scope.$apply();
-        });
-
-     //remove the sentence from the lexical unit
+			{
+			    framename: $scope.selectedFrameName, //TODO: remove stub
+			    luname: $scope.selectedLUName //TODO: remove stub
+			},
+			function(out) {
+			    $scope.correlatedSentences=out;
+			    $scope.$apply();
+			});
+}
+updateCorrelatedSentences();
+    
+    //remove the sentence from the lexical unit
     $scope.removeFromLu = function(sent) {
         var sentid = sent.ID;
         if (!confirm("Are you sure you want to delete this sentence from the LU? this action is unreversablbe")) {
@@ -124,7 +127,7 @@ function AddSentsCtrl($scope, $routeParams,utils) {
             function (out) {
                 console.log("status: ",JSON.stringify(out));
                 alert("the sentence was removed from DB and marked as bad segmented");
-                $scope.$apply();
+		updateCorrelatedSentences();
             });
     };
 
