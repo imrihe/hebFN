@@ -60,7 +60,7 @@ function AddSentsCtrl($scope, $routeParams,utils) {
     };
 
     $scope.showLoader = true;
-    utils.CallServerGet("external/exampleSentences",{lupos:$scope.selectedLUShortPos,luname:$scope.selectedLUShortName,diversify:false},function(out)
+    utils.CallServerGet("external/exampleSentences",{lupos:$scope.selectedLUShortPos,luname:$scope.selectedLUShortName},function(out)
     {
         $scope.foundSentences=out;
         $scope.showLoader = false;
