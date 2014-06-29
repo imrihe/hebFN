@@ -1291,11 +1291,14 @@ function markExistSentenceBadSeg(sentID, cb){
 
 
 exports.markAsBadSegmentd = function (req,res){
-    var sent = req.param('sentence');
-    var framename = req.param('framename');
-    var luname = req.param('luname');
-    if (sent){
-	var params = {
+    markExistSentenceBadSeg(req.param('sentenceid'), handleHttpResults(req,res));
+}
+
+exports.addAndMarkAsBadSegmented = function (req, res) {
+    var sent = req.param('sentence'),
+        framename = req.param('framename'),
+        luname = req.param('luname'),
+        params = {
 	    inputSentence: sent,
 	    data: {
 		framename: framename,
@@ -1303,25 +1306,23 @@ exports.markAsBadSegmentd = function (req,res){
 		luid:  framename + '#' + luname,
 		username: req.user.username
 	    }
+	};
+
+    async.waterfall([
+	function(cb){
+	    cb(null, params);
+	},
+	searchSentenceInSentencesCollection,
+	addSentenceToDB,
+	function(params, cb){
+	    params.sentence = params.sentence || params.inputSentence;
+	    markExistSentenceBadSeg(params.sentence.ID, cb);
+//	    cb({error:'DEBUG: markAsBadSegmentd - something went wrong'});
 	}
-	async.waterfall([
-	    function(cb){
-		cb(null, params);
-	    },
-	    searchSentenceInSentencesCollection,
-	    addSentenceToDB,
-	    function(params, cb){
-		params.sentence = params.sentence || params.inputSentence;
-		markExistSentenceBadSeg(params.sentence.ID, cb);
-		cb({error:'DEBUG: markAsBadSegmentd - something went wrong'});
-	    }
-	], function(err,result){
-	    if (err) handleHttpResults(req,res)(err);
-	    else handleHttpResults(req,res)(null,result);
-	});
-    } else {
-	markExistSentenceBadSeg(req.param('sentenceid'), handleHttpResults(req,res));
-    }
+    ], function(err,result){
+	if (err) handleHttpResults(req,res)(err);
+	else handleHttpResults(req,res)(null,result);
+    });
 }
 
 //add the sorounding labels to array of labels and cretes FE annotation object to be saved in the DB

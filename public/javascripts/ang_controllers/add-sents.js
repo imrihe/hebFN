@@ -90,30 +90,37 @@ function AddSentsCtrl($scope, $routeParams,utils) {
                 $scope.updateCurrentSents();
             });
     };
-
-    //mark the segmentation of the sentence as fault
-    var badSeg = function(sent, idKey){
-        var sentid = sent[idKey];
+    
+    $scope.badSegAss = function(sent){
+	var sentid = sent.ID;
         console.log("removing sentene:", sentid, $scope.selectedLUName, $scope.selectedFrameName);
         if (!confirm("Are you sure you want to mark this sentence as bad segmented? it will be deleted from all the lus and all it's annotations will be removed!")){
 	    return false;
 	}
 
         utils.CallServerPost("heb/markbadseg",
-            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentence: sent, sentenceid: sentid },
+            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentenceid: sentid },
+            function (out) {
+                console.log("status: ",JSON.stringify(out));
+                alert("the sentence was removed from DB and marked as bad segmented");
+		$scope.updateCurrentSents();
+            });
+
+    };
+
+    $scope.badSegRec = function(sent){
+        console.log("removing sentene:", sent, $scope.selectedLUName, $scope.selectedFrameName);
+        if (!confirm("Are you sure you want to mark this sentence as bad segmented? it will be deleted from all the lus and all it's annotations will be removed!")){
+	    return false;
+	}
+
+        utils.CallServerPost("heb/addmarkbadseg",
+            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentence: sent },
             function (out) {
                 console.log("status: ",JSON.stringify(out));
                 alert("the sentence was removed from DB and marked as bad segmented");
                 $scope.$apply();
             });
-    };
-    
-    $scope.badSegAss = function(sent){
-	badSeg(sent, 'ID');
-    };
-
-    $scope.badSegRec = function(sent){
-	badSeg(sent, '_id');
     };
 
     $scope.getSentenceData = function(sent){

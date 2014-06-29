@@ -40,6 +40,7 @@ module.exports = function(app) {
 
     app.post('/heb/rmSentFromLu',skip, hebControl.delSentFromLU); //TODO
     app.post('/heb/markbadseg', skip, hebControl.markAsBadSegmentd);     //TODO
+    app.post('/heb/addmarkbadseg', skip, hebControl.addAndMarkAsBadSegmented);
     app.get('/heb/lulock',auth.ensureAuthenticated, hebControl.luLock);
     app.post('/heb/addhistory',skip, hebControl.postHistoryFeed);
     app.post('/heb/addcomment',auth.ensureAuthenticated, hebControl.postAddComment)   //TODO
