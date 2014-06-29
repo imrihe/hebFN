@@ -43,7 +43,7 @@
             div(id="sentences-list")
                 .loading-gif(ng-show="showLoader")
                 div.rtl(ng-show="foundSentences.length > 0")
-                    p.row(ng-repeat="sent in foundSentences")
+                    p.row(ng-repeat="sent in foundSentences | filter:filterExamplesFromList")
                         span.sentence.span11
                             |{{sent.text}}
                         button.btn.btn-mini.span1(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="associateSentence(sent)",title="Associate this sentence with the current LU")

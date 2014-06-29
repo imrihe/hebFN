@@ -13,6 +13,10 @@ function AddSentsCtrl($scope, $routeParams,utils) {
     $scope.filterAssociatedFromList = function(s){
 	return !($.inArray(s.esSentId, associatedSentenceESIds) >= 0);
     };
+
+    $scope.filterExamplesFromList = function(s){
+	return !($.inArray(s.id, associatedSentenceESIds) >= 0);
+    };
     
     $scope.updateCurrentSents=function()
     {
