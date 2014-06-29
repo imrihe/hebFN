@@ -1299,7 +1299,7 @@ exports.addAndMarkAsBadSegmented = function (req, res) {
         framename = req.param('framename'),
         luname = req.param('luname'),
         params = {
-	    inputSentence: sent,
+	    inputSentence: sent.content,
 	    data: {
 		framename: framename,
 		luname: luname,

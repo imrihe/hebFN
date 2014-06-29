@@ -23,9 +23,9 @@
                     span.span10
                         | {{sent.text}}
                     button.btn.btn-mini.span1(type="button", value="0")
-                        i.icon-flag(ng-click="badSegRec(sent)", title="bad segmentation").clickable
+                        i.icon-flag(ng-click="getSentenceData(sent, badSegRec)", title="bad segmentation").clickable
                     button.btn.btn-mini.span1(type="button", value="0")
-                        i.icon-plus-sign(ng-click="getSentenceData(sent)", title="Associate this sentence with the current LU").clickable
+                        i.icon-plus-sign(ng-click="getSentenceData(sent, associateSentence)", title="Associate this sentence with the current LU").clickable
 
             h4 Associated Sentences
             div.rtl(ng-show="currentSentences.length > 0")

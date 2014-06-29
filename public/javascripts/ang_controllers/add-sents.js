@@ -118,8 +118,9 @@ function AddSentsCtrl($scope, $routeParams,utils) {
 	    return false;
 	}
 
+	sentence = {content: sent.fullSentence};
         utils.CallServerPost("heb/addmarkbadseg",
-            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentence: sent },
+            {'framename': $scope.selectedFrameName, 'luname': $scope.selectedLUName, sentence: sentence },
             function (out) {
                 console.log("status: ",JSON.stringify(out));
                 alert("the sentence was removed from DB and marked as bad segmented");
@@ -127,13 +128,13 @@ function AddSentsCtrl($scope, $routeParams,utils) {
             });
     };
 
-    $scope.getSentenceData = function(sent){
+    $scope.getSentenceData = function(sent, cb){
 	var sentid = sent.esSentId;
 	console.log(sentid);
 
 	utils.CallServerGet("external/searchById", {id: sentid}, function(sentObj){
 	    console.log(sentObj);
-	    $scope.associateSentence({fullSentence:sentObj.fullSentence});
+	    cb({fullSentence:sentObj.fullSentence});
 	});	
     };
 
