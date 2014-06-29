@@ -67,14 +67,9 @@ exports.handleHttpResults = function handleHttpResults(req,res){
         //console.log("DEBUG: handleResultsFunc: ", req.path)
         //console.log("RESULT", JSON.stringify((result)))
         //throw new Error("handleResults: error retrieving results: "+err);
-	
-	err = result ? err : (err || {});
-	
-	if (err){
-	    err.code = err.code || 500;
-	}
-	
+
         if (err) {
+	    err.code = err.code || 500;
             return res.send(err.code,err); //TODO: this will break asaf code???
             console.error("ERROR: handling error", err, err.stack);
             res.charset='utf-8'
