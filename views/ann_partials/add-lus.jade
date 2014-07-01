@@ -8,7 +8,7 @@
             a Add LUs to {{selectedFrameName}}
             .pull-right
                 //button.btn.btn-inverse.btn-large#finishedButton(type="button")
-                    |I've finished!
+                    |I\'ve finished!
     .row
         .span12
             <a href="#" data-toggle="tooltip" data-placement="right" title="" data-original-title="Tooltip on right">Tooltip on right</a>
@@ -98,6 +98,8 @@
                         td 
                             |{{lu.name}} ({{lu.pos}})
                             .pull-left
+                                a(href="#/add-sentences/{{selectedFrameName}}/{{lu.name}}.{{lu.pos}}")
+                                    i.icon-plus-sign.padded5.clickable
                                 i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked(lu.name,lu.pos)")
                                 a(href="#/edit-lu/{{selectedFrameName}}/{{lu.name}}/{{lu.pos}}")
                                     i.icon-edit.padded5.clickable
