@@ -423,8 +423,17 @@ span.wordStyle {
     font-size: 12px;
 }
 
-#sentences-list{
+#sentences-list-wrapper{
     margin-top: 20px;
+}
+
+#sentences-list {
+    height: 590px;
+    overflow-y: auto;
+}
+
+#sentences-list > p {
+    width: 95%;
 }
 
 .sentence {

@@ -22,33 +22,46 @@
                 p.row(ng-repeat="sent in correlatedSentences | filter:filterAssociatedFromList")
                     span.span10
                         | {{sent.text}}
-                    button.btn.btn-mini.span1(type="button", value="0")
-                        i.icon-flag(ng-click="getSentenceData(sent, badSegRec)", title="bad segmentation").clickable
-                    button.btn.btn-mini.span1(type="button", value="0")
-                        i.icon-plus-sign(ng-click="getSentenceData(sent, associateSentence)", title="Associate this sentence with the current LU").clickable
+                    span.span1
+                        button.btn.btn-mini(type="button", value="0")
+                            i.icon-flag(ng-click="getSentenceData(sent, badSegRec)", title="bad segmentation").clickable
+                        button.btn.btn-mini(type="button", value="0")
+                            i.icon-plus-sign(ng-click="getSentenceData(sent, associateSentence)", title="Associate this sentence with the current LU").clickable
 
             h4 Associated Sentences
             div.rtl(ng-show="currentSentences.length > 0")
                 p.row(ng-repeat="sent in currentSentences")
                     span.span10
                         |{{sent.content.fullSentence.text}}
-                    button.btn.btn-mini.span1(type="button", value="0")
-                        i.icon-flag(ng-click="badSegAss(sent)", title="bad segmentation").clickable
-                    button.btn.btn-mini.span1(type="button", value="0")
-                        i.icon-remove-sign(ng-click="removeFromLu(sent)", title="remove from lu").clickable
+                    span.span1
+                        button.btn.btn-mini(type="button", value="0")
+                            i.icon-flag(ng-click="badSegAss(sent)", title="bad segmentation").clickable
+                        button.btn.btn-mini(type="button", value="0")
+                            i.icon-remove-sign(ng-click="removeFromLu(sent)", title="remove from lu").clickable
             #no-sentences-current(ng-show="currentSentences.length == 0")
                 |No sentences 
                 
             h4 Sentences from search engine
-            div(id="sentences-list")
+            div(id="sentences-list-wrapper")
                 .loading-gif(ng-show="showLoader")
-                div.rtl(ng-show="foundSentences.length > 0")
+                div#sentences-list.rtl(ng-show="!showLoader && foundSentences.length > 0")
                     p.row(ng-repeat="sent in foundSentences | filter:filterExamplesFromList")
-                        span.sentence.span11
+                        span.sentence.span9
                             |{{sent.text}}
                         button.btn.btn-mini.span1(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="associateSentence(sent)",title="Associate this sentence with the current LU")
                             i.icon-ok
                 #no-sentences-found(ng-show="foundSentences.length == 0 && !showLoader")
                     |No sentences found
+                .modal-footer
+                    span.pagination
+                        p.help-inline [{{page}}]
+                        ul
+                           li
+                               a(ng-click="loadFirst()") first
+                           li
+                               a(ng-click="loadAndDec()") Prev
+                           li
+                               a(ng-click="loadAndInc()") Next
+            
 
             

@@ -8,6 +8,8 @@ function AddSentsCtrl($scope, $routeParams,utils) {
     $scope.currentSentences=[];
     $scope.foundSentences=[];
 
+    $scope.page = 1;
+
     var associatedSentenceESIds = [];
 
     $scope.filterAssociatedFromList = function(s){
@@ -59,14 +61,39 @@ function AddSentsCtrl($scope, $routeParams,utils) {
 	});
     };
 
-    $scope.showLoader = true;
-    utils.CallServerGet("external/exampleSentences",{lupos:$scope.selectedLUShortPos,luname:$scope.selectedLUShortName},function(out)
-    {
-        $scope.foundSentences=out;
-        $scope.showLoader = false;
-        $scope.$apply();
+    $scope.loadSentencesForSearch = function(){
+	$scope.showLoader = true;
+	utils.CallServerGet("external/exampleSentences",
+			    {
+				lupos: $scope.selectedLUShortPos,
+				luname: $scope.selectedLUShortName,
+				page: $scope.page
+			    },
+			    function(out) {
+				$scope.foundSentences=out;
+				$scope.showLoader = false;
+				$scope.$apply();
+			    });
+    }
+    $scope.loadSentencesForSearch();    
 
-    });
+    $scope.loadAndInc = function(){
+        $scope.page++;
+        $scope.loadSentencesForSearch();
+    }
+
+    $scope.loadAndDec = function(){
+        if ($scope.page > 1){
+            $scope.page=Math.max(1,$scope.page-1);
+            $scope.loadSentencesForSearch();
+        }
+    }
+    $scope.loadFirst = function(){
+        if ($scope.page > 1){
+            $scope.page=1;
+            $scope.loadSentencesForSearch();
+        }
+    }
 
 var updateCorrelatedSentences = function(){
     utils.CallServerGet("heb/getexmsentencebylu",
