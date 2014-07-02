@@ -2,7 +2,7 @@
     a(href="#/add-lus/{{selectedFrame.engData.frame['@name']}}")
         button(type="button").btn.compact-hidden.pull-right#add-lus
             i.icon-plus-sign
-            |&nbsp;Add LUs
+            |&nbsp;Manage LUs
     a(href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame="+"{{selectedFrame.engData.frame['@name']}}", target="_blank")
         button(type="button").btn.compact-hidden.pull-right#add-lus
             |open frame in engFN
@@ -94,7 +94,7 @@ p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-fram
                                 a(href="#/add-lus/{{selectedFrame.engData.frame['@name']}}")
                                     button(type="button").btn.pull-right#add-lus 
                                         i.icon-plus-sign
-                                        |&nbsp;Add LUs
+                                        |&nbsp;Manage LUs
                         tr
                             th LU
                             th Status

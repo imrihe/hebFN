@@ -11,7 +11,7 @@
                     |I\'ve finished!
     .row
         .span12
-            H2 Add LUs To {{selectedFrameName}}
+            H2 Manage LUs in the {{selectedFrameName}} Frame
     .row
 
         .span8
@@ -66,9 +66,9 @@
                         td
                             |מותאם אישית
                             .pull-left
-                                i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked()")
+                                i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked()", title="Search for sentences")
                                 //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU(-1)")
-                                i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked()")
+                                i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked()", title="Add a custom LU")
 
             table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus(ng-show="luTranslations != ''")
                 thead
@@ -98,12 +98,12 @@
                             |{{lu.name}} ({{lu.pos}})
                             .pull-left
                                 a(href="#/add-sentences/{{selectedFrameName}}/{{lu.name}}.{{lu.pos}}")
-                                    i.icon-plus-sign.padded5.clickable
-                                i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked(lu.name,lu.pos)")
+                                    i.icon-plus-sign.padded5.clickable(title="LU sentence management")
+                                i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked(lu.name,lu.pos)", title="Search for sentences")
                                 a(href="#/edit-lu/{{selectedFrameName}}/{{lu.name}}/{{lu.pos}}")
-                                    i.icon-edit.padded5.clickable
+                                    i.icon-edit.padded5.clickable(title="Edit the LU")
                                 //i.icon-question-sign.padded5.clickable(ng-click="")
-                                i.icon-minus-sign.padded5.clickable(ng-click="removeHebLU(lu.name,lu.pos)")
+                                i.icon-minus-sign.padded5.clickable(ng-click="removeHebLU(lu.name,lu.pos)", title="Remove the LU from the current frame")
 
 
 
