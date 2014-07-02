@@ -198,7 +198,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
                 }
                 $scope.lastSentCallInProgress=false;
                 $scope.$apply();
-                $('*').tooltip({container: 'body'});
+//                $('*').tooltip({container: 'body'});
 
             });
 
