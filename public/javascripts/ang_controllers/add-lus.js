@@ -198,7 +198,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
                 }
                 $scope.lastSentCallInProgress=false;
                 $scope.$apply();
-//                $('*').tooltip({container: 'body'});
+//                $('[title]').tooltip();
 
             });
 
@@ -260,7 +260,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
     
     //$scope.addingSeggustion=false;
     
-    var addTooltip=function(elemId,iconClass,onDone)
+   /* var addTooltip=function(elemId,iconClass,onDone)
     {
         $(".heb-lus").on("click","."+iconClass,function(){
             $(".add-lus-tooltip").hide();//hide other tooltips
@@ -280,7 +280,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
         $(".add-lus-tooltip#"+elemId+" .icon-remove").on("click",function(){
             $("#"+elemId).hide()});
         
-    };
+    };*/
     //addTooltip("sentences","icon-search",function(){$scope.loadSentencesForSelecteHebLU()});
     //addTooltip("add-heb-lus","icon-question-sign",function(){ $scope.addingSeggustion=false});
     //addTooltip("add-heb-lus","icon-plus-sign",function(){ $scope.addingSeggustion=true});
@@ -312,7 +312,7 @@ function AddLUsCtrl($scope, $routeParams,utils) {
     //sleep(50)
     //$scope.histStr =  histStrFunc();
 
-    $('*').tooltip({container: 'body'});
+//    $('[title]').tooltip();
 
     $scope.setLuSentCorrelation  =function(sentid, status,text){
         //console.log(sentid,status)
