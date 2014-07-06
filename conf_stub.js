@@ -2,8 +2,8 @@ var version ='1.0';
 printModule("configuration file - version "+version);
 module.exports= {
     version :   version,
-    dbusername: 'password', //TODO: enter the database user name here (if exists)
-    dbpassword: 'elhadad2', //TODO: enter the database password here  (if exists)
+    dbusername: 'usefrname, //TODO: enter the database user name here (if exists)
+    dbpassword: 'password', //TODO: enter the database password here  (if exists)
     emailusername: 'hebrew.framenet.bgu@gmail.com',   //TODO: enter the email address (need to be configured as smtp)
     emailpassword: 'password',                     //TODO: enter the email password
     hp: '~nlpproj/hebfn/',                          //TODO: enter here the base uri of your project (i.e: www.cs.bgu.ac.il/~nlp..../annotate# - so  /~nlp..../ will be your hp
@@ -13,7 +13,7 @@ module.exports= {
     dbport: '27017', //default port                 //TODO: port of the mongoDB service (normally 27017)
     dbname: 'HebFrameNetDB',                        //TODO: enter the name of your database - leave as is if you are using the HebFN data
     coll:{ //names of all the collections in the DB (need to suit the DBname)  //TODO: don't change this unless you know what you are doing
-        hebframes :     'hebFrames_testing', //TODO  use fore testing : hebFrames_testing
+        hebframes :     'hebFrames', //TODO  use fore testing : hebFrames_testing
         hebSent:        'sentences',
         hebLuSent:      'luSentence',
         hebDecisions:   'annotatorDecisions',
