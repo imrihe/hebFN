@@ -17,39 +17,36 @@
             // h4 Matching Sentences Found
             // p.no-bold Click actions to associate sentences with the frame or mark them as wronglfully parsed
 
-            h4 Recommended Sentences
-            div.rtl(ng-show="correlatedSentences.length > 0")
-                p.row(ng-repeat="sent in correlatedSentences | filter:filterAssociatedFromList")
-                    span.span10
-                        | {{sent.text}}
-                    span.span1
-                        button.btn.btn-mini(type="button", value="0")
-                            i.icon-flag(ng-click="getSentenceData(sent, badSegRec)", title="bad segmentation").clickable
-                        button.btn.btn-mini(type="button", value="0")
-                            i.icon-plus-sign(ng-click="getSentenceData(sent, associateSentence)", title="Associate this sentence with the current LU").clickable
-
             h4 Associated Sentences
-            div.rtl(ng-show="currentSentences.length > 0")
+            div.well.rtl(ng-show="currentSentences.length > 0")
                 p.row(ng-repeat="sent in currentSentences")
                     span.span10
                         |{{sent.content.fullSentence.text}}
-                    span.span1
-                        button.btn.btn-mini(type="button", value="0")
-                            i.icon-flag(ng-click="badSegAss(sent)", title="bad segmentation").clickable
-                        button.btn.btn-mini(type="button", value="0")
-                            i.icon-remove-sign(ng-click="removeFromLu(sent)", title="remove from lu").clickable
-            #no-sentences-current(ng-show="currentSentences.length == 0")
+                    button.btn.btn-mini.span1(type="button", value="0", ng-click="removeFromLu(sent)", title="remove from lu")
+                        i.icon-remove-sign
+            #no-sentences-current.well(ng-show="currentSentences.length == 0")
                 |No sentences 
+
+            h4 Recommended Sentences
+            div.well.rtl(ng-show="correlatedSentences.length > 0")
+                p.row(ng-repeat="sent in correlatedSentences | filter:filterAssociatedFromList")
+                    span.span10
+                        | {{sent.text}}
+                    button.btn.btn-mini.span1(type="button", value="0", ng-click="getSentenceData(sent, associateSentence)", title="Associate this sentence with the current LU")
+                        i.icon-plus-sign
+            #no-sentences-current.well(ng-show="correlatedSentences.length == 0")
+                |No sentences 
+
                 
             h4 Sentences from search engine
-            div(id="sentences-list-wrapper")
+            div.well(id="sentences-list-wrapper")
                 .loading-gif(ng-show="showLoader")
                 div#sentences-list.rtl(ng-show="!showLoader && foundSentences.length > 0")
                     p.row(ng-repeat="sent in foundSentences | filter:filterExamplesFromList")
                         span.sentence.span9
                             |{{sent.text}}
                         button.btn.btn-mini.span1(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="associateSentence(sent)",title="Associate this sentence with the current LU")
-                            i.icon-ok
+                            i.icon-plus-sign
                 #no-sentences-found(ng-show="foundSentences.length == 0 && !showLoader")
                     |No sentences found
                 .modal-footer
