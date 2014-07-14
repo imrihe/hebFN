@@ -2083,7 +2083,8 @@ function sentencesByLu(query,cb){
 	    Models.luSentCorrelationModel.find({
 		luName: query.luname, 
 		frameName: query.framename,
-		esSentId: {$nin : badSegs}
+		esSentId: {$nin : badSegs},
+		status: 'good'
 	    },  cb);
 	}
     });
