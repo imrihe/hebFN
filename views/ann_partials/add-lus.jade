@@ -46,7 +46,10 @@
 
                 tbody
                     tr(ng-repeat="lu in frameLus",ng-click="updateLuTranslations($index)",ng-class="{selected: $index==selectedEngLUIdx}")
-                        td {{lu.name}} ({{lu.pos | lowercase}})
+                        td
+                            {{lu.name}} ({{lu.pos | lowercase}})
+                            a(href="http://www.morfix.co.il/{{lu.name}}", target="__blank")
+                                .icon-question-sign
                         td
                             label.checkbox.inline
                                 input(type="checkbox", id="inlineCheckbox1" ,value="option1")
