@@ -3,7 +3,7 @@ var HashLU=function(pos,name)
     return String(pos)+"#"+String(name);
 };
 
-function AddLUsCtrl($scope, $routeParams,utils) {
+function AddLUsCtrl($scope, $filter, $routeParams,utils) {
     $scope.selectedFrameName=$routeParams.frame;
     $scope.selectedFrame=[];
     $scope.frameLus=[];
@@ -187,15 +187,18 @@ function AddLUsCtrl($scope, $routeParams,utils) {
         $scope.lastSentCallInProgress=true;
         $scope.lastSentCall=utils.CallServerGet("external/exampleSentences",{pos:pos,text:name, field: what, page: page, diversify : diversify},function(out)
             {
-                $scope.foundSentences=out;
-
                 for (var sent in out){
-                    $scope.getSentenceCorr(out[sent]);
+		    $scope.getSentenceCorr(out[sent]);
+		    var txt = out[sent].text,
+		        words = out[sent].fullSentence.words;
+
+		    var targetWord = $filter('filter')(words, {lemma: name})[0];
+		    console.log(targetWord);
+		    out[sent].text = txt.replace(targetWord.word, '<span class="targetWord">'+targetWord.word+'</span>');
+		    console.log(out[sent].text);
                     //get sent status from hebfn server and update
-
-
-
                 }
+		$scope.foundSentences=out;
                 $scope.lastSentCallInProgress=false;
                 $scope.$apply();
 //                $('[title]').tooltip();

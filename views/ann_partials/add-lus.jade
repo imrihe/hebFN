@@ -152,7 +152,7 @@
                                             i.icon-remove
                                         button.btn.btn-mini(type="button", value="2", ng-class="{active: (sent.status == 'maybe') }",ng-click="setLuSentCorrelation(sent.id,'maybe',sent.text)", data-toggle="button",title="this sentence may be suitable for this lu")
                                             i.icon-question-sign
-                                td#sent-searched  {{sent.text}}
+                                td#sent-searched(ng-bind-html-unsafe="sent.text")
                         div(ng-show="foundSentences!=-1 && foundSentences.length==0")
                             |No matching sentences were found
 
