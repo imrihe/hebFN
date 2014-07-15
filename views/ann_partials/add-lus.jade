@@ -35,8 +35,8 @@
                     include frame-full
 
     .row
-        .span4
-            table.table.table-bordered.table-hover.table-striped.lus-table
+        .span4.lus-div.table-bordered
+            table.table.table-hover.table-striped.lus-table
                 thead
                     tr
                         th#add-lus-th
@@ -51,43 +51,45 @@
                             label.checkbox.inline
                                 input(type="checkbox", id="inlineCheckbox1" ,value="option1")
                                     |1
-        .span4.rtl
-            //table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
-            table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
-                thead
-                    tr
-                        th#add-lus-th
-                            h4 Add Free-Text LU
-                            p.no-bold Look for sentences and add custom LUs
+        .span4
+            .table-bordered
+                //table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus
+                table.table.table-hover.table-striped.lus-table.heb-lus.rtl
+                    thead
+                        tr
+                            th#add-lus-th
+                                h4 Add Free-Text LU
+                                p.no-bold Look for sentences and add custom LUs
 
 
-                tbody
-                    tr
-                        td
-                            |מותאם אישית
-                            .pull-left
-                                i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked()", title="Search for sentences")
-                                //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU(-1)")
-                                i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked()", title="Add a custom LU")
+                    tbody
+                        tr
+                            td
+                                |מותאם אישית
+                                .pull-left
+                                    i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked()", title="Search for sentences")
+                                    //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU(-1)")
+                                    i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked()", title="Add a custom LU")
 
-            table.table.table-bordered.table-hover.table-striped.lus-table.heb-lus(ng-show="luTranslations != ''")
-                thead
-                    tr
-                        th#add-lus-th
-                            //h4 Hebrew Translations of {{frameLus[selectedEngLUIdx].name}}
-                            h4 Translations of <u> {{frameLus[selectedEngLUIdx].name}} </u>
-                            p.no-bold Associate with frame or show example sentences
+            .table-bordered.translations-div(ng-show="luTranslations != ''")
+                table.table.table-hover.table-striped.lus-table.heb-lus.rtl
+                    thead
+                        tr
+                            th#add-lus-th
+                                //h4 Hebrew Translations of {{frameLus[selectedEngLUIdx].name}}
+                                h4 Translations of <u> {{frameLus[selectedEngLUIdx].name}} </u>
+                                p.no-bold Associate with frame or show example sentences
 
-                tbody
-                    tr(ng-repeat="t in luTranslations")
-                        td(ng-hide="checkTranslation(t)")
-                            |{{t.name}} ({{t.pos}})
-                            .pull-left
-                                //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU($index)")
-                                i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked(t.name,t.pos)")
+                    tbody
+                        tr(ng-repeat="t in luTranslations")
+                            td(ng-hide="checkTranslation(t)")
+                                |{{t.name}} ({{t.pos}})
+                                .pull-left
+                                    //i.icon-question-sign.clickable.padded5(ng-click="selectHebLU($index)")
+                                    i.icon-plus-sign.clickable.padded5(ng-click="addLuIconClicked(t.name,t.pos)")
 
-        .span4.rtl
-            table.table.table-bordered.table-hover.table-striped.lus-table.special-table
+        .span4.lus-div.table-bordered
+            table.table.table-hover.table-striped.lus-table.special-table.rtl
                 thead
                     tr
                         th#add-lus-th

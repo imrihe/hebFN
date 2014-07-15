@@ -445,3 +445,14 @@ span.wordStyle {
     font-weight: bold;
     background-color: #ea0;
 }
+
+.lus-div {
+    max-height: 490px;
+    overflow-y: auto;
+}
+
+.translations-div {
+    margin-top: 10px;
+    max-height: 305px;
+    overflow-y: auto;
+}
