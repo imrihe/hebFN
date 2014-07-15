@@ -347,7 +347,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         var transToCheck = trans.name+ '#'+trans.pos;
         var res = $scope.selectedFrameHebLUs[transToCheck];
         //console.log('trans is',res, trans)
-        if (res) return true
+        if (!res) return true
         else return false
         //return false;
 
