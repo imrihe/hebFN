@@ -442,6 +442,6 @@ span.wordStyle {
 }
 
 .targetWord {
-    text-weight: bold;
+    font-weight: bold;
     background-color: #ea0;
 }
