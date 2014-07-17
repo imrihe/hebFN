@@ -209,8 +209,9 @@
     .row
         div#comments.table-bordered.span12
             div#comments-inner
-                p.comment(ng-repeat="c in frameComments")
-                    span {{c.content}} ({{c.cBy}} @ {{c.cDate | date: 'dd/MM/yyyy, H:mm'}})       
+                p.comment(ng-repeat="c in selectedFrame.hebData.comments")
+                    span {{c.content}} 
+                        span.comment-signature ({{c.cBy}} @ {{c.cDate | date: 'dd/MM/yyyy, H:mm'}})       
             form
                 .control-group.fix-comment-box
                      textarea#add-comment.controls.input-xxlarge(rows="3",ng-model="newComment")
