@@ -473,6 +473,11 @@ span.wordStyle {
     overflow-y: auto;
 }
 
+.comment-signature {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
 .fix-comment-box {
     text-align: center;
 }
