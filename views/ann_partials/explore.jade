@@ -25,7 +25,7 @@
                         tbody
                             tr(ng-repeat="f in filteredFrames | startFrom:currentPage*pageSize | limitTo:pageSize ")
                                 td(ng-click="chooseFrame(f.frame['@name'])").clickable
-                                    a {{shortendString(f.frame['@name'],15)}} 
+                                    a(title="{{f.frame['@name']}}") {{shortendString(f.frame['@name'],15)}} 
         #selected-frame-info-loading.loading-gif.span10.offset4.hide
         #selected-frame-info.span10.hide
             include frame-full.jade
