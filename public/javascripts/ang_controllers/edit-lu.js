@@ -22,6 +22,9 @@ function EditLuCtrl($scope, $routeParams,utils) {
 
     $scope.luDefenition="";
     $scope.luIncoFe="";
+
+    $scope.luComments = [];
+    $scope.newComment = null;
     
     $scope.updateModels=function()
     {
@@ -29,6 +32,7 @@ function EditLuCtrl($scope, $routeParams,utils) {
         $scope.luLemma=$scope.selectedLU['@lemma'];
         $scope.luIncoFe=$scope.selectedLU['@incorporatedFE'];
         $scope.luDefenition=$scope.selectedLU.definition;
+	$scope.luComments = $scope.selectedLU.comments;
     };
     $scope.refreshPage=function()
     {
@@ -78,7 +82,7 @@ function EditLuCtrl($scope, $routeParams,utils) {
                 definition:$scope.luDefenition,
                 status:$scope.luStatus,
                 lemma:$scope.luLemma,
-                incoFe:$scope.luIncoFe
+                incoFe:$scope.luIncoFe,
             };
         var cleaned={};
         $.each( data, function( key, value ) {
@@ -103,5 +107,19 @@ function EditLuCtrl($scope, $routeParams,utils) {
                 });
         
     };
+
+    $scope.postComment = function(){
+	var params = {
+	    type: 'lu',
+	    luname: $scope.selectedLU['@name'],
+	    framename: $scope.frameName,
+	    comment: $scope.newComment
+	};
+	$scope.newComment = null;
+	utils.CallServerPost("heb/addcomment", params, function(res){
+	    $scope.luComments.push(res);
+	    $scope.$apply();
+	});
+    }
 
 }

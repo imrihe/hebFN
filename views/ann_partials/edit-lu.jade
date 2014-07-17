@@ -4,24 +4,25 @@
     H4 Frame: {{frameName}}
     .compact
         include frame-full
-    form.form-horizontal
-                .control-group
+    .row
+        form.form-horizontal.span8.table-bordered
+                .control-group.padTop20
                     label.control-label LU Name
-                    span.controls.help-inline {{selectedLU['@name'].split(".")[0]}}
+                    a.controls(href="http://he.wiktionary.org/wiki/{{selectedLU['@name'].split('.')[0]}}", target="_blank")
+                        |{{selectedLU['@name'].split(".")[0]}}
                 .control-group
                     label.control-label LU POS
                     span.controls.help-inline {{selectedLU['@POS']}}
                 .control-group
                     label.control-label LU Status 
-                    select.controls(ng-model="luStatus",ng-options="value for value in constants.luStatus.values")
+                    select.controls.input-large(ng-model="luStatus",ng-options="value for value in constants.luStatus.values")
                 .control-group.padTop20
                     label.control-label Definition
                     textarea#edit-lu-defenition.controls(rows="3",ng-model="luDefenition")
-                    a(href="http://he.wiktionary.org/wiki/{{selectedLU['@name']}}", target="_blank", style="margin-left: 10px;") wikimilon
-                .control-group.padTop20
+                .control-group.padTop20.input-append
                     label.control-label Semantic Type
                     select.controls.input-large(ng-model="selectedSemType",ng-options="value for value in constants.semType.values")
-                    button.btn.btn-inverse.marg5(type="button",ng-click="addSelectedSemType()")
+                    button.btn.btn-inverse(type="button",ng-click="addSelectedSemType()")
                         | ADD
                 .control-group(ng-class="{error:isSemTypeValid()}")
                     textarea#new-sem-type(rows="3",ng-model="semType") 
@@ -30,8 +31,19 @@
                     textarea#edit-lu-defenition.controls(rows="3",ng-model="luLemma")
                 .control-group.padTop20
                     label.control-label IncoFe
-                    select.controls(ng-model="luIncoFe",ng-options="value for value in getListOfFes()")
+                    select.controls.input-large(ng-model="luIncoFe",ng-options="value for value in getListOfFes()")
                 .control-group#add-lu-submit
                         button.btn.btn-inverse.btn-large(type="button",ng-click="editLu()")
                             |Commit Changes
+
+        div#comments.span4.table-bordered
+            div#comments-inner
+                p.comment(ng-repeat="c in luComments")
+                    span {{c.content}} ({{c.cBy}} @ {{c.cDate | date: 'dd/MM/yyyy, H:mm'}})       
+            form
+                .control-group.fix-comment-box
+                     textarea#add-comment.controls(rows="3",ng-model="newComment")
+                .control-group#add-lu-submit
+                    button.btn.btn-inverse.btn-large(type="button",ng-click="postComment()")
+                        |Add Comment
                 

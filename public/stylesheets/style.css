@@ -19,7 +19,7 @@
 }
 #edit-lu textarea
 {
-     width: 257px;
+     width: 250px;
 }
 #new-sem-type
 {
@@ -455,4 +455,17 @@ span.wordStyle {
     margin-top: 10px;
     max-height: 305px;
     overflow-y: auto;
+}
+
+#comments {
+    background-color: #eee;
+    margin-left: 16px;
+}
+
+#comments-inner {
+    margin: 20px;
+}
+
+.fix-comment-box {
+    text-align: center;
 }

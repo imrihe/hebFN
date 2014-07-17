@@ -1934,8 +1934,11 @@ function addComment(params, cb){
             var query = {'@name': params.framename, 'lexUnit.@name': params.luname};
             var fields = {'lexUnit.$.comments': comment};
             var uOptions={}; //{new : true};
-            var update = {'$set':  (fields)};
-            Models.hebFrameModel.update(query, update, uOptions, cb);
+            var update = {'$push':  (fields)};
+            Models.hebFrameModel.update(query, update, uOptions, function(err, res){
+		if (!err) res = comment;
+		cb(err, res);
+	    });
             break;
         case 'sentlu':
             if (!validateFields('framename luname sentenceid comment', params,cb)) break;
@@ -1956,7 +1959,7 @@ module.exports.postAddComment = function (req, res){
         type: req.param('type'),
         luname: req.param('luname'),
         framename: req.param('framename'),
-        username: req.user && username || 'unknown',
+        username: req.user && req.user.username || 'unknown',
         sentenceid: req.param('sentenceid'),
         comment : req.param('comment')
     };
