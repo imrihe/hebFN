@@ -204,5 +204,16 @@
                             button.btn.btn-inverse.btn-large(type="button",ng-click="addHebLU(LuToBeAddedName,LuToBeAddedPos,addingSeggustion,LuToBeAddedComment,LuToBeAddedWasTranslated)")
                                 | Add
 
-.white-space                   
-            
+          
+
+    .row
+        div#comments.table-bordered.span12
+            div#comments-inner
+                p.comment(ng-repeat="c in frameComments")
+                    span {{c.content}} ({{c.cBy}} @ {{c.cDate | date: 'dd/MM/yyyy, H:mm'}})       
+            form
+                .control-group.fix-comment-box
+                     textarea#add-comment.controls.input-xxlarge(rows="3",ng-model="newComment")
+                .control-group#add-lu-submit
+                    button.btn.btn-inverse.btn-large(type="button",ng-click="postComment()")
+                        |Add Comment

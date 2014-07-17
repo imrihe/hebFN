@@ -459,7 +459,12 @@ span.wordStyle {
 
 #comments {
     background-color: #eee;
+    margin-top: 5px;
+}
+
+#edit-lu #comments {
     margin-left: 16px;
+    margin-top: 0px;    
 }
 
 #comments-inner {

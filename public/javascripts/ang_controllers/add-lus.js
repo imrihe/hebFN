@@ -18,6 +18,10 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         preposition:"prep",
         a: "" //empty option
     };
+
+    $scope.frameComments = [];
+    $scope.newComment = null;
+
     utils.CallServerGet("eng/translations",
         {framename:$scope.selectedFrameName},
         function(out){
@@ -354,7 +358,19 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
     }
 
 
+    $scope.postComment = function(){
+	var params = {
+	    type: 'frame',
+	    framename: $scope.selectedFrameName,
+	    comment: $scope.newComment
+	};
+	$scope.newComment = null;
 
+	utils.CallServerPost("heb/addcomment", params, function(res){
+	    $scope.frameComments.push(res);
+	    $scope.$apply();
+	});
+    }
 
     //TODO: finish to update this shit!!
 

@@ -1927,7 +1927,10 @@ function addComment(params, cb){
     switch (params.type){
         case 'frame':
             if (!validateFields('framename comment', params,cb)) break;
-            Models.hebFrameModel.findOneAndUpdate({"@name": params.framename}, {$addToSet: {"comments": comment}}, cb );
+            Models.hebFrameModel.findOneAndUpdate({"@name": params.framename}, {$push: {"comments": comment}}, function(err, res){
+		if (!err) res = comment;
+		cb(err, res);
+	    });
             break;
         case 'lu':
             if (!validateFields('framename luname comment', params,cb)) break;
