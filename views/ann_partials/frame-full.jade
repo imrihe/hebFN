@@ -121,9 +121,9 @@ p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-fram
                 li(ng-repeat="lu in selectedFrame.hebData.frame.lexUnit")
                     |{{lu['@name']}}
     
-.compact-hidden
+.compact-hidden.miniable
     H3 Frame-frame relations
-    .row
+    .row.miniable-full
         .span10
             .ff-relations(ng-repeat="sfr in selectedFrame.engData.frame.frameRelation")
                 h4.ff-relations-title(ng-show="sfr.relatedFrame.length > 0") {{sfr['@type'] +": "}}
