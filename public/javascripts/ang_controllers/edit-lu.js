@@ -1,8 +1,20 @@
 
-function EditLuCtrl($scope, $routeParams,utils) {
+function EditLuCtrl($scope, $routeParams, $location,utils) {
     $scope.luPos=$routeParams.lupos;
     $scope.luName=$routeParams.luname;
     $scope.frameName=$routeParams.framename;
+    
+    $scope.POSs={
+        noun:"n",
+        verb:"v", 
+        adjective:"a",
+        adverb:"adv",
+        preposition:"prep",
+        a: "" //empty option
+    };
+
+    $scope.newName = $scope.luName;
+    $scope.newPos = $scope.luPos;
     
     $scope.selectedFrame={};
     $scope.selectedLU={};
@@ -84,6 +96,12 @@ function EditLuCtrl($scope, $routeParams,utils) {
                 lemma:$scope.luLemma,
                 incoFe:$scope.luIncoFe,
             };
+	var newLuName = $scope.newName+'.'+$scope.newPos;
+	console.log(data);
+	if (newLuName !== data.luname){
+	    data['lunameNew'] = newLuName;
+	    data['lupos'] = $scope.newPos.toUpperCase();
+	}
         var cleaned={};
         $.each( data, function( key, value ) {
             if(value!==undefined)
@@ -103,8 +121,11 @@ function EditLuCtrl($scope, $routeParams,utils) {
 
         utils.CallServerPost("heb/editlu", cleaned,
             function(out){
-                 $scope.refreshPage();  
-                });
+		var url = '/edit-lu/'+$scope.frameName+'/'+$scope.newName+'/'+$scope.newPos;
+		$location.path(url);
+		$scope.$apply();
+                $scope.refreshPage();  
+            });
         
     };
 

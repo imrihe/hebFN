@@ -146,6 +146,7 @@ function parseReqParams(req, mode){
     if (req.param('action')) other['action'] =  req.param('action');
     if (req.param('comment')) other['comment'] =  req.param('comment');
     if (req.param('luname')) lu['luname'] =  req.param('luname').indexOf('.')==-1 ? req.body.luname = (req.param('luname') + '.'+req.param('lupos')).toLowerCase() : req.param('luname');
+    if (req.param('lunameNew')) lu['lunameNew'] =  req.param('lunameNew').indexOf('.')==-1 ? req.body.luname = (req.param('lunameNew') + '.'+req.param('luposNew')).toLowerCase() : req.param('lunameNew');
     if (req.param('luid')) lu['luid'] =  req.param('luid');
     //if (req.param('origluid')) lu['origluid'] =  req.param('origluid');
     if (req.param('origluname')) lu['trans'] = {luID:req.param('origluid'), luName: req.param('origluname'), frameName: req.param('framename') };

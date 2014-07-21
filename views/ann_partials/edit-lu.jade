@@ -1,5 +1,15 @@
 
 #edit-lu
+    .row
+        .span12
+            a(href="#") Dashboard
+            | &nbsp;>>  &nbsp;
+            a(href="#/explore?frame={{frameName}}") Explore
+            | &nbsp;>>  &nbsp;
+            a(href="#/add-lus/{{frameName}}") Add LUs to {{frameName}}
+            | &nbsp;>>  &nbsp;
+            a Edit {{luName}}.{{luPos}} Details
+            .pull-right
     H1 Edit LU Details
     H4 Frame: {{frameName}}
     .compact
@@ -7,12 +17,15 @@
     .row
         form.form-horizontal.span8.table-bordered
                 .control-group.padTop20
-                    label.control-label LU Name
-                    a.controls(href="http://he.wiktionary.org/wiki/{{selectedLU['@name'].split('.')[0]}}", target="_blank")
-                        |{{selectedLU['@name'].split(".")[0]}}
+                    label.control-label
+                        |LU Name
+                        a(href="http://he.wiktionary.org/wiki/{{selectedLU['@name'].split('.')[0]}}", target="_blank")
+                            .icon-question-sign.clickable(title="Look up on Wikimilon")
+
+                    input.controls.input-large.rtl(type="text", ng-model="newName")
                 .control-group
                     label.control-label LU POS
-                    span.controls.help-inline {{selectedLU['@POS']}}
+                    select.controls.input-large(ng-model="newPos", ng-options="v for (k,v) in POSs")
                 .control-group
                     label.control-label LU Status 
                     select.controls.input-large(ng-model="luStatus",ng-options="value for value in constants.luStatus.values")
@@ -39,7 +52,9 @@
         div#comments.span4.table-bordered
             div#comments-inner
                 p.comment(ng-repeat="c in luComments")
-                    span {{c.content}} ({{c.cBy}} @ {{c.cDate | date: 'dd/MM/yyyy, H:mm'}})       
+                    span {{c.content}} 
+                        span.comment-signature
+                            |({{c.cBy}} @ {{c.cDate | date: 'dd/MM/yyyy, H:mm'}})       
             form
                 .control-group.fix-comment-box
                      textarea#add-comment.controls(rows="3",ng-model="newComment")

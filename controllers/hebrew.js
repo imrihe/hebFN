@@ -1686,26 +1686,34 @@ function editLU(params, cb){
 
     //create semType list of objects of type semType (without ID)
     lu.semType = _.map(lu.semType, function(obj){ return {'@name': obj.trim()}});
+    console.log(lu);
     var query = { //specify the lu to edit by fName and luName
         '@name': params.frame.framename,
         'lexUnit.@name': lu.luname};
     var fields = {
-        'lexUnit.$.definition': lu.definition,
-        'lexUnit.$.status': lu.status,
-        'lexUnit.$.lexeme': lu.lexeme,
-        'lexUnit.$.semType': lu.semType,
-        'lexUnit.$.@lemma': lu.lemma,
-        'lexUnit.$.@incorporatedFE' : lu.incoFe ? lu.incoFe : '', //default empty string
+        'lexUnit.$.definition': lu.definition || '',
+        'lexUnit.$.status': lu.status || 'Initial',
+        'lexUnit.$.lexeme': lu.lexeme || '',
+        'lexUnit.$.semType': lu.semType || [],
+        'lexUnit.$.@lemma': lu.lemma || '',
+        'lexUnit.$.@incorporatedFE' : lu.incoFe || '', //default empty string
         'lexUnit.$.@eDate' : new Date(),
-        'lexUnit.$.@eBy': params.other.username,
+        'lexUnit.$.@eBy': params.other.username || 'unknown',
         'lexUnit.$.translatedFrom' : lu.trans
     };
+
+    if (lu.lunameNew){
+	fields['lexUnit.$.@name'] = lu.lunameNew;
+	fields['lexUnit.$.@POS'] = lu.lupos;
+    }
+    
     console.log("DEBUG: lu.trans in edit lu", lu.trans);
     var update = {'$set':  (fields)};
     var updateOptions={};  //set options if needed, see mongoose docs
-
+    console.log(query);
+    console.log(update);
     //console.log("EDITLU:", JSON.stringify(query), JSON.stringify(update));
-    Models.hebFrameModel.update(query, update, updateOptions, cb);
+    Models.hebFrameModel.update(query, update, updateOptions, function(err, res){console.log(err);cb(err, res)});
 }//editLU
 
 
