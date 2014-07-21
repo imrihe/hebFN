@@ -130,6 +130,13 @@ p(ng-bind-html-unsafe="selectedFrame.engData.frame['definition']")#selected-fram
                 span.ff-relations-frames(ng-repeat="f in sfr.relatedFrame")
                     a.clickable(ng-click="chooseFrame(f)")
                         |{{$last && f || f+', '}}
+
+.compact-hidden.miniable
+    h3 Comments
+    #comments-inner.miniable-full
+        p.comment(ng-repeat="c in selectedFrame.hebData.comments")
+            span {{c.content}} 
+                span.comment-signature ({{c.cBy}} @ {{c.cDate | date: 'dd/MM/yyyy, H:mm'}})
         
                             
                             
