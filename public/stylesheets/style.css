@@ -153,10 +153,7 @@ table .selected td
 {
     background: #ddd;
 }
-.inline-header
-{
-    display: inline-block;
-}
+
 #selected-frame-def
 {
     line-height: 1.7;
@@ -237,7 +234,7 @@ display:none;
 .inline-header
 {
     font-weight:bold;
-    display:inline;
+    display:inline-block;
 }
 .padded5
 {
