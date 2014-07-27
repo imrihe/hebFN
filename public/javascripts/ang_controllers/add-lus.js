@@ -197,9 +197,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 		        words = out[sent].fullSentence.words;
 
 		    var targetWord = $filter('filter')(words, {lemma: name})[0];
-		    console.log(targetWord);
-		    out[sent].text = txt.replace(targetWord.word, '<span class="targetWord">'+targetWord.word+'</span>');
-		    console.log(out[sent].text);
+		    out[sent].displayText = txt.replace(targetWord.word, '<span class="targetWord">'+targetWord.word+'</span>');
                     //get sent status from hebfn server and update
                 }
 		$scope.foundSentences=out;
