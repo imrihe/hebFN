@@ -63,20 +63,31 @@ function FramesIdxCtrl($scope, $routeParams,$location,utils ) {
     var isValidFrameName = function(n) {
 	return typeof(n) === typeof("") && n.length > 0;
     }
-    $scope.$on('$routeUpdate', function(e, s){
-	var name = s.params.frame;
+
+    var getFrame = function(name){
 	if (oldFrame !== name && isValidFrameName(name)) {
 	    oldFrame = name;
-            utils.LoadResponseToDiv(
+	    utils.LoadResponseToDiv(
 		"selected-frame-info",
 		"heb/framedata",
 		{framename:name},
 		function(out){
                     $scope.selectedFrame=out;
                     $scope.$apply();
-		});
+		});	
 	}
+    }
+    
+    $scope.$on('$routeUpdate', function(e, s){
+	var name = s.params.frame;
+        getFrame(name);
     });
+
+    $(document).ready(function(){
+	getFrame($location.search()['frame']);
+    });
+
+    
 
     $scope.shortendString=utils.shortendString;
     
