@@ -367,7 +367,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 	$scope.newComment = null;
 
 	utils.CallServerPost("heb/addcomment", params, function(res){
-	    $scope.frameComments.push(res);
+	    $scope.selectedFrame.hebData.comments.push(res);
 	    $scope.$apply();
 	});
     }
