@@ -194,16 +194,20 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         $scope.lastSentCallInProgress=true;
         $scope.lastSentCall=utils.CallServerGet("external/exampleSentences",{pos:pos,text:name, field: what, page: page, diversify : diversify},function(out)
             {
+		var finalSentences = [];
                 for (var sent in out){
 		    $scope.getSentenceCorr(out[sent]);
 		    var txt = out[sent].text,
 		        words = out[sent].fullSentence.words;
 
 		    var targetWord = $filter('filter')(words, {lemma: name})[0];
-		    out[sent].displayText = txt.replace(targetWord.word, '<span class="targetWord">'+targetWord.word+'</span>');
+		    if (targetWord) {
+			out[sent].displayText = txt.replace(targetWord.word, '<span class="targetWord">'+targetWord.word+'</span>');
+			finalSentences.push(out[sent]);
+		    }
                     //get sent status from hebfn server and update
                 }
-		$scope.foundSentences=out;
+		$scope.foundSentences=finalSentences;
                 $scope.lastSentCallInProgress=false;
                 $scope.$apply();
 //                $('[title]').tooltip();
