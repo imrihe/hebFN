@@ -100,8 +100,9 @@
                 tbody
                     tr(ng-repeat="lu in selectedFrameHebLUs")
                         td 
-                            |{{lu.name}} ({{lu.pos}})
+                            |{{lu.name}}.{{lu.pos}}
                             .pull-left
+                                span(title="Number of associated sentences") ({{lu.count}})
                                 a(href="#/add-sentences/{{selectedFrameName}}/{{lu.name}}.{{lu.pos}}")
                                     i.icon-plus-sign.padded5.clickable(title="LU sentence management")
                                 i.icon-search.clickable.padded5(ng-click="searchSentencesIconClicked(lu.name,lu.pos)", title="Search for sentences")

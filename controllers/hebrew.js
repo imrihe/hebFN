@@ -46,7 +46,22 @@ var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
                     return _.indexOf(['delete', 'approve_delete', 'reject_add'], obj.decision.currStat['stat']) ==-1
                 });
                 results['lexUnit'] = newRes
-                cb(err, results);
+		
+		async.map(newRes, function(lu, doneCb){
+		    sentencesByLu({luname: lu['@name'], framename: q['@name']},
+				 function(err2, res){
+				     if (err2) doneCb(err2);
+				     else {
+					 lu['sentenceCount'] = res.length;
+					 doneCb(null, lu);
+				     }
+				 });
+		}, function(err2, res){
+		    results['lexUnit'] = res;
+		    cb(err2, results);
+		});
+
+//                cb(err, results);
 
             }
         });
@@ -374,6 +389,7 @@ function orderFes(fes){
  * @param cb
  */
 exports.loadFrameData = function loadFrameData(req,res,cb){
+    console.log(req.query);
     delete req.query['luid']
     delete req.query['luname']
     delete req.query['frameid']

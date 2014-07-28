@@ -48,9 +48,12 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
                     var lu=hlu[i];
                     var pos=lu['@POS'].toLowerCase();
                     var name=lu['@name'].split(".")[0];
-                    newDict[HashLU(name,pos)]={pos:pos,name:name};
+		    var sentenceCount = lu['sentenceCount']
+                    newDict[HashLU(name,pos)]={pos:pos,name:name, count: sentenceCount};
                 }
                 $scope.selectedFrameHebLUs=newDict;
+
+
             }
             $scope.$apply();
             }); 
