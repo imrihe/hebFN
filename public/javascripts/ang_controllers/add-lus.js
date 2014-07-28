@@ -235,7 +235,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
     }
     $scope.searchSentencesIconClicked= function(name,pos)
     {
-        $scope.selectedhe=
+	$scope.page = 1;
         $scope.searchWhat="lemma";
         $scope.searchPos=pos?pos:"";
         $scope.searchName=name?name:"";
