@@ -369,7 +369,7 @@ function orderFes(fes){
     var nonCore=[];
     for (obj in fes){ //"@coreType": "Core",
         //console.log(obj)
-        if (fes[obj]['@coreType'] =='Core') core.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
+        if (fes[obj]['@coreType'].indexOf('Core') > -1) core.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
         else  nonCore.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
     }
     //console.log("CORE",core);
