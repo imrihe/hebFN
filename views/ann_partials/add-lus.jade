@@ -7,11 +7,13 @@
             | &nbsp;>>  &nbsp;
             a Add LUs to {{selectedFrameName}}
             .pull-right
-                //button.btn.btn-inverse.btn-large#finishedButton(type="button")
-                    |I\'ve finished!
+               a(href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame="+"{{selectedFrame.engData.frame['@name']}}", target="_blank", style="top:-5px; position:relative;")
+                    button(type="button").btn.compact-hidden
+                        |open frame in engFN
     .row
         .span12
             H2 Manage LUs in the {{selectedFrameName}} Frame
+
     .row
 
         .span8
@@ -24,10 +26,6 @@
                     //li(ng-repeat="entry in frameHist") &nbsp  {{createHistStr(entry)}} &nbsp
 
 
-            ul#top
-        .span2
-            a(href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame="+"{{selectedFrame.engData.frame['@name']}}", target="_blank")
-                | open frame in engFN
 
     .row
         .span12(style="display:none",ng-show="selectedFrame!=''")
