@@ -16,6 +16,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         adjective:"a",
         adverb:"adv",
         preposition:"prep",
+	modal:"md",
         a: "" //empty option
     };
 
@@ -200,7 +201,9 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 		    var txt = out[sent].text,
 		        words = out[sent].fullSentence.words;
 
-		    var targetWord = $filter('filter')(words, {lemma: name})[0];
+		    fltr = {}
+		    fltr[what] = name;
+		    var targetWord = $filter('filter')(words, fltr)[0];
 		    if (targetWord) {
 			out[sent].displayText = txt.replace(targetWord.word, '<span class="targetWord">'+targetWord.word+'</span>');
 			finalSentences.push(out[sent]);

@@ -237,8 +237,8 @@ exports.esPos = {
     'a' : 'JJ', //adjective
     'n': 'NN', //noun
     'prep': 'IN / PREPOSITION', //preposition
-    'adv': 'RB'     //adverb
-
+    'adv': 'RB',     //adverb
+    'md': 'MD'  //modal
 }
 
 var SHORTPOS = {

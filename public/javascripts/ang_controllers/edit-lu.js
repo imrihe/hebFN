@@ -10,6 +10,7 @@ function EditLuCtrl($scope, $routeParams, $location,utils) {
         adjective:"a",
         adverb:"adv",
         preposition:"prep",
+	modal:"md",
         a: "" //empty option
     };
 
