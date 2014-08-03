@@ -19,7 +19,7 @@ var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
         q = q2coll(query, '- frame.@name frame.lexUnit.@ID frame.lexUnit.@name'),
         qOptions = options ? options : {limit: 50, sort: {'frame.@name' :1}};
     //if (query.frameid) q["frame.@ID"] = query.frameid;
-    if  (q["frame.@name"]) q["frame.@name"]=  {$regex : ".*"+query.framename+".*", $options: 'i'}; //runover the default -strict frame name check
+    //if  (q["frame.@name"]) q["frame.@name"]=  {$regex : ".*"+query.framename+".*", $options: 'i'}; //runover the default -strict frame name check
     //console.log("find query:",typeof(query),  query);
     //console.log("QUERY:",q)
     engframeModel.find(q,proj,qOptions,cb);
