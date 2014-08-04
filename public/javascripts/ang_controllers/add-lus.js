@@ -393,4 +393,26 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 	    $scope.optionalWords.splice(idx, 1);
 	}
     }
+
+    $scope.addSentenceIconClicked= function(name,pos) {
+	$scope.setSelectedhebLU(name, pos);
+	$scope.newSentenceGenre = "";
+	$scope.newSentenceText = "";
+        $('#add-sentence').modal();
+    };
+
+    $scope.addSentence = function(){
+	var params = {
+//	    preview: 'true',
+	    genre: $scope.newSentenceGenre,
+	    text: $scope.newSentenceText
+	};
+
+	utils.CallServerPost("external/addSentence", params, function(res){
+	    console.log(res);
+	    $scope.setLuSentCorrelation(res['_id'], 'good', res['text']);
+	});
+
+	$('#add-sentence').modal('hide');
+    }
 }

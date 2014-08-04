@@ -13,6 +13,7 @@ var util = require('../tools/utils.js');
 var esServer = 'http://www.cs.bgu.ac.il/~itayman/hebfn/';
 var searchRest = 'search/rest';
 var searchByIdUrl =   'search/id';
+var addSentenceRest = 'add/rest';
 var request = require('request');
 var qs = require('querystring');
 
@@ -128,3 +129,21 @@ exports.searchById = function(req,res){ searchSentencesByIdES(
     handleHttpResults(req,res))
 };
 
+
+exports.addSentence = function(req, res) {
+    var cb = handleHttpResults(req,res);
+    var addParams = {};
+
+    addParams.genre = req.param('genre') || 'general';
+    addParams.text = req.param('text');
+    addParams.preview = req.param('preview') || 'false';
+
+    if (addParams.text) {
+	request.post(esServer+addSentenceRest, {form: addParams}, function (error, response, body){
+            if (error) return cb(error);
+            cb(null, JSON.parse(body));
+	});
+    } else {
+	cb({error:"Missing parameter: text", code: 400});
+    }
+}

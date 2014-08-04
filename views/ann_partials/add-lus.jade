@@ -205,7 +205,7 @@
                                 select.controls#new-lu-pos.input-small(ng-model="LuToBeAddedPos",ng-options="value for (key,value) in POSs")
                                 span.help-inline(ng-hide="LuToBeAddedPos.length>0") Pos cannot be empty
                             //.control-group
-                                label.control-label(for="new-lu-not-suggest") I'm sure this is a valid LU
+                                label.control-label(for="new-lu-not-suggest") I\'m sure this is a valid LU
                                 input.controls#new-lu-not-suggest(type="checkbox",ng-model="addingSeggustion")
                             .control-group
                                 label.control-label(for="new-lu-name") Comment(optional)
@@ -219,6 +219,25 @@
                                 | Add
 
           
+
+        form.form-horizontal
+            #add-sentence.modal.add-lus-modal.fade.hide(tabindex="-1",role="dialog",aria-hidden="true")
+                .modal-dialog
+                    .modal-content
+                        .modal-header
+                            button.close(type="button",class="close",data-dismiss="modal",aria-hidden="true") &times;
+                            h4.modal-title Add a sentence to {{selectedHebLU.name}}.{{selectedHebLU.pos}}
+                        .modal-body
+                            .control-group
+                                label.control-label(for="new-sentence-genre") Genre
+                                input.controls.input-large#new-sentence-genre(type="text", ng-model="newSentenceGenre")
+                            .control-group
+                                label.control-label(for="new-sentence-text") Text
+                                textarea.controls.rtl.input-xlarge#new-sentence-text(ng-model="newSentenceText")
+                    .modal-footer
+                        .control-group#add-sentence-submit
+                            button.btn.btn-inverse.btn-large(type="button",ng-click="addSentence()")
+                                | Add
 
     .row
         div#comments.table-bordered.span12
