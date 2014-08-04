@@ -53,14 +53,15 @@ function searchSentencesES(reqQuery, cb){
         diversify: reqQuery['diversify'] ? reqQuery['diversify'] : "low",
         page: reqQuery['page']? reqQuery['page'] : 1 //1 and above
     };
+    var idx = 2;
     if (reqQuery['pos'])     query['w1.pos.must.match'] =  util.esPos[reqQuery.pos];
 
     query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname;
 
     if (reqQuery['optionals'] && reqQuery['optionals'].length > 0) {
-	query['w2.word.should.match'] = [];
+	query['w'+idx+'.word.should.match'] = [];
 	reqQuery['optionals'].forEach(function(x){
-	    query['w2.word.should.match'].push(x);
+	    query['w'+idx+'.word.should.match'].push(x);
 	});
     }
     console.log("search query: ",JSON.stringify(query));
