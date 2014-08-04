@@ -228,7 +228,7 @@
                             button.close(type="button",class="close",data-dismiss="modal",aria-hidden="true") &times;
                             h4.modal-title Add a sentence to {{selectedHebLU.name}}.{{selectedHebLU.pos}}
                         .modal-body
-                            .control-group
+                           // .control-group
                                 label.control-label(for="new-sentence-genre") Genre
                                 input.controls.input-large#new-sentence-genre(type="text", ng-model="newSentenceGenre")
                             .control-group(ng-class="{error: !newSentenceText.length>0}")

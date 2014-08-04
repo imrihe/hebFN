@@ -404,7 +404,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
     $scope.addSentence = function(){
 	var params = {
 //	    preview: 'true',
-	    genre: $scope.newSentenceGenre,
+//	    genre: $scope.newSentenceGenre,
 	    text: $scope.newSentenceText
 	};
 
