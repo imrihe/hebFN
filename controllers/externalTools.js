@@ -56,6 +56,13 @@ function searchSentencesES(reqQuery, cb){
     if (reqQuery['pos'])     query['w1.pos.must.match'] =  util.esPos[reqQuery.pos];
 
     query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname;
+
+    if (reqQuery['optionals'] && reqQuery['optionals'].length > 0) {
+	query['w2.word.should.match'] = [];
+	reqQuery['optionals'].forEach(function(x){
+	    query['w2.word.should.match'].push(x);
+	});
+    }
     console.log("search query: ",JSON.stringify(query));
     esQuery(query, function(err, result){
         if (err ) cb(err);

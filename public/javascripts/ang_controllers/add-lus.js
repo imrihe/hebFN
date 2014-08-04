@@ -23,6 +23,8 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
     $scope.frameComments = [];
     $scope.newComment = null;
 
+    $scope.optionalWords =  [];
+
     utils.CallServerGet("eng/translations",
         {framename:$scope.selectedFrameName},
         function(out){
@@ -180,6 +182,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         var pos=$scope.searchPos;
         var what=$scope.searchWhat;
         var page=$scope.page
+	var optionals = $scope.optionalWords.map(function(x){return x.w});
 
         //if(pos===undefined||name===undefined||pos===""||name==="")
         if(name===undefined||name==="")
@@ -193,7 +196,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
             $scope.lastSentCall.abort();
         }
         $scope.lastSentCallInProgress=true;
-        $scope.lastSentCall=utils.CallServerGet("external/exampleSentences",{pos:pos,text:name, field: what, page: page, diversify : diversify},function(out)
+        $scope.lastSentCall=utils.CallServerGet("external/exampleSentences",{pos:pos,text:name, field: what, page: page, diversify : diversify, optionals:optionals},function(out)
             {
 		var finalSentences = [];
                 for (var sent in out){
@@ -380,8 +383,13 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 	});
     }
 
-    //TODO: finish to update this shit!!
+    $scope.addOptionalTerm = function() {
+	$scope.optionalWords.push({w:''});
+    }
 
-
-
+    $scope.cleanUpTerms = function(idx) {
+	if (!$scope.optionalWords[idx].w) {
+	    $scope.optionalWords.splice(idx, 1);
+	}
+    }
 }

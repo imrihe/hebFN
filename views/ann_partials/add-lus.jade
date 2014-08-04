@@ -144,6 +144,18 @@
                                     &nbsp; Cancel diversification
                                 | &nbsp;&nbsp;
                                 i.icon-search.clickable(ng-click="page=1; loadSentencesForSearch()")
+                            .miniable.default-mini
+                                p Narrow search to sentences containing at least of the the words:
+                                .miniable-short
+                                    ul.comma-list
+                                        li(ng-repeat="word in optionalWords") {{word.w}}
+                                .miniable-full
+                                    ul.comma-list#optionalTerms
+                                        li(ng-repeat="word in optionalWords")
+                                            input.rtl.input-small(type="text", ng-model="optionalWords[$index].w", ng-blur="cleanUpTerms($index)", init-focus)
+                                        li
+                                            input.rtl.input-mini(type="text", style="opacity:0.5;background-color:#ccc;", ng-focus="addOptionalTerm()")
+                            
                     .modal-body
                         .loading-gif(ng-show="lastSentCallInProgress")
                         table.rtl(ng-show="!lastSentCallInProgress && foundSentences.length>0")
