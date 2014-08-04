@@ -231,12 +231,13 @@
                             .control-group
                                 label.control-label(for="new-sentence-genre") Genre
                                 input.controls.input-large#new-sentence-genre(type="text", ng-model="newSentenceGenre")
-                            .control-group
+                            .control-group(ng-class="{error: !newSentenceText.length>0}")
                                 label.control-label(for="new-sentence-text") Text
-                                textarea.controls.rtl.input-xlarge#new-sentence-text(ng-model="newSentenceText")
+                                textarea.controls.rtl.input-large#new-sentence-text(ng-model="newSentenceText")
+                                span.help-inline(ng-hide="newSentenceText.length>0") The text field cannot be empty
                     .modal-footer
                         .control-group#add-sentence-submit
-                            button.btn.btn-inverse.btn-large(type="button",ng-click="addSentence()")
+                            button.btn.btn-inverse.btn-large(type="button",ng-click="addSentence()", ng-disabled="!newSentenceText.length>0")
                                 | Add
 
     .row
