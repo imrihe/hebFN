@@ -250,6 +250,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
     {
 	$scope.page = 1;
         $scope.searchWhat="lemma";
+	$scope.optionalWords = [];
         $scope.searchPos=pos?pos:"";
         $scope.searchName=name?name:"";
         $scope.setSelectedhebLU(name,pos);
