@@ -351,12 +351,12 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 
         utils.CallServerPost("heb/setSentCorr", data,
             function(out){
-                if(out.status!==undefined && out.status=="OK")
+                if(out.results!==undefined && out.results===1)
                 {
 		    if (status === 'good') {
-			$scope.selectedFrameHebLUs[HashLU(name,pos)].count += 1;
+			$scope.selectedFrameHebLUs[HashLU(lu.name,lu.pos)].count += 1;
 		    } else if (sent.status === 'good') {
-			$scope.selectedFrameHebLUs[HashLU(name,pos)].count -= 1;
+			$scope.selectedFrameHebLUs[HashLU(lu.name,lu.pos)].count -= 1;
 		    }
 
                     $scope.refreshAll();
