@@ -105,6 +105,10 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
     };
     $scope.removeHebLU=function(name,pos)
     {
+       var msg = "Are you sure you want to delete " + name + "." + pos + " from " + $scope.selectedFrameName + "?";
+
+       if (!confirm(msg)) return;
+
        var data= {   framename:$scope.selectedFrameName,
             luname:name,
             lupos:pos,
