@@ -337,15 +337,15 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 
 //    $('[title]').tooltip();
 
-    $scope.setLuSentCorrelation  =function(sentid, status,text){
+    $scope.setLuSentCorrelation  =function(sent, status){
         //console.log(sentid,status)
        var lu = $scope.getSelectedHebLU();   //TODO - update if needed
         var data  ={
             luname: lu.name +'.'+ lu.pos.toLowerCase(),
             framename: $scope.selectedFrameName,
-            sentid: sentid,
+            sentid: sent.id,
             status: status,
-            text: text
+            text: sent.text
 
         }
 
@@ -353,6 +353,12 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
             function(out){
                 if(out.status!==undefined && out.status=="OK")
                 {
+		    if (status === 'good') {
+			$scope.selectedFrameHebLUs[HashLU(name,pos)].count += 1;
+		    } else if (sent.status === 'good') {
+			$scope.selectedFrameHebLUs[HashLU(name,pos)].count -= 1;
+		    }
+
                     $scope.refreshAll();
                 }
             });
