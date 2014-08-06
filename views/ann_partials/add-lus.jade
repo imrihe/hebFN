@@ -165,11 +165,11 @@
                             tr(ng-repeat="sent in foundSentences")
                                 td#sent-corr
                                     div.btn-group(data-toggle-name="is_private", data-toggle="buttons-radio", ng-hide="!getSelectedHebLU().name")
-                                        button.btn.btn-mini(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="setLuSentCorrelation(sent.id,'good',sent.text)" ,data-toggle="button tooltip",title="the sentence is suitable for this lu")
+                                        button.btn.btn-mini(type="button", value="0", ng-class="{active: (sent.status == 'good') }", ng-click="setLuSentCorrelation(sent,'good')" ,data-toggle="button tooltip",title="the sentence is suitable for this lu")
                                             i.icon-ok
-                                        button.btn.btn-mini(type="button", value="1",ng-class="{active: (sent.status == 'bad') }" ,ng-click="setLuSentCorrelation(sent.id,'bad',sent.text)", data-toggle="button",title="this sentence is NOT suitable for this lu")
+                                        button.btn.btn-mini(type="button", value="1",ng-class="{active: (sent.status == 'bad') }" ,ng-click="setLuSentCorrelation(sent,'bad')", data-toggle="button",title="this sentence is NOT suitable for this lu")
                                             i.icon-remove
-                                        button.btn.btn-mini(type="button", value="2", ng-class="{active: (sent.status == 'maybe') }",ng-click="setLuSentCorrelation(sent.id,'maybe',sent.text)", data-toggle="button",title="this sentence may be suitable for this lu")
+                                        button.btn.btn-mini(type="button", value="2", ng-class="{active: (sent.status == 'maybe') }",ng-click="setLuSentCorrelation(sent,'maybe')", data-toggle="button",title="this sentence may be suitable for this lu")
                                             i.icon-question-sign
                                 td#sent-searched(ng-bind-html-unsafe="sent.displayText")
                         div(ng-show="foundSentences!=-1 && foundSentences.length==0")
