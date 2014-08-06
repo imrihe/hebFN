@@ -122,10 +122,7 @@ function EditLuCtrl($scope, $routeParams, $location,utils) {
 
         utils.CallServerPost("heb/editlu", cleaned,
             function(out){
-		var url = '/edit-lu/'+$scope.frameName+'/'+$scope.newName+'/'+$scope.newPos;
-		$location.path(url);
-		$scope.$apply();
-                $scope.refreshPage();  
+		history.back();
             });
         
     };
