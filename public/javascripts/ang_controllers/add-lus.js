@@ -214,7 +214,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 		    if (targetWord) {
 			var nonLetter = "[^\w\u05D0-\u05EA]";
 			var pattern = new RegExp(targetWord.word+"("+nonLetter+")", 'g');
-			out[sent].displayText = txt.replace(pattern, '<span class="targetWord">'+targetWord.word+'</span>$2');
+			out[sent].displayText = txt.replace(pattern, '<span class="targetWord">'+targetWord.word+'</span>$1');
 			finalSentences.push(out[sent]);
 		    }
                     //get sent status from hebfn server and update
