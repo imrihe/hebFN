@@ -67,3 +67,21 @@ app.directive('initFocus', function() {
         }
     };
 });
+
+app.directive('ngKeyup', function () {     
+    return function (scope, element, attrs) {
+        element.bind('keyup', function (event) {
+          // Get the input value
+          var val = this.value;
+          
+          // Apply the value to the controller
+          scope.$apply(function ($parse) {
+            // Get the controller function that should be
+            // called with the value (val) when a keyup event occurs.
+            
+            //http://stackoverflow.com/questions/16232917/angularjs-how-to-pass-scope-variables-to-a-directive
+            $parse[attrs.ngKeyup](val);
+          });
+        });
+    };
+});
