@@ -176,11 +176,11 @@
                             |No matching sentences were found
 
                     .modal-footer(style="text-align:justify;")
-                        div(style="display:inline-block;width:45%;text-align:left;") Number of recommended sentences: 
+                        div(style="display:inline-block;float:left;text-align:left;line-height:30px;") Number of recommended sentences: 
                             span(ng-bind="selectedFrameHebLUs[searchedLu].count")
-                        .pagination(style="display:inline-block;width:50%;text-align:right;")
+                        .pagination(style="display:inline-block;float:right;text-align:right;margin:0;vertical-align: middle;")
                             span [{{page}}]
-                            ul
+                            ul(style="vertical-align: middle;")
                                 li
                                     a(ng-click="loadFirst()") first
                                 li
