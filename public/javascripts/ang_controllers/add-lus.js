@@ -261,6 +261,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 	$scope.optionalWords = [];
         $scope.searchPos=pos?pos:"";
         $scope.searchName=name?name:"";
+	$scope.sentenceCount = $scope.selectedFrameHebLUs[HashLU(name,pos)].count;
         $scope.setSelectedhebLU(name,pos);
         $scope.loadSentencesForSearch();
         $('#search-modal').modal();

@@ -175,9 +175,11 @@
                         div(ng-show="foundSentences!=-1 && foundSentences.length==0")
                             |No matching sentences were found
 
-                    .modal-footer
-                        span.pagination
-                            p.help-inline [{{page}}]
+                    .modal-footer(style="text-align:justify;")
+                        div(style="display:inline-block;width:45%;text-align:left;") Number of recommended sentences: 
+                            span(ng-bind="sentenceCount")
+                        .pagination(style="display:inline-block;width:50%;text-align:right;")
+                            span [{{page}}]
                             ul
                                 li
                                     a(ng-click="loadFirst()") first
