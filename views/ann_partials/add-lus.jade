@@ -198,10 +198,14 @@
                             button.close(type="button",class="close",data-dismiss="modal",aria-hidden="true") &times;
                             h4.modal-title Add Hebrew LU {{LuToBeAddedName}} ({{LuToBeAddedPos}}) To Frame {{selectedFrameName}}
                         .modal-body
-                            .control-group(ng-class="{error: !LuToBeAddedName.length>0}")
+                            .control-group(ng-class="{error: !LuToBeAddedName.length>0 || !validateMultiword()}")
                                 label.control-label(for="new-lu-name") LU Name
-                                input.controls#new-lu-name.input-xlarge(type="text",placeholder="LU Name",ng-model="LuToBeAddedName")
+                                input.controls#new-lu-name.input-medium.rtl(type="text",placeholder="LU Name",ng-model="LuToBeAddedName", ng-keyup="transformSeparator")
                                 span.help-inline(ng-hide="LuToBeAddedName.length>0") Name cannot be empty
+                                span.help-inline(ng-hide="validateMultiword()", style="max-width:250px") Multiword expressions must have a head word
+                            .control-group(ng-show="isMultiword()")
+                                label.control-label(for="multiword-type") Multiword type
+                                select.controls#multiword-type(ng-options="k as v for (k, v) in multiTypes", ng-model="multiwordType")
                             .control-group(ng-class="{error: !LuToBeAddedPos.length>0}")
                                 label.control-label(for="new-lu-pos") LU POS
                                 select.controls#new-lu-pos.input-small(ng-model="LuToBeAddedPos",ng-options="value for (key,value) in POSs")

@@ -67,6 +67,39 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
           
     $scope.luTranslations=[];
     $scope.selectedEngLUIdx=-1;
+
+
+    var multiwordTypes = {'_': 'Contiguous compound', ' ': 'Non-contiguous compound'};
+    var possibleSeparators = Object.keys(multiwordTypes);
+    $scope.multiwordType = '0';
+    $scope.multiTypes = possibleSeparators.map(function(x){return multiwordTypes[x]});
+    $scope.LuToBeAddedName = '';
+    $scope.validateMultiword = function() {
+	if($scope.LuToBeAddedName.indexOf(possibleSeparators[$scope.multiwordType]) >= 0) {
+	       return $scope.LuToBeAddedName.indexOf("@") >= 0;
+	}
+
+	return true;
+    }
+
+    $scope.isMultiword = function(lu) {
+	if (!lu) lu = $scope.LuToBeAddedName;
+	return possibleSeparators.filter(function(x){
+	    return lu.indexOf(x) >= 0;
+	})[0];
+    }
+
+    $scope.transformSeparator = function() {
+	var sep = possibleSeparators[$scope.multiwordType];
+	possibleSeparators.forEach(function(x) {
+	    var p = new RegExp(x, 'g');
+	    $scope.LuToBeAddedName = $scope.LuToBeAddedName.replace(p, sep);
+	});
+
+	$scope.LuToBeAddedName = $scope.LuToBeAddedName.replace('-', sep+'-'+sep);
+    }
+
+    $scope.$watch('multiwordType', $scope.transformSeparator);
     
     $scope.addHebLU=function(name,pos,sure,comment,isTranslated)
     {
@@ -263,6 +296,21 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         $scope.searchName=name?name:"";
         $scope.setSelectedhebLU(name,pos);
 	$scope.searchedLu = HashLU(name,pos);
+
+	var sep = $scope.isMultiword(name);
+
+	if(sep) {
+	    var words = name.split(sep);
+	    var head = words.filter(function(x) { return x.indexOf('@') >= 0; })[0];
+	    
+	    if (head) {
+		$scope.searchName = head.replace('@', '');
+
+		var theRest = words.filter(function(x) { return x.indexOf('@') < 0; });
+		$scope.optionalWords = theRest.map(function(x){ return {w: x}; });
+	    }
+	}
+
         $scope.loadSentencesForSearch();
         $('#search-modal').modal();
     };
