@@ -177,7 +177,7 @@
 
                     .modal-footer(style="text-align:justify;")
                         div(style="display:inline-block;width:45%;text-align:left;") Number of recommended sentences: 
-                            span(ng-bind="sentenceCount")
+                            span(ng-bind="selectedFrameHebLUs[searchedLu].count")
                         .pagination(style="display:inline-block;width:50%;text-align:right;")
                             span [{{page}}]
                             ul
