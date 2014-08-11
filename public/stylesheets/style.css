@@ -478,3 +478,10 @@ span.wordStyle {
 .fix-comment-box {
     text-align: center;
 }
+
+
+@media (max-height: 800px) {
+    #search-modal {
+	top:0px;
+    }
+}
