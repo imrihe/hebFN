@@ -1913,7 +1913,7 @@ module.exports.getHistoryByType = function(req,res){
         type: req.param('type'),
         luname: req.param('luname'),
         framename: req.param('framename'),
-        username: req.user && username || 'unknown' //TODO: maybe change to specific 'by user' ant not by session
+        username: req.user && req.user.username || 'unknown' //TODO: maybe change to specific 'by user' ant not by session
     };
 
     console.log('params: ', JSON.stringify(params))

@@ -38,6 +38,22 @@ function EditLuCtrl($scope, $routeParams, $location,utils) {
 
     $scope.luComments = [];
     $scope.newComment = null;
+
+    utils.CallServerGet("heb/getHistory", 
+		       {type:'byLu', framename:$scope.frameName, luname:$scope.luName+'.'+$scope.luPos},
+		       function(out) {
+			   out.forEach(function(x){
+			       if (x.comment){
+				   var c = {
+				       cBy: x.cBy,
+				       cDate: x.cDate,
+				       content: x.comment
+				   };
+				   $scope.luComments.splice(0, 1, c);
+			       }
+			       $scope.$apply();
+			   });
+    });
     
     $scope.updateModels=function()
     {
