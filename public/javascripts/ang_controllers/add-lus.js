@@ -25,6 +25,8 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 
     $scope.optionalWords =  [];
 
+    document.title = $scope.selectedFrameName + ' - HebFN';
+
     utils.CallServerGet("eng/translations",
         {framename:$scope.selectedFrameName},
         function(out){
