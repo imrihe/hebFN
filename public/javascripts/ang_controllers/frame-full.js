@@ -2,6 +2,8 @@ function FramesIdxCtrl($scope, $routeParams,$location,utils ) {
 
     $scope.frames=[];
     $scope.filteredFrames=[];
+
+    document.title = 'HebFN';
     
     
     $scope.query="";
