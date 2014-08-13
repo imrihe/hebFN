@@ -2,16 +2,7 @@
     angular.module('fnExplore', ['fnServices']);
 
     angular.module('fnExplore').
-	controller('exploreMain', explore).
-	directive('frameInfo', frameInfo);
+	controller('exploreMain', explore);
 
     function explore() {};
-
-
-    function frameInfo() {
-	return {
-	    templateUrl: 'partials/explore/frame-info.html',
-	    restrict: 'E'
-	};
-    };
 })();
