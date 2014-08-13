@@ -1,5 +1,5 @@
 (function() {
-    angular.module('fnExplore', []);
+    angular.module('fnExplore', ['fnServices']);
 
     angular.module('fnExplore').
 	controller('exploreMain', explore).
