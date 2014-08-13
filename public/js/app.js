@@ -1,3 +1,11 @@
 (function(){
-    var app = angular.module('hebFN', []);
+    angular.module('hebFN', [
+	'ngRoute'
+    ]).config(['$routeProvider', config]);
+
+    function config($routeProvider) {
+	$routeProvider.when('/', {
+	    template: 'Hello'
+	});
+    }
 })();
