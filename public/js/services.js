@@ -7,7 +7,7 @@
     angular.module('fnServices').
 	factory('listFrames', listFrames);
 
-    listFrames.inject = ['$http', 'listFramesURL'];
+    listFrames.$inject = ['$http', 'listFramesURL'];
 
     function listFrames ($http, listFramesURL) {
 	return $http.get(listFramesURL);
