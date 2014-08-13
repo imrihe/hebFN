@@ -1,5 +1,5 @@
 <div>
-  <input type="text" id="explore-search" placeholder="Search for a frame" class="form-control">
+  <input type="text" id="explore-search" placeholder="Search for a frame" class="form-control" ng-model="exploreSearch.query" ng-change="exploreSearch.filterFrames(exploreSearch.query)">
 </div>
 
 <ul class="pager">
