@@ -6,9 +6,11 @@
 	directive('frameSearch', frameSearch).
 	directive('frameInfo', frameInfo);
 
+    frameSearch.$inject = ['listFrames'];
+
     function explore() {};
 
-    function frameSearch() {
+    function frameSearch(listFrames) {
 	return {
 	    templateUrl: 'partials/explore/frame-search.html',
 	    restrict: 'E',
@@ -21,6 +23,9 @@
 
 	    var pageSize = 20;
 	    var numPages = 0;
+	    var frames = [];
+
+	    activate();
 
 	    this.currentPage = 0;
 	    this.searchResults = [];
@@ -32,6 +37,28 @@
 	    this.isLastPage = function() {
 		return !numPages || searchCtrl.currentPage === numPages;
 	    };
+
+	    this.changePage = function(page) {
+		if (page > numPages) {
+		    page = numPages;
+		} else if (page < 1) {
+		    page = 1;
+		}
+
+		searchCtrl.searchResults = frames.slice((page-1)*pageSize, page*pageSize);
+
+		searchCtrl.currentPage = page;
+	    }
+
+	    /// initialization ///
+	    function activate(){
+		listFrames.then(function(data){
+		    frames = data.map(function(x) { return x.frame['@name']; });
+		    numPages = searchCtrl.searchResults / pageSize;
+
+		    searchCtrl.changePage(1);
+		});
+	    }
 	};
     };
 
