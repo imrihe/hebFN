@@ -2,7 +2,7 @@
     angular.module('fnExplore', []);
 
     angular.module('fnExplore').
-	controller('explore', explore).
+	controller('exploreMain', explore).
 	directive('frameSearch', frameSearch).
 	directive('frameInfo', frameInfo);
 
