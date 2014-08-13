@@ -10,6 +10,10 @@
     listFrames.$inject = ['$http', 'listFramesURL'];
 
     function listFrames ($http, listFramesURL) {
-	return $http.get(listFramesURL, {cache: true});
+	return $http.get(listFramesURL, 
+			 {
+			     cache: true, 
+			     responseType: 'json',
+			 });
     }
 })();
