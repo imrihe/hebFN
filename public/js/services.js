@@ -10,6 +10,6 @@
     listFrames.$inject = ['$http', 'listFramesURL'];
 
     function listFrames ($http, listFramesURL) {
-	return $http.get(listFramesURL);
+	return $http.get(listFramesURL, {cache: true});
     }
 })();
