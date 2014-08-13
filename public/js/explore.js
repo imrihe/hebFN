@@ -17,7 +17,21 @@
 	};
 
 	function searchCtrl(){
+	    var searchCtrl = this;
+
+	    var pageSize = 20;
+	    var numPages = 0;
+
+	    this.currentPage = 0;
 	    this.searchResults = [];
+
+	    this.isFirstPage = function() {
+		return !numPages || searchCtrl.currentPage === 1;
+	    };
+
+	    this.isLastPage = function() {
+		return !numPages || searchCtrl.currentPage === numPages;
+	    };
 	};
     };
 

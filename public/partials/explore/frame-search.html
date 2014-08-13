@@ -3,10 +3,10 @@
 </div>
 
 <ul class="pager">
-  <li class="previous disabled">
+  <li class="previous" ng-class="{disabled: exploreSearch.isFirstPage()}">
     <a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a>
   </li>
-  <li class="next">
+  <li class="next" ng-class="{disabled: exploreSearch.isLastPage()}">
     <a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a>
   </li>
 </ul>
