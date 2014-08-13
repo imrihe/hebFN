@@ -21,8 +21,8 @@
     No frames match the search query.
   </div>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="result in exploreSearch.searchResults">
-
+    <li class="list-group-item hideOverflow" ng-repeat="result in exploreSearch.searchResults">
+      <a href title="{{result}}">{{result}}</a>
     </li>
   </ul>
 </div>
