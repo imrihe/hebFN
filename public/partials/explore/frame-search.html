@@ -1,0 +1,24 @@
+<div>
+  <input type="text" id="explore-search" placeholder="Search for a frame" class="form-control">
+</div>
+
+<ul class="pager">
+  <li class="previous disabled">
+    <a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a>
+  </li>
+  <li class="next">
+    <a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a>
+  </li>
+</ul>
+
+<div id="explroe-search-results" class="panel panel-default">
+  <div class="panel-heading">Frames</div>
+  <div class="panel-body" ng-show="!exploreSearch.searchResults.length">
+    No frames match the search query.
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="result in exploreSearch.searchResults">
+
+    </li>
+  </ul>
+</div>
