@@ -2,13 +2,15 @@
     angular.module('hebFN', [
 	'ngRoute',
 	'fnExplore'
-    ]).config(['$routeProvider', config]);
+    ]).
+	config(['$routeProvider', config]);
 
     function config($routeProvider) {
-	$routeProvider.when('/', {
-	    templateUrl: 'partials/explore.html',
-	    controller: 'exploreMain',
-	    controllerAs: 'explore'
-	});
+	$routeProvider.
+	    when('/:frame?', {
+		templateUrl: 'partials/explore.html',
+		controller: 'exploreMain',
+		controllerAs: 'explore'
+	    });
     }
 })();
