@@ -52,9 +52,10 @@
 
 	    /// initialization ///
 	    function activate(){
-		listFrames.then(function(data){
+		listFrames.then(function(response){
+		    var data = response.data;
 		    frames = data.map(function(x) { return x.frame['@name']; });
-		    numPages = searchCtrl.searchResults / pageSize;
+		    numPages = frames.length / pageSize;
 
 		    searchCtrl.changePage(1);
 		});
