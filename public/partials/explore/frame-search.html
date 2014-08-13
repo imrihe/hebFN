@@ -4,12 +4,12 @@
 
 <ul class="pager">
   <li class="previous" ng-class="{disabled: exploreSearch.isFirstPage()}">
-    <a href="#" ng-click="exploreSearch.changePage(exploreSearch.currentPage-1)">
+    <a href ng-click="exploreSearch.changePage(exploreSearch.currentPage-1)">
       <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
   </li>
   <li class="next" ng-class="{disabled: exploreSearch.isLastPage()}">
-    <a href="#" ng-click="exploreSearch.changePage(exploreSearch.currentPage+1)">
+    <a href ng-click="exploreSearch.changePage(exploreSearch.currentPage+1)">
       <span class="glyphicon glyphicon-chevron-right"></span>
     </a>
   </li>
