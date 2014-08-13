@@ -10,14 +10,20 @@
 
     function frameSearch() {
 	return {
-	    templateUrl: "'partials/explore/frame-search.html'",
-	    restrict: 'E'
+	    templateUrl: 'partials/explore/frame-search.html',
+	    restrict: 'E',
+	    controller: searchCtrl,
+	    controllerAs: 'exploreSearch'
+	};
+
+	function searchCtrl(){
+	    this.searchResults = [];
 	};
     };
 
     function frameInfo() {
 	return {
-	    templateUrl: "'partials/explore/frame-info.html'",
+	    templateUrl: 'partials/explore/frame-info.html',
 	    restrict: 'E'
 	};
     };
