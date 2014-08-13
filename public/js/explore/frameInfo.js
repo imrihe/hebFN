@@ -7,7 +7,11 @@
     function frameInfo(listFrames) {
 	return {
 	    templateUrl: 'partials/explore/frame-info.html',
-	    restrict: 'E'
+	    restrict: 'E',
+	    controller: infoCtrl,
+	    controllerAs: 'exploreInfo'
 	};
+
+	function infoCtrl(){};
     };
 })();
