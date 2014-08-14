@@ -19,8 +19,14 @@
 	    var infoCtrl = this;
 
 	    this.info = {};
+	    this.showFEs = false;
+	    this.showRelations = false;
 
 	    activate();
+
+	    this.toggle = function(what) {
+		infoCtrl[what] = !infoCtrl[what];
+	    };
 
 	    /// initialization ///
 	    function activate(){

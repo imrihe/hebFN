@@ -2,6 +2,43 @@
 
 <div id="frame-definition"></div>
 
+<h2>Frame elements <a href ng-click="exploreInfo.toggle('showFEs')">...</a></h2>
+<div ng-show="exploreInfo.showFEs" class="row">
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">Core FEs</div>
+      <ul class="list-group">
+	<li class="list-group-item" ng-repeat="fe in exploreInfo.info.engData.fes.core">
+	  <a>{{fe.name}}</a>
+	</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">Non-core FEs</div>
+      <ul class="list-group">
+	<li class="list-group-item" ng-repeat="fe in exploreInfo.info.engData.fes.nonCore">
+	  <a>{{fe.name}}</a>
+	</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<h2>Inter-frame relations <a href ng-click="exploreInfo.toggle('showRelations')">...</a></h2>
+<div ng-show="exploreInfo.showRelations">
+  <div ng-repeat="relation in exploreInfo.info.engData.frame.frameRelation">
+    <div ng-show="relation.relatedFrame.length">
+      <h3>{{relation['@type']}}</h3>
+      <span ng-repeat="frame in relation.relatedFrame">
+	<a ng-href="#/{{frame}}">{{frame}}</a>{{$last ? '' : ', '}}
+      </span>
+    </div>
+  </div>
+</div>
+
 
 <h2>Associated Lexical Units</h2>
 <div class="row">
