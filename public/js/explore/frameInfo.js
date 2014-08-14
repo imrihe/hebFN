@@ -66,11 +66,17 @@
 		return '<span class="fex '+tAttrs.name+'" name="'+tAttrs.name+'">'+tElement.html()+'</span>';
 	    },
 	    link: function(scope, element, attrs) {
-		var feConfig = scope.info.engData.frame.FE.filter(function(x){return x['@name'] === attrs.name})[0];
-		element.css({
-		    backgroundColor: '#'+feConfig['@bgColor'],
-		    color: '#'+feConfig['@fgColor']
-		});
+		var feConfig = scope.info.engData.frame.FE.filter(
+		    function(x){
+			return (x['@name'] === attrs.name || x['@abbrev'] === attrs.name);
+		    })[0];
+		
+		if (feConfig) {
+		    element.css({
+			backgroundColor: '#'+feConfig['@bgColor'],
+			color: '#'+feConfig['@fgColor']
+		    });
+		}
 	    }
 	};
     }
