@@ -5,9 +5,9 @@
 	directive('ex', ex).
 	directive('fex', fex);
 
-    frameInfo.$inject = ['$routeParams', '$sce', '$compile',  'listFrames', 'frameData'];
+    frameInfo.$inject = ['$routeParams', '$compile',  'listFrames', 'frameData'];
 
-    function frameInfo($routeParams, $sce, $compile, listFrames, frameData) {
+    function frameInfo($routeParams, $compile, listFrames, frameData) {
 	return {
 	    templateUrl: 'partials/explore/frame-info.html',
 	    restrict: 'E',
