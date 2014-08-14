@@ -1,2 +1,41 @@
-<h1>{{exploreInfo.info.engData.frame['@name']}}</h1>
-<div id="frameDefinition"></div>
+<h1 class="frame-title">{{exploreInfo.info.engData.frame['@name']}}</h1>
+
+<div id="frame-definition"></div>
+
+
+<h2>Associated Lexical Units</h2>
+<div class="row">
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">English LUs</div>
+      <table class="table table-hover">
+	<tr>
+	  <th>LU</th>
+	  <th>Status</th>
+	</tr>
+	<tr ng-repeat="lu in exploreInfo.info.engData.frame.lexUnit">
+	  <td>{{lu['@name']}}</td>
+	  <td>{{lu['@status']}}</td>
+	</tr>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">Hebrew LUs</div>
+      <table class="table table-hover">
+	<tr>
+	  <th>LU</th>
+	  <th>Status</th>
+	</tr>
+	<tr ng-repeat="lu in exploreInfo.info.hebData.lexUnit">
+	  <td>{{lu['@name']}}</td>
+	  <td>{{lu['status']}}</td>
+	</tr>
+      </table>
+    </div>
+  </div>
+
+</div>

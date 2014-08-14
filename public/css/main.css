@@ -4,12 +4,19 @@
     text-overflow:ellipsis;
 }
 
+#frame-definition {
+    margin-bottom: 50px;
+}
+
 .def-root {
     line-height: 1.5em;
 }
 
 .ex {
     display: block;
+    margin-top: 10px;
+    margin-left: 50px;
+    font-style: italic;
 }
 
 .fex {
@@ -19,4 +26,9 @@
 
 .ex t {
     font-weight: bold;
+}
+
+
+.frame-title {
+    margin-top: 0;
 }

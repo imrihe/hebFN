@@ -32,7 +32,7 @@
 			
 			infoCtrl.info = data;
 
-			$('#frameDefinition').html($compile(infoCtrl.info.engData.frame.definition)(infoCtrl).html());
+			$('#frame-definition').html($compile(infoCtrl.info.engData.frame.definition)(infoCtrl).html());
 		    });
 		});
 	    }
