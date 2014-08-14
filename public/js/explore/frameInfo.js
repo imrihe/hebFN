@@ -42,8 +42,9 @@
     function definition() {
 	return {
 	    restrict: 'E',
+	    replace: true,
 	    template: function(tElement, tAttrs) {
-		return '<span class="def-root">'+tElement.html()+'</span>';
+		return '<div class="def-root">'+tElement.html()+'</div>';
 	    }
 	};
     }
@@ -53,7 +54,7 @@
 	    restrict: 'E',
 	    replace: true,
 	    template: function(tElement, tAttrs) {
-		return '<span class="ex">'+tElement.html()+'</span>';
+		return '<div class="ex">'+tElement.html()+'</div>';
 	    }
 	};
     };
