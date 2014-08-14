@@ -8,6 +8,10 @@
     margin-bottom: 40px;
 }
 
+#frame-relations {
+    padding-left: 50px;
+}
+
 .def-root {
     line-height: 1.5em;
 }
@@ -30,4 +34,8 @@
 
 .frame-title {
     margin-top: 0;
+}
+
+a.no-underline:hover {
+    text-decoration: none;
 }

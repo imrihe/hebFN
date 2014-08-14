@@ -2,14 +2,15 @@
 
 <div id="frame-definition"></div>
 
-<h2>Frame elements <a href ng-click="exploreInfo.toggle('showFEs')">...</a></h2>
+<h2><a href ng-click="exploreInfo.toggle('showFEs')" class="no-underline"> Frame elements <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !exploreInfo.showFEs, 'glyphicon-chevron-up': exploreInfo.showFEs}"></span></a></h2>
 <div ng-show="exploreInfo.showFEs" class="row">
   <div class="col-md-5">
     <div class="panel panel-default">
       <div class="panel-heading">Core FEs</div>
       <ul class="list-group">
 	<li class="list-group-item" ng-repeat="fe in exploreInfo.info.engData.fes.core">
-	  <a>{{fe.name}}</a>
+	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
+	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
 	</li>
       </ul>
     </div>
@@ -20,15 +21,16 @@
       <div class="panel-heading">Non-core FEs</div>
       <ul class="list-group">
 	<li class="list-group-item" ng-repeat="fe in exploreInfo.info.engData.fes.nonCore">
-	  <a>{{fe.name}}</a>
+	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
+	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
 	</li>
       </ul>
     </div>
   </div>
 </div>
 
-<h2>Inter-frame relations <a href ng-click="exploreInfo.toggle('showRelations')">...</a></h2>
-<div ng-show="exploreInfo.showRelations">
+<h2><a href ng-click="exploreInfo.toggle('showRelations')" class="no-underline"> Inter-frame relations <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !exploreInfo.showRelations, 'glyphicon-chevron-up': exploreInfo.showRelations}"></span></a></h2>
+<div ng-show="exploreInfo.showRelations" id="frame-relations">
   <div ng-repeat="relation in exploreInfo.info.engData.frame.frameRelation">
     <div ng-show="relation.relatedFrame.length">
       <h3>{{relation['@type']}}</h3>
@@ -58,7 +60,6 @@
     </div>
   </div>
 
-
   <div class="col-md-5">
     <div class="panel panel-default">
       <div class="panel-heading">Hebrew LUs</div>
@@ -74,5 +75,4 @@
       </table>
     </div>
   </div>
-
 </div>
