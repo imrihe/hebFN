@@ -5,7 +5,7 @@
 }
 
 #frame-definition {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .def-root {
@@ -13,7 +13,6 @@
 }
 
 .ex {
-    display: block;
     margin-top: 10px;
     margin-left: 50px;
     font-style: italic;
