@@ -95,8 +95,8 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 	    var p = new RegExp(x, 'g');
 	    $scope.LuToBeAddedName = $scope.LuToBeAddedName.replace(p, sep);
 	});
-
-	$scope.LuToBeAddedName = $scope.LuToBeAddedName.replace('-', sep+'-'+sep);
+	var dashRegexp = new RexExp(sep+'*-'+sep+'*', g);
+	$scope.LuToBeAddedName = $scope.LuToBeAddedName.replace(dashRegexp, sep+'-'+sep);
     }
 
     $scope.$watch('multiwordType', $scope.transformSeparator);
