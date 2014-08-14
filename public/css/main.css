@@ -39,3 +39,13 @@
 a.no-underline:hover {
     text-decoration: none;
 }
+
+frame-info {
+    position: relative;
+}
+
+.engFNLink {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

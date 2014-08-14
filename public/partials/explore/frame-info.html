@@ -1,5 +1,9 @@
 <h1 class="frame-title">{{exploreInfo.info.engData.frame['@name']}}</h1>
 
+<a href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame="+"{{exploreInfo.info.engData.frame['@name']}}" target="_blank" class="engFNLink">
+  <button type="button" class="btn btn-default">{{exploreInfo.info.engData.frame['@name']}} in the English FrameNet</button>
+</a>
+
 <div id="frame-definition"></div>
 
 <h2><a href ng-click="exploreInfo.toggle('showFEs')" class="no-underline"> Frame elements <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !exploreInfo.showFEs, 'glyphicon-chevron-up': exploreInfo.showFEs}"></span></a></h2>
