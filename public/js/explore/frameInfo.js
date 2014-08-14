@@ -1,10 +1,13 @@
 (function(){
     angular.module('fnExplore').
-	directive('frameInfo', frameInfo);
+	directive('frameInfo', frameInfo).
+	directive('defRoot', definition).
+	directive('ex', ex).
+	directive('fex', fex);
 
-    frameInfo.$inject = ['$routeParams', 'listFrames'];
+    frameInfo.$inject = ['$routeParams', '$sce', '$compile',  'listFrames', 'frameData'];
 
-    function frameInfo($routeParams, listFrames) {
+    function frameInfo($routeParams, $sce, $compile, listFrames, frameData) {
 	return {
 	    templateUrl: 'partials/explore/frame-info.html',
 	    restrict: 'E',
@@ -23,12 +26,52 @@
 	    function activate(){
 		listFrames.then(function(response){
 		    var data = response.data;
-		    var name = ($routeParams.frame || data[0].frame['@name']).toLowerCase();
+		    var name = ($routeParams.frame || data[0].frame['@name']);
+		    frameData.forFrame(name).then(function(response){
+			var data = response.data;
+			
+			infoCtrl.info = data;
 
-		    infoCtrl.info = data.filter(function(x){ return x.frame['@name'].toLowerCase() === name; })[0].frame;
+			$('#frameDefinition').html($compile(infoCtrl.info.engData.frame.definition)(infoCtrl).html());
+		    });
 		});
 	    }
 	};
-
     };
+
+    function definition() {
+	return {
+	    restrict: 'E',
+	    template: function(tElement, tAttrs) {
+		return '<span class="def-root">'+tElement.html()+'</span>';
+	    }
+	};
+    }
+
+    function ex() {
+	return {
+	    restrict: 'E',
+	    replace: true,
+	    template: function(tElement, tAttrs) {
+		return '<span class="ex">'+tElement.html()+'</span>';
+	    }
+	};
+    };
+
+    function fex() {
+	return {
+	    restrict: 'E',
+	    replace: true,
+	    template: function(tElement, tAttrs) {
+		return '<span class="fex '+tAttrs.name+'" name="'+tAttrs.name+'">'+tElement.html()+'</span>';
+	    },
+	    link: function(scope, element, attrs) {
+		var feConfig = scope.info.engData.frame.FE.filter(function(x){return x['@name'] === attrs.name})[0];
+		element.css({
+		    backgroundColor: '#'+feConfig['@bgColor'],
+		    color: '#'+feConfig['@fgColor']
+		});
+	    }
+	};
+    }
 })();
