@@ -44,6 +44,10 @@ a.no-underline:hover {
     color: #fff;
 }
 
+.white {
+    color: #333;
+}
+
 frame-info, .frame-info {
     position: relative;
 }
@@ -57,4 +61,12 @@ frame-info, .frame-info {
 .rtl {
     direction: rtl;
     text-align: right;
+}
+
+.list-group-item>.badge.no-float {
+    float: none;
+}
+
+.pointer {
+    cursor: pointer;
 }

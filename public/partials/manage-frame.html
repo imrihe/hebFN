@@ -14,17 +14,16 @@
       </div>
 
       <lu class="list-group">
-	<li class="list-group-item clearfix" ng-repeat="lu in manageFrame.info.translations" ng-click="manageFrame.selectActiveEngLU($index)" ng-class="{active: manageFrame.activeEngLUIdx === $index}">
-	  <span class="pull-left">
-	    <input type="checkbox">
-	    {{lu.name}}.{{lu.pos.toLowerCase()}}
-	  </span>
+	<li class="list-group-item clearfix pointer" ng-repeat="lu in manageFrame.info.translations" ng-click="manageFrame.selectActiveEngLU($index)" ng-class="{active: manageFrame.activeEngLUIdx === $index}">
+	  <input type="checkbox">
+	  {{lu.name}}.{{lu.pos.toLowerCase()}}
+
 	  <span class="pull-right">
 	    <a href="https://framenet2.icsi.berkeley.edu/fnReports/data/lu/lu{{lu.luID}}.xml" target="_blank" class="no-underline" title="Open {{lu.name}}.{{lu.pos.toLowerCase()}} in FrameNet">
-	      <span class="glyphicon glyphicon-info-sign white"></span>
+	      <span class="glyphicon glyphicon-link black white"></span>
 	    </a>
 	    <a href="http://www.morfix.co.il/{{lu.name}}" target="_blank" class="no-underline" title="View translations in morfix.co.il">
-	      <span class="glyphicon glyphicon-question-sign white"></span>
+	      <span class="glyphicon glyphicon-globe black white"></span>
 	    </a>
 
 	  </span>
@@ -45,6 +44,10 @@
       <lu class="list-group" ng-show="manageFrame.activeEngLU">
 	<li class="list-group-item rtl" ng-repeat="t in manageFrame.activeEngLU.translations">
 	  {{t.name}}.{{t.pos}}
+
+	  <span class="pull-left">
+	    <span class="glyphicon glyphicon-plus-sign"></span>
+	  </span>
 	</li>
       </lu>
     </div>
@@ -56,12 +59,26 @@
 	Hebrew LUs
       </div>
       <div class="panel-body">
-	<button type="button" class="btn btn-default">Add custom LU</button>
+	<button type="button" class="btn btn-default">Add a custom LU</button>
       </div>
 
       <lu class="list-group">
-	<li class="list-group-item rtl" ng-repeat="lu in manageFrame.info.hebData.lexUnit">
+	<li class="list-group-item rtl clearfix" ng-repeat="lu in manageFrame.info.hebData.lexUnit">
 	  {{lu['@name']}}
+	  
+	  <span class="pull-left">
+		<span class="badge no-float" title="Number of associated sentences">
+		  {{lu.sentenceCount}}
+		</span>
+		<span class="glyphicon glyphicon-check pointer"></span>
+		<span class="glyphicon glyphicon-search pointer"></span>
+		<span id="menu{{$index}}" class="hide">
+		  <span class="glyphicon glyphicon-edit pointer"></span>
+		  <span class="glyphicon glyphicon-trash pointer"></span>
+		  <span class="glyphicon glyphicon-plus pointer"></span>
+		</span>
+		<span class="glyphicon glyphicon-align-justify pointer" ng-click="manageFrame.toggleMenu($index)"></span>
+	  </span>
 	</li>
       </lu>
   </div>

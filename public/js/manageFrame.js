@@ -30,6 +30,10 @@
 	    self.activeEngLU = lu;
 	}
 
+	this.toggleMenu = function(idx) {
+	    $('#menu'+idx).toggleClass('hide');
+	}
+
 	frameData.forFrame(name).then(function(response){
 	    self.info = response.data;
 	});
