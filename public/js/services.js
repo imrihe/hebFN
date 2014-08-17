@@ -2,32 +2,40 @@
     angular.module('fnServices', []);
 
     angular.module('fnServices').
-	constant('listFramesURL', 'eng/framenames');
+	factory('frameManager', frameManager);
 
-    angular.module('fnServices').
-	factory('listFrames', listFrames);
+    frameManager.$inject = ['$http'];
 
-    listFrames.$inject = ['$http', 'listFramesURL'];
+    function frameManager ($http) {
+	var listFramesURL = '//localhost:3003/eng/framenames',
+	    frameDataURL = '//localhost:3003/heb/framedata', 
+	    addCommentURL = '//localhost:3003/heb/addcomment';
 
-    function listFrames ($http, listFramesURL) {
-	return $http.get(listFramesURL, 
-			 {
-			     cache: true, 
-			     responseType: 'json',
-			 });
-    }
-
-    frameData.$inject = ['$http', 'frameDataURL'];
-
-    function frameData ($http, frameDataURL) {
 	return {
-	    forFrame: function(name) {
-		return $http.get(frameDataURL,
-				 {
-				     params: {framename: name},
-				     responseType: 'json'
-				 });
-	    }
+	    listframes: listFrames,
+	    frameData: frameData,
+	    addComment: addComment
 	};
+
+	function listFrames () {
+	    return $http.get(listFramesURL, {
+		cache: true, 
+		responseType: 'json',
+	    });
+	};
+
+	function frameData (name) {
+	    return $http.get(frameDataURL, {
+		params: {framename: name},
+		responseType: 'json'
+	    });
+	}
+
+	function addComment (commentData) {
+	    return $http.get(addCommentURL, {
+		params: commentData,
+		responseTyep: 'json'
+	    }
+	}
     }
 })();
