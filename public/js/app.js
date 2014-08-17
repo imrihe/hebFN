@@ -2,7 +2,8 @@
     angular.module('hebFN', [
 	'ngRoute',
 	'fnExplore',
-	'hebFN.manageFrame'
+	'hebFN.manageFrame',
+	'hebFN.manageLUs'
     ]).
 	config(['$routeProvider', config]);
 
@@ -17,6 +18,10 @@
 		templateUrl: 'partials/manage-frame.html',
 		controller: 'manageFrame',
 		controllerAs: 'manageFrame'
+	    }).when('/:frame/:lu/manage', {
+		templateUrl: 'partials/manage-lu.html',
+		controller: 'manageLU',
+		controllerAs: 'manageLU'
 	    });
     }
 })();
