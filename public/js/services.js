@@ -32,7 +32,7 @@
 	};
 
 	function addComment (commentData) {
-	    return $http.get(addCommentURL, {
+	    return $http.post(addCommentURL, {
 		params: commentData,
 		responseTyep: 'json'
 	    });
