@@ -1,0 +1,69 @@
+<div class="frame-info">
+  <english-frame-info frame-data="manageFrame.info.engData"></english-frame-info>
+</div>
+
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	English LUs
+      </div>
+      <div class="panel-body">
+	Click to see translations
+      </div>
+
+      <lu class="list-group">
+	<li class="list-group-item clearfix" ng-repeat="lu in manageFrame.info.translations" ng-click="manageFrame.selectActiveEngLU($index)" ng-class="{active: manageFrame.activeEngLUIdx === $index}">
+	  <span class="pull-left">
+	    <input type="checkbox">
+	    {{lu.name}}.{{lu.pos.toLowerCase()}}
+	  </span>
+	  <span class="pull-right">
+	    <a href="https://framenet2.icsi.berkeley.edu/fnReports/data/lu/lu{{lu.luID}}.xml" target="_blank" class="no-underline" title="Open {{lu.name}}.{{lu.pos.toLowerCase()}} in FrameNet">
+	      <span class="glyphicon glyphicon-info-sign white"></span>
+	    </a>
+	    <a href="http://www.morfix.co.il/{{lu.name}}" target="_blank" class="no-underline" title="View translations in morfix.co.il">
+	      <span class="glyphicon glyphicon-question-sign white"></span>
+	    </a>
+
+	  </span>
+	</li>
+      </lu>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	Translations of {{manageFrame.activeEngLU.name}}.{{manageFrame.activeEngLU.pos.toLowerCase()}}
+      </div>
+      <div class="panel-body">
+	Associate with frame or show example sentences
+      </div>
+
+      <lu class="list-group" ng-show="manageFrame.activeEngLU">
+	<li class="list-group-item rtl" ng-repeat="t in manageFrame.activeEngLU.translations">
+	  {{t.name}}.{{t.pos}}
+	</li>
+      </lu>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	Hebrew LUs
+      </div>
+      <div class="panel-body">
+	<button type="button" class="btn btn-default">Add custom LU</button>
+      </div>
+
+      <lu class="list-group">
+	<li class="list-group-item rtl" ng-repeat="lu in manageFrame.info.hebData.lexUnit">
+	  {{lu['@name']}}
+	</li>
+      </lu>
+  </div>
+
+</div>

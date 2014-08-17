@@ -40,7 +40,11 @@ a.no-underline:hover {
     text-decoration: none;
 }
 
-frame-info {
+.active .white {
+    color: #fff;
+}
+
+frame-info, .frame-info {
     position: relative;
 }
 
@@ -48,4 +52,9 @@ frame-info {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.rtl {
+    direction: rtl;
+    text-align: right;
 }
