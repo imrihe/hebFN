@@ -2,9 +2,9 @@
     angular.module('fnExplore').
 	directive('frameSearch', frameSearch);
 
-    frameSearch.$inject = ['listFrames'];
+    frameSearch.$inject = ['frameDataManager'];
 
-    function frameSearch(listFrames) {
+    function frameSearch(frameDataManager) {
 	return {
 	    templateUrl: 'partials/explore/frame-search.html',
 	    restrict: 'E',
@@ -56,7 +56,7 @@
 
 	    /// initialization ///
 	    function activate(){
-		listFrames.then(function(response){
+		frameDataManager.listFrames().then(function(response){
 		    var data = response.data;
 		    fullSearchResults = frames = data.map(function(x) { return x.frame['@name']; });
 		    searchCtrl.numPages = Math.ceil(frames.length / pageSize);

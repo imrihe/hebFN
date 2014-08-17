@@ -2,9 +2,9 @@
     angular.module('fnExplore').
 	directive('frameInfo', frameInfo);
 
-    frameInfo.$inject = ['$routeParams',  'listFrames', 'frameData'];
+    frameInfo.$inject = ['$routeParams',  'frameDataManager'];
 
-    function frameInfo($routeParams, listFrames, frameData) {
+    function frameInfo($routeParams, frameDataManager) {
 	return {
 	    templateUrl: 'partials/explore/frame-info.html',
 	    restrict: 'E',
@@ -27,10 +27,10 @@
 
 	    /// initialization ///
 	    function activate(){
-		listFrames.then(function(response){
+		frameDataManager.listFrames().then(function(response){
 		    var data = response.data;
 		    var name = ($routeParams.frame || data[0].frame['@name']);
-		    frameData.forFrame(name).then(function(response){
+		    frameDataManager.frameData(name).then(function(response){
 			var data = response.data;
 			
 			infoCtrl.info = data;

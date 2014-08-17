@@ -2,17 +2,17 @@
     angular.module('fnServices', []);
 
     angular.module('fnServices').
-	factory('frameManager', frameManager);
+	factory('frameDataManager', frameDataManager);
 
-    frameManager.$inject = ['$http'];
+    frameDataManager.$inject = ['$http'];
 
-    function frameManager ($http) {
+    function frameDataManager ($http) {
 	var listFramesURL = '//localhost:3003/eng/framenames',
 	    frameDataURL = '//localhost:3003/heb/framedata', 
 	    addCommentURL = '//localhost:3003/heb/addcomment';
 
 	return {
-	    listframes: listFrames,
+	    listFrames: listFrames,
 	    frameData: frameData,
 	    addComment: addComment
 	};
@@ -29,13 +29,13 @@
 		params: {framename: name},
 		responseType: 'json'
 	    });
-	}
+	};
 
 	function addComment (commentData) {
 	    return $http.get(addCommentURL, {
 		params: commentData,
 		responseTyep: 'json'
-	    }
-	}
+	    });
+	};
     }
 })();
