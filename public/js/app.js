@@ -1,7 +1,8 @@
 (function(){
     angular.module('hebFN', [
 	'ngRoute',
-	'fnExplore'
+	'fnExplore',
+	'hebFN.manageFrame'
     ]).
 	config(['$routeProvider', config]);
 
@@ -11,6 +12,11 @@
 		templateUrl: 'partials/explore.html',
 		controller: 'exploreMain',
 		controllerAs: 'explore'
+	    }).
+	    when('/:frame/manage', {
+		templateUrl: 'partials/manage-frame.html',
+		controller: 'manageFrame',
+		controllerAs: 'manageFrame'
 	    });
     }
 })();
