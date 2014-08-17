@@ -1,0 +1,42 @@
+<h1 class="frame-title">{{frameData.frame['@name']}}</h1>
+
+<div id="frame-definition"></div>
+
+<h2><a href ng-click="toggle('showFEs')" class="no-underline"> Frame elements <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !showFEs, 'glyphicon-chevron-up': showFEs}"></span></a></h2>
+<div ng-show="showFEs" class="row">
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">Core FEs</div>
+      <ul class="list-group">
+	<li class="list-group-item" ng-repeat="fe in frameData.fes.core">
+	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
+	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
+	</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">Non-core FEs</div>
+      <ul class="list-group">
+	<li class="list-group-item" ng-repeat="fe in frameData.fes.nonCore">
+	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
+	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
+	</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<h2><a href ng-click="toggle('showRelations')" class="no-underline"> Inter-frame relations <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !showRelations, 'glyphicon-chevron-up': showRelations}"></span></a></h2>
+<div ng-show="showRelations" id="frame-relations">
+  <div ng-repeat="relation in frameData.frame.frameRelation">
+    <div ng-show="relation.relatedFrame.length">
+      <h3>{{relation['@type']}}</h3>
+      <span ng-repeat="frame in relation.relatedFrame">
+	<a ng-href="#/{{frame}}">{{frame}}</a>{{$last ? '' : ', '}}
+      </span>
+    </div>
+  </div>
+</div>

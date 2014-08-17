@@ -16,4 +16,18 @@
 			     responseType: 'json',
 			 });
     }
+
+    frameData.$inject = ['$http', 'frameDataURL'];
+
+    function frameData ($http, frameDataURL) {
+	return {
+	    forFrame: function(name) {
+		return $http.get(frameDataURL,
+				 {
+				     params: {framename: name},
+				     responseType: 'json'
+				 });
+	    }
+	};
+    }
 })();
