@@ -4,7 +4,7 @@
 
     frameInfo.$inject = ['$routeParams',  'listFrames', 'frameData'];
 
-    function frameInfo($routeParams, $compile, listFrames, frameData) {
+    function frameInfo($routeParams, listFrames, frameData) {
 	return {
 	    templateUrl: 'partials/explore/frame-info.html',
 	    restrict: 'E',
