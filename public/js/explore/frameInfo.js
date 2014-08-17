@@ -2,7 +2,7 @@
     angular.module('fnExplore').
 	directive('frameInfo', frameInfo);
 
-    frameInfo.$inject = ['$routeParams', '$compile',  'listFrames', 'frameData'];
+    frameInfo.$inject = ['$routeParams',  'listFrames', 'frameData'];
 
     function frameInfo($routeParams, $compile, listFrames, frameData) {
 	return {
