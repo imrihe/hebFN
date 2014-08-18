@@ -396,7 +396,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         var data  ={
             luname: lu.name +'.'+ lu.pos.toLowerCase(),
             framename: $scope.selectedFrameName,
-            sentid: sent.id,
+            sentid: sent._id,
             status: status,
             text: sent.text
 
