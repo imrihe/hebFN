@@ -46,7 +46,9 @@
 	  {{t.name}}.{{t.pos}}
 
 	  <span class="pull-left">
-	    <span class="glyphicon glyphicon-plus-sign"></span>
+	    <a href="#/{{manageFrame.name}}/{{t.name}}.{{t.pos}}/manage">
+	      <span class="glyphicon glyphicon-plus-sign black"></span>
+	    </a>
 	  </span>
 	</li>
       </lu>
@@ -73,7 +75,9 @@
 		<span class="glyphicon glyphicon-check pointer"></span>
 		<span class="glyphicon glyphicon-search pointer"></span>
 		<span id="menu{{$index}}" class="hide">
-		  <span class="glyphicon glyphicon-edit pointer"></span>
+		  <a href="#/{{manageFrame.name}}/{{lu['@name']}}/manage">
+		    <span class="glyphicon glyphicon-edit black"></span>
+		  </a>
 		  <span class="glyphicon glyphicon-trash pointer"></span>
 		  <span class="glyphicon glyphicon-plus pointer"></span>
 		</span>
