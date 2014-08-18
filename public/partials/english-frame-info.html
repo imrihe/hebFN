@@ -1,8 +1,8 @@
-<a href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame={{frameData.frame['@name']}}" target="_blank" class="engFNLink">
-  <button type="button" class="btn btn-default">{{frameData.frame['@name']}} in the English FrameNet</button>
+<a href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame={{info.engData.frame['@name']}}" target="_blank" class="engFNLink">
+  <button type="button" class="btn btn-default">{{info.engData.frame['@name']}} in the English FrameNet</button>
 </a>
 
-<h1 class="frame-title">{{frameData.frame['@name']}}</h1>
+<h1 class="frame-title">{{info.engData.frame['@name']}}</h1>
 
 <div id="frame-definition"></div>
 
@@ -12,7 +12,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Core FEs</div>
       <ul class="list-group">
-	<li class="list-group-item" ng-repeat="fe in frameData.fes.core">
+	<li class="list-group-item" ng-repeat="fe in info.engData.fes.core">
 	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
 	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
 	</li>
@@ -24,7 +24,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Non-core FEs</div>
       <ul class="list-group">
-	<li class="list-group-item" ng-repeat="fe in frameData.fes.nonCore">
+	<li class="list-group-item" ng-repeat="fe in info.engData.fes.nonCore">
 	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
 	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
 	</li>
@@ -35,7 +35,7 @@
 
 <h2><a href ng-click="toggle('showRelations')" class="no-underline"> Inter-frame relations <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !showRelations, 'glyphicon-chevron-up': showRelations}"></span></a></h2>
 <div ng-show="showRelations" id="frame-relations">
-  <div ng-repeat="relation in frameData.frame.frameRelation">
+  <div ng-repeat="relation in info.engData.frame.frameRelation">
     <div ng-show="relation.relatedFrame.length">
       <h3>{{relation['@type']}}</h3>
       <span ng-repeat="frame in relation.relatedFrame">

@@ -1,18 +1,21 @@
 (function(){
-    angular.module('hebFN.englishFrame', ['ngSanitize']).
+    angular.module('hebFN.englishFrame', [
+	'ngSanitize',
+	'fnServices'
+    ]).
 	directive('englishFrameInfo', englishFrameInfo).
 	directive('defRoot', definition).
 	directive('ex', ex).
 	directive('fex', fex);
 
 
-    englishFrameInfo.$inject = ['$compile'];
+    englishFrameInfo.$inject = ['$compile', 'frameDataManager'];
 
-    function englishFrameInfo($compile){
+    function englishFrameInfo($compile, frameDataManager){
 	return {
 	    templateUrl: 'partials/english-frame-info.html',
 	    restrict: 'E',
-	    scope: {frameData: '='},
+	    scope: {frameName: '='},
 	    link: linker
 	};
 
@@ -21,12 +24,11 @@
 	    scope.toggle = function(what) {
 		scope[what] = !scope[what];
 	    };
-	    
-	    var unWatch = scope.$watch('frameData', function(n, o){
-		if (!n) return; 
 
-		$('#frame-definition').html($compile(n.frame.definition)(scope).html());
-		unWatch();
+	    frameDataManager.frameData(scope.frameName).then(function(response){
+		scope.info = response.data;
+
+		$('#frame-definition').html($compile(scope.info.engData.frame.definition)(scope).html());
 	    });
 	}
     };
@@ -59,7 +61,7 @@
 		return '<span class="fex '+tAttrs.name+'" name="'+tAttrs.name+'">'+tElement.html()+'</span>';
 	    },
 	    link: function(scope, element, attrs) {
-		var feConfig = scope.frameData.frame.FE.filter(
+		var feConfig = scope.info.engData.frame.FE.filter(
 		    function(x){
 			return (x['@name'] === attrs.name || x['@abbrev'] === attrs.name);
 		    })[0];

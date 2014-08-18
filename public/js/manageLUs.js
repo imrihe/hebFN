@@ -10,8 +10,9 @@
 
     function manageLU ($routeParams, frameDataManager) {
 	var self = this;
-	var frameName = $routeParams.frame;
-	var luName = $routeParams.lu;
+	
+	this.frameName = $routeParams.frame;
+	this.luName = $routeParams.lu;
 
 	this.POSs = {
             noun:"n",
@@ -43,9 +44,5 @@
 
 	this.saveLU = function () {
 	};
-
-	frameDataManager.frameData(frameName).then(function(response){
-	    self.frameInfo = response.data;
-	});
     }
 })();

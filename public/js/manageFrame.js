@@ -6,12 +6,13 @@
     ]).
 	controller('manageFrame', manageFrame);
 
-    manageFrame.$injector = ['$routeParams',  'frameDataManager'];
+    manageFrame.$injector = ['$routeParams', 'frameDataManager'];
 
     function manageFrame($routeParams, frameDataManager) {
 	var self = this;
-	var name = $routeParams.frame;
+	
 
+	this.name = $routeParams.frame;
 	this.info = {};
 	this.activeEngLU = '';
 	this.activeEngLUIdx = -1;
@@ -38,7 +39,7 @@
 	this.addComment = function() {
 	    var params = {
 		type: 'frame',
-		framename: name,
+		framename: self.name,
 		comment: self.newComment
 	    };
 	    
@@ -49,7 +50,7 @@
 	    });
 	}
 
-	frameDataManager.frameData(name).then(function(response){
+	frameDataManager.frameData(this.name).then(function(response){
 	    self.info = response.data;
 	});
     }

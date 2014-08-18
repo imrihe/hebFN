@@ -2,9 +2,9 @@
     angular.module('fnExplore').
 	directive('frameInfo', frameInfo);
 
-    frameInfo.$inject = ['$routeParams',  'frameDataManager'];
+    frameInfo.$inject = ['$routeParams', '$location', 'frameDataManager'];
 
-    function frameInfo($routeParams, frameDataManager) {
+    function frameInfo($routeParams, $location, frameDataManager) {
 	return {
 	    templateUrl: 'partials/explore/frame-info.html',
 	    restrict: 'E',
@@ -15,26 +15,24 @@
 	function infoCtrl(){
 	    var infoCtrl = this;
 
+	    this.frameName = $routeParams.frame;
 	    this.info = {};
 	    this.showFEs = false;
 	    this.showRelations = false;
-
-	    activate();
 
 	    this.toggle = function(what) {
 		infoCtrl[what] = !infoCtrl[what];
 	    };
 
 	    /// initialization ///
-	    function activate(){
+	    if (!this.frameName) {
 		frameDataManager.listFrames().then(function(response){
-		    var data = response.data;
-		    var name = ($routeParams.frame || data[0].frame['@name']);
-		    frameDataManager.frameData(name).then(function(response){
-			var data = response.data;
-			
-			infoCtrl.info = data;
-		    });
+		    var name = response.data[0].frame['@name'];
+		    $location.path(name);
+		});
+	    } else {
+		frameDataManager.frameData(this.frameName).then(function(response){
+		    infoCtrl.info = response.data;
 		});
 	    }
 	};
