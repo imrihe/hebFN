@@ -44,10 +44,14 @@
     luDataManager.$inject = ['$http'];
 
     function luDataManager ($http) {
-	var luDataURL = '//localhost:3003/heb/lu';
+	var luDataURL = '//localhost:3003/heb/lu',
+	    saveLUURL = '//localhost:3003/heb/editlu',
+	    addCommentURL = '//localhost:3003/heb/lu';
 
 	return {
-	    luData: luData
+	    luData: luData,
+	    addComment: addComment,
+	    saveLU: saveLU
 	};
 
 	function luData (frameName, luName) {
@@ -56,5 +60,14 @@
 		responseType: 'json'
 	    });
 	};
+
+	function addComment (commentData) {
+	    return $http.post(addCommentURL, {
+		params: commentData,
+		responseTyep: 'json'
+	    });
+	};
+
+	function saveLU () {};
     }
 })();
