@@ -19,7 +19,7 @@
 
 	function listFrames () {
 	    return $http.get(listFramesURL, {
-		cache: true, 
+		cache: true,
 		responseType: 'json',
 	    });
 	};
@@ -27,6 +27,7 @@
 	function frameData (name) {
 	    return $http.get(frameDataURL, {
 		params: {framename: name},
+		cache: true,
 		responseType: 'json'
 	    });
 	};
