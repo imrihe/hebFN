@@ -96,10 +96,12 @@
 	    self.frameInfo = result.data;
 	});
 
-	luDataManager.luData(this.frameName, luName).then(function (result) {
-	    if (result.data) {
-		self.luInfo = result.data;
-	    }
-	});
+	if (luName) {
+	    luDataManager.luData(this.frameName, luName).then(function (result) {
+		if (result.data) {
+		    self.luInfo = result.data;
+		}
+	    });
+	}
     }
 })();
