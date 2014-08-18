@@ -1,22 +1,83 @@
 <div class="frame-info">
-  <english-frame-info frame-data="manageLU.info.engData"></english-frame-info>
+  <english-frame-info frame-data="manageLU.frameInfo.engData"></english-frame-info>
 </div>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-7">
     <div class="panel panel-default">
       <div class="panel-heading">
 	<h3 class="panel-title">LU Details</h3>
       </div>
-    </div>
-    <div class="panel-body">
-      <form role="form" ng-submit="saveLU">
 
-      </form>
+      <div class="panel-body">
+	<form role="form" class="form-horizontal" ng-submit="manageLU.saveLU()">
+	  
+	  <div class="form-group">
+	    <label for="lu-name" class="control-label col-md-3">Name</label>
+	    <div class="col-md-9">
+	      <div class="input-group">
+		<input type="text" class="form-control" id="lu-name">
+		<span class="input-group-addon">
+		  <a href="http://he.wiktionary.org/wiki/{{manageLU.luInfo['@name']}}" target="_blank">
+		    <span class="glyphicon glyphicon-book"></span>
+		  </a>
+		</span>
+	      </div>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="lu-pos" class="control-label col-md-3">POS</label>
+	    <div class="col-md-9">
+	      <select id="lu-pos" class="form-control" ng-model="manageLU.luInfo['@POS']" ng-options="pos for (key, pos) in manageLU.POSs"></select>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="lu-status" class="control-label col-md-3">Status</label>
+	    <div class="col-md-9">
+	      <select id="lu-status" class="form-control" ng-model="manageLU.luInfo.status" ng-options="status for status in manageLU.statusValues"></select>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="lu-definition" class="control-label col-md-3">Definition</label>
+	    <div class="col-md-9">
+	      <textarea id="lu-definition" class="form-control" rows="3" ng-model="manageLU.luInfo.definition"></textarea>
+	    </div>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="lu-semtype" class="control-label col-md-3">Semantic Types</label>
+	    <div class="col-md-9">
+	      <div class="input-group">
+		<select id="lu-semtype" class="form-control" ng-model="manageLU.semType" ng-options="type for type in manageLUs.semtypes"></select>
+		<span class="input-group-btn">
+		  <button type="button" class="btn btn-default" ng-click="manageLU.addSemType()">Add</button>
+		</span>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="col-md-9 col-md-offset-3">
+	    <span ng-repeat-start="type in manageLU.luInfo.semType" class="label label-default pointer" ng-click="manageLU.removeSemType($index)" title="Remove this semantic type">{{type}}</span> <span ng-repeat-end></span>
+	  </div>
+
+	  <div class="form-group">
+	    <label for="lu-incorporatedfe" class="control-label col-md-3">Incorporated FE</label>
+	    <div class="col-md-9">
+	      <select id="lu-incorporatedfe" class="form-control" ng-model="manageLU.luInfo['@incorporatedfe']" ng-options="fe['@name'] for fe in manageLU.frameInfo.hebData.FE"></select>
+	    </div>
+	  </div>
+
+	  <button type="submit" class="btn btn-primary pull-right">Save</button>
+
+	</form>
+      </div>
     </div>
+
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-5">
     <comments-widget comments-list="manageLU.luInfo.comments" post-function="manageLU.addComment"></comments-widget>
   </div>
 </div>
