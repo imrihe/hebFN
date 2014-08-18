@@ -60,6 +60,20 @@
 	};
 
 	this.saveLU = function () {
+	    
+	};
+
+	this.addComment = function (comment) {
+	    var params = {
+		type: 'lu',
+		framename: self.frameName,
+		luname: self.luInfo['@name']
+		comment: comment
+	    };
+
+	    luDataManager.addComment(params).then(function(res){
+		self.luInfo.comments.push(res);
+	    });
 	};
 
 	function getLUprop () {
