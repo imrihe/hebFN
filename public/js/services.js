@@ -2,7 +2,8 @@
     angular.module('fnServices', []);
 
     angular.module('fnServices').
-	factory('frameDataManager', frameDataManager);
+	factory('frameDataManager', frameDataManager).
+	factory('luDataManager', luDataManager);
 
     frameDataManager.$inject = ['$http'];
 
@@ -36,6 +37,23 @@
 	    return $http.post(addCommentURL, {
 		params: commentData,
 		responseTyep: 'json'
+	    });
+	};
+    }
+
+    luDataManager.$inject = ['$http'];
+
+    function luDataManager ($http) {
+	var luDataURL = '//localhost:3003/heb/lu';
+
+	return {
+	    luData: luData
+	};
+
+	function luData (frameName, luName) {
+	    return $http.get(luDataURL, {
+		params: {framename: frameName, luname: luName},
+		responseType: 'json'
 	    });
 	};
     }
