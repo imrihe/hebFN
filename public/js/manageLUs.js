@@ -30,7 +30,7 @@
 	];
 
 	this.frameInfo = {};
-	this.luInfo = {};
+	this.luInfo = {'@name': luName};
 
 	this.luName = function (name) {
 	    if (!name) {
@@ -42,7 +42,7 @@
 
 	this.luPOS = function (pos) {
 	    if (!pos) {
-		return getLUprop('@POS').toLowerCase();
+		return getLUprop('@name').split('.').pop();
 	    } else {
 		self.luInfo['@POS'] = pos.toUpperCase();
 		self.luInfo['@name'] = self.luName() + '.' + pos;
@@ -83,7 +83,9 @@
 	});
 
 	luDataManager.luData(this.frameName, luName).then(function (result) {
-	    self.luInfo = result.data;
+	    if (result.data) {
+		self.luInfo = result.data;
+	    }
 	});
     }
 })();
