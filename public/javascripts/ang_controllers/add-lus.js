@@ -473,7 +473,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 
 	utils.CallServerPost("external/addSentence", params, function(res){
 	    console.log(res);
-	    $scope.setLuSentCorrelation(res['_id'], 'good', res['text']);
+	    $scope.setLuSentCorrelation(res, 'good');
 	});
 
 	$('#add-sentence').modal('hide');
