@@ -1,7 +1,8 @@
 (function(){
     angular.module('hebFN.manageLUs', [
 	'fnServices',
-	'hebFN.englishFrame'
+	'hebFN.englishFrame',
+	'hebFN.commentsWidget'
     ]).
 	controller('manageLU', manageLU);
 
