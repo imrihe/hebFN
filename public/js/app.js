@@ -18,7 +18,7 @@
 		templateUrl: 'partials/manage-frame.html',
 		controller: 'manageFrame',
 		controllerAs: 'manageFrame'
-	    }).when('/:frame/:lu/manage', {
+	    }).when('/:frame/lu/:lu?', {
 		templateUrl: 'partials/manage-lu.html',
 		controller: 'manageLU',
 		controllerAs: 'manageLU'
