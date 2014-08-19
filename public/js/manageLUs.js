@@ -29,11 +29,15 @@
 	    "full"
 	];
 
+	this.multiwordTypes = [{sep: '_', name: 'Contiguous compound'}, 
+				{sep: ' ', name: 'Non-contiguous compound'}];
+
 	this.frameInfo = {};
 	this.luInfo = {'@name': luName};
+	this.separator = this.multiwordTypes[0].sep;
 
 	this.luName = function (name) {
-	    if (!name) {
+	    if (name === undefined) {
 		return getLUprop('@name').split('.')[0];
 	    } else {
 		self.luInfo['@name'] = name + '.' + self.luPOS();
@@ -42,12 +46,42 @@
 
 	this.luPOS = function (pos) {
 	    if (!pos) {
-		return getLUprop('@name').split('.').pop();
+		return getLUprop('@name').split('.').pop() || self.luInfo['@POS'] || 'v';
 	    } else {
 		self.luInfo['@POS'] = pos.toUpperCase();
 		self.luInfo['@name'] = self.luName() + '.' + pos;
 	    }
 	};
+
+	this.isCompound = function () {
+	    var result = false;
+	    
+	    self.multiwordTypes.forEach(function (x) {
+		result |= (self.luName().indexOf(x.sep) > -1);
+	    });
+
+	    return result;
+	}
+
+	this.transformName = function () {
+	    self.multiwordTypes.forEach(function (x) {
+		var sepRegex = new RegExp(x.sep+'+', 'g');
+		var dashRegex = new RegExp(x.sep+'*-'+x.sep+'*', 'g');
+
+		self.luName(self.luName().replace(sepRegex, self.separator));
+		self.luName(self.luName().replace(dashRegex, self.separator+'-'+self.separator));
+	    });
+	    
+	}
+
+	this.isValidName = function () {
+	    return !!self.luName().length && self.isValidCompound();
+	}
+
+	var headWordMark = '@';
+	this.isValidCompound = function () {
+	    return !self.isCompound() || self.luName().indexOf(headWordMark) > -1;
+	}
 
 	this.addSemType = function () {
 	    if (self.semType) {
@@ -60,14 +94,14 @@
 	};
 
 	this.saveLU = function () {
-	    
+	    console.log('saving', self.luName());
 	};
 
 	this.addComment = function (comment) {
 	    var params = {
 		type: 'lu',
 		framename: self.frameName,
-		luname: self.luInfo['@name']
+		luname: self.luInfo['@name'],
 		comment: comment
 	    };
 

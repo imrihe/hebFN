@@ -12,19 +12,33 @@
       <div class="panel-body">
 	<form role="form" class="form-horizontal" ng-submit="manageLU.saveLU()">
 	  
-	  <div class="form-group">
+	  <div class="form-group has-feedback" ng-class="{'has-success': manageLU.isValidName(), 'has-error': !manageLU.isValidName()}">
 	    <label for="lu-name" class="control-label col-md-3">Name</label>
 	    <div class="col-md-9">
 	      <div class="input-group">
-		<input type="text" class="form-control" id="lu-name" ng-model="manageLU.luName" ng-model-options="{ getterSetter: true }">
+		<input type="text" class="form-control rtl" id="lu-name" ng-model="manageLU.luName" ng-model-options="{ getterSetter: true }" ng-keyup="manageLU.transformName()">
+		<span class="glyphicon form-control-feedback left-form-control-feedback" ng-class="{'glyphicon-ok': manageLU.isValidName(), 'glyphicon-remove': !manageLU.isValidName()}"></span>
 		<span class="input-group-addon">
 		  <a href="http://he.wiktionary.org/wiki/{{manageLU.luName()}}" target="_blank">
 		    <span class="glyphicon glyphicon-book"></span>
 		  </a>
 		</span>
 	      </div>
+	      <div class="alert alert-danger" role="alert" ng-show="!manageLU.isValidCompound()">
+		The head word of a compound LU must be marked with the @ sign.
+	      </div>
+	      <div class="alert alert-danger" role="alert" ng-show="!manageLU.luName().length">
+		The LU name field cannot be empty.
+	      </div>
 	    </div>
 	  </div>
+
+	  <div class="form-group" ng-show="manageLU.isCompound()">
+	    <label for="lu-sep" class="control-label col-md-3">Multiword type</label>
+	    <div class="col-md-9">
+	      <select id="lu-sep" class="form-control" ng-model="manageLU.separator" ng-options="type.sep as type.name for type in manageLU.multiwordTypes" ng-change="manageLU.transformName()"></select>
+	    </div>
+	  </div>	  
 	  
 	  <div class="form-group">
 	    <label for="lu-pos" class="control-label col-md-3">POS</label>
@@ -69,7 +83,7 @@
 	    </div>
 	  </div>
 
-	  <button type="submit" class="btn btn-primary pull-right">Save</button>
+	  <button type="submit" class="btn btn-primary pull-right" ng-class="{'disabled': !manageLU.isValidName()}">Save</button>
 
 	</form>
       </div>
