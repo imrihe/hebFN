@@ -48,7 +48,18 @@
 	    frameDataManager.addComment(params).then(function(res){
 		self.info.hebData.comments.push(res);
 	    });
-	}
+	};
+
+	function deleteLU () {
+	    console.log('deleting', self.selectedLU['@name']);
+	    $('#delete-lu').modal('hide');
+	};
+
+	$('#delete-lu').on('show.bs.modal', function (e){
+	    $('#delete-button').off('click').on('click', function () {
+		deleteLU();
+	    });
+	});
 
 	frameDataManager.frameData(this.name).then(function(response){
 	    self.info = response.data;
