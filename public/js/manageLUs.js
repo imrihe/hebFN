@@ -4,7 +4,8 @@
 	'hebFN.englishFrame',
 	'hebFN.commentsWidget'
     ]).
-	controller('manageLU', manageLU);
+	controller('manageLU', manageLU).
+	directive('validCompound', validCompound);
 
     manageLU.$injector = ['$routeParams', 'frameDataManager', 'luDataManager'];
 
@@ -35,52 +36,54 @@
 	this.frameInfo = {};
 	this.luInfo = {'@name': luName};
 	this.separator = this.multiwordTypes[0].sep;
+	
+	this.luName = getLUprop('@name').split('.')[0];
 
-	this.luName = function (name) {
-	    if (name === undefined) {
-		return getLUprop('@name').split('.')[0];
-	    } else {
-		self.luInfo['@name'] = name + '.' + self.luPOS();
+	Object.defineProperties(this, {
+	    /*luName: {
+		get : function () {
+		    return getLUprop('@name').split('.')[0];
+		},
+		set: function (name) {
+		    self.luInfo['@name'] = (name || '') + '.' + self.luPOS;
+		}
+	    },*/
+	    luPOS: {
+		get: function () {
+		    return getLUprop('@name').split('.').pop() || self.luInfo['@POS'] || 'v';
+		},
+		set: function (pos) {
+		    self.luInfo['@POS'] = pos.toUpperCase();
+		    self.luInfo['@name'] = self.luName + '.' + pos;
+		}
 	    }
-	};
+	});
 
-	this.luPOS = function (pos) {
-	    if (!pos) {
-		return getLUprop('@name').split('.').pop() || self.luInfo['@POS'] || 'v';
-	    } else {
-		self.luInfo['@POS'] = pos.toUpperCase();
-		self.luInfo['@name'] = self.luName() + '.' + pos;
-	    }
-	};
-
-	this.isCompound = function () {
+	this.isCompound = function (val) {
 	    var result = false;
+	    val = val || self.luName || '';
 	    
 	    self.multiwordTypes.forEach(function (x) {
-		result |= (self.luName().indexOf(x.sep) > -1);
+		result |= (val.indexOf(x.sep) > -1);
 	    });
 
 	    return result;
 	}
 
 	this.transformName = function () {
+	    if (!self.luName) return;
+
 	    self.multiwordTypes.forEach(function (x) {
 		var sepRegex = new RegExp(x.sep+'+', 'g');
-		var dashRegex = new RegExp(x.sep+'*-'+x.sep+'*', 'g');
-
-		self.luName(self.luName().replace(sepRegex, self.separator));
-		self.luName(self.luName().replace(dashRegex, self.separator+'-'+self.separator));
+		self.luName = self.luName.replace(sepRegex, self.separator);
 	    });
-	    
+
+	    var dashRegex = new RegExp(self.separator+'*-'+self.separator+'*', 'g');
+	    self.luName = self.luName.replace(dashRegex, self.separator+'-'+self.separator);
 	}
 
 	this.isValidName = function () {
-	    return !!self.luName().length && self.isValidCompound();
-	}
-
-	var headWordMark = '@';
-	this.isValidCompound = function () {
-	    return !self.isCompound() || self.luName().indexOf(headWordMark) > -1;
+	    return !!self.luName.length && self.isValidCompound();
 	}
 
 	this.addSemType = function () {
@@ -94,7 +97,7 @@
 	};
 
 	this.saveLU = function () {
-	    console.log('saving', self.luName());
+	    console.log('saving', self.luName,'.',self.luPOS);
 	};
 
 	this.addComment = function (comment) {
@@ -138,4 +141,34 @@
 	    });
 	}
     }
+
+    function validCompound () {
+	return {
+	    restrict: 'A',
+	    require: 'ngModel',
+	    link: linker
+	};
+
+	function linker (scope, element, attrs, ctrl) {
+	    var headWordMark = '@';
+
+	    ctrl.$parsers.unshift(function (value) {
+		var valid = isValidCompound(value);
+
+		ctrl.$setValidity('compound', valid);
+		return valid ? value : undefined;
+	    });
+
+	    ctrl.$formatters.unshift(function (value) {
+		ctrl.$setValidity('compound', isValidCompound(value));
+		return value;
+	    });
+
+	    function isValidCompound (value) {
+		return !value || !scope.manageLU.isCompound(value) || 
+		    value.indexOf(headWordMark) > -1;
+	    };
+	};
+    };
+
 })();

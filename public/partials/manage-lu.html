@@ -6,29 +6,34 @@
   <div class="col-md-7">
     <div class="panel panel-default">
       <div class="panel-heading">
-	<h3 class="panel-title">{{manageLU.luInfo['@name']}} Details</h3>
+	<h3 class="panel-title">{{manageLU.luName}}.{{manageLU.luPOS}} Details</h3>
       </div>
 
       <div class="panel-body">
-	<form role="form" class="form-horizontal" ng-submit="manageLU.saveLU()">
+	<form role="form" name="luForm" class="form-horizontal" ng-submit="luForm.$valid && manageLU.saveLU()" novalidate>
 	  
-	  <div class="form-group has-feedback" ng-class="{'has-success': manageLU.isValidName(), 'has-error': !manageLU.isValidName()}">
+	  <div class="form-group has-feedback" ng-class="{'has-success':luForm.luName.$valid, 'has-error':!luForm.luName.$valid}">
 	    <label for="lu-name" class="control-label col-md-3">Name</label>
+
 	    <div class="col-md-9">
 	      <div class="input-group">
-		<input type="text" class="form-control rtl" id="lu-name" ng-model="manageLU.luName" ng-model-options="{ getterSetter: true }" ng-keyup="manageLU.transformName()">
-		<span class="glyphicon form-control-feedback left-form-control-feedback" ng-class="{'glyphicon-ok': manageLU.isValidName(), 'glyphicon-remove': !manageLU.isValidName()}"></span>
+		<input type="text" class="form-control rtl" id="lu-name" name="luName" ng-model="manageLU.luName"  ng-keyup="manageLU.transformName()" valid-compound required>
+
+		 <span class="glyphicon form-control-feedback left-form-control-feedback glyphicon-ok" ng-show="luForm.luName.$valid"></span>
+		 <span class="glyphicon form-control-feedback left-form-control-feedback glyphicon-remove" ng-show="!luForm.luName.$valid"></span>
+
 		<span class="input-group-addon">
-		  <a href="http://he.wiktionary.org/wiki/{{manageLU.luName()}}" target="_blank">
+		  <a href="http://he.wiktionary.org/wiki/{{manageLU.luName}}" target="_blank" tabindex="-1">
 		    <span class="glyphicon glyphicon-book"></span>
 		  </a>
 		</span>
 	      </div>
-	      <div class="alert alert-danger" role="alert" ng-show="!manageLU.isValidCompound()">
-		The head word of a compound LU must be marked with the @ sign.
+
+	      <div class="text-danger" ng-show="luForm.luName.$error.compound">
+	       	The head word of a compound LU must be marked with the @ sign.
 	      </div>
-	      <div class="alert alert-danger" role="alert" ng-show="!manageLU.luName().length">
-		The LU name field cannot be empty.
+	      <div class="text-danger" ng-show="luForm.luName.$error.required">
+	       	The LU name field cannot be empty.
 	      </div>
 	    </div>
 	  </div>
@@ -43,7 +48,7 @@
 	  <div class="form-group">
 	    <label for="lu-pos" class="control-label col-md-3">POS</label>
 	    <div class="col-md-9">
-	      <select id="lu-pos" class="form-control" ng-model="manageLU.luPOS" ng-model-options="{ getterSetter: true }" ng-options="pos for (key, pos) in manageLU.POSs"></select>
+	      <select id="lu-pos" class="form-control" ng-model="manageLU.luPOS" ng-options="pos for (key, pos) in manageLU.POSs"></select>
 	    </div>
 	  </div>
 	  
@@ -83,7 +88,7 @@
 	    </div>
 	  </div>
 
-	  <button type="submit" class="btn btn-primary pull-right" ng-class="{'disabled': !manageLU.isValidName()}">Save</button>
+	  <button type="submit" class="btn btn-primary pull-right" ng-class="{'disabled': !lu-form.$valid}">Save</button>
 
 	</form>
       </div>
