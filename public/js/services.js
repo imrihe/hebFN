@@ -46,6 +46,7 @@
     function luDataManager ($http) {
 	var luDataURL = '//localhost:3003/heb/lu',
 	    saveLUURL = '//localhost:3003/heb/editlu',
+	    addLUURL = '//localhost:3003/heb/frameLuAssociation',
 	    addCommentURL = '//localhost:3003/heb/lu';
 
 	return {
@@ -68,6 +69,18 @@
 	    });
 	};
 
-	function saveLU () {};
+	function saveLU (luData) {
+	    var url = saveLUURL;
+
+	    if (!luData._id) {
+		url = addLUURL;
+		luDate.action = 'add';
+	    }
+
+	    return $http.post(saveLUURL, {
+		params: luData,
+		responseTyep: 'json'
+	    });
+	};
     }
 })();

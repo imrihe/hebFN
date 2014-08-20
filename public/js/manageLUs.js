@@ -7,9 +7,9 @@
 	controller('manageLU', manageLU).
 	directive('validCompound', validCompound);
 
-    manageLU.$injector = ['$routeParams', 'frameDataManager', 'luDataManager'];
+    manageLU.$injector = ['$routeParams','$location', 'frameDataManager', 'luDataManager'];
 
-    function manageLU ($routeParams, frameDataManager, luDataManager) {
+    function manageLU ($routeParams, $location, frameDataManager, luDataManager) {
 	var self = this;
 	var luName = $routeParams.lu;
 
@@ -97,7 +97,9 @@
 	};
 
 	this.saveLU = function () {
-	    console.log('saving', self.luName,'.',self.luPOS);
+	    luManager.saveLU(self.luInfo).then(function(res){
+		$location.path('/'+self.frameName+'/manage');
+	    });
 	};
 
 	this.addComment = function (comment) {
