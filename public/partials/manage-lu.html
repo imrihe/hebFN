@@ -17,7 +17,7 @@
 
 	    <div class="col-md-9">
 	      <div class="input-group">
-		<input type="text" class="form-control rtl" id="lu-name" name="luName" ng-model="manageLU.luName"  ng-keyup="manageLU.transformName()" valid-compound required>
+		<input type="text" class="form-control rtl" id="lu-name" name="luName" ng-model="manageLU.luName"  ng-model-options="{getterSetter: true}" ng-keyup="manageLU.transformName()" valid-compound required>
 
 		 <span class="glyphicon form-control-feedback left-form-control-feedback glyphicon-ok" ng-show="luForm.luName.$valid"></span>
 		 <span class="glyphicon form-control-feedback left-form-control-feedback glyphicon-remove" ng-show="!luForm.luName.$valid"></span>
@@ -88,7 +88,7 @@
 	    </div>
 	  </div>
 
-	  <button type="submit" class="btn btn-primary pull-right" ng-class="{'disabled': !luForm.$valid}">Save</button>
+	  <button type="submit" class="btn btn-primary pull-right" ng-disabled="!luForm.$valid">Save</button>
 
 	</form>
       </div>
