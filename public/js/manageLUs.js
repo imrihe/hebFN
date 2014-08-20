@@ -97,7 +97,7 @@
 	};
 
 	this.saveLU = function () {
-	    luManager.saveLU(self.luInfo).then(function(res){
+	    luDataManager.saveLU(self.luInfo).then(function(res){
 		$location.path('/'+self.frameName+'/manage');
 	    });
 	};
