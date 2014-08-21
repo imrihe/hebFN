@@ -1,4 +1,4 @@
-<h1 class="margin-bottom">Search for sentences</h1>
+<h1 class="margin-bottom-40">Search for sentences</h1>
 
 <div class="row">
   <div class="col-md-3">
@@ -24,11 +24,11 @@
 
 	    <div class="form-group">
 	      <div class="btn-group" data-toggle="buttons">
-		<label class="btn btn-default" ng-class="{active: search.luType === 'lemma'}" for="lemma" ng-click="search.luType = 'lemma'">
+		<label class="btn btn-default" ng-class="{active: search.luType === 'lemma'}" ng-click="search.luType = 'lemma'">
 		  <input type="radio">
 		  Lemma
 		</label>
-		<label class="btn btn-default"  ng-class="{active: search.luType === 'word'}" for="word" ng-click="search.luType = 'word'">
+		<label class="btn btn-default"  ng-class="{active: search.luType === 'word'}"  ng-click="search.luType = 'word'">
 		  <input type="radio">
 		  Word
 		</label>
@@ -69,8 +69,31 @@
   <div class="col-md-9">
     <h2>Search results</h2>
 
-    <div class="progress" id="loading-sentences">
+    <div class="progress" id="loading-sentences" ng-show="search.searching">
       <div class="progress-bar progress-bar-info"></div>
+    </div>
+    <div ng-hide="search.searching">
+      <div ng-hide="search.results.length">No results found.</div>
+      <div>
+	<div class="search-result margin-bottom-10 row" ng-repeat="result in search.results">
+	  <div class="btn-group col-md-3" data-toggle="buttons">
+	    <label class="btn btn-default" ng-click="search.accept($index)">
+	      <input type="radio">
+	      <span class="glyphicon glyphicon-thumbs-up"></span>
+	    </label>
+	    <label class="btn btn-default" ng-click="search.accept($index)">
+	      <input type="radio">
+	      <span class="glyphicon glyphicon-thumbs-down"></span>
+	    </label>
+	    <label class="btn btn-default" ng-click="search.accept($index)">
+	      <input type="radio">
+	      <span class="glyphicon glyphicon-flag"></span>
+	    </label>
+	  </div>
+
+	  <div class="text rtl col-md-9">{{result.text}}</div>
+	</div>
+      </div>
     </div>
   </div>
 </div>

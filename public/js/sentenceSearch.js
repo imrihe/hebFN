@@ -2,11 +2,13 @@
     angular.module('hebFN.sentenceSearch', []).
 	controller('sentenceSearch', search);
 
-    search.$injector = ['$routeParams'];
+    search.$injector = ['$routeParams', 'searchManager'];
 
-    function search ($routeParams) {
+    function search ($routeParams, searchManager) {
 	var self = this;
 	var lu = $routeParams.lu;
+
+	this.results = [];
 
 	reset();
 
@@ -54,10 +56,27 @@
 	};
 
 	this.doSearch = function () {
+	    self.searching = true;
+	    
 	    if (self.luName) {
 		self.addTerm();
 	    }
-	    console.log('preforming search with params:',this);
+	    
+	    var p = self.searchTerms[0];
+
+	    var params = {
+		pos: p.pos || 'v',
+		text: p.word || '', 
+		field: p.type || 'lemma',
+		page: 1, 
+		diversify : false, 
+		optionals: self.additionalWords
+	    };
+
+	    searchManager.search(params).then(function (res) {
+		self.results = res.data;
+		self.searching = false;
+	    });
 	};
 
 	function reset () {

@@ -3,7 +3,8 @@
 
     angular.module('fnServices').
 	factory('frameDataManager', frameDataManager).
-	factory('luDataManager', luDataManager);
+	factory('luDataManager', luDataManager).
+	factory('searchManager', searchManager);
 
     frameDataManager.$inject = ['$http'];
 
@@ -82,5 +83,22 @@
 		responseTyep: 'json'
 	    });
 	};
-    }
+    };
+
+    searchManager.$injector = ['$http'];
+
+    function searchManager ($http) {
+	var searchSentencesURL = '//localhost:3003/external/exampleSentences';
+
+	return {
+	    search: search
+	};
+
+	function search (params) {
+	    return $http.get(searchSentencesURL, {
+		params: params,
+		responseTyep: 'json'
+	    });
+	};
+    };
 })();
