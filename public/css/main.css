@@ -4,7 +4,7 @@
     text-overflow:ellipsis;
 }
 
-#frame-definition {
+.margin-bottom {
     margin-bottom: 40px;
 }
 
@@ -80,4 +80,26 @@ frame-info, .frame-info {
 
 .pointer {
     cursor: pointer;
+}
+
+#loading-sentences {
+    margin: 150px auto;
+    width: 65%;
+}
+
+#loading-sentences .progress-bar{
+    position: relative;
+    animation: mymove 1.8s infinite alternate linear;
+    -webkit-animation: mymove 1.8s infinite alternate linear;
+    width: 40%;
+}
+
+@-webkit-keyframes mymove {
+    from {left: 0px;}
+    to {left: 60%;}
+}
+
+@keyframes mymove {
+    from {left: 0px;}
+    to {right: 60%;}
 }
