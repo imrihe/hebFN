@@ -59,9 +59,23 @@
 	  <h4>Additional words</h4>
   	  <span ng-repeat-start="word in search.additionalWords" class="label label-default pointer" ng-click="search.removeAdditional($index)" title="Remove this word">{{word}}</span> <span ng-repeat-end></span>
 	</div>
-	<form name="searchForm" ng-submit="search.doSearch()">
+	<form name="searchForm" ng-submit="search.page = 1; search.doSearch()">
 	  <button class="btn btn-primary" type="submit">Search</button>
 	  <button class="btn btn-default" type="button" ng-click="search.reset()">Reset</button>
+	</form>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h2 class="panel-title">Add sentence</h2>
+      </div>
+      <div class="panel-body">
+	<form ng-submit="search.addSentence()">
+	  <div class="form-group">
+	    <textarea class="form-control rtl" placeholder="Enter a sentence" ng-model="search.newSentence" rows="5"></textarea>
+	  </div>
+	  <button type="submit" class="btn btn-default">Add</button>
 	</form>
       </div>
     </div>
@@ -72,7 +86,7 @@
     <div class="progress" id="loading-sentences" ng-show="search.searching">
       <div class="progress-bar progress-bar-info"></div>
     </div>
-    <div ng-hide="search.searching">
+    <div ng-hide="search.searching" id="search-results">
       <div ng-hide="search.results.length">No results found.</div>
       <div>
 	<div class="search-result margin-bottom-15 row" ng-repeat="result in search.results">
@@ -92,6 +106,20 @@
 	  </div>
 
 	  <div class="text rtl col-md-9">{{result.text}}</div>
+	</div>
+
+	<div class="text-center" ng-show="search.results.length">
+	  <ul class="pagination">
+	    <li class="{{search.page == 1 && 'disabled'}}">
+	      <a href ng-click="search.getPage(1)">&laquo;</a>
+	    </li>
+	    <li ng-repeat="r in [1,2,3,4,5,6,7,8,9,10]" class="{{search.page == $index+1 && 'active'}}">
+	      <a href ng-click="search.getPage($index+1)">{{$index+1}}</a>
+	    </li>
+	    <li class="{{search.page == 10 && 'disabled'}}">
+	      <a href ng-click="search.getPage(10)">&raquo;</a>
+	    </li>
+	  </ul>
 	</div>
       </div>
     </div>

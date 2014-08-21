@@ -72,7 +72,7 @@
 		pos: p.pos || 'v',
 		text: p.word || '', 
 		field: p.type || 'lemma',
-		page: 1, 
+		page: self.page || 1, 
 		diversify : false, 
 		optionals: self.additionalWords
 	    };
@@ -82,6 +82,11 @@
 		self.searching = false;
 	    });
 	};
+
+	this.getPage = function (page) {
+	    self.page = page;
+	    self.doSearch();
+	}
 
 	function reset () {
 	    resetTerm();
