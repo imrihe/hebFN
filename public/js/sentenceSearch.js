@@ -17,6 +17,10 @@
 	};
 
 	this.addTerm = function () {
+	    if (!self.luName) {
+		return;
+	    }
+
 	    var term = {
 		word: self.luName,
 		pos: self.luPOS,
