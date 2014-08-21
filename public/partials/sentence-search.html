@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+	<h2 class="panel-title">Search parameters</h2>
+      </div>
+
+      <div class="panel-body">
+	<div class="form-group">
+	  <form ng-submit="search.addTerm()">
+	    <div class="form-group">
+	      <div class="input-group">
+		<div class="input-group-btn">
+		  <button type="button" class="btn" ng-click="search.toggleTermInclude()" ng-class="{'btn-success': search.luInclude, 'btn-danger': !search.luInclude}" ng-switch="search.luInclude">
+		    <span ng-switch-when="false">Exclude</span>
+		    <span ng-switch-default>Include</span>
+		  </button>
+		</div><!-- /btn-group -->
+		<input type="text" name="luName" id="luName" class="form-control rtl" placeholder="LU Name" ng-model="search.luName">
+	      </div>
+	    </div>
+
+	    <div class="form-group">
+	      <div class="btn-group" data-toggle="buttons">
+		<label class="btn btn-default" ng-class="{active: search.luType === 'lemma'}" for="lemma" ng-click="search.luType = 'lemma'">
+		  <input type="radio">
+		  Lemma
+		</label>
+		<label class="btn btn-default"  ng-class="{active: search.luType === 'word'}" for="word" ng-click="search.luType = 'word'">
+		  <input type="radio">
+		  Word
+		</label>
+	      </div>
+	    </div>
+
+	    <div class="form-group">
+	      <select class="form-control" ng-model="search.pos" ng-options="pos for pos in constants.POSs">
+		<option value="" data-hidden="true" selected disabled>LU POS</option>
+	      </select>
+	    </div>
+
+	    <button type="submit" class="btn btn-default">Add term</button>
+	  </form>
+	</div>
+
+	<div class="form-group">
+	  <input type="text" class="form-control rtl" placeholder="Additional words" ng-model="search.additionalWord" ng-blur="search.updateAdditional()" ng-keyup="search.handleEnter($event)">
+	</div>
+
+	<div class="form-group" ng-show="search.searchTerms.length">
+	  <h4>Search terms</h4>
+  	  <span ng-repeat-start="term in search.searchTerms" class="label pointer" ng-class="{'label-success': term.include, 'label-danger': !term.include}" ng-click="search.removeTerm($index)" title="Remove this term">{{term.word}}.{{term.pos}} ({{term.type}})</span> <span ng-repeat-end></span>
+	</div>
+
+
+	<div class="form-group" ng-show="search.additionalWords.length">
+	  <h4>Additional words</h4>
+  	  <span ng-repeat-start="word in search.additionalWords" class="label label-default pointer" ng-click="search.removeAdditional($index)" title="Remove this word">{{word}}</span> <span ng-repeat-end></span>
+	</div>
+	<form name="searchForm" ng-submit="search.doSearch()">
+	  <button class="btn btn-primary" type="submit">Search</button>
+	  <button class="btn btn-default" type="button" ng-click="search.reset()">Reset</button>
+	</form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h1>Search for sentences</h1>
+  </div>
+</div>
