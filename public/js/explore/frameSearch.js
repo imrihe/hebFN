@@ -1,5 +1,5 @@
 (function(){
-    angular.module('hebFN.esplore').
+    angular.module('hebFN.explore').
 	directive('frameSearch', frameSearch);
 
     frameSearch.$inject = ['frameDataManager'];
