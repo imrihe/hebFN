@@ -5,9 +5,6 @@
     luDataFactory.$injector = ['$http'];
 
     function luDataFactory ($http) {
-	  /*  saveLUURL = '//localhost:3003/heb/editlu',
-	    addLUURL = '//localhost:3003/heb/frameLuAssociation',
-	    ;*/
 
 	return {
 	    getLU: function (frameName, luName) { return new LuModel(frameName, luName); }
