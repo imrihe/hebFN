@@ -1,5 +1,5 @@
 (function(){
-    angular.module('fnExplore').
+    angular.module('hebFN.explore').
 	directive('frameInfo', frameInfo);
 
     frameInfo.$inject = ['$routeParams', '$location', 'frameDataManager'];
