@@ -13,7 +13,7 @@
 	};
 
 	function searchCtrl(){
-	    var searchCtrl = this;
+	    var self = this;
 
 	    var pageSize = 20;
 	    var frames = [];
@@ -28,30 +28,30 @@
 	    this.query = '';
 
 	    this.isFirstPage = function() {
-		return !searchCtrl.numPages || searchCtrl.currentPage === 1;
+		return !self.numPages || self.currentPage === 1;
 	    };
 
 	    this.isLastPage = function() {
-		return !searchCtrl.numPages || searchCtrl.currentPage === searchCtrl.numPages;
+		return !self.numPages || self.currentPage === self.numPages;
 	    };
 
 	    this.changePage = function(page) {
-		if (page > searchCtrl.numPages) {
-		    page = searchCtrl.numPages;
+		if (page > self.numPages) {
+		    page = self.numPages;
 		} else if (page < 1) {
 		    page = 1;
 		}
 
-		searchCtrl.searchResults = fullSearchResults.slice((page-1)*pageSize, page*pageSize);
+		self.searchResults = fullSearchResults.slice((page-1)*pageSize, page*pageSize);
 
-		searchCtrl.currentPage = page;
+		self.currentPage = page;
 	    }
 
 	    this.filterFrames = function(query) {
 		query = query.toLowerCase();
 		fullSearchResults = frames.filter(function(x){return x.toLowerCase().indexOf(query) >= 0;});
-		searchCtrl.numPages = Math.ceil(fullSearchResults.length / pageSize);
-		searchCtrl.changePage(1);
+		self.numPages = Math.ceil(fullSearchResults.length / pageSize);
+		self.changePage(1);
 	    }
 
 	    /// initialization ///
@@ -59,9 +59,9 @@
 		frameDataManager.listFrames().then(function(response){
 		    var data = response.data;
 		    fullSearchResults = frames = data.map(function(x) { return x.frame['@name']; });
-		    searchCtrl.numPages = Math.ceil(frames.length / pageSize);
+		    self.numPages = Math.ceil(frames.length / pageSize);
 
-		    searchCtrl.changePage(1);
+		    self.changePage(1);
 		});
 	    }
 
