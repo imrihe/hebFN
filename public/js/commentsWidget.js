@@ -37,6 +37,12 @@
 		
 		unWatch();
 	    });
+
+	    scope.addComment = function () {
+		scope.postFunction({
+		    comment: scope.newComment
+		});
+	    }
 	};
     }
 })();
