@@ -3,13 +3,25 @@
 	'ngRoute',
 	'fnExplore',
 	'hebFN.manageFrame',
-	'hebFN.manageLUs'
+	'hebFN.manageLUs',
+	'hebFN.sentenceSearch'
     ]).
-	config(['$routeProvider', config]);
+	config(['$routeProvider', config]).
+	run(['$http', function($http){
+	    $http({
+		method: 'OPTIONS',
+		url: '//localhost:3003/',
+		headers: {'Allow-Control-Allow-Origin': '*'}
+	    });
+	}]);
 
     function config($routeProvider) {
 	$routeProvider.
-	    when('/:frame?', {
+	    when('/search/:lu?', {
+		templateUrl: 'partials/sentence-search.html',
+		controller: 'sentenceSearch',
+		controllerAs: 'search'
+	    }).when('/:frame?', {
 		templateUrl: 'partials/explore.html',
 		controller: 'exploreMain',
 		controllerAs: 'explore'
