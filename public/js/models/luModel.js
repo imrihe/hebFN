@@ -64,6 +64,8 @@
 	    var saveurl = '//localhost:3003/heb/editlu',
 	        addurl = '//localhost:3003/heb/frameLuAssociation';
 
+	    var url = saveurl;
+
 	    var luName = this.name + "." + this.pos;
 
 	    params = {
