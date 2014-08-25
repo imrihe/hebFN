@@ -6,7 +6,7 @@
     ]).
 	directive('manageFrame', manageFrame);
 
-    manageFrame.$injector = ['frameDataManager'];
+    manageFrame.$injector = ['frameDataService'];
 
     function manageFrame (){
 	return {
@@ -18,7 +18,7 @@
 	}
     }
     
-    function ctrl ($scope, frameDataManager) {
+    function ctrl ($scope, frameDataService) {
 	var self = this;
 
 	this.activeEngLU = '';
@@ -59,6 +59,6 @@
 	    });
 	});
 
-	self.frame = frameDataService.getFrame(this.name);
+	self.frame = frameDataService.getFrame($scope.frameName);
     }
 })();
