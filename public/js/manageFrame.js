@@ -45,7 +45,6 @@
 
 	this.addComment = function(comment) {
 	    self.frame.addComment(comment);
-	    self.newComment = '';
 	};
 
 	function deleteLU () {
