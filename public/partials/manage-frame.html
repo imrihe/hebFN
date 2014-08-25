@@ -71,18 +71,18 @@
 	  {{lu['@name']}}
 	  
 	  <span class="pull-left">
-		<span class="badge no-float" title="Number of associated sentences">
-		  {{lu.sentenceCount}}
-		</span>
-		<span class="glyphicon glyphicon-check pointer"></span>
-		<span class="glyphicon glyphicon-search pointer"></span>
-		<span id="menu{{$index}}" class="hide">
-		  <a href="#/{{frameName}}/lu/{{lu['@name']}}">
-		    <span class="glyphicon glyphicon-edit black"></span>
-		  </a>
-		  <span class="glyphicon glyphicon-trash pointer" data-toggle="modal" data-target="#delete-lu" ng-click="manageFrame.selectedLU=lu"></span>
-		</span>
-		<span class="glyphicon glyphicon-align-justify pointer" ng-click="manageFrame.toggleMenu($index)"></span>
+	    <span class="badge no-float" title="Number of associated sentences">
+	      {{lu.sentenceCount}}
+	    </span>
+	    <span class="glyphicon glyphicon-check pointer"></span>
+	    <span class="glyphicon glyphicon-search pointer"></span>
+	    <span id="menu{{$index}}" class="hide">
+	      <a href="#/{{frameName}}/lu/{{lu['@name']}}">
+		<span class="glyphicon glyphicon-edit black"></span>
+	      </a>
+	      <span class="glyphicon glyphicon-trash pointer" data-toggle="modal" data-target="#delete-lu" ng-click="manageFrame.selectedLU=lu"></span>
+	    </span>
+	    <span class="glyphicon glyphicon-align-justify pointer" ng-click="manageFrame.toggleMenu($index)"></span>
 	  </span>
 	</li>
       </lu>
