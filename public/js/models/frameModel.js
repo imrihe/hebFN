@@ -2,48 +2,59 @@
     angular.module('hebFN.models', []).
 	factory('frameDataService', frameDataFactory);
 
-    frameModel.$injector = ['$http'];
+    frameDataFactory.$injector = ['$http'];
 
     function frameDataFactory ($http) {
 
 	return {
-	    listFrames: listFrame,
-	    getFrame: frameModel
+	    listFrames: listFrames,
+	    getFrame: function (frameName) { return new FrameModel(frameName); }
 	};
 
-	function frameModel (frameName) {   
-	    frameData(frameName).then(function (result) {
-		angular.extend(this, result.data);
+	function FrameModel (frameName) {
+	    var self = this;
+	    this.name = frameName;
+	    frameData(this.name).then(function (result) {
+		angular.extend(self, result.data);
 	    });
 	};
 
-	frameModel.prototype = {
-	    addComment = addComment;
-	};
+	frameModel.prototype.addComment = addComment;
 
 	var listFramesURL = '//localhost:3003/eng/framenames',
-        frameDataURL = '//localhost:3003/heb/framedata', 
-        addCommentURL = '//localhost:3003/heb/addcomment';
+            frameDataURL = '//localhost:3003/heb/framedata', 
+            addCommentURL = '//localhost:3003/heb/addcomment';
 
 	function listFrames () {
 	    return $http.get(listFramesURL, {
-		cache: true,
-		responseType: 'json',
-	    });
-	};
-
-	function frameData (name) {
-	    return $http.get(frameDataURL, {
-		params: {framename: name},
 		cache: true,
 		responseType: 'json'
 	    });
 	};
 
-	function addComment (commentData) {
-	    return $http.post(addCommentURL, {
-		params: commentData,
+	function frameData (name) {
+	    var frameDataURL = '//localhost:3003/heb/framedata';
+	    var params = {framename: name};
+
+	    return $http.get(frameDataURL, {
+		params: params,
+		cache: true,
+		responseType: 'json'
+	    });
+	};
+
+	function addComment (comment) {
+	    var params = {
+		type: 'frame',
+		framename: this.name,
+		comment: comment
+	    };
+
+	    $http.post(addCommentURL, {
+		params: params,
 		responseTyep: 'json'
+	    }).then(function (result) {
+		this.hebData.comments.push(res);
 	    });
 	};
     };
