@@ -1,6 +1,6 @@
 (function() {
     angular.module('hebFN.explore', [
-	'fnServices',
+	'hebFN.models',
 	'hebFN.englishFrame'
     ]).
 	controller('exploreMain', explore);

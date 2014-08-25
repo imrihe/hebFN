@@ -2,9 +2,9 @@
     angular.module('hebFN.explore').
 	directive('frameSearch', frameSearch);
 
-    frameSearch.$inject = ['frameDataManager'];
+    frameSearch.$inject = ['frameDataService'];
 
-    function frameSearch(frameDataManager) {
+    function frameSearch (frameDataService) {
 	return {
 	    templateUrl: 'partials/explore/frame-search.html',
 	    restrict: 'E',
@@ -56,7 +56,7 @@
 
 	    /// initialization ///
 	    function activate(){
-		frameDataManager.listFrames().then(function(response){
+		frameDataService.listFrames().then(function(response){
 		    var data = response.data;
 		    fullSearchResults = frames = data.map(function(x) { return x.frame['@name']; });
 		    self.numPages = Math.ceil(frames.length / pageSize);
