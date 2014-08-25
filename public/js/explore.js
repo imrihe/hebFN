@@ -1,9 +1,14 @@
 (function() {
     angular.module('hebFN.explore', [
 	'hebFN.models',
-	'hebFN.englishFrame'
+	'hebFN.englishFrame',
+	'hebFN.manageFrame'
     ]).
 	controller('exploreMain', explore);
 
-    function explore() {};
+    explore.$injector = ['$routeParams'];
+
+    function explore($routeParams) {
+	this.frameName = $routeParams.frame;
+    };
 })();

@@ -4,14 +4,23 @@
 	'hebFN.englishFrame',
 	'hebFN.commentsWidget'
     ]).
-	controller('manageFrame', manageFrame);
+	directive('manageFrame', manageFrame);
 
-    manageFrame.$injector = ['$routeParams', 'frameDataService'];
+    manageFrame.$injector = ['frameDataManager'];
 
-    function manageFrame($routeParams, frameDataService) {
+    function manageFrame (){
+	return {
+	    restrict: 'E',
+	    templateUrl: 'partials/manage-frame.html',
+	    scope: {'frameName': '='},
+	    controller: ctrl,
+	    controllerAs: 'manageFrame'
+	}
+    }
+    
+    function ctrl ($scope, frameDataManager) {
 	var self = this;
 
-	this.name = $routeParams.frame;
 	this.activeEngLU = '';
 	this.activeEngLUIdx = -1;
 
