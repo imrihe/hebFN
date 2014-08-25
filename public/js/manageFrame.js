@@ -4,15 +4,23 @@
 	'hebFN.englishFrame',
 	'hebFN.commentsWidget'
     ]).
-	controller('manageFrame', manageFrame);
+	directive('manageFrame', manageFrame);
 
-    manageFrame.$injector = ['$routeParams', 'frameDataManager'];
+    manageFrame.$injector = ['frameDataManager'];
 
-    function manageFrame($routeParams, frameDataManager) {
+    function manageFrame (){
+	return {
+	    restrict: 'E',
+	    templateUrl: 'partials/manage-frame.html',
+	    scope: {'frameName': '='},
+	    controller: ctrl,
+	    controllerAs: 'manageFrame'
+	}
+    }
+    
+    function ctrl ($scope, frameDataManager) {
 	var self = this;
 	
-
-	this.name = $routeParams.frame;
 	this.info = {};
 	this.activeEngLU = '';
 	this.activeEngLUIdx = -1;
@@ -39,7 +47,7 @@
 	this.addComment = function() {
 	    var params = {
 		type: 'frame',
-		framename: self.name,
+		framename: $scope.frameName,
 		comment: self.newComment
 	    };
 	    
@@ -61,7 +69,7 @@
 	    });
 	});
 
-	frameDataManager.frameData(this.name).then(function(response){
+	frameDataManager.frameData($scope.frameName).then(function(response){
 	    self.info = response.data;
 	});
     }

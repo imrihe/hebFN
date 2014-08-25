@@ -1,5 +1,5 @@
 <div class="frame-info">
-  <english-frame-info frame-name="manageFrame.name"></english-frame-info>
+  <english-frame-info frame-name="frameName"></english-frame-info>
 </div>
 
 <div class="row">
@@ -46,7 +46,7 @@
 	  {{t.name}}.{{t.pos}}
 
 	  <span class="pull-left">
-	    <a href="#/{{manageFrame.name}}/lu/{{t.name}}.{{t.pos}}">
+	    <a href="#/{{frameName}}/lu/{{t.name}}.{{t.pos}}">
 	      <span class="glyphicon glyphicon-plus-sign black"></span>
 	    </a>
 	  </span>
@@ -61,7 +61,7 @@
 	<h3 class="panel-title">Hebrew LUs</h3>
       </div>
       <div class="panel-body">
-	<a href="#/{{manageFrame.name}}/lu/">
+	<a href="#/{{frameName}}/lu/">
 	  <button type="button" class="btn btn-default">Add a custom LU</button>
 	</a>
       </div>
@@ -77,7 +77,7 @@
 		<span class="glyphicon glyphicon-check pointer"></span>
 		<span class="glyphicon glyphicon-search pointer"></span>
 		<span id="menu{{$index}}" class="hide">
-		  <a href="#/{{manageFrame.name}}/lu/{{lu['@name']}}">
+		  <a href="#/{{frameName}}/lu/{{lu['@name']}}">
 		    <span class="glyphicon glyphicon-edit black"></span>
 		  </a>
 		  <span class="glyphicon glyphicon-trash pointer" data-toggle="modal" data-target="#delete-lu" ng-click="manageFrame.selectedLU=lu"></span>
