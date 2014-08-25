@@ -43,10 +43,6 @@
 	    $('#menu'+idx).toggleClass('hide');
 	}
 
-	this.addComment = function(comment) {
-	    self.frame.addComment(comment);
-	};
-
 	function deleteLU () {
 	    console.log('deleting', self.selectedLU['@name']);
 	    $('#delete-lu').modal('hide');
