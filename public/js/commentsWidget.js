@@ -42,6 +42,8 @@
 		scope.postFunction({
 		    comment: scope.newComment
 		});
+
+		scope.newComment = '';
 	    }
 	};
     }
