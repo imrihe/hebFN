@@ -1,7 +1,7 @@
 (function(){
     angular.module('hebFN', [
 	'ngRoute',
-	'fnExplore',
+	'hebFN.explore',
 	'hebFN.manageFrame',
 	'hebFN.manageLUs',
 	'hebFN.sentenceSearch'

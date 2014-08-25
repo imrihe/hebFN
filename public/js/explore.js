@@ -1,7 +1,8 @@
 (function() {
-    angular.module('fnExplore', ['fnServices', 'hebFN.englishFrame']);
-
-    angular.module('fnExplore').
+    angular.module('hebFN.explore', [
+	'fnServices',
+	'hebFN.englishFrame'
+    ]).
 	controller('exploreMain', explore);
 
     function explore() {};
