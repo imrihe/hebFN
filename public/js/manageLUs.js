@@ -73,10 +73,7 @@
 	};
 
 	this.frameInfo = frameDataService.getFrame(this.frameName);
-
-	if (luName) {
-	    this.luInfo = luDataService.getLU(this.frameName, luName);
-	}
+	this.luInfo = luDataService.getLU(this.frameName, luName);
     }
 
     function validCompound () {

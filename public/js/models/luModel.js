@@ -17,17 +17,19 @@
 	    var self = this;
 	    
 	    this.frameName = frameName;
-
+	    this.oldName = luName;
 	    this.addComment = addComment;
-	    this.save = saveLU;
+	    this.save = save;
 
-	    getLUData(frameName, luName).then(function (result) {
-		angular.extend(self, result.data);
-
-		var luParts = self['@name'].split('.');
-		self.pos = luParts.pop();
-		self.name = luParts.join('.');
-	    });
+	    if (luName) {
+		getLUData(frameName, luName).then(function (result) {
+		    angular.extend(self, result.data);
+		    
+		    var luParts = self['@name'].split('.');
+		    self.pos = luParts.pop();
+		    self.name = luParts.join('.');
+		});
+	    }
 	};
 
 	function getLUData (frameName, luName) {
@@ -58,16 +60,32 @@
 	    });
 	};
 
-	function saveLU (luData) {
-	    var url = saveLUURL;
+	function save () {
+	    var saveurl = '//localhost:3003/heb/editlu',
+	        addurl = '//localhost:3003/heb/frameLuAssociation';
 
-	    if (!luData._id) {
-		url = addLUURL;
-		luDate.action = 'add';
+	    var luName = this.name + "." + this.pos;
+
+	    params = {
+                framename: this.frameName,
+                luname: this.oldName,
+		lupos: this.pos.toUpperCase(),
+                definition: this.defenition,
+                status: this.status,
+		lemma: '',
+                incoFe: this['@incorporatedFE']
+            };
+
+	    if (!this._id) {
+		url = addurl;
+		params.luname = luName;
+		params.action = 'add';
+	    } else if (this.oldName !== luName) {
+		params.lunameNew = luName;
 	    }
 
-	    return $http.post(saveLUURL, {
-		params: luData,
+	    return $http.post(url, {
+		params: params,
 		responseTyep: 'json'
 	    });
 	};
