@@ -12,6 +12,7 @@ function EditLuCtrl($scope, $routeParams, $location,utils) {
         preposition:"prep",
 	modal:"md",
 	determiner: "dtt",
+	cardinal: "cd",
         a: "" //empty option
     };
 

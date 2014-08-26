@@ -212,7 +212,9 @@ exports.posFormat = function(input){
 	md: 'modal',
 	modal: 'modal',
 	dtt: 'determiner',
-	determiner: 'determiner'
+	determiner: 'determiner',
+	cd: 'cardinal',
+	cardinal: 'cardinal'
     };
     return pos[input.toLowerCase()]
 };
@@ -243,7 +245,8 @@ exports.esPos = {
     'prep': 'IN / PREPOSITION', //preposition
     'adv': 'RB',     //adverb
     'md': 'MD',  //modal
-    'dtt': 'DTT' //determiner
+    'dtt': 'DTT', //determiner
+    'cd': 'CD'
 }
 
 var SHORTPOS = {
@@ -276,6 +279,7 @@ var SHORTPOS = {
     'SHEL_PREP':         'POS',
     'PARTICLE':          'PRT',
     'DETERMINER':        'DTT',
+    'CARDINAL':          'CD',
     '' : ''
 }
 
