@@ -8,7 +8,7 @@
 	controller('manageLU', manageLU).
 	directive('validCompound', validCompound);
 
-    manageLU.$injector = ['$routeParams','$location', 'frameDataService', 'luDataService', 'serverConstants'];
+    manageLU.$injector = ['$routeParams', '$location', 'frameDataService', 'luDataService', 'serverConstants'];
 
     function manageLU ($routeParams, $location, frameDataService, luDataService, serverConstants) {
 	var self = this;
@@ -59,6 +59,12 @@
 
 	this.removeSemType = function (idx) {
 	    self.luInfo.semType.splice(idx,1);
+	};
+
+	this.save = function () {
+	    self.luInfo.save().then(function () {
+		$location.path('#/' + self.frameName);
+	    });
 	};
 
 	this.frameInfo = frameDataService.getFrame(this.frameName);

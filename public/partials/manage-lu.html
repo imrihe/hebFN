@@ -10,7 +10,7 @@
       </div>
 
       <div class="panel-body">
-	<form role="form" name="luForm" class="form-horizontal" ng-submit="luForm.$valid && manageLU.luInfo.save()" novalidate>
+	<form role="form" name="luForm" class="form-horizontal" ng-submit="luForm.$valid && manageLU.save()" novalidate>
 	  
 	  <div class="form-group has-feedback" ng-class="{'has-success': luForm.luName.$valid, 'has-error': !luForm.luName.$valid}">
 	    <label for="lu-name" class="control-label col-md-3">Name</label>
