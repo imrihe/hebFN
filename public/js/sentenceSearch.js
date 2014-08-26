@@ -1,14 +1,21 @@
 (function () {
-    angular.module('hebFN.sentenceSearch', []).
+    angular.module('hebFN.sentenceSearch', [
+	'fnServices',
+	'hebFN.constants'
+    ]).
 	controller('sentenceSearch', search);
 
-    search.$injector = ['$routeParams', 'searchManager'];
+    search.$injector = ['$routeParams', 'searchManager', 'serverConstants'];
 
-    function search ($routeParams, searchManager) {
+    function search ($routeParams, searchManager, serverConstants) {
 	var self = this;
 	var lu = $routeParams.lu;
 
 	this.results = [];
+	this.page = 1;
+	this.diversify = 'low';
+
+	this.POSs = serverConstants.constants.hebPosType;
 
 	reset();
 
@@ -69,11 +76,11 @@
 	    var p = self.searchTerms[0];
 
 	    var params = {
-		pos: p.pos || 'v',
+		pos: p.pos || 'V',
 		text: p.word || '', 
 		field: p.type || 'lemma',
 		page: self.page || 1, 
-		diversify : false, 
+		diversify : self.diversify,
 		optionals: self.additionalWords
 	    };
 
