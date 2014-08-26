@@ -11,6 +11,8 @@
 	var self = this;
 	var lu = $routeParams.lu;
 
+	this.frame = $routeParams.frame;
+
 	this.results = [];
 	this.page = 1;
 	this.diversify = 'low';

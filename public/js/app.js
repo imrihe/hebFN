@@ -18,7 +18,7 @@
 
     function config($routeProvider) {
 	$routeProvider.
-	    when('/search/:lu?', {
+	    when('/search/:frame?/:lu?', {
 		templateUrl: 'partials/sentence-search.html',
 		controller: 'sentenceSearch',
 		controllerAs: 'search'
