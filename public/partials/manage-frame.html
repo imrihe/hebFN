@@ -75,7 +75,9 @@
 	      {{lu.sentenceCount}}
 	    </span>
 	    <span class="glyphicon glyphicon-check pointer"></span>
-	    <span class="glyphicon glyphicon-search pointer"></span>
+	    <a href="#/search/{{frameName}}/{{lu['@name']}}">
+	      <span class="glyphicon glyphicon-search black"></span>
+	    </a>
 	    <span id="menu{{$index}}" class="hide">
 	      <a href="#/{{frameName}}/lu/{{lu['@name']}}">
 		<span class="glyphicon glyphicon-edit black"></span>
