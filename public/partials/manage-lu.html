@@ -48,7 +48,7 @@
 	  <div class="form-group">
 	    <label for="lu-pos" class="control-label col-md-3">POS</label>
 	    <div class="col-md-9">
-	      <select id="lu-pos" class="form-control" ng-model="manageLU.luInfo.pos" ng-options="pos for (key, pos) in manageLU.POSs"></select>
+	      <select id="lu-pos" class="form-control" ng-model="manageLU.luInfo.pos" ng-options="pos for pos in manageLU.POSs"></select>
 	    </div>
 	  </div>
 	  
@@ -70,7 +70,7 @@
 	    <label for="lu-semtype" class="control-label col-md-3">Semantic Types</label>
 	    <div class="col-md-9">
 	      <div class="input-group">
-		<select id="lu-semtype" class="form-control" ng-model="manageLU.semType" ng-options="type for type in manageLUs.semtypes"></select>
+		<select id="lu-semtype" class="form-control" ng-model="manageLU.semType" ng-options="type for type in manageLU.semTypes"></select>
 		<span class="input-group-btn">
 		  <button type="button" class="btn btn-default" ng-click="manageLU.addSemType()">Add</button>
 		</span>

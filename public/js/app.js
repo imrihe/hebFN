@@ -4,10 +4,11 @@
 	'hebFN.explore',
 	'hebFN.manageFrame',
 	'hebFN.manageLUs',
-	'hebFN.sentenceSearch'
+	'hebFN.sentenceSearch',
+	'hebFN.constants'
     ]).
 	config(['$routeProvider', config]).
-	run(['$http', function($http){
+	run(['$http', 'serverConstants', function($http, serverConstants){
 	    $http({
 		method: 'OPTIONS',
 		url: '//localhost:3003/',

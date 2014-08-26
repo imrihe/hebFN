@@ -2,33 +2,22 @@
     angular.module('hebFN.manageLUs', [
 	'hebFN.models',
 	'hebFN.englishFrame',
-	'hebFN.commentsWidget'
+	'hebFN.commentsWidget',
+	'hebFN.constants'
     ]).
 	controller('manageLU', manageLU).
 	directive('validCompound', validCompound);
 
-    manageLU.$injector = ['$routeParams','$location', 'frameDataService', 'luDataService'];
+    manageLU.$injector = ['$routeParams','$location', 'frameDataService', 'luDataService', 'serverConstants'];
 
-    function manageLU ($routeParams, $location, frameDataService, luDataService) {
+    function manageLU ($routeParams, $location, frameDataService, luDataService, serverConstants) {
 	var self = this;
 	var luName = $routeParams.lu;
 
 	this.frameName = $routeParams.frame;
-
-	this.POSs = {
-            noun:"n",
-            verb:"v", 
-            adjective:"a",
-            adverb:"adv",
-            preposition:"prep",
-	    modal:"md"
-	};
-
-	this.statusValues = [
-	    "initial",
-	    "partial",
-	    "full"
-	];
+	this.POSs = serverConstants.constants.hebPosType;
+	this.statusValues = serverConstants.constants.luStatus;
+	this.semTypes = serverConstants.constants.semType;
 
 	this.multiwordTypes = [{sep: '_', name: 'Contiguous compound'}, 
 				{sep: ' ', name: 'Non-contiguous compound'}];
