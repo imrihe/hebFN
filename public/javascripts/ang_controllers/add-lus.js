@@ -17,6 +17,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         adverb:"adv",
         preposition:"prep",
 	modal:"md",
+	determiner: "dtt",
         a: "" //empty option
     };
 

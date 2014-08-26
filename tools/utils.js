@@ -208,7 +208,11 @@ exports.posFormat = function(input){
         a: 'adjective',
         adjective: 'adjective',
         prep: 'preposition',
-        preposition: 'preposition'
+        preposition: 'preposition',
+	md: 'modal',
+	modal: 'modal',
+	dtt: 'determiner',
+	determiner: 'determiner'
     };
     return pos[input.toLowerCase()]
 };
@@ -238,7 +242,8 @@ exports.esPos = {
     'n': 'NN', //noun
     'prep': 'IN / PREPOSITION', //preposition
     'adv': 'RB',     //adverb
-    'md': 'MD'  //modal
+    'md': 'MD',  //modal
+    'dtt': 'DTT' //determiner
 }
 
 var SHORTPOS = {
@@ -270,6 +275,7 @@ var SHORTPOS = {
     'TITULA':            'TTL',
     'SHEL_PREP':         'POS',
     'PARTICLE':          'PRT',
+    'DETERMINER':        'DTT',
     '' : ''
 }
 
