@@ -23,7 +23,7 @@
 		    angular.extend(self, result.data);
 		    
 		    var luParts = self['@name'].split('.');
-		    self.pos = luParts.pop();
+		    // self.pos = luParts.pop();
 		    self.name = luParts.join('.');
 		});
 	    }
@@ -63,12 +63,12 @@
 
 	    var url = saveurl;
 
-	    var luName = this.name + "." + this.pos;
+	    var luName = this.name + "." + this['@POS'].toLowerCase();
 
 	    params = {
                 framename: this.frameName,
                 luname: this.oldName,
-		lupos: this.pos.toUpperCase(),
+		lupos: this['@POS'],
                 definition: this.defenition,
                 status: this.status,
 		lemma: '',
