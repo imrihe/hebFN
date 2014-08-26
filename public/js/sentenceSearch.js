@@ -32,7 +32,7 @@
 
 	    var term = {
 		word: self.luName,
-		pos: self.luPOS,
+		pos: self.luPOS.toLowerCase(),
 		type: self.luType,
 		include: self.luInclude
 	    };
@@ -78,7 +78,7 @@
 	    var p = self.searchTerms[0];
 
 	    var params = {
-		pos: p.pos || 'V',
+		pos: p.pos || 'v',
 		text: p.word || '', 
 		field: p.type || 'lemma',
 		page: self.page || 1, 
@@ -106,7 +106,7 @@
 
 	    if (lu) {
 		var parts = lu.split('.');
-		self.luPOS = parts.pop();
+		self.luPOS = parts.pop().toUpperCase();
 		self.luName = parts.join('.');
 	    }
 	};
@@ -119,5 +119,9 @@
 
 	    $('#luName').focus();
 	};
+
+	if (angular.isDefined(lu)) {
+	    this.doSearch();
+	}
     };
 })();
