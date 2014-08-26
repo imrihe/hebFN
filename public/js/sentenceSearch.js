@@ -21,6 +21,10 @@
 
 	reset();
 
+	this.isConnectedToLU = function () {
+	    return angular.isDefined($routeParams.lu);
+	};
+
 	this.toggleTermInclude = function () {
 	    self.luInclude = !self.luInclude;
 	};

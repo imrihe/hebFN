@@ -101,7 +101,7 @@
       <div ng-hide="search.results.length">No results found.</div>
       <div>
 	<div class="search-result margin-bottom-20 row" ng-repeat="result in search.results">
-	  <div class="btn-group col-md-3" data-toggle="buttons">
+	  <div class="btn-group col-md-3" data-toggle="buttons" ng-if="search.isConnectedToLU()">
 	    <label class="btn btn-default" ng-click="search.accept($index)">
 	      <input type="radio">
 	      <span class="glyphicon glyphicon-thumbs-up"></span>
@@ -116,7 +116,7 @@
 	    </label>
 	  </div>
 
-	  <div class="text rtl col-md-9">{{result.text}}</div>
+	  <div class="text rtl" ng-class="{'col-md-9': search.isConnectedToLU()}">{{result.text}}</div>
 	</div>
 
 	<div class="text-center" ng-show="search.results.length">
