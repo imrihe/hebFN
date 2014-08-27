@@ -15,7 +15,7 @@
       <div class="container-fluid">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
-	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -28,7 +28,7 @@
 	</div>
 
 	<!-- Collect the nav links, forms, and other content for toggling -->
-	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<div class="collapse navbar-collapse" id="navbar-collapse">
 	  <ul class="nav navbar-nav">
             <li class="dropdown">
               <a href class="dropdown-toggle" data-toggle="dropdown">Links <span class="caret"></span></a>
@@ -49,6 +49,18 @@
 	  </form>
 	  <ul class="nav navbar-nav navbar-right">
             <li><a href="mailto:hebrew.framenet.bgu@gmail.com">E-mail us</a></li>
+	    <li class="dropdown">
+	      <a class="dropdown-toggle pointer" data-toggle="dropdown">
+		Sign In <strong class="caret"></strong>
+	      </a>
+              <div class="dropdown-menu" style="padding: 10px;min-width:240px;" ng-controller="mainController as main">              
+                <form role="form" class="form-horizontal" ng-submit="main.login()">
+                  <input type="text" class="form-control" placeholder="Username" style="margin-bottom:.5em" ng-model="main.username">
+		  <input type="password" class="form-control" placeholder="Password" style="margin-bottom:.5em" ng-model="main.password">                  
+                  <button type="submit" class="btn btn-primary" style="margin-top:.75em;width: 100%; height: 32px; font-size: 13px;">Sign In</button>
+		</form>
+              </div>
+            </li>
 	  </ul>
 	</div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

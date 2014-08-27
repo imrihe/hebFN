@@ -8,14 +8,11 @@
 	'hebFN.sentenceSearch',
 	'hebFN.constants'
     ]).
-	config(['$routeProvider', config]).
-	run(['$http', 'serverConstants', function($http, serverConstants){
-	    $http({
-		method: 'OPTIONS',
-		url: '//localhost:3003/',
-		headers: {'Allow-Control-Allow-Origin': '*'}
-	    });
-	}]);
+	config(config).
+	run(run).
+	controller('mainController', ctrl);
+
+    config.$injector = ['$routeProvider'];
 
     function config($routeProvider) {
 	$routeProvider.
@@ -32,5 +29,25 @@
 		controller: 'sentenceSearch',
 		controllerAs: 'search'
 	    });
-    }
+    };
+
+    run.$injector = ['$http', 'serverConstants'];
+
+    function run ($http, serverConstants){
+	$http({
+	    method: 'OPTIONS',
+	    url: '//localhost:3003/',
+	    headers: {'Allow-Control-Allow-Origin': '*'}
+	});
+    };
+
+    ctrl.$injector = [];
+
+    function ctrl () {
+	var self = this;
+
+	this.login = function () {
+	    console.log(self.username, self.password);
+	};
+    };
 })();
