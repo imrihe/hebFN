@@ -12,12 +12,36 @@
 
 
 	function SentenceModel (sentence) {
+	    var self = this;
 	    var nonLetter = "[^\w\u05D0-\u05EA]";
 
 	    angular.extend(this, sentence);
 
-	    this.setCorrelationStatus = function (frame, lu, status) {
+	    this.correlate = function (frame, lu) {
+		setCorrelationStatus(frame, lu, 'good');
+	    };
 
+	    this.reject = function (frame, lu) {
+		setCorrelationStatus(frame, lu, 'bad');
+	    };
+
+	    this.flag = function (frame, lu) {
+		setCorrelationStatus(frame, lu, 'maybe');
+	    };
+
+	    var setCorrelationStatus = function (frame, lu, status) {
+		var url = '//localhost:3003/heb/setSentCorr';
+		var params = {
+		    luname: lu,
+		    framename: frame,
+		    sentid: self._id,
+		    status: status,
+		    text: self.text
+		};
+
+		$http.post(url, {
+		    params: params
+		});
 	    };
 	};
 
@@ -40,6 +64,8 @@
 	    return searchResults;		    
 	};
 
-	function getByID (id) {};
+	function getByID (id) {
+
+	};
     };
 })(angular);

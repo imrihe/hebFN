@@ -10,14 +10,14 @@
 
     function search ($routeParams, serverConstants, sentenceDataService) {
 	var self = this;
-	var lu = $routeParams.lu;
+	this.lu = $routeParams.lu;
 
 	this.frame = $routeParams.frame;
 
 	this.results = [];
 	this.page = 1;
 	this.diversify = 'low';
-	this.luName = lu.substring(0, lu.lastIndexOf('.'));
+	this.luName = this.lu.substring(0, this.lu.lastIndexOf('.'));
 
 	this.POSs = serverConstants.constants.hebPosType;
 
@@ -95,12 +95,6 @@
 	    self.results = sentenceDataService.search(params, function () {self.searching = false});
 	};
 
-	this.setCorrelation = function (idx, status) {
-	    if (angular.isDefined(self.frame) && angular.isDefined(lu)) {
-		this.results[id].setCorrelationStatus(self.frame, lu, status);
-	    }
-	};
-
 	this.getPage = function (page) {
 	    self.page = page;
 	    self.doSearch();
@@ -113,8 +107,8 @@
 	    self.searchTerms = [];
 	    self.additionalWords = [];
 
-	    if (lu) {
-		var parts = lu.split('.');
+	    if (self.lu) {
+		var parts = self.lu.split('.');
 		self.termPOS = parts.pop().toUpperCase();
 		self.term = parts.join('.');
 	    }
@@ -129,7 +123,7 @@
 	    $('#term').focus();
 	};
 
-	if (angular.isDefined(lu)) {
+	if (angular.isDefined(this.lu)) {
 	    this.doSearch();
 	}
     };
