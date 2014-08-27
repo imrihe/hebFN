@@ -10,7 +10,7 @@
     ]).
 	config(config).
 	run(run).
-	controller('mainController', ctrl);
+	controller('userController', ctrl);
 
     config.$injector = ['$routeProvider'];
 

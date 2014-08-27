@@ -53,10 +53,10 @@
 	      <a class="dropdown-toggle pointer" data-toggle="dropdown">
 		Sign In <strong class="caret"></strong>
 	      </a>
-              <div class="dropdown-menu login-form" ng-controller="mainController as main">              
-                <form role="form" class="form-horizontal" ng-submit="main.login()">
-                  <input type="text" class="form-control" placeholder="Username" ng-model="main.username">
-		  <input type="password" class="form-control" placeholder="Password" style="margin-bottom:.5em" ng-model="main.password">                  
+              <div class="dropdown-menu login-form" ng-controller="userController as user">              
+                <form role="form" class="form-horizontal" ng-submit="user.login()">
+                  <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+		  <input type="password" class="form-control" placeholder="Password" ng-model="user.password">                  
                   <button type="submit" class="btn btn-primary">Sign In</button>
 		</form>
               </div>
