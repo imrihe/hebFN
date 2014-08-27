@@ -54,6 +54,8 @@
 	    });
 	});
 
-	self.frame = frameDataService.getFrame($scope.frameName);
+	if (angular.isDefined($scope.frameName)) {
+	    self.frame = frameDataService.getFrame($scope.frameName);
+	}
     }
 })();

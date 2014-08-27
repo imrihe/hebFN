@@ -25,7 +25,9 @@
 	    };
 
 	    /// initialization ///
-	    self.frame = frameDataService.getFrame(this.frameName);
+	    if (angular.isDefined(this.frameName)) {
+		this.frame = frameDataService.getFrame(this.frameName);
+	    }
 	};
     }
 })();

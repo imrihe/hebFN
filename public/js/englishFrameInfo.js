@@ -25,11 +25,13 @@
 		scope[what] = !scope[what];
 	    };
 
-	    frameDataManager.frameData(scope.frameName).then(function(response){
-		scope.info = response.data;
-
-		$('#frame-definition').html($compile(scope.info.engData.frame.definition)(scope).html());
-	    });
+	    if (angular.isDefined(scope.frameName)) {
+		frameDataManager.frameData(scope.frameName).then(function(response){
+		    scope.info = response.data;
+		    
+		    $('#frame-definition').html($compile(scope.info.engData.frame.definition)(scope).html());
+		});
+	    }
 	}
     };
 
