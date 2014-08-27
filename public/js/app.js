@@ -19,18 +19,18 @@
 
     function config($routeProvider) {
 	$routeProvider.
-	    when('/search/:frame?/:lu?', {
-		templateUrl: 'partials/sentence-search.html',
-		controller: 'sentenceSearch',
-		controllerAs: 'search'
-	    }).when('/:frame?', {
+	    when('/:frame?', {
 		templateUrl: 'partials/explore.html',
 		controller: 'exploreMain',
 		controllerAs: 'explore'
-	    }).when('/:frame/lu/:lu?', {
+	    }).when('/:frame/:lu?', {
 		templateUrl: 'partials/manage-lu.html',
 		controller: 'manageLU',
 		controllerAs: 'manageLU'
+	    }).when('/:frame/:lu/sentences', {
+		templateUrl: 'partials/sentence-search.html',
+		controller: 'sentenceSearch',
+		controllerAs: 'search'
 	    });
     }
 })();
