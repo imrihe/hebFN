@@ -3,7 +3,8 @@
 	'hebFN.models',
 	'hebFN.constants'
     ]).
-	controller('sentenceSearch', search);
+	controller('sentenceSearch', search).
+	filter('highlightTerms', highlight);
 
     search.$injector = ['$routeParams', 'serverConstants', 'sentenceDataService'];
 
@@ -16,6 +17,7 @@
 	this.results = [];
 	this.page = 1;
 	this.diversify = 'low';
+	this.luName = lu.substring(0, lu.lastIndexOf('.'));
 
 	this.POSs = serverConstants.constants.hebPosType;
 
@@ -26,19 +28,19 @@
 	};
 
 	this.toggleTermInclude = function () {
-	    self.luInclude = !self.luInclude;
+	    self.includeTerm = !self.includeTerm;
 	};
 
 	this.addTerm = function () {
-	    if (!self.luName) {
+	    if (!self.term) {
 		return;
 	    }
 
 	    var term = {
-		word: self.luName,
-		pos: self.luPOS.toLowerCase(),
-		type: self.luType,
-		include: self.luInclude
+		word: self.term,
+		pos: self.termPOS.toLowerCase(),
+		type: self.termType,
+		include: self.includeTerm
 	    };
 
 	    self.searchTerms.push(term);
@@ -75,7 +77,7 @@
 	this.doSearch = function () {
 	    self.searching = true;
 	    
-	    if (self.luName) {
+	    if (self.term) {
 		self.addTerm();
 	    }
 	    
@@ -113,22 +115,39 @@
 
 	    if (lu) {
 		var parts = lu.split('.');
-		self.luPOS = parts.pop().toUpperCase();
-		self.luName = parts.join('.');
+		self.termPOS = parts.pop().toUpperCase();
+		self.term = parts.join('.');
 	    }
 	};
 
 	function resetTerm () {
-	    self.luName = '';
-	    self.luPOS = '';
-	    self.luType = 'lemma';
-	    self.luInclude = true;
+	    self.term = '';
+	    self.termPOS = '';
+	    self.termType = 'lemma';
+	    self.includeTerm = true;
 
-	    $('#luName').focus();
+	    $('#term').focus();
 	};
 
 	if (angular.isDefined(lu)) {
 	    this.doSearch();
+	}
+    };
+
+    function highlight () {	
+	var nonLetter = "[^\w\u05D0-\u05EA]";
+	return function (text, words, target) {
+	    var resultText = text;
+	    var whatToHighlight = words.filter(function (x) {
+		return x.lemma ===target;
+	    });
+	    
+	    whatToHighlight.forEach(function (x) {
+		var pattern = new RegExp(x.word+"("+nonLetter+")", 'g');
+		text = text.replace(pattern, '<span class="target">'+x.word+'</span>$1');
+	    });
+	    
+	    return text;
 	}
     };
 })();

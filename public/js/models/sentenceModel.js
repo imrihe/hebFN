@@ -16,20 +16,6 @@
 
 	    angular.extend(this, sentence);
 
-	    this.highlight = function (word, type, style) {
-		var text = self.text;
-		var whatToHighlight = self.fullSentence.words.filter(function (x) {
-		    return x[type] === word;
-		});
-
-		whatToHighlight.forEach(function (x) {
-		    var pattern = new RegExp(x.word+"("+nonLetter+")", 'g');
-		    text = text.replace(pattern, '<span class="'+style+'">'+x.word+'</span>$1');
-		});
-		
-		return text;
-	    };
-
 	    this.setCorrelationStatus = function (frame, lu, status) {
 
 	    };

@@ -18,22 +18,22 @@
 	    <div class="form-group">
 	      <div class="input-group">
 		<div class="input-group-btn">
-		  <button type="button" class="btn" ng-click="search.toggleTermInclude()" ng-class="{'btn-success': search.luInclude, 'btn-danger': !search.luInclude}" ng-switch="search.luInclude">
-		    <span ng-switch-when="false">Exclude</span>
-		    <span ng-switch-default>Include</span>
+		  <button type="button" class="btn" ng-click="search.toggleTermInclude()" ng-class="{'btn-success': search.includeTerm, 'btn-danger': !search.includeTerm}">
+		    <span ng-if="!search.includeTerm">Exclude</span>
+		    <span ng-if="search.includeTerm">Include</span>
 		  </button>
 		</div><!-- /btn-group -->
-		<input type="text" name="luName" id="luName" class="form-control rtl" placeholder="LU Name" ng-model="search.luName">
+		<input type="text" name="term" id="term" class="form-control rtl" placeholder="LU Name" ng-model="search.term">
 	      </div>
 	    </div>
 
 	    <div class="form-group">
 	      <div class="btn-group" data-toggle="buttons">
-		<label class="btn btn-default" ng-class="{active: search.luType === 'lemma'}" ng-click="search.luType = 'lemma'">
+		<label class="btn btn-default" ng-class="{active: search.termType === 'lemma'}" ng-click="search.termType = 'lemma'">
 		  <input type="radio">
 		  Lemma
 		</label>
-		<label class="btn btn-default"  ng-class="{active: search.luType === 'word'}"  ng-click="search.luType = 'word'">
+		<label class="btn btn-default"  ng-class="{active: search.termType === 'word'}"  ng-click="search.termType = 'word'">
 		  <input type="radio">
 		  Word
 		</label>
@@ -41,7 +41,7 @@
 	    </div>
 
 	    <div class="form-group">
-	      <select class="form-control" ng-model="search.luPOS" ng-options="pos for pos in search.POSs">
+	      <select class="form-control" ng-model="search.termPOS" ng-options="pos for pos in search.POSs">
 		<option value="" data-hidden="true" selected disabled>LU POS</option>
 	      </select>
 	    </div>
@@ -116,10 +116,8 @@
 	    </label>
 	  </div>
 
-	  <div class="text rtl" ng-class="{'col-md-9': search.isConnectedToLU()}">{{result.text}}</div>
+	  <div class="text rtl" ng-class="{'col-md-9': search.isConnectedToLU()}" ng-bind-html="result.text | highlightTerms:result.fullSentence.words:search.luName"></div>
 	</div>
-
-	{{search.results.length}}
 
 	<div class="text-center" ng-show="search.results.length">
 	  <ul class="pagination">
