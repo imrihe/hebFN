@@ -1,13 +1,14 @@
 (function () {
     angular.module('hebFN.sentenceSearch', [
 	'fnServices',
+	'hebFN.models',
 	'hebFN.constants'
     ]).
 	controller('sentenceSearch', search);
 
-    search.$injector = ['$routeParams', 'searchManager', 'serverConstants'];
+    search.$injector = ['$scope', '$routeParams', 'searchManager', 'serverConstants', 'sentenceDataService'];
 
-    function search ($routeParams, searchManager, serverConstants) {
+    function search ($scope, $routeParams, searchManager, serverConstants, sentenceDataService) {
 	var self = this;
 	var lu = $routeParams.lu;
 
@@ -90,10 +91,13 @@
 		optionals: self.additionalWords
 	    };
 
-	    searchManager.search(params).then(function (res) {
-		self.results = res.data;
-		self.searching = false;
-	    });
+	    self.results = sentenceDataService.search(params, function () {self.searching = false});
+	};
+
+	this.setCorrelation = function (idx, status) {
+	    if (angular.isDefined(self.frame) && angular.isDefined(lu)) {
+		this.results[id].setCorrelationStatus(self.frame, lu, status);
+	    }
 	};
 
 	this.getPage = function (page) {

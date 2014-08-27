@@ -102,15 +102,15 @@
       <div>
 	<div class="search-result margin-bottom-20 row" ng-repeat="result in search.results">
 	  <div class="btn-group col-md-3" data-toggle="buttons" ng-if="search.isConnectedToLU()">
-	    <label class="btn btn-default" ng-click="search.accept($index)">
+	    <label class="btn btn-default" ng-click="search.setCorrelation($index, 'good')">
 	      <input type="radio">
 	      <span class="glyphicon glyphicon-thumbs-up"></span>
 	    </label>
-	    <label class="btn btn-default" ng-click="search.accept($index)">
+	    <label class="btn btn-default" ng-click="search.setCorrelation($index, 'bad')">
 	      <input type="radio">
 	      <span class="glyphicon glyphicon-thumbs-down"></span>
 	    </label>
-	    <label class="btn btn-default" ng-click="search.accept($index)">
+	    <label class="btn btn-default" ng-click="search.setCorrelation($index, 'maybe')">
 	      <input type="radio">
 	      <span class="glyphicon glyphicon-flag"></span>
 	    </label>
@@ -118,6 +118,8 @@
 
 	  <div class="text rtl" ng-class="{'col-md-9': search.isConnectedToLU()}">{{result.text}}</div>
 	</div>
+
+	{{search.results.length}}
 
 	<div class="text-center" ng-show="search.results.length">
 	  <ul class="pagination">
