@@ -2,9 +2,9 @@
     angular.module('hebFN.explore').
 	directive('frameSearch', frameSearch);
 
-    frameSearch.$inject = ['frameDataService'];
+    frameSearch.$inject = ['$location', 'frameDataService'];
 
-    function frameSearch (frameDataService) {
+    function frameSearch ($location, frameDataService) {
 	return {
 	    templateUrl: 'partials/explore/frame-search.html',
 	    restrict: 'E',
@@ -26,6 +26,16 @@
 	    this.searchResults = [];
 
 	    this.query = '';
+
+	    this.selectFirst = function ($event) {
+		var first = self.searchResults[0];
+
+		if ($event.keyCode === 13) {
+		    if (angular.isDefined(first)) {
+			$location.path(first);
+		    }
+		}
+	    };
 
 	    this.isFirstPage = function() {
 		return !self.numPages || self.currentPage === 1;
