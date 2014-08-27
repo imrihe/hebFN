@@ -6,9 +6,16 @@
     ]).
 	controller('exploreMain', explore);
 
-    explore.$injector = ['$routeParams'];
+    explore.$injector = ['$routeParams', '$location', 'frameDataService'];
 
-    function explore($routeParams) {
+    function explore($routeParams, $location, frameDataService) {
 	this.frameName = $routeParams.frame;
+
+	if (angular.isUndefined(this.frameName)) {
+	    frameDataService.listFrames().then(function (response) {
+		var name = response.data[0].frame['@name'];
+		$location.path(name);
+	    });
+	}
     };
 })();

@@ -2,20 +2,21 @@
     angular.module('hebFN.explore').
 	directive('frameInfo', frameInfo);
 
-    frameInfo.$inject = ['$routeParams', '$location', 'frameDataService'];
+    frameInfo.$inject = ['frameDataService'];
 
-    function frameInfo($routeParams, $location, frameDataService) {
+    function frameInfo(frameDataService) {
 	return {
 	    templateUrl: 'partials/explore/frame-info.html',
 	    restrict: 'E',
+	    scope: {frameName: '='},
 	    controller: infoCtrl,
 	    controllerAs: 'exploreInfo'
 	};
 
-	function infoCtrl(){
+	function infoCtrl($scope){
 	    var self = this;
 
-	    this.frameName = $routeParams.frame;
+	    this.frameName = $scope.frameName;
 	    this.showFEs = false;
 	    this.showRelations = false;
 
@@ -24,14 +25,7 @@
 	    };
 
 	    /// initialization ///
-	    if (!this.frameName) {
-		frameDataService.listFrames().then(function(response){
-		    var name = response.data[0].frame['@name'];
-		    $location.path(name);
-		});
-	    } else {
-		self.frame = frameDataService.getFrame(this.frameName);
-	    }
+	    self.frame = frameDataService.getFrame(this.frameName);
 	};
     }
 })();
