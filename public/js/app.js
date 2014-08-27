@@ -1,6 +1,7 @@
 (function(){
     angular.module('hebFN', [
 	'ngRoute',
+	'hebFN.models',
 	'hebFN.explore',
 	'hebFN.manageFrame',
 	'hebFN.manageLUs',
