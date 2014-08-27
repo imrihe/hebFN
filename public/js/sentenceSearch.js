@@ -1,14 +1,13 @@
 (function () {
     angular.module('hebFN.sentenceSearch', [
-	'fnServices',
 	'hebFN.models',
 	'hebFN.constants'
     ]).
 	controller('sentenceSearch', search);
 
-    search.$injector = ['$scope', '$routeParams', 'searchManager', 'serverConstants', 'sentenceDataService'];
+    search.$injector = ['$routeParams', 'serverConstants', 'sentenceDataService'];
 
-    function search ($scope, $routeParams, searchManager, serverConstants, sentenceDataService) {
+    function search ($routeParams, serverConstants, sentenceDataService) {
 	var self = this;
 	var lu = $routeParams.lu;
 
