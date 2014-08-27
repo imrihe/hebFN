@@ -107,3 +107,7 @@ frame-info, .frame-info {
     from {left: 0px;}
     to {right: 60%;}
 }
+
+.highlightLU {
+    background-color: #ea0;
+}

@@ -144,7 +144,7 @@
 	    
 	    whatToHighlight.forEach(function (x) {
 		var pattern = new RegExp(x.word+"("+nonLetter+")", 'g');
-		text = text.replace(pattern, '<span class="target">'+x.word+'</span>$1');
+		text = text.replace(pattern, '<span class="highlightLU">'+x.word+'</span>$1');
 	    });
 	    
 	    return text;
