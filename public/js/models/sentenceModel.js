@@ -1,5 +1,5 @@
 (function (angular) {
-    angular.module('hebFN.models', []).
+    angular.module('hebFN.models').
 	factory('sentenceDataService', sentenceDataFactory);
 
     sentenceDataFactory.$injector = ['$http'];
