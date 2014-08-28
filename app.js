@@ -73,8 +73,11 @@ var app = module.exports = express();
 
 //all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+//app.set('views', __dirname + '/views');
+//app.set('view engine', 'jade');
+app.engine('html', require('./htmlEngine'));
+app.set('views', __dirname + '/public');
+app.set('view engine', 'html');
 
 
 
