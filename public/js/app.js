@@ -49,7 +49,6 @@
 	this.login = function () {
 	    $http
 		.post('//localhost:3003/login', {
-		    type: 'json',
 		    params: {
 			username: self.username,
 			password: self.password
