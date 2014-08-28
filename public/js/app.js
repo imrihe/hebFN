@@ -34,11 +34,7 @@
     run.$injector = ['$http', 'serverConstants'];
 
     function run ($http, serverConstants){
-	$http({
-	    method: 'OPTIONS',
-	    url: '//localhost:3003/',
-	    headers: {'Allow-Control-Allow-Origin': '*'}
-	});
+
     };
 
     ctrl.$injector = ['$http', '$window', 'SessionManager'];
@@ -68,8 +64,6 @@
 		});
 	};
 
-	this.isLoggedIn = function () {
-	    return SessionManager.isAuthenticated();
-	};
+	this.isLoggedIn = SessionManager.isAuthenticated;
     };
 })();
