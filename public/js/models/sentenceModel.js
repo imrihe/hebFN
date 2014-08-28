@@ -52,7 +52,7 @@
 	    
 	    $http.get(url, {
 		params: params,
-		responseTyep: 'json'
+		responseType: 'json'
 	    }).then(function (response) {
 		angular.extend(searchResults,
 			       response.data.map(function (x) {
