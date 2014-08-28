@@ -89,7 +89,7 @@
 		field: p.type || 'lemma',
 		page: self.page || 1, 
 		diversify : self.diversify,
-		optionals: self.additionalWords
+		'optionals[]': self.additionalWords
 	    };
 
 	    self.results = sentenceDataService.search(params, function () {self.searching = false});
