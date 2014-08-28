@@ -34,13 +34,16 @@
 		var params = {
 		    luname: lu,
 		    framename: frame,
-		    sentid: self._id,
+		    sentid: self.id,
 		    status: status,
 		    text: self.text
 		};
 
-		$http.post(url, {
-		    params: params
+		$http({
+		    method: 'POST',
+		    url: url,
+		    data: params,
+		    headers: { 'Content-Type': 'application/json'}
 		});
 	    };
 	};
