@@ -241,7 +241,7 @@ exports.skip = function ( req,res,next){next()};
 exports.esPos = {
     'v' : 'VB',  //verb
     'a' : 'JJ', //adjective
-    'n': 'NN', //noun
+    'n': ['NN', 'NNT'], //noun
     'prep': 'IN / PREPOSITION', //preposition
     'adv': 'RB',     //adverb
     'md': 'MD',  //modal
