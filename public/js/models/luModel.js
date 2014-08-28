@@ -43,7 +43,7 @@
 	};
 
 	function addComment (comment) {
-	    var url = '//localhost:3003/heb/addComment';
+	    var url = '/heb/addComment';
 	    var params = {
 		type: 'lu',
 		framename: this.frameName,
@@ -58,8 +58,8 @@
 	};
 
 	function save () {
-	    var saveurl = '//localhost:3003/heb/editlu',
-	        addurl = '//localhost:3003/heb/frameLuAssociation';
+	    var saveurl = '/heb/editlu',
+	        addurl = '/heb/frameLuAssociation';
 
 	    var url = saveurl;
 

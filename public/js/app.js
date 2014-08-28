@@ -45,7 +45,7 @@
 	this.login = function () {
 	    $http({
 		method: 'POST',
-		url: '//localhost:3003/login',
+		url: '/login',
 		data: $.param(
 		    {
 			username: self.username,

@@ -12,8 +12,8 @@
 	};
 
 	function FrameModel (frameName) {
-	    var frameDataURL = '//localhost:3003/heb/framedata',
-	        addCommentURL = '//localhost:3003/heb/addcomment';
+	    var frameDataURL = '/heb/framedata',
+	        addCommentURL = '/heb/addcomment';
 
 	    var self = this;
 
@@ -51,7 +51,7 @@
 	};
 
 	function listFrames () {
-	    var listFramesURL = '//localhost:3003/eng/framenames';
+	    var listFramesURL = '/eng/framenames';
 
 	    return $http.get(listFramesURL, {
 		cache: true,
