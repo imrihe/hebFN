@@ -5,16 +5,18 @@
     session.$injector = [];
 
     function session () {
+	var self = this;
+
 	this.create = function () {
-	    this.authenticated = true;
+	    self.authenticated = true;
 	};
 
 	this.destroy = function () {
-	    this.authenticated = false;
+	    self.authenticated = false;
 	};
 
 	this.isAuthenticated = function () {
-	    return this.authenticated;
+	    return self.authenticated;
 	};
 
 	return this;

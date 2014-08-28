@@ -6,10 +6,12 @@
     ]).
 	controller('exploreMain', explore);
 
-    explore.$injector = ['$routeParams', '$location', 'frameDataService'];
+    explore.$injector = ['$routeParams', '$location', 'frameDataService', 'SessionManager'];
 
-    function explore($routeParams, $location, frameDataService) {
+    function explore($routeParams, $location, frameDataService, SessionManager) {
 	this.frameName = $routeParams.frame;
+
+	this.isLoggedIn = SessionManager.isAuthenticated;
 
 	if (angular.isUndefined(this.frameName)) {
 	    frameDataService.listFrames().then(function (response) {
