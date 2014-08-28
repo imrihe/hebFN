@@ -41,13 +41,27 @@
 	});
     };
 
-    ctrl.$injector = [];
+    ctrl.$injector = ['$http', '$window', 'SessionManager'];
 
-    function ctrl () {
+    function ctrl ($http, $window, SessionManager) {
 	var self = this;
 
 	this.login = function () {
-	    console.log(self.username, self.password);
+	    $http
+		.post('//localhost:3003/login', self.username)
+		.success(function (data, status, headers, config) {
+		    SessionManager.create();
+		    console.log('success!');
+		})
+		.error(function (data, status, headers, config) {
+		    // Erase the token if the user fails to log in
+		    SessionManager.destroy();
+		    console.log('fail');
+		});
+	};
+
+	this.isLoggedIn = function () {
+	    SessionManager.isAuthenticated();
 	};
     };
 })();
