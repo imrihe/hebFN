@@ -84,9 +84,9 @@
 	    var p = self.searchTerms[0];
 
 	    var params = {
-		pos: p.pos || 'v',
-		text: p.word || '', 
-		field: p.type || 'lemma',
+		framename: self.frame,
+		luname: self.luName,
+		'terms[]': self.searchTerms,
 		page: self.page || 1, 
 		diversify : self.diversify,
 		'optionals[]': self.additionalWords
