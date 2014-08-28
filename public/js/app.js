@@ -47,13 +47,16 @@
 	var self = this;
 
 	this.login = function () {
-	    $http
-		.post('//localhost:3003/login',
-		      $.param({
-			  username: self.username,
-			  password: self.password
-		      })
-		     )
+	    $http({
+		method: 'POST',
+		url: '//localhost:3003/login',
+		data: $.param(
+		    {
+			username: self.username,
+			password: self.password
+		    }),
+		headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+	    })
 		.success(function (data, status, headers, config) {
 		    SessionManager.create();
 		    console.log('success!');

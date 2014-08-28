@@ -47,7 +47,7 @@ module.exports = function(app) {
         });
 
     app.post('/login',
-        passport.authenticate('local', { successRedirect: hp+'annotate', failureRedirect: hp+'/', failureFlash: "kaki!", successFlash: 'Welcome!'  }),
+        passport.authenticate('local'),
         function(req, res) {
             console.log("user %s is NOW LOGGED IN", req.user.username);
             res.send("managed to authenticate!!!");

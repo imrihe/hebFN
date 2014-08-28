@@ -1,6 +1,5 @@
 var fs = require('fs');
 module.exports = function(path, options, fn){
-    console.log('-------------------\n',path);
     var cacheLocation = path + ':html';
     if(typeof module.exports.cache[cacheLocation] === "string"){
         return fn(null, module.exports.cache[cacheLocation]);
