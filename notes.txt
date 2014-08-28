@@ -1,0 +1,212 @@
+
+create documentation: 'doxx --source . --target docs -i "node_modules trash"'
+    (dep: npm install doxx -g)
+    see: https://github.com/wordnik/swagger-core/wiki
+
+
+by the link:
+    http://stackoverflow.com/questions/15454441/mongoose-based-app-architecture
+structure:
+    -- app.js
+    -- models/
+    ---- index.js
+    ---- blog.js
+    -- mongoose/
+    ---- index.js
+    -- routes/
+    ---- index.js
+    ---- blog/index.js
+    -- public/
+    -- views/
+    ---- index.{your layout engine} => I use Jade.lang
+    -- methods/
+    ---- index.js => use if you'd rather write all your functions here
+    ---- blog.js => can store more complex logic here
+
+
+my structure:
+    -app.js
+    -package.json
+    -readme.md
+    routes:   (moduls in this folder will route frome the URI to the relevant controller
+        -index  (loads all the other routes)
+        -auth
+        -english
+        -general
+        -hebrewGetters
+        -hebrewSetters
+        -general
+        -users
+    models:
+        -schemes:
+            -english
+            -hebrew
+            -user
+            -decision
+            TODO
+    contorllers: (by task!)
+        -hebrew
+            -view frame, lu, names(lu,frames)
+            -add lu to frame
+            -add sentences to lu
+            -annotate sentences of lu
+            -add decision
+            -review decisions
+        -english
+            -view frame, lu, translations, names(lu,frames)
+
+
+
+processes:
+---authentication:
+        --GET/login - from routes/index->auth renders login view
+        --POST/login - uses 'serialize user'
+---add lu-frame association
+---add sentence to lu
+        --add sentence to sentences' collection
+                --type manual sentence and parse it
+                --search for sentences and choose one to add
+        --add sentence to lu and lu to sentence
+
+
+
+#### add sentence to LU: ###
+GET - form
+1. checkbox - 'manual' or 'search'
+1.1 if 'manual'
+    1.1.1 enter sentence
+    1.1.2 send to dependency parser and to meni's service.
+    1.1.3 format the sentence according to alon's format+dep_rel and lemma.
+1.2 else -'search'
+    1.2.1 fill search form (pop-up) (search by lemma\base\word\pos, search content, number of wanted results, diversity, corpus(db)).
+    1.2.2 send the form to the search engine (GET)
+    1.2.3 for each result - check if already in DB (linearize and search text in mongoDB - sentences collection)
+1.3 present the results results - for each result mark:
+    1.3.1 add to LU?
+    1.3.2 mark segmentation as wrong (will remove the option to add to the LU)
+        1.3.2.1 FUTURE: open window in order to correct the segmentation.
+    1.3.3 add note -if the sentence is already in the DB (if marked as bad segmentation - hide it)
+1.4 "add sentences" - create POST to the server and save all the wanted sentences to the LU.
+    (the 'bad segmentation' sentences will also be sent to the server and saved in 'bas sentences' collection)
+
+
+POST: (format: body.sentences<sentence>=list of sentences, luid, frameid, user.username, sentence={conll31, badSegmentation?, addTOLU?, inDB, db})
+1. for each sentence:
+    1.1 if in DB
+        1.1.1 if badSegmentation - remove from DB or move from sentence to badSentences
+        1.1.2 else if addToLu:
+            1.1.2.1 add LU to sentence[lus]
+            1.1.2.2 add sentence-lu pair to lu-sentence collection
+
+    1.2 else
+        1.2.1 if badSegmentation - add to 'badSentences'
+        1.2.2 else:
+            1.2.2.1 add to 'sentences' and mark segmentation as valid
+            1.2.2.2 add LU to sentence[lus]
+            1.2.2.3 add sentence-lu pair to lu-sentence collection
+2. send result: list of {luid,frameid,sentenceid} pairs.
+
+#add sentence to LU: (luid, sentenceid, frameid):
+1. check if sentence is already related to the lu -return "already connected" if it is
+2. add the LU id to the sentence lus list
+3. add the snetenceid,luid,frameid to the sentence-lu collection.
+
+#add annotation of sentence to lu:
+1. load the frame data.
+2. load the sentence data.
+3. receive annotation+lu+frame+sentence data.
+4. add the annotation to the sentence in the lu-sentence collection.
+5. add the annotation id to the frame.lu.annotations list.
+
+
+
+#add lu-frame association:
+    -check if the frame exists
+    -check if the lu is already related to the frame (check by name)
+    -else - create association:
+        -create the lu using framemodel.lu.create
+        -add the lu to the lus list of the frame using 'push'
+
+
+
+//TODO:
+    -schemes:
+        -define all the models in the scheme page itself  -V
+        -devide into different pages                      -V
+        -exports what is needed                           -V
+        -add getters and setters??? i am not sure i want this..
+        -decide about a name for all the 'id' fields - change everything
+    -controllers:
+        -move all methods from models to controlles  - V
+    -create:
+        --hebrew setters by steps:
+                -create lu-frame association - V
+                -add sentence to lu (manual!) - V
+                -add annotation to LU - V
+    -structure:
+        -specify for each file -  it's contents
+
+get API:
+get request api:
+homePath/lang/type?typeid=123&typename=XXX&proj={"field":1\0}
+        valid for: heb/lu, heb/frame, eng/frame, eng/lu, heb/listsentences?sentenceid, decisions?decisionid
+
+
+
+Frames:
+    option-1: search for all frames that corresponds to something (by name, by by number of lus etc..)
+        impl: loadFrameNames - using aggregate and match for the query
+    option-2: get specific frame data - by frameID or by luID
+        impl: loadFrame - using name\id\luid\luname (what i have now) -returns list of the results (if luname -than the results can be a list)
+
+lus:
+    option-1: list all lus names (maybe POS also). optional -filter by luId, luName, frameID, frameName - use aggregate!
+    option-2: get specific lu data
+    options-3: get lu annotations and sentence
+
+
+
+
+dashboard:
+-get all the frames and lus with priority -V
+
+
+
+
+meeting - 18.11.13:
+
+V-add 'translated from' to the hebrew lexical unit in the 'edit lu' screen
+
+history:
+V--do as activity feed - filter by type and references, oreder by date (decs)
+//TODO: leave lu-frame as it is, add special methods for the rest 'addLuSentHistory', 'addAnnotationHistory'
+V----lu-frame: framename, luname (and pos), username,cDate, action (add/remove/approve-add/approve-remove
+V----lu-sentence: framename,luname,sentenceid, sentence text, username, cDate action  ('sentence was added', 'sentence was removed')
+V----sentence-annotation (framename, luname, sentenceid), username, cDate, action ('X annotated this sentence')
+
+comments:
+V--add commenting option for each type:
+V-----frame (comments about the frame "i think הלך.v need to be in this frame, what do you think?") (framename)
+V-----lu  (comments about the lu - i think this lu need to have diffrent lemma/semtype etc) (luname, framename)
+V-----sentence-lu (i don't think this sentence needs to be in this lu, comments about annotations) (luname, framename, sentenceid)
+
+annotations:
+--add option to keep revision of annotation per user (for each sentence that was changed??)
+
+
+V-add lu - get semantic type from english in case it was translated from english lu.
+-add lock mechanism to edit-lu
+
+
+
+locks:
+-lu lock:
+-----editlu
+-----addSentences to lu
+-----annotate sentences for lu
+-frame lock:
+-----add lu to frame
+
+free lock:
+----after timeout (set inf conf?) - default is 4 hrs
+----postivie 'free' by user ('exit', 'logout' etc).
