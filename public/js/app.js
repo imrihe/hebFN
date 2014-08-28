@@ -48,7 +48,13 @@
 
 	this.login = function () {
 	    $http
-		.post('//localhost:3003/login', self.username)
+		.post('//localhost:3003/login', {
+		    type: 'json',
+		    params: {
+			username: self.username,
+			password: self.password
+		    }
+		})
 		.success(function (data, status, headers, config) {
 		    SessionManager.create();
 		    console.log('success!');
