@@ -1,0 +1,67 @@
+by the link:
+    http://stackoverflow.com/questions/15454441/mongoose-based-app-architecture
+structure:
+    -- app.js
+    -- models/
+    ---- index.js
+    ---- blog.js
+    -- mongoose/
+    ---- index.js
+    -- routes/
+    ---- index.js
+    ---- blog/index.js
+    -- public/
+    -- views/
+    ---- index.{your layout engine} => I use Jade.lang
+    -- methods/
+    ---- index.js => use if you'd rather write all your functions here
+    ---- blog.js => can store more complex logic here
+
+
+my structure:
+    -app.js
+    -package.json
+    -readme.md
+    routes:
+        -index
+        -auth
+        -english
+        -general
+        -hebrewGetters
+        -hebrewSetters
+    models:
+        -schemes:
+            -english
+            -hebrew
+            -user
+            -decision
+            TODO
+    contorllers: (by task!)
+        -hebrew
+            -view frame, lu, names(lu,frames)
+            -add lu to frame
+            -add sentences to lu
+            -annotate sentences of lu
+            -add decision
+            -review decisions
+        -english
+            -view frame, lu, translations, names(lu,frames)
+
+
+
+
+
+
+
+//TODO:
+    -schemes:
+        -define all the models in the scheme page itself
+        -devide into different pages
+        -exports what is needed
+        -add getters and setters??? i am not sure i want this..
+    -contorleres:
+        -move all methods from models to controlles
+
+    -structure:
+        -specify for each file -  what are it's contents
+
