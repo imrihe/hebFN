@@ -54,7 +54,33 @@ function searchSentencesES(reqQuery, cb){
         diversify: reqQuery['diversify'] ? reqQuery['diversify'] : "low",
         page: reqQuery['page']? reqQuery['page'] : 1 //1 and above
     };
-    var idx = 2;
+
+    var i;
+
+    for (i=0; i < reqQuery.terms.length; i++) {
+	var word = 'w'+(i+1);
+	var term = _.isString(reqQuery.terms[i]) ? JSON.parse(reqQuery.terms[i]) : reqQuery.terms[i];
+
+	if (term.include) {
+	    query[word+'.'+term.type+'.must.match'] = term.word;
+	} else {
+	    query[word+'.'+term.type+'.must_not.match'] = term.word;
+	}
+
+	
+
+	if (term.include && term.pos) {
+	    var poss = util.esPos[term.pos];
+	    
+	    if (_.isArray(poss)) {
+		query[word+'.pos.should.match'] = poss;
+	    } else {
+		query[word+'.pos.must.match'] =  poss;
+	    }
+	}
+    }
+
+/*    var idx = 2;
     if (reqQuery['pos']) {
 	var poss = util.esPos[reqQuery.pos];
 
@@ -65,12 +91,12 @@ function searchSentencesES(reqQuery, cb){
 	}
     }
 
-    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname;
+    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname;*/
 
     if (reqQuery['optionals'] && reqQuery['optionals'].length > 0) {
-	query['w'+idx+'.word.should.match'] = [];
+	query['w'+i+'.word.should.match'] = [];
 	reqQuery['optionals'].forEach(function(x){
-	    query['w'+idx+'.word.should.match'].push(x);
+	    query['w'+i+'.word.should.match'].push(x);
 	});
     }
     console.log("search query: ",JSON.stringify(query));
