@@ -55,19 +55,17 @@ function searchSentencesES(reqQuery, cb){
         page: reqQuery['page']? reqQuery['page'] : 1 //1 and above
     };
 
-    var i;
+    var i = 1;
 
-    for (i=0; i < reqQuery.terms.length; i++) {
-	var word = 'w'+(i+1);
-	var term = _.isString(reqQuery.terms[i]) ? JSON.parse(reqQuery.terms[i]) : reqQuery.terms[i];
+    for (; i-1 < reqQuery.terms.length; i++) {
+	var word = 'w'+i;
+	var term = _.isString(reqQuery.terms[i-1]) ? JSON.parse(reqQuery.terms[i-1]) : reqQuery.terms[i-1];
 
 	if (term.include) {
 	    query[word+'.'+term.type+'.must.match'] = term.word;
 	} else {
 	    query[word+'.'+term.type+'.must_not.match'] = term.word;
-	}
-
-	
+	}	
 
 	if (term.include && term.pos) {
 	    var poss = util.esPos[term.pos];
@@ -79,19 +77,6 @@ function searchSentencesES(reqQuery, cb){
 	    }
 	}
     }
-
-/*    var idx = 2;
-    if (reqQuery['pos']) {
-	var poss = util.esPos[reqQuery.pos];
-
-	if (_.isArray(poss)) {
-	    query['w1.pos.should.match'] = poss;
-	} else {
-	    query['w1.pos.must.match'] =  poss;
-	}
-    }
-
-    query['w1.'+ (reqQuery.field || 'lemma') + '.must.match'] = reqQuery.text || reqQuery.luname;*/
 
     if (reqQuery['optionals'] && reqQuery['optionals'].length > 0) {
 	query['w'+i+'.word.should.match'] = [];
