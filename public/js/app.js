@@ -69,7 +69,7 @@
 	};
 
 	this.isLoggedIn = function () {
-	    SessionManager.isAuthenticated();
+	    return SessionManager.isAuthenticated();
 	};
     };
 })();
