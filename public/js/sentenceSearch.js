@@ -6,9 +6,9 @@
 	controller('sentenceSearch', search).
 	filter('highlightTerms', highlight);
 
-    search.$injector = ['$routeParams', 'serverConstants', 'sentenceDataService'];
+    search.$injector = ['$routeParams', 'serverConstants', 'sentenceDataService', 'luDataService'];
 
-    function search ($routeParams, serverConstants, sentenceDataService) {
+    function search ($routeParams, serverConstants, sentenceDataService, luDataService) {
 	var self = this;
 	this.lu = $routeParams.lu;
 
@@ -84,15 +84,25 @@
 	    var p = self.searchTerms[0];
 
 	    var params = {
-		framename: self.frame,
-		luname: self.luName,
+	/*	framename: self.frame,
+		luname: self.luName,*/
 		'terms[]': self.searchTerms,
 		page: self.page || 1, 
 		diversify : self.diversify,
 		'optionals[]': self.additionalWords
 	    };
 
-	    self.results = sentenceDataService.search(params, function () {self.searching = false});
+	    self.results = sentenceDataService.search(params, function (results) {
+		self.searching = false;
+		results.map(function (x) {
+		    luDataService.
+			getLU(self.frame, self.lu).
+			getSentenceLUCorrelation(x.id).
+			then(function (response) {
+			    x.status = response.data.status;
+			});;
+		});
+	    });
 	};
 
 	this.getPage = function (page) {

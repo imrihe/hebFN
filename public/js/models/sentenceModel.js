@@ -58,7 +58,7 @@
 			       response.data.map(function (x) {
 				   return new SentenceModel(x);
 			       }));
-		cb();
+		cb(searchResults);
 	    });
 	    
 	    return searchResults;		    

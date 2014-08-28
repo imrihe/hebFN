@@ -17,6 +17,7 @@
 	    this.oldName = luName;
 	    this.addComment = addComment;
 	    this.save = save;
+	    this.getSentenceLUCorrelation = getCorrelation;
 
 	    if (luName) {
 		getLUData(frameName, luName).then(function (result) {
@@ -30,7 +31,7 @@
 	};
 
 	function getLUData (frameName, luName) {
-	    var url = '//localhost:3003/heb/lu';
+	    var url = '/heb/lu';
 	    var params = {
 		framename: frameName,
 		luname: luName
@@ -86,6 +87,21 @@
 	    return $http.post(url, {
 		params: params,
 		responseTyep: 'json'
+	    });
+	};
+
+	function getCorrelation (sentence_id) {
+	    var url = '/heb/getSentCorr';
+	    var params = {
+		luname: this.oldName,
+		framename: this.frameName,
+		sentid: sentence_id
+	    };	    
+
+	    return $http.get(url, {
+		params: params,
+		responseType: 'json',
+		cache: true
 	    });
 	};
     };
