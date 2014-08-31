@@ -29,7 +29,7 @@
 
 		return $http.get(frameDataURL, {
 		    params: params,
-		    cache: true,
+		    // cache: true,
 		    responseType: 'json'
 		});
 	    };
