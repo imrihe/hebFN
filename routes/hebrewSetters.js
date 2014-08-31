@@ -38,15 +38,15 @@ module.exports = function(app) {
     app.post('/heb/editlu',auth.ensureAuthenticated, hebControl.posteditLU)
 
 
-    app.post('/heb/rmSentFromLu',skip, hebControl.delSentFromLU); //TODO
-    app.post('/heb/markbadseg', skip, hebControl.markAsBadSegmentd);     //TODO
-    app.post('/heb/addmarkbadseg', skip, hebControl.addAndMarkAsBadSegmented);
+    app.post('/heb/rmSentFromLu',auth.ensureAuthenticated, hebControl.delSentFromLU); //TODO
+    app.post('/heb/markbadseg', auth.ensureAuthenticated, hebControl.markAsBadSegmentd);     //TODO
+    app.post('/heb/addmarkbadseg', auth.ensureAuthenticated, hebControl.addAndMarkAsBadSegmented);
     app.get('/heb/lulock',auth.ensureAuthenticated, hebControl.luLock);
-    app.post('/heb/addhistory',skip, hebControl.postHistoryFeed);
+    app.post('/heb/addhistory',auth.ensureAuthenticated, hebControl.postHistoryFeed);
     app.post('/heb/addcomment',auth.ensureAuthenticated, hebControl.postAddComment)   //TODO
 
     app.get('/heb/getSentCorr', hebControl.getLuSentCorr);
-    app.post('/heb/setSentCorr', hebControl.setLuSentCorr);
+    app.post('/heb/setSentCorr', auth.ensureAuthenticated, hebControl.setLuSentCorr);
 
 
     app.get('/heb/', function(req,res){ res.redirect(hp)});
