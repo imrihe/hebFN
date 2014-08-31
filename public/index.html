@@ -50,7 +50,7 @@
 	  <ul class="nav navbar-nav navbar-right" ng-controller="userController as user">
             <li><a href="mailto:hebrew.framenet.bgu@gmail.com">E-mail us</a></li>
 	    <li ng-if="user.isLoggedIn()">
-	      <a href="/logout">Sign Out</a>
+	      <a href ng-click="user.logout">Sign Out</a>
 	    </li>
 	    <li class="dropdown" ng-if="!user.isLoggedIn()">
 	      <a class="dropdown-toggle pointer" data-toggle="dropdown">
@@ -104,5 +104,6 @@
 
     <script src="js/app.js"></script>
     <script src="js/sessionManager.js"></script>
+    <script src="js/authentication.js"></script>
   </body>
 </html>

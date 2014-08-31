@@ -31,45 +31,23 @@
 	    });
     };
 
-    run.$injector = ['$http', 'SessionManager', 'serverConstants'];
+    run.$injector = ['Authenticator', 'serverConstants'];
 
-    function run ($http, SessionManager, serverConstants){
-	$http.get('/auth').
-	    success(function (data, status, headers, config) {
-		SessionManager.create();
-	    }).
-	    error(function (data, status, headers, config) {
-		SessionManager.destroy();
-	    });
+    function run (Authenticator, serverConstants){
+	Authenticator.ping();
     };
 
-    ctrl.$injector = ['$http', '$window', 'SessionManager'];
+    ctrl.$injector = ['Authenticator'];
 
-    function ctrl ($http, $window, SessionManager) {
+    function ctrl (Authenticator) {
 	var self = this;
-
+	
 	this.login = function () {
-	    $http({
-		method: 'POST',
-		url: '/login',
-		data: $.param(
-		    {
-			username: self.username,
-			password: self.password
-		    }),
-		headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
-	    })
-		.success(function (data, status, headers, config) {
-		    SessionManager.create();
-		    console.log('success!');
-		})
-		.error(function (data, status, headers, config) {
-		    // Erase the token if the user fails to log in
-		    SessionManager.destroy();
-		    console.log('fail');
-		});
+	   Authenticator.login(self.username, self.password);
 	};
 
-	this.isLoggedIn = SessionManager.isAuthenticated;
+	this.logout = Authenticator.logout;
+
+	this.isLoggedIn = Authenticator.status;
     };
 })();
