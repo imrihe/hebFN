@@ -35,17 +35,14 @@
 	    if (!self.term) {
 		return;
 	    }
-
-	    var term = {
-		word: self.term,
-		pos: self.termPOS.toLowerCase(),
-		type: self.termType,
-		include: self.includeTerm
-	    };
-
-	    self.searchTerms.push(term);
-
-	    resetTerm();
+	    
+	    if (self.term.indexOf('_') >= 0) {
+		addCompoundTerm('_');
+	    } else if (self.term.indexOf(' ') >= 0) {
+		addCompoundTerm(' ');
+	    } else {
+		addSingleTerm();
+	    }
 	};
 
 	this.removeTerm = function (idx) {
