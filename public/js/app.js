@@ -31,10 +31,16 @@
 	    });
     };
 
-    run.$injector = ['$http', 'serverConstants'];
+    run.$injector = ['$http', 'SessionManager', 'serverConstants'];
 
-    function run ($http, serverConstants){
-
+    function run ($http, SessionManager, serverConstants){
+	$http.get('/auth').
+	    success(function (data, status, headers, config) {
+		SessionManager.create();
+	    }).
+	    error(function (data, status, headers, config) {
+		SessionManager.destroy();
+	    });
     };
 
     ctrl.$injector = ['$http', '$window', 'SessionManager'];
