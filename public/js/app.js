@@ -10,11 +10,12 @@
     ]).
 	config(config).
 	run(run).
-	controller('userController', ctrl);
+	controller('userController', ctrl).
+	factory('AuthInterceptor', interceptor);;
 
-    config.$injector = ['$routeProvider'];
+    config.$injector = ['$routeProvider', '$httpProvider'];
 
-    function config($routeProvider) {
+    function config($routeProvider, $httpProvider) {
 	$routeProvider.
 	    when('/:frame?', {
 		templateUrl: 'partials/explore.html',
@@ -29,12 +30,49 @@
 		controller: 'sentenceSearch',
 		controllerAs: 'search'
 	    });
+
+	$httpProvider.interceptors.
+	    push([
+		'$injector', 
+		function ($injector) {
+		    return $injector.get('AuthInterceptor')
+		}
+	    ]);
     };
 
-    run.$injector = ['Authenticator', 'serverConstants'];
+    run.$injector = ['$rootScope', '$timeout', 'Authenticator', 'serverConstants'];
 
-    function run (Authenticator, serverConstants){
-	Authenticator.ping();
+    function run ($rootScope, $timeout, Authenticator, serverConstants){
+	Authenticator.ping().finally(function () {
+	    $rootScope.$on('event:loginRequired', function (e, next) {
+		// clear session
+		Authenticator.logout(true);
+
+		// show warning
+		$('#auth-error').removeClass('hide');
+		$timeout(function () {
+		    $('#auth-error').addClass('hide');
+		}, 3000);
+	    });
+	});
+    };
+
+    interceptor.$injector = ['$rootScope', '$q'];
+
+    function interceptor ($rootScope, $q) {
+	return {
+	    responseError: error
+	};
+	
+	function error(response) {
+	    var status = response.status;
+	    
+	    if (status == 401) {
+		$rootScope.$broadcast('event:loginRequired');
+	    }
+
+	    return $q.reject(response);	    
+	}
     };
 
     ctrl.$injector = ['Authenticator'];

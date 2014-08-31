@@ -31,14 +31,20 @@
 		});
 	};
 
-	function logout () {
-	    $http.get('/logout').success(function (response) {
+	function logout (local) {
+	    local = local || false;
+	    
+	    if (local) {
 		SessionManager.destroy();
-	    });
+	    } else {
+		$http.get('/logout').success(function (response) {
+		    SessionManager.destroy();
+		});
+	    }
 	};
 
 	function ping () {
-	    $http.get('/auth').
+	    return $http.get('/auth').
 		success(function (data, status, headers, config) {
 		    SessionManager.create();
 		}).
@@ -46,5 +52,7 @@
 		    SessionManager.destroy();
 		});
 	};
+
+
     };
 })(angular);
