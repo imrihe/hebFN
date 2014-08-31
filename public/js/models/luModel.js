@@ -24,7 +24,7 @@
 		    angular.extend(self, result.data);
 		    
 		    var luParts = self['@name'].split('.');
-		    // self.pos = luParts.pop();
+		    luParts.pop();
 		    self.name = luParts.join('.');
 		});
 	    }
@@ -70,7 +70,7 @@
                 framename: this.frameName,
                 luname: this.oldName,
 		lupos: this['@POS'],
-                definition: this.defenition,
+                definition: this.definition,
                 status: this.status,
 		lemma: '',
                 incoFe: this['@incorporatedFE']
@@ -84,9 +84,11 @@
 		params.lunameNew = luName;
 	    }
 
-	    return $http.post(url, {
-		params: params,
-		responseTyep: 'json'
+	    return $http({
+		method: 'POST',
+		url: url,
+		data: params,
+		responseType: 'json'
 	    });
 	};
 
