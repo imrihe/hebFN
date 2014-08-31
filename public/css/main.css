@@ -1,4 +1,4 @@
-#auth-error {
+.error {
     position: fixed;
     top: 0;
     width: 100%;
@@ -6,7 +6,7 @@
     z-index: 10;
 }
 
-#auth-error span {
+.error span {
     display: inline-block;
 }
 

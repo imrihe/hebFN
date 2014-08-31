@@ -73,10 +73,17 @@
       <div class="container-fluid" ng-view></div>
     </div>
 
-    <div id="auth-error" class="hide">
+    <div id="auth-error" class="hide error">
       <span class="alert alert-danger">
 	<strong>You are not authorized to preform that action!</strong>
 	Please log in and try again.
+      </span>
+    </div>
+
+    <div id="login-error" class="hide error">
+      <span class="alert alert-danger">
+	<strong>Login failed!</strong>
+	Please check your username and password and try again.
       </span>
     </div>
 

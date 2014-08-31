@@ -55,6 +55,14 @@
 		}, 3000);
 	    });
 	});
+
+	$rootScope.$on('event:loginError', function (e, next) {
+	    // show warning
+	    $('#login-error').removeClass('hide');
+	    $timeout(function () {
+		$('#login-error').addClass('hide');
+	    }, 3000);
+	});
     };
 
     interceptor.$injector = ['$rootScope', '$q'];
@@ -67,7 +75,9 @@
 	function error(response) {
 	    var status = response.status;
 	    
-	    if (status == 401) {
+	    if (response.config.url === '/login') {
+		$rootScope.$broadcast('event:loginError');
+	    } else if (status == 401) {
 		$rootScope.$broadcast('event:loginRequired');
 	    }
 
