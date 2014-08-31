@@ -114,7 +114,7 @@
 		self.luInfo.sentenceCount++;
 	    }
 
-	    result.correlate(self.lu, self.frame);
+	    result.correlate(self.frame, self.lu);
 	};
 
 	this.reject = function (result) {
@@ -122,7 +122,7 @@
 		self.luInfo.sentenceCount--;
 	    }
 
-	    result.reject(self.lu, self.frame);
+	    result.reject(self.frame, self.lu);
 	};
 
 	this.flag = function (result) {
@@ -130,8 +130,36 @@
 		self.luInfo.sentenceCount--;
 	    }
 
-	    result.flag(self.lu, self.frame);
+	    result.flag(self.frame, self.lu);
 	};
+
+	function addSingleTerm (t) {
+	    t = t || self.term;
+	    
+	    var term = {
+		word: t,
+		pos: self.termPOS.toLowerCase(),
+		type: self.termType,
+		include: self.includeTerm
+	    };
+
+	    self.searchTerms.push(term);
+
+	    resetTerm();
+	};
+
+	function addCompoundTerm (sep) {
+	    var terms = self.term.split(sep);
+
+	    terms.forEach(function (t) {
+		if (t.indexOf('@') >= 0) {
+		    t = t.replace('@', '');
+		    addSingleTerm(t);
+		} else {
+		    self.additionalWords.push(t);
+		}
+	    });
+	}
 
 	function reset () {
 	    resetTerm();
