@@ -108,8 +108,17 @@ var loadLu = exports.loadLu = function loadLu (query, proj, options, cb) {
     }
     console.log("DDD the query is-2:", q)
     Models.hebFrameModel.findOne(q,qProj, qOptions,function(err, results){
-            if (!err && results) return cb(err, results['lexUnit'][0])
-            else cb(err,results)
+            if (err || !results) cb(err,results);
+            else {
+		var res = results['lexUnit'][0];
+		sentencesByLu(query, function(err2, result){
+		    if (err2) doneCb(err2);
+		    else {
+			res['sentenceCount'] = result.length;
+			return cb(null, res);
+		    }
+		});
+	    }
         }
 
     )

@@ -109,6 +109,30 @@
 	    self.doSearch();
 	}
 
+	this.correlate = function (result) {
+	    if (result.status !== 'good') {
+		self.luInfo.sentenceCount++;
+	    }
+
+	    result.correlate(self.lu, self.frame);
+	};
+
+	this.reject = function (result) {
+	    if (result.status === 'good') {
+		self.luInfo.sentenceCount--;
+	    }
+
+	    result.reject(self.lu, self.frame);
+	};
+
+	this.flag = function (result) {
+	    if (result.status === 'good') {
+		self.luInfo.sentenceCount--;
+	    }
+
+	    result.flag(self.lu, self.frame);
+	};
+
 	function reset () {
 	    resetTerm();
 

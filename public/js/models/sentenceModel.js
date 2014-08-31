@@ -44,6 +44,8 @@
 		    url: url,
 		    data: params,
 		    headers: { 'Content-Type': 'application/json'}
+		}).success(function () {
+		    self.status = status;
 		});
 	    };
 	};

@@ -90,9 +90,15 @@
 	</form>
       </div>
     </div>
+
+    <div class="alert alert-success">
+      <span class="badge">{{search.luInfo.sentenceCount}}</span>
+      sentences have been accpeted
+    </div>
   </div>
   <div class="col-md-9">
-    <h2>Search results</h2>
+    <div class="clearfix">
+      <h2>Search results</h2>
 
     <div class="progress" id="loading-sentences" ng-show="search.searching">
       <div class="progress-bar progress-bar-info"></div>
@@ -102,15 +108,15 @@
       <div>
 	<div class="search-result margin-bottom-20 row" ng-repeat="result in search.results">
 	  <div class="btn-group col-md-3" data-toggle="buttons" ng-if="search.isConnectedToLU()">
-	    <label class="btn btn-default" ng-click="result.correlate(search.frame, search.lu)" ng-class="{active: result.status === 'good'}">
+	    <label class="btn btn-default" ng-click="search.correlate(result)" ng-class="{active: result.status === 'good'}">
 	      <input type="radio">
 	      <span class="glyphicon glyphicon-thumbs-up"></span>
 	    </label>
-	    <label class="btn btn-default" ng-click="result.reject(search.frame, search.lu)" ng-class="{active: result.status === 'bad'}">
+	    <label class="btn btn-default" ng-click="search.reject(result)" ng-class="{active: result.status === 'bad'}">
 	      <input type="radio">
 	      <span class="glyphicon glyphicon-thumbs-down"></span>
 	    </label>
-	    <label class="btn btn-default" ng-click="result.flag(search.frame, search.lu)" ng-class="{active: result.status === 'maybe'}">
+	    <label class="btn btn-default" ng-click="search.flag(result)" ng-class="{active: result.status === 'maybe'}">
 	      <input type="radio">
 	      <span class="glyphicon glyphicon-flag"></span>
 	    </label>
