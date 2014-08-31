@@ -63,7 +63,7 @@
 
 	this.save = function () {
 	    self.luInfo.save().then(function () {
-		$location.path('#/' + self.frameName);
+		$location.path(self.frameName);
 	    });
 	};
 
