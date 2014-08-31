@@ -21,10 +21,16 @@
 
 	    if (luName) {
 		getLUData(frameName, luName).then(function (result) {
-		    angular.extend(self, result.data);
-		    
+		    if (result.data) {
+			angular.extend(self, result.data);
+		    } else {
+			self['@name'] = luName;
+			self.status = 'initial';
+		    }
+
 		    var luParts = self['@name'].split('.');
-		    luParts.pop();
+		    var pos = luParts.pop();
+		    self['@POS'] = self['@POS'] || pos.toUpperCase();
 		    self.name = luParts.join('.');
 		});
 	    }
