@@ -95,8 +95,7 @@
 	    self.results = sentenceDataService.search(params, function (results) {
 		self.searching = false;
 		results.map(function (x) {
-		    luDataService.
-			getLU(self.frame, self.lu).
+		   self.luInfo.
 			getSentenceLUCorrelation(x.id).
 			then(function (response) {
 			    x.status = response.data.status;
@@ -135,6 +134,7 @@
 
 	if (angular.isDefined(this.lu)) {
 	    this.doSearch();
+	    this.luInfo =  luDataService.getLU(self.frame, self.lu);
 	}
     };
 
