@@ -114,11 +114,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(require('stylus').middleware({
+/*app.use(require('stylus').middleware({
     src: __dirname + '/views',
     dest: __dirname + '/public'
 }));
-app.use(express.favicon());
+app.use(express.favicon());*/
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 /**use this function as error handler - will send 500 response to the client
@@ -126,18 +126,18 @@ app.use(express.static(path.join(__dirname, 'public')));
  * @return {HTML} response to the client */
 function handleErrors(err, req, res, next){
     console.error(err.stack);
-    if (req.xhr) {
-        res.send(500, { error: 'Something blew up! '});
-    } else {
+//    if (req.xhr) {
+        res.send(err.code, err.message);
+//    } else {
         console.error('ERROR:',err)
-        res.render('error.jade', {err:err, req: req});
-    }
+//        res.render('error.jade', {err:err, req: req});
+//    }
 }
 //app.use(handleErrors);
 
 
 //development only
-app.configure('development', function() {
+/*app.configure('development', function() {
     app.use(express.logger());
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     //app.use(express.errorHandler());
@@ -147,8 +147,8 @@ app.configure('development', function() {
 app.configure('production', function() {
     app.use(express.logger());
     app.use(express.errorHandler());
-});
-
+});*/
+app.use(handleErrors);
 
 //app.set('jsonp callback', true);
 app.all("*",function(req,res,next){

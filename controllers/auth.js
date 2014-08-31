@@ -111,9 +111,13 @@ exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
     }
     var us = null;
     if (req.user) us = req.user.username;
-    console.log("DEBUG: user " + us +" is not authenticated.", "redirectiong to: " + hp+'login');
+    console.log("DEBUG: user " + us +" is not authenticated.");
 	//res.redirect(hp);
-    res.redirect(hp);
+    // res.redirect(hp);
+    var err = new Error("Please log in to preform this action");
+    err.code = 401;
+
+    return next(err);
 };
 
 
