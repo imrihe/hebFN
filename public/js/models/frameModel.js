@@ -26,6 +26,8 @@
 
 		self.hebLUs = self.hebData.lexUnit.map(function (x) {
 		    return luDataService.getLU(self.name, x);
+		}).sort(function (a, b) {
+		    return a.name.localeCompare(b.name);
 		});
 	    });
 
