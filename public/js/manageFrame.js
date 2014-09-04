@@ -44,8 +44,7 @@
 	}
 
 	function deleteLU () {
-	    self.frame.removeLU(self.selectedLU);
-
+	    console.log('deleting', self.selectedLU['@name']);
 	    $('#delete-lu').modal('hide');
 	};
 

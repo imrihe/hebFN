@@ -7,16 +7,16 @@
     function luDataFactory ($http) {
 
 	return {
-	    getLU: function (frameName, lu) { return new LuModel(frameName, lu); }
+	    getLU: function (frameName, luName) { return new LuModel(frameName, luName); }
 	};
 
-	function LuModel (frameName, lu) {
+	function LuModel (frameName, luName) {
 	    var self = this;
 	    
 	    this.frameName = frameName;
+	    this.oldName = luName;
 	    this.addComment = addComment;
 	    this.save = save;
-	    this.remove = remove;
 	    this.getSentenceLUCorrelation = getCorrelation;
 	    
 	    Object.defineProperties(this, {
@@ -30,26 +30,20 @@
 		}
 	    });
 	    
-	    if (typeof lu === typeof "") {
-		this.oldName = lu;
-		getLUData(frameName, lu).then(function (result) {
+	    if (luName) {
+		getLUData(frameName, luName).then(function (result) {
 		    if (result.data) {
 			angular.extend(self, result.data);
 		    } else {
-			self['@name'] = lu;
+			self['@name'] = luName;
 			self.status = 'initial';
 		    }
-		});
-	    } else if (typeof lu === typeof {}) {
-		this.oldName = lu['@name'];
-		angular.extend(self, lu);
-	    }
 
-	    if (self['@name']) {
-		var luParts = self['@name'].split('.');
-		var pos = luParts.pop();
-		self['@POS'] = self['@POS'] || pos.toUpperCase();
-		self.name = luParts.join('.');
+		    var luParts = self['@name'].split('.');
+		    var pos = luParts.pop();
+		    self['@POS'] = self['@POS'] || pos.toUpperCase();
+		    self.name = luParts.join('.');
+		});
 	    }
 	};
 
@@ -78,26 +72,6 @@
 	    return $http.post(url, {
 		params: params,
 		responseTyep: 'json'
-	    });
-	};
-
-	function remove () {
-	    var url = '/heb/frameLuAssociation';
-
-	    var luName = this.name + "." + this['@POS'].toLowerCase();
-
-	    params = {
-                framename: this.frameName,
-                luname: this.name,
-		lupos: this['@POS'].toLowerCase(),
-		action: 'delete'
-            };
-
-	    return $http({
-		method: 'POST',
-		url: url,
-		data: params,
-		responseType: 'json'
 	    });
 	};
 
