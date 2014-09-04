@@ -18,15 +18,15 @@
 	    angular.extend(this, sentence);
 
 	    this.correlate = function (frame, lu) {
-		setCorrelationStatus(frame, lu, 'good');
+		return setCorrelationStatus(frame, lu, 'good');
 	    };
 
 	    this.reject = function (frame, lu) {
-		setCorrelationStatus(frame, lu, 'bad');
+		return setCorrelationStatus(frame, lu, 'bad');
 	    };
 
 	    this.flag = function (frame, lu) {
-		setCorrelationStatus(frame, lu, 'maybe');
+		return setCorrelationStatus(frame, lu, 'maybe');
 	    };
 
 	    var setCorrelationStatus = function (frame, lu, status) {
@@ -39,7 +39,7 @@
 		    text: self.text
 		};
 
-		$http({
+		return $http({
 		    method: 'POST',
 		    url: url,
 		    data: params,

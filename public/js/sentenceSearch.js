@@ -109,27 +109,39 @@
 	}
 
 	this.correlate = function (result) {
-	    if (result.status !== 'good') {
-		self.luInfo.sentenceCount++;
-	    }
+	    var old_status = result.status;
 
-	    result.correlate(self.frame, self.lu);
+	    result.correlate(self.frame, self.lu).success(function (response) {
+		if (response.results === 1) {
+		    if (old_status !== 'good') {
+			self.luInfo.sentenceCount++;
+		    }
+		}
+	    });
 	};
 
 	this.reject = function (result) {
-	    if (result.status === 'good') {
-		self.luInfo.sentenceCount--;
-	    }
+	    var old_status = result.status;
 
-	    result.reject(self.frame, self.lu);
+	    result.reject(self.frame, self.lu).success(function (response) {
+		if (response.results === 1) {
+		    if (old_status === 'good') {
+			self.luInfo.sentenceCount--;
+		    }
+		}
+	    });
 	};
 
 	this.flag = function (result) {
-	    if (result.status === 'good') {
-		self.luInfo.sentenceCount--;
-	    }
+	    var old_status = result.status;
 
-	    result.flag(self.frame, self.lu);
+	    result.flag(self.frame, self.lu).success(function (response) {
+		if (response.results === 1) {
+		    if (old_status === 'good') {
+			self.luInfo.sentenceCount--;
+		    }
+		}
+	    });
 	};
 
 	function addSingleTerm (t) {
