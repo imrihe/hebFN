@@ -2,9 +2,9 @@
     angular.module('hebFN.models').
 	factory('frameDataService', frameDataFactory);
 
-    frameDataFactory.$injector = ['$http'];
+    frameDataFactory.$injector = ['$http', 'luDataService'];
 
-    function frameDataFactory ($http) {
+    function frameDataFactory ($http, luDataService) {
 
 	return {
 	    listFrames: listFrames,
@@ -19,9 +19,14 @@
 
 	    this.name = frameName;
 	    this.addComment = addComment;
+	    this.removeLU = removeLU;
 
 	    frameData(this.name).then(function (result) {
 		angular.extend(self, result.data);
+
+		self.hebLUs = self.hebData.lexUnit.map(function (x) {
+		    return luDataService.getLU(self.name, x);
+		});
 	    });
 
 	    function frameData (name) {
@@ -31,6 +36,14 @@
 		    params: params,
 		    // cache: true,
 		    responseType: 'json'
+		});
+	    };
+
+	    function removeLU (lu) {
+		return lu.remove().success(function (response) {
+		    self.hebLUs = self.hebLUs.filter(function (x) {
+			return x !== lu;
+		    });
 		});
 	    };
 
