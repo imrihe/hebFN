@@ -18,7 +18,18 @@
 	    this.addComment = addComment;
 	    this.save = save;
 	    this.getSentenceLUCorrelation = getCorrelation;
-
+	    
+	    Object.defineProperties(this, {
+		pos: {
+		    get: function () {
+			return self['@POS'] ? self['@POS'].toLowerCase() : ''; 
+		    },
+		    set: function (newVal) { 
+			self['@POS'] = newVal.toUpperCase(); 
+		    }
+		}
+	    });
+	    
 	    if (luName) {
 		getLUData(frameName, luName).then(function (result) {
 		    if (result.data) {

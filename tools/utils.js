@@ -237,16 +237,19 @@ exports.linearizeSentence2 = function linearizeSentence2(words){
 
 exports.skip = function ( req,res,next){next()};
 
-
 exports.esPos = {
     'v' : 'VB',  //verb
-    'a' : 'JJ', //adjective
-    'n': ['NN', 'NNT'], //noun
+    'a' : 'JJ / JJT', //adjective
+    'n': 'NN / NNT', //noun
     'prep': 'IN / PREPOSITION', //preposition
     'adv': 'RB',     //adverb
     'md': 'MD',  //modal
     'dtt': 'DTT', //determiner
-    'cd': 'CD'
+    'cd': 'CD / CDT',  //numbers
+    'bn': 'BN / BNT', // beinoni
+    'conj': 'CONJ',
+    'copula' : 'COP', //hu, haya
+    'exist' : 'EX' // eyn, yesh
 }
 
 var SHORTPOS = {

@@ -95,7 +95,9 @@
 		   self.luInfo.
 			getSentenceLUCorrelation(x.id).
 			then(function (response) {
-			    x.status = response.data.status;
+			    if (response.data) {
+				x.status = response.data.status;
+			    }
 			});;
 		});
 	    });
@@ -167,7 +169,7 @@
 
 	    if (self.lu) {
 		var parts = self.lu.split('.');
-		self.termPOS = parts.pop().toUpperCase();
+		self.termPOS = parts.pop();
 		self.term = parts.join('.');
 	    }
 	};

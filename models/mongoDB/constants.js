@@ -6,7 +6,7 @@ var consColl = (global.conf.coll.constants)
 var consSchema = new mongoose.Schema({
     name: String,
     schemes: [String],
-    values: [String]
+    values: []
 })
 var consModel = mongoose.model(global.conf.coll.constants, consSchema, global.conf.coll.constants)
 
