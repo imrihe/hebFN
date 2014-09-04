@@ -2,12 +2,13 @@
     angular.module('hebFN.models').
 	factory('sentenceDataService', sentenceDataFactory);
 
-    sentenceDataFactory.$injector = ['$http'];
+    sentenceDataFactory.$injector = ['$http', '$q'];
 
-    function sentenceDataFactory ($http) {
+    function sentenceDataFactory ($http, $q) {
 	return {
 	    search: search,
-	    getByID: getByID
+	    getByID: getByID,
+	    add: add
 	};
 
 
@@ -67,6 +68,28 @@
 	    });
 	    
 	    return searchResults;		    
+	};
+
+	function add (text) {
+	    var url = "/external/addSentence";
+
+	    var params = {
+		text: text,
+		preview: true
+	    };
+	    
+	    var deferred = $q.defer();
+
+	    $http({
+		method: 'POST',
+		url: url,
+		data: params,
+		headers: { 'Content-Type': 'application/json'}
+	    }).success(function (response) {
+		deferred.resolve(new SentenceModel(response));
+	    });
+
+	    return deferred.promise;
 	};
 
 	function getByID (id) {

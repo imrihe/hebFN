@@ -144,6 +144,12 @@
 	    });
 	};
 
+	this.addSentence = function () {
+	    sentenceDataService.add(self.newSentence).then(function (sentence) {
+		self.correlate(sentence);
+	    });
+	};
+
 	function addSingleTerm (t) {
 	    t = t || self.term;
 	    
