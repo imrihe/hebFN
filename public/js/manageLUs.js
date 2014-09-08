@@ -62,8 +62,20 @@
 	};
 
 	this.save = function () {
-	    self.luInfo.save().then(function () {
-		$location.path(self.frameName);
+	    return self.luInfo.save().then(function (result) {
+		//show "saved"
+	    });
+	};
+
+	this.saveAndReturn = function () {
+	    self.save().then(function () {
+		self.backToFrame();
+	    });
+	};
+
+	this.backToFrame = function () {
+	    $location.path(self.frameName);
+	};
 	    });
 	};
 

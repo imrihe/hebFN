@@ -10,7 +10,7 @@
       </div>
 
       <div class="panel-body">
-	<form role="form" name="luForm" class="form-horizontal" ng-submit="luForm.$valid && manageLU.save()" novalidate>
+	<form role="form" name="luForm" class="form-horizontal" ng-submit="luForm.$valid && manageLU.saveAndReturn()" novalidate>
 	  
 	  <div class="form-group has-feedback" ng-class="{'has-success': luForm.luName.$valid, 'has-error': !luForm.luName.$valid}">
 	    <label for="lu-name" class="control-label col-md-3">Name</label>
@@ -88,8 +88,11 @@
 	    </div>
 	  </div>
 
-	  <button type="submit" class="btn btn-primary pull-right" ng-disabled="!luForm.$valid">Save</button>
-
+	  <div class="pull-right">
+	    <button type="button" class="btn btn-primary" ng-disabled="!luForm.$valid" ng-click="manageLU.save()">Save</button>
+	    <button type="submit" class="btn btn-primary" ng-disabled="!luForm.$valid">Save & return to {{manageLU.frameName}}</button>
+	  </div>
+	  <!-- <button type="button" class="btn btn-default pull-left">Return to {{manageLU.frameName}}</button> -->
 	</form>
       </div>
     </div>
@@ -97,6 +100,6 @@
   </div>
 
   <div class="col-md-5">
-    <comments-widget comments-list="manageLU.luInfo.comments" post-function="manageLU.luInfo.addComment(comment)"></comments-widget>
+    <comments-widget comments-list="manageLU.luInfo.comments" post-function="manageLU.addComment(comment)"></comments-widget>
   </div>
 </div>
