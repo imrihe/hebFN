@@ -39,17 +39,23 @@
 			self['@name'] = lu;
 			self.status = 'initial';
 		    }
+
+		    fixNameAndPos();
 		});
 	    } else if (typeof lu === typeof {}) {
 		this.oldName = lu['@name'];
 		angular.extend(self, lu);
 	    }
 
-	    if (self['@name']) {
-		var luParts = self['@name'].split('.');
-		var pos = luParts.pop();
-		self['@POS'] = self['@POS'] || pos.toUpperCase();
-		self.name = luParts.join('.');
+	    fixNameAndPos();
+	    
+	    function fixNameAndPos () {
+		if (self['@name']) {
+		    var luParts = self['@name'].split('.');
+		    var pos = luParts.pop();
+		    self['@POS'] = self['@POS'] || pos.toUpperCase();
+		    self.name = luParts.join('.');
+		}
 	    }
 	};
 
