@@ -25,10 +25,14 @@
 		templateUrl: 'partials/manage-lu.html',
 		controller: 'manageLU',
 		controllerAs: 'manageLU'
-	    }).when('/:frame/:lu/sentences', {
+	    }).when('/:frame/:lu/search', {
 		templateUrl: 'partials/sentence-search.html',
 		controller: 'sentenceSearch',
 		controllerAs: 'search'
+	    }).when('/:frame/:lu/sentences', {
+		templateUrl: 'partials/lu-sentences.html',
+		controller: 'luSentences',
+		controllerAs: 'sentences'
 	    });
 
 	$httpProvider.interceptors.
