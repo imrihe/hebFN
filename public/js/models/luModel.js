@@ -74,16 +74,25 @@
 
 	function addComment (comment) {
 	    var url = '/heb/addComment';
+	    
+	    var luName = this.name + "." + this['@POS'].toLowerCase();
+
 	    var params = {
 		type: 'lu',
 		framename: this.frameName,
-		luname: this.name,
+		luname: luName,
 		comment: comment
 	    };
+
+	    var self = this;
 	    
-	    return $http.post(url, {
-		params: params,
-		responseTyep: 'json'
+	    return $http({
+		method: 'POST',
+		url: url,
+		data: params,
+		responseType: 'json'
+	    }).success(function (response) {
+		self.comments.push(response);
 	    });
 	};
 
@@ -92,7 +101,7 @@
 
 	    var luName = this.name + "." + this['@POS'].toLowerCase();
 
-	    params = {
+	    var params = {
                 framename: this.frameName,
                 luname: this.name,
 		lupos: this['@POS'].toLowerCase(),

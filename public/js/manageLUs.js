@@ -76,11 +76,15 @@
 	this.backToFrame = function () {
 	    $location.path(self.frameName);
 	};
+
+	this.addComment = function (comment) {
+	    self.save().then(function (result) {
+		self.luInfo.addComment(comment);
 	    });
 	};
 
 	this.frameInfo = frameDataService.getFrame(this.frameName);
-	this.luInfo = luDataService.getLU(this.frameName, luName);
+	this.luInfo = luDataService.getLU(this.frameName, luName);	
     }
 
     function validCompound () {
