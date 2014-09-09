@@ -12,9 +12,6 @@
 	};
 
 	function FrameModel (frameName) {
-	    var frameDataURL = '/heb/framedata',
-	        addCommentURL = '/heb/addcomment';
-
 	    var self = this;
 
 	    this.name = frameName;
@@ -32,9 +29,10 @@
 	    });
 
 	    function frameData (name) {
+		var url = '/heb/framedata';
 		var params = {framename: name};
 
-		return $http.get(frameDataURL, {
+		return $http.get(url, {
 		    params: params,
 		    // cache: true,
 		    responseType: 'json'
@@ -50,17 +48,21 @@
 	    };
 
 	    function addComment (comment) {
+		var url = '/heb/addcomment';
+
 		var params = {
 		    type: 'frame',
 		    framename: this.name,
 		    comment: comment
 		};
 
-		$http.post(addCommentURL, {
-		    params: params,
-		    responseTyep: 'json'
-		}).then(function (result) {
-		    this.hebData.comments.push(res);
+		return $http({
+		    method: 'POST',
+		    url: url,
+		    data: params,
+		    responseType: 'json'
+		}).success(function (response) {
+		    this.hebData.comments.push(response);
 		});
 	    };
 	};
