@@ -52,7 +52,7 @@
 
 		var params = {
 		    type: 'frame',
-		    framename: this.name,
+		    framename: self.name,
 		    comment: comment
 		};
 
@@ -62,7 +62,7 @@
 		    data: params,
 		    responseType: 'json'
 		}).success(function (response) {
-		    this.hebData.comments.push(response);
+		    self.hebData.comments.push(response);
 		});
 	    };
 	};
