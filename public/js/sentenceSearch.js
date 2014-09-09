@@ -145,7 +145,10 @@
 	};
 
 	this.addSentence = function () {
-	    sentenceDataService.add(self.newSentence).then(function (sentence) {
+	    var newSentence = self.newSentence;
+	    self.newSentence = '';
+
+	    sentenceDataService.add(newSentence).then(function (sentence) {
 		self.correlate(sentence);
 	    });
 	};
@@ -212,7 +215,7 @@
 	return function (text, words, target) {
 	    var resultText = text;
 	    var whatToHighlight = words.filter(function (x) {
-		return x.lemma ===target;
+		return x.lemma === target;
 	    });
 	    
 	    whatToHighlight.forEach(function (x) {
