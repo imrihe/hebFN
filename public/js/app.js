@@ -11,29 +11,29 @@
 	config(config).
 	run(run).
 	controller('userController', ctrl).
-	factory('AuthInterceptor', interceptor);;
+	factory('AuthInterceptor', interceptor);
 
     config.$injector = ['$routeProvider', '$httpProvider'];
 
     function config($routeProvider, $httpProvider) {
 	$routeProvider.
-	    when('/:frame?', {
+	    when('/explore/:frame?', {
 		templateUrl: 'partials/explore.html',
 		controller: 'exploreMain',
 		controllerAs: 'explore'
-	    }).when('/:frame/:lu?', {
+	    }).when('/edit/:frame/:lu?', {
 		templateUrl: 'partials/manage-lu.html',
 		controller: 'manageLU',
 		controllerAs: 'manageLU'
-	    }).when('/:frame/:lu/search', {
+	    }).when('/search/:frame/:lu', {
 		templateUrl: 'partials/sentence-search.html',
 		controller: 'sentenceSearch',
 		controllerAs: 'search'
-	    }).when('/:frame/:lu/sentences', {
+	    }).when('/sentences/:frame/:lu', {
 		templateUrl: 'partials/lu-sentences.html',
 		controller: 'luSentences',
 		controllerAs: 'sentences'
-	    });
+	    }).otherwise('/explore');
 
 	$httpProvider.interceptors.
 	    push([

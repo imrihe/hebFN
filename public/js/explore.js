@@ -16,7 +16,7 @@
 	if (angular.isUndefined(this.frameName)) {
 	    frameDataService.listFrames().then(function (response) {
 		var name = response.data[0].frame['@name'];
-		$location.path(name);
+		$location.path('explore/' + name);
 	    });
 	}
     };

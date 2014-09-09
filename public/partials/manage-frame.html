@@ -61,7 +61,7 @@
 	<h3 class="panel-title">Hebrew LUs</h3>
       </div>
       <div class="panel-body">
-	<a href="#/{{frameName}}/lu/">
+	<a href="#/edit/{{frameName}}">
 	  <button type="button" class="btn btn-default">Add a custom LU</button>
 	</a>
       </div>
@@ -74,14 +74,14 @@
 	    <span class="badge no-float" title="Number of associated sentences">
 	      {{lu.sentenceCount}}
 	    </span>
-	    <a href="#/{{frameName}}/{{lu['@name']}}/sentences">
+	    <a href="#/sentences/{{frameName}}/{{lu['@name']}}">
 	      <span class="glyphicon glyphicon-check black"></span>
 	    </a>
-	    <a href="#/{{frameName}}/{{lu['@name']}}/search">
+	    <a href="#/search/{{frameName}}/{{lu['@name']}}">
 	      <span class="glyphicon glyphicon-search black"></span>
 	    </a>
 	    <span id="menu{{$index}}" class="hide">
-	      <a href="#/{{frameName}}/{{lu['@name']}}">
+	      <a href="#/edit/{{frameName}}/{{lu['@name']}}">
 		<span class="glyphicon glyphicon-edit black"></span>
 	      </a>
 	      <span class="glyphicon glyphicon-trash pointer" data-toggle="modal" data-target="#delete-lu" ng-click="manageFrame.selectedLU=lu"></span>
