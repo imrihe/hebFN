@@ -57,28 +57,30 @@ function searchSentencesES(reqQuery, cb){
 
     var i = 1;
 
-    for (; i-1 < reqQuery.terms.length; i++) {
-	var word = 'w'+i;
-	var term = _.isString(reqQuery.terms[i-1]) ? JSON.parse(reqQuery.terms[i-1]) : reqQuery.terms[i-1];
+    if (reqQuery.terms) {
+	for (; i-1 < reqQuery.terms.length; i++) {
+	    var word = 'w'+i;
+	    var term = _.isString(reqQuery.terms[i-1]) ? JSON.parse(reqQuery.terms[i-1]) : reqQuery.terms[i-1];
 
-	if (term.include) {
-	    query[word+'.'+term.type+'.must.match'] = term.word;
-	} else {
-	    query[word+'.'+term.type+'.must_not.match'] = term.word;
-	}	
-
-	if (term.include && term.pos) {
-	    var poss = util.esPos[term.pos];
-	    
-	    if (_.isArray(poss)) {
-		query[word+'.pos.should.match'] = poss;
+	    if (term.include) {
+		query[word+'.'+term.type+'.must.match'] = term.word;
 	    } else {
-		query[word+'.pos.must.match'] =  poss;
+		query[word+'.'+term.type+'.must_not.match'] = term.word;
+	    }	
+
+	    if (term.include && term.pos) {
+		var poss = util.esPos[term.pos];
+		
+		if (_.isArray(poss)) {
+		    query[word+'.pos.should.match'] = poss;
+		} else {
+		    query[word+'.pos.must.match'] =  poss;
+		}
 	    }
 	}
     }
 
-    if (reqQuery['optionals'] && reqQuery['optionals'].length > 0) {
+    if (reqQuery.optionals && reqQuery['optionals'].length > 0) {
 	query['w'+i+'.word.should.match'] = [];
 	reqQuery['optionals'].forEach(function(x){
 	    query['w'+i+'.word.should.match'].push(x);
