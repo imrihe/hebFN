@@ -41,14 +41,15 @@
 	  <div class="form-group" ng-show="manageLU.isCompound()">
 	    <label for="lu-sep" class="control-label col-md-3">Multiword type</label>
 	    <div class="col-md-9">
-	      <select id="lu-sep" class="form-control" ng-model="manageLU.separator" ng-options="type.sep as type.name for type in manageLU.multiwordTypes" ng-change="manageLU.transformName()"></select>
+	      <select id="lu-sep" class="form-control" ng-model="manageLU.separator" ng-options="type.sep as type.name for type in manageLU.multiwordTypes" ng-change="manageLU.transformName()">
+	      </select>
 	    </div>
 	  </div>	  
 	  
 	  <div class="form-group">
 	    <label for="lu-pos" class="control-label col-md-3">POS</label>
 	    <div class="col-md-9">
-	      <select id="lu-pos" class="form-control" ng-model="manageLU.luInfo.pos" ng-options="p.pos as p.name for p in manageLU.POSs"></select>
+	      <select id="lu-pos" name="luPos" class="form-control" ng-model="manageLU.luInfo.pos" ng-options="p.pos as p.name for p in manageLU.POSs" required></select>
 	    </div>
 	  </div>
 	  
