@@ -22,10 +22,8 @@
 	var self = this;
 
 	this.activeEngLU = '';
-	this.activeEngLUIdx = -1;
 
 	this.selectActiveEngLU = function(idx){
-	    self.activeEngLUIdx = idx;
 	    lu = self.frame.translations[idx];
 
 	    fixedTranslations = [];
@@ -37,11 +35,25 @@
 
 	    lu.translations = fixedTranslations;
 	    self.activeEngLU = lu;
+
+	    sessionStorage.setItem($scope.frameName+'.activeEngLU', idx);
 	}
 
 	this.toggleMenu = function(idx) {
 	    $('#menu'+idx).toggleClass('hide');
 	}
+
+	this.isAlreadyLU = function (translation) {
+	    return !self.frame.hebLUs.some(function (x) {
+		return (x.name === translation.name) &&
+		    (x['@POS'].toLowerCase() === translation.pos);
+	    });
+	};
+
+	this.isActiveEngLU = function (idx) {
+	    var activeEngLU = sessionStorage.getItem($scope.frameName+'.activeEngLU');
+	    return parseInt(activeEngLU) === idx;
+	};
 
 	function deleteLU () {
 	    self.frame.removeLU(self.selectedLU);

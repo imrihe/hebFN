@@ -14,7 +14,7 @@
       </div>
 
       <lu class="list-group">
-	<li class="list-group-item clearfix pointer" ng-repeat="lu in manageFrame.frame.translations" ng-click="manageFrame.selectActiveEngLU($index)" ng-class="{active: manageFrame.activeEngLUIdx === $index}">
+	<li class="list-group-item clearfix pointer" ng-repeat="lu in manageFrame.frame.translations" ng-click="manageFrame.selectActiveEngLU($index)" ng-class="{active: manageFrame.isActiveEngLU($index)}">
 	  <input type="checkbox">
 	  {{lu.name}}.{{lu.pos.toLowerCase()}}
 
@@ -42,7 +42,7 @@
       </div>
 
       <lu class="list-group" ng-show="manageFrame.activeEngLU">
-	<li class="list-group-item rtl" ng-repeat="t in manageFrame.activeEngLU.translations">
+	<li class="list-group-item rtl" ng-repeat="t in manageFrame.activeEngLU.translations | filter: manageFrame.isAlreadyLU ">
 	  {{t.name}}.{{t.pos}}
 
 	  <span class="pull-left">
