@@ -56,7 +56,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
                     var pos=lu['@POS'].toLowerCase();
                     var name=lu['@name'].split(".")[0];
 		    var sentenceCount = lu['sentenceCount']
-                    newDict[HashLU(name,pos)]={pos:pos,name:name, count: sentenceCount};
+                    newDict[HashLU(name,pos)]={pos:pos,name:name, count: sentenceCount, _id: lu._id};
                 }
                 $scope.selectedFrameHebLUs=newDict;
 
@@ -403,7 +403,7 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
             sentid: sent.id,
             status: status,
             text: sent.text,
-	    frameID: $scope.selectedFrame._id,
+	    frameID: $scope.selectedFrame.hebData._id,
 	    luID: lu._id
         }
 
