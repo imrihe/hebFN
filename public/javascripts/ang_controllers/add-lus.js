@@ -182,9 +182,9 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
         $scope.luTranslations=newTranslations;
     };
     
-    $scope.setSelectedhebLU=function(name,pos)
+    $scope.setSelectedhebLU=function(lu)
     {
-        $scope.selectedHebLU={name:name,pos:pos};
+        $scope.selectedHebLU=lu;
     }
     $scope.getSelectedHebLU=function()
     {
@@ -289,14 +289,16 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
             });
         }
     }
-    $scope.searchSentencesIconClicked= function(name,pos)
+    $scope.searchSentencesIconClicked= function(lu)
     {
+	var name = lu.name;
+	var pos = lu.pos;
 	$scope.page = 1;
         $scope.searchWhat="lemma";
 	$scope.optionalWords = [];
         $scope.searchPos=pos?pos:"";
         $scope.searchName=name?name:"";
-        $scope.setSelectedhebLU(name,pos);
+        $scope.setSelectedhebLU(lu);
 	$scope.searchedLu = HashLU(name,pos);
 
 	var sep = $scope.isMultiword(name);
@@ -400,8 +402,9 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
             framename: $scope.selectedFrameName,
             sentid: sent.id,
             status: status,
-            text: sent.text
-
+            text: sent.text,
+	    frameID: $scope.selectedFrame._id,
+	    luID: lu._id
         }
 
         utils.CallServerPost("heb/setSentCorr", data,
@@ -459,8 +462,8 @@ function AddLUsCtrl($scope, $filter, $routeParams,utils) {
 	}
     }
 
-    $scope.addSentenceIconClicked= function(name,pos) {
-	$scope.setSelectedhebLU(name, pos);
+    $scope.addSentenceIconClicked= function(lu) {
+	$scope.setSelectedhebLU(lu);
 	$scope.newSentenceGenre = "";
 	$scope.newSentenceText = "";
         $('#add-sentence').modal();
