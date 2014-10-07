@@ -39,7 +39,7 @@
     <div ng-show="relation.relatedFrame.length">
       <h3>{{relation['@type']}}</h3>
       <span ng-repeat="frame in relation.relatedFrame">
-	<a ng-href="#/{{frame}}">{{frame}}</a>{{$last ? '' : ', '}}
+	<a ng-href="#/explore/{{frame}}">{{frame}}</a>{{$last ? '' : ', '}}
       </span>
     </div>
   </div>
