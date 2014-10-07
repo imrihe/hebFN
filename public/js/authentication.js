@@ -15,7 +15,7 @@
 	function login (username, password) {
 	    $http({
 		method: 'POST',
-		url: '/login',
+		url: 'login',
 		data: $.param(
 		    {
 			username: username,
@@ -44,7 +44,7 @@
 	};
 
 	function ping () {
-	    return $http.get('/auth').
+	    return $http.get('auth').
 		success(function (data, status, headers, config) {
 		    SessionManager.create();
 		}).

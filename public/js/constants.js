@@ -9,7 +9,7 @@
 
 	this.constants = {};
 
-	$http.get('/constants', {
+	$http.get('constants', {
 	    type: 'json',
 	    cache: true
 	}).then(function (result) {

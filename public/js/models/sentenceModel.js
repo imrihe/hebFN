@@ -31,7 +31,7 @@
 	    };
 
 	    var setCorrelationStatus = function (frame, lu, status) {
-		var url = '/heb/setSentCorr';
+		var url = 'heb/setSentCorr';
 		var params = {
 		    luname: lu['@name'],
 		    luID: lu._id,
@@ -54,7 +54,7 @@
 	};
 
 	function search (params, cb) {
-	    var url = '/external/exampleSentences';
+	    var url = 'external/exampleSentences';
 	    
 	    var searchResults = [];
 	    
@@ -73,7 +73,7 @@
 	};
 
 	function add (text) {
-	    var url = "/external/addSentence";
+	    var url = "external/addSentence";
 
 	    var params = {
 		text: text,

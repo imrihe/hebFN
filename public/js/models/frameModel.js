@@ -29,7 +29,7 @@
 	    });
 
 	    function frameData (name) {
-		var url = '/heb/framedata';
+		var url = 'heb/framedata';
 		var params = {framename: name};
 
 		return $http.get(url, {
@@ -48,7 +48,7 @@
 	    };
 
 	    function addComment (comment) {
-		var url = '/heb/addcomment';
+		var url = 'heb/addcomment';
 
 		var params = {
 		    type: 'frame',
@@ -68,7 +68,7 @@
 	};
 
 	function listFrames () {
-	    var listFramesURL = '/eng/framenames';
+	    var listFramesURL = 'eng/framenames';
 
 	    return $http.get(listFramesURL, {
 		cache: true,

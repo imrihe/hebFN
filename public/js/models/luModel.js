@@ -60,7 +60,7 @@
 	};
 
 	function getLUData (frameName, luName) {
-	    var url = '/heb/lu';
+	    var url = 'heb/lu';
 	    var params = {
 		framename: frameName,
 		luname: luName
@@ -73,7 +73,7 @@
 	};
 
 	function addComment (comment) {
-	    var url = '/heb/addComment';
+	    var url = 'heb/addComment';
 	    
 	    var luName = this.name + "." + this['@POS'].toLowerCase();
 
@@ -97,7 +97,7 @@
 	};
 
 	function remove () {
-	    var url = '/heb/frameLuAssociation';
+	    var url = 'heb/frameLuAssociation';
 
 	    var luName = this.name + "." + this['@POS'].toLowerCase();
 
@@ -117,8 +117,8 @@
 	};
 
 	function save () {
-	    var saveurl = '/heb/editlu',
-	        addurl = '/heb/frameLuAssociation';
+	    var saveurl = 'heb/editlu',
+	        addurl = 'heb/frameLuAssociation';
 
 	    var url = saveurl;
 
@@ -151,7 +151,7 @@
 	};
 
 	function getCorrelation (sentence_id) {
-	    var url = '/heb/getSentCorr';
+	    var url = 'heb/getSentCorr';
 	    var params = {
 		luname: this.oldName,
 		framename: this.frameName,

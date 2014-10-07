@@ -9,9 +9,9 @@
     frameDataManager.$inject = ['$http'];
 
     function frameDataManager ($http) {
-	var listFramesURL = '/eng/framenames',
-	    frameDataURL = '/heb/framedata', 
-	    addCommentURL = '/heb/addcomment';
+	var listFramesURL = 'eng/framenames',
+	    frameDataURL = 'heb/framedata', 
+	    addCommentURL = 'heb/addcomment';
 
 	return {
 	    listFrames: listFrames,
@@ -45,10 +45,10 @@
     luDataManager.$inject = ['$http'];
 
     function luDataManager ($http) {
-	var luDataURL = '/heb/lu',
-	    saveLUURL = '/heb/editlu',
-	    addLUURL = '/heb/frameLuAssociation',
-	    addCommentURL = '/heb/lu';
+	var luDataURL = 'heb/lu',
+	    saveLUURL = 'heb/editlu',
+	    addLUURL = 'heb/frameLuAssociation',
+	    addCommentURL = 'heb/lu';
 
 	return {
 	    luData: luData,
@@ -88,7 +88,7 @@
     searchManager.$injector = ['$http'];
 
     function searchManager ($http) {
-	var searchSentencesURL = '/external/exampleSentences';
+	var searchSentencesURL = 'external/exampleSentences';
 
 	return {
 	    search: search
