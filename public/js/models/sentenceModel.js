@@ -33,11 +33,13 @@
 	    var setCorrelationStatus = function (frame, lu, status) {
 		var url = '/heb/setSentCorr';
 		var params = {
-		    luname: lu,
-		    framename: frame,
+		    luname: lu['@name'],
+		    luID: lu._id,
+		    framename: frame.hebData['@name'],
+		    frameID: frame.hebData._id,
 		    sentid: self.id,
 		    status: status,
-		    text: self.text
+		    text: self.text,
 		};
 
 		return $http({

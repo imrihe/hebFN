@@ -6,9 +6,9 @@
 	controller('sentenceSearch', search).
 	filter('highlightTerms', highlight);
 
-    search.$injector = ['$routeParams', 'serverConstants', 'sentenceDataService', 'luDataService'];
+    search.$injector = ['$routeParams', 'serverConstants', 'sentenceDataService', 'luDataService', 'frameDataService'];
 
-    function search ($routeParams, serverConstants, sentenceDataService, luDataService) {
+    function search ($routeParams, serverConstants, sentenceDataService, luDataService, frameDataService) {
 	var self = this;
 	this.lu = $routeParams.lu;
 
@@ -111,7 +111,7 @@
 	this.correlate = function (result) {
 	    var old_status = result.status;
 
-	    result.correlate(self.frame, self.lu).success(function (response) {
+	    result.correlate(self.frameInfo, self.luInfo).success(function (response) {
 		if (response.results === 1) {
 		    if (old_status !== 'good') {
 			self.luInfo.sentenceCount++;
@@ -123,7 +123,7 @@
 	this.reject = function (result) {
 	    var old_status = result.status;
 
-	    result.reject(self.frame, self.lu).success(function (response) {
+	    result.reject(self.frameInfo, self.luInfo).success(function (response) {
 		if (response.results === 1) {
 		    if (old_status === 'good') {
 			self.luInfo.sentenceCount--;
@@ -135,7 +135,7 @@
 	this.flag = function (result) {
 	    var old_status = result.status;
 
-	    result.flag(self.frame, self.lu).success(function (response) {
+	    result.flag(self.frameInfo, self.luInfo).success(function (response) {
 		if (response.results === 1) {
 		    if (old_status === 'good') {
 			self.luInfo.sentenceCount--;
@@ -206,6 +206,7 @@
 
 	if (angular.isDefined(this.lu)) {
 	    this.doSearch();
+	    this.frameInfo = frameDataService.getFrame(self.frame);
 	    this.luInfo =  luDataService.getLU(self.frame, self.lu);
 	}
     };
