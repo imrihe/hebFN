@@ -19,8 +19,6 @@
 	      <div class="input-group">
 		<input type="text" class="form-control rtl" id="lu-name" name="luName" ng-model="manageLU.luInfo.name" ng-keyup="manageLU.transformName()" valid-compound required>
 
-		 <span class="glyphicon form-control-feedback left-form-control-feedback glyphicon-ok" ng-show="luForm.luName.$valid"></span>
-		 <span class="glyphicon form-control-feedback left-form-control-feedback glyphicon-remove" ng-show="!luForm.luName.$valid"></span>
 
 		<span class="input-group-addon">
 		  <a href="http://he.wiktionary.org/wiki/{{manageLU.luInfo.name}}" target="_blank" tabindex="-1">
@@ -29,11 +27,13 @@
 		</span>
 	      </div>
 
-	      <div class="text-danger" ng-show="luForm.luName.$error.compound">
-	       	The head word of a compound LU must be marked with the @ sign.
-	      </div>
-	      <div class="text-danger" ng-show="luForm.luName.$error.required">
-	       	The LU name field cannot be empty.
+	      <div ng-messages="luForm.luName.$error">
+		<div class="text-danger" ng-message="required">
+	       	  The LU name field cannot be empty.
+		</div>
+		<div class="text-danger" ng-message="compound">
+	       	  The head word of a compound LU must be marked with the @ sign.
+		</div>
 	      </div>
 	    </div>
 	  </div>
@@ -41,15 +41,22 @@
 	  <div class="form-group" ng-show="manageLU.isCompound()">
 	    <label for="lu-sep" class="control-label col-md-3">Multiword type</label>
 	    <div class="col-md-9">
-	      <select id="lu-sep" class="form-control" ng-model="manageLU.separator" ng-options="type.sep as type.name for type in manageLU.multiwordTypes" ng-change="manageLU.transformName()">
-	      </select>
+	      <select id="lu-sep" class="form-control" ng-model="manageLU.separator" ng-options="type.sep as type.name for type in manageLU.multiwordTypes" ng-change="manageLU.transformName()"></select>
 	    </div>
 	  </div>	  
 	  
-	  <div class="form-group">
+	  <div class="form-group has-feedback" ng-class="{'has-success': luForm.luPos.$valid, 'has-error': !luForm.luPos.$valid}">
 	    <label for="lu-pos" class="control-label col-md-3">POS</label>
 	    <div class="col-md-9">
-	      <select id="lu-pos" name="luPos" class="form-control" ng-model="manageLU.luInfo.pos" ng-options="p.pos as p.name for p in manageLU.POSs" required></select>
+	      <select id="lu-pos" class="form-control" name="luPos" ng-model="manageLU.luInfo.pos" ng-options="p.pos as p.name for p in manageLU.POSs" required>
+		<option class="hide"></option>
+	      </select>
+
+	      <div ng-messages="luForm.luPos.$error">
+		<div class="text-danger" ng-message="required">
+		  The POS field cannot be empty.
+		</div>
+	      </div>
 	    </div>
 	  </div>
 	  

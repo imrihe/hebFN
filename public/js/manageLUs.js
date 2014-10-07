@@ -63,7 +63,7 @@
 
 	this.save = function () {
 	    return self.luInfo.save().then(function (result) {
-		//show "saved"
+		//TODO: show "saved"
 	    });
 	};
 
@@ -74,17 +74,19 @@
 	};
 
 	this.backToFrame = function () {
-	    $location.path(self.frameName);
+	    $location.path('explore/'+self.frameName);
 	};
 
 	this.addComment = function (comment) {
 	    self.save().then(function (result) {
+		// TODO: if result is a failed save, don't post the comment,
+		// and show and error
 		self.luInfo.addComment(comment);
 	    });
 	};
 
 	this.frameInfo = frameDataService.getFrame(this.frameName);
-	this.luInfo = luDataService.getLU(this.frameName, luName);	
+	this.luInfo = luDataService.getLU(this.frameName, luName);
     }
 
     function validCompound () {
@@ -99,7 +101,6 @@
 
 	    ctrl.$parsers.unshift(function (value) {
 		var valid = isValidCompound(value);
-
 		ctrl.$setValidity('compound', valid);
 		return valid ? value : undefined;
 	    });

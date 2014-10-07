@@ -1,6 +1,7 @@
 (function(){
     angular.module('hebFN', [
 	'ngRoute',
+	'ngMessages',
 	'hebFN.models',
 	'hebFN.explore',
 	'hebFN.manageFrame',

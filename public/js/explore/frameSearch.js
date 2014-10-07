@@ -32,7 +32,7 @@
 
 		if ($event.keyCode === 13) {
 		    if (angular.isDefined(first)) {
-			$location.path(first);
+			$location.path('explore/'+first);
 		    }
 		}
 	    };
