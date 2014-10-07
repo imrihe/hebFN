@@ -2089,8 +2089,7 @@ function setSentLuCorrelation(query,cb){ //TODO: define the scheme - for now it 
     updateQuery = {status: query.status};
     console.log(query.comment);
     if (query.comment) updateQuery.comment = query.comment;
-    Models.luSentCorrelationModel.update({luName: query.luname, frameName: query.framename, esSentId: query.sentid, text: query.text}, updateQuery, {upsert: true}, cb);
-
+    Models.luSentCorrelationModel.update({luName: query.luname, frameName: query.framename, esSentId: query.sentid, text: query.text, frame: new objID(query.frameID), lexUnit: new objID(query.luID)}, updateQuery, {upsert: true}, cb);
 }
 
 module.exports.setLuSentCorr = function (req,res){
