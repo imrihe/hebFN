@@ -247,7 +247,7 @@ exports.esPos = {
     'dtt': 'DTT', //determiner
     'cd': 'CD / CDT',  //numbers
     'bn': 'BN / BNT', // beinoni
-    'conj': 'CONJ',
+    'conj': 'CC',
     'copula' : 'COP', //hu, haya
     'exist' : 'EX' // eyn, yesh
 }
