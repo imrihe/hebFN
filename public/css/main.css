@@ -140,3 +140,41 @@ frame-info, .frame-info {
     background-color: #ea0;
     font-weight: bold;
 }
+
+.black-badge {
+    background-color: #000;
+}
+
+td > .badge {
+    float: right;
+}
+
+.sentence-to-annotate {
+    display: inline-block;
+    width: 95%;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.annotate-sentence {
+    background-color: #f5f5f5;
+}
+
+#annotation .panel-body::selection, #annotation .panel-body span::selection {
+    background-color: #ccc;
+    color: #333;
+}
+
+#annotation .panel-body span {
+    word-wrap: normal;
+    white-space: pre-wrap;
+}
+
+.annotation-selection {
+    border-top-width: 1px;
+    border-top-color: #8B0000;
+    border-top-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #8B0000;
+    border-bottom-style: solid;
+}
