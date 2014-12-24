@@ -185,7 +185,7 @@
                     var v = tokens[k].word;
 
                     if (v.match(/\*\w+\*/)) {
-                        continue;
+                        v = '';
                     }
 
                     if (angular.isDefined(annotation)){
