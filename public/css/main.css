@@ -90,6 +90,10 @@ frame-info, .frame-info {
     vertical-align: middle;
 }
 
+.exemplar-sentences {
+    font-size: 1.1em;
+}
+
 .rtl {
     direction: rtl;
     text-align: right;
