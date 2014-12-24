@@ -1,0 +1,87 @@
+<h2>Annotate sentences of {{annotator.luName}} in the frame {{annotator.frameName}}</h2>
+<h4>Number of sentences in this lu: {{annotator.sentences.length}}</h4>
+<h5>Select a sentence from the list to annotate:</h5>
+
+<div id="available-sentences" class="margin-bottom-40"> 
+  <lu  class="list-group">
+    <li class="list-group-item available-sentence pointer rtl" ng-repeat="s in annotator.sentences" ng-class="{'annotate-sentence': annotator.selected($index)}">
+      <span class="glyphicon glyphicon-remove pointer" ng-click="annotator.removeSentence($index)"></span>
+      <span class="sentence-to-annotate" ng-click="annotator.select($index)" ng-bind-html="s"></span>
+    </li>
+  </lu>
+</div>
+
+<div id="annotation-tool" class="row">
+  <div id="annotation-labels" class="col-md-3">
+    <ul class="list-group">
+      <li class="list-group-item pointer" ng-click="annotator.setTarget()">
+        Target
+        <span class="badge black-badge">&nbsp;</span>
+      </li>
+      </ul>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Core FEs:</div>
+
+      <!-- List group -->
+      <ul class="list-group">
+        <li class="list-group-item pointer" ng-repeat="core in annotator.fes.core" ng-click="annotator.annotate(core)">
+          <span class="badge" style="background-color:#{{core.bgcolor}}">&nbsp;</span>
+          {{core['name']}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Non-Core FEs:</div>
+
+      <!-- List group -->
+      <ul class="list-group">
+        <li class="list-group-item pointer" ng-repeat="noncore in annotator.fes.nonCore" ng-click="annotator.annotate(noncore)">
+          <span class="badge" style="background-color:#{{noncore.bgcolor}}">&nbsp;</span>
+          {{noncore['name']}}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="annotation" class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">Sentence annotation</div>
+      <div class="panel-body rtl">
+        <span id="s{{$index}}" ng-repeat="w in annotator.activeSentence" ng-show="!annotator.isSpecialWord(w['word'])" ng-style="w.style"> {{w.word}} </span>
+      </div>
+    </div>
+    <button type="button" class="btn btn-default margin-bottom-20" ng-click="annotator.save()">Save changes</button>
+    <button type="button" class="btn btn-default margin-bottom-20" ng-click="annotator.reset()">Reset</button>
+    <button type="button" class="btn btn-default margin-bottom-20" ng-click="annotator.removeAll()">Remove all annotations</button>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Annotations</div>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="col-md-2">FE</th>
+            <th>Tokens</th>
+            <th class="col-md-1"></th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr ng-repeat="a in annotator.annotations[annotator.selected()].Target.label">
+            <td>{{a.name}} <span class="badge" style="background-color:#{{annotator.getColors(a.name)[0]}}">&nbsp;</span></td>
+            <td>{{a.tokens}}</td>
+            <td><span class="glyphicon glyphicon-trash pointer" ng-click="annotator.removeTarget($index)"></span></td>
+          </tr>
+
+          <tr ng-repeat="a in annotator.annotations[annotator.selected()].FE.label">
+            <td>{{a.name}} <span class="badge" style="background-color:#{{annotator.getColors(a.name)[0]}}">&nbsp;</span></td>
+            <td>{{a.tokens}}</td>
+            <td><span class="glyphicon glyphicon-trash pointer" ng-click="annotator.removeAnnotation($index)"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
