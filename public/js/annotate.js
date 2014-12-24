@@ -297,41 +297,43 @@
                 params: {
                     framename: self.frameName, 
                     luname:self.luName
-                }, responseType: 'json'}).then(function (response) {
-                    var r = response.data;
-                    raw_sentences = r.sentences;
-                    old_annotations = r.luSentence.annotations;
+                }, 
+                responseType: 'json'
+            }).then(function (response) {
+                var r = response.data;
+                raw_sentences = r.sentences;
+                old_annotations = r.luSentence.annotations;
 
-                    self.annotations = $.map(r.luSentence.annotations, function(x) {return x}).
-                        map(function (x) {
-                            x.Target.label = x.Target.label.filter(function (y) {
-                                return y.tokens.indexOf(-1) < 0;
-                            });
-                            return x;
+                self.annotations = $.map(r.luSentence.annotations, function(x) {return x}).
+                    map(function (x) {
+                        x.Target.label = x.Target.label.filter(function (y) {
+                            return y.tokens.indexOf(-1) < 0;
                         });
+                        return x;
+                    });
 
-                    self.fes = {
-                        core: r.frameLU.FE.map(function (x) {
-                            if (x['@coreType'] === 'Core'){
-                                return {
-                                    name: x['@name'],
-                                    bgcolor: x['@bgColor'],
-                                    fgcolor: x['@fgColor']
-                                }
+                self.fes = {
+                    core: r.frameLU.FE.map(function (x) {
+                        if (x['@coreType'] === 'Core'){
+                            return {
+                                name: x['@name'],
+                                bgcolor: x['@bgColor'],
+                                fgcolor: x['@fgColor']
                             }
-                        }).filter(function (x) {return !angular.isUndefined(x)}),
-                        nonCore: r.frameLU.FE.map(function (x) {
-                            if (x['@coreType'] !== 'Core'){
-                                return {
-                                    name: x['@name'],
-                                    bgcolor: x['@bgColor'],
-                                    fgcolor: x['@fgColor']
-                                }
+                        }
+                    }).filter(function (x) {return !angular.isUndefined(x)}),
+                    nonCore: r.frameLU.FE.map(function (x) {
+                        if (x['@coreType'] !== 'Core'){
+                            return {
+                                name: x['@name'],
+                                bgcolor: x['@bgColor'],
+                                fgcolor: x['@fgColor']
                             }
-                        }).filter(function (x) {return !angular.isUndefined(x)})
-                    };
-                    self.select(0);
-                });
+                        }
+                    }).filter(function (x) {return !angular.isUndefined(x)})
+                };
+                self.select(0);
+            });
 
             $("#annotation .panel-body").on('mouseup', function () {
                 $('.annotation-selection').removeClass('annotation-selection');

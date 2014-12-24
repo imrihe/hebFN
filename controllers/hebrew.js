@@ -2122,7 +2122,7 @@ function sentencesByLu(query,cb){
 		luName: query.luname, 
 		frameName: query.framename,
 		esSentId: {$nin : badSegs},
-		status: 'good'
+		status: query.all ? {$in : ['good', 'maybe']} : 'good'
 	    },  cb);
 	}
     });

@@ -84,9 +84,10 @@ frame-info, .frame-info {
 }
 
 .engFNLink {
-    position: absolute;
+    /*position: absolute;
     top: 0;
-    right: 0;
+    right: 0;*/
+    vertical-align: middle;
 }
 
 .rtl {

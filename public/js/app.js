@@ -7,6 +7,7 @@
 	    'hebFN.manageFrame',
 	    'hebFN.manageLUs',
 	    'hebFN.sentenceSearch',
+	    'hebFN.luSentences',
         'hebFN.annotate',
 	    'hebFN.constants'
     ]).

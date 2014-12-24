@@ -1,0 +1,40 @@
+<h1 class="margin-bottom-20">Review exemplar sentenecs suggested for {{sentences.luName}} in {{sentences.frameName}}</h1>
+<div class="frame-info margin-bottom-40">
+  <english-frame-info frame-name="sentences.frameName"></english-frame-info>
+</div>
+<div>
+  <div ng-show="!sentences.sentences.length">
+    There are no sentences for {{sentences.luName}}.
+  </div>
+  <div>
+    <div class="search-result margin-bottom-20 row" ng-repeat="sent in sentences.sentences">
+      <div class="btn-group col-md-3">
+	    <button type="button" class="btn btn-default" ng-class="{'active': sent.associatedID}" data-toggle="button" ng-click="sentences.toggleAcceptedSentence(sent)">
+	      <span class="glyphicon glyphicon-ok"></span>
+	    </button>
+	    <!--<button type="button" class="btn btn-default" data-toggle="modal" data-target="#remove-sentence" ng-click="sentences.selectedSentence = $index;">
+	      <span class="glyphicon glyphicon-remove"></span>
+	    </button>-->
+      </div>
+
+      <div class="text rtl col-md-9">{{sent.text}}</div>
+    </div>
+  </div>
+</div>
+
+<div id="remove-sentence" class="modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+	  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+	</button>
+        <h4 class="modal-title">Are you sure you want to remove this sentence?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-default" id="delete-button">Yes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

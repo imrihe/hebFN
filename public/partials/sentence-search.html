@@ -1,8 +1,12 @@
 <div class="clearfix">
-  <h1 class="margin-bottom-40 pull-left">Search for sentences</h1>
-  <a href="#/explore/{{search.frame}}" class="pull-right" ng-if="search.frame">
+  <h1 class="margin-bottom-20">Find exemplar sentences for {{search.lu}} in {{search.frame}}</h1>
+
+  <div class="frame-info margin-bottom-40">
+    <english-frame-info frame-name="search.frame"></english-frame-info>
+  </div>
+<!--  <a href="#/explore/{{search.frame}}" class="pull-right" ng-if="search.frame">
     <button class="btn btn-default">Return to {{search.frame}}</button>
-  </a>
+  </a> -->
 </div>
 
 <div class="row">

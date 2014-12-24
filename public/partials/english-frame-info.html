@@ -1,46 +1,53 @@
-<a href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame={{info.engData.frame['@name']}}" target="_blank" class="engFNLink">
+<!--<a href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame={{info.engData.frame['@name']}}" target="_blank" class="engFNLink">
   <button type="button" class="btn btn-default">{{info.engData.frame['@name']}} in the English FrameNet</button>
-</a>
+</a> -->
 
-<h1 class="frame-title">{{info.engData.frame['@name']}}</h1>
+<h2 class="frame-title">
+  <span class="glyphicon pointer" ng-class="{'glyphicon-chevron-down': !showAll, 'glyphicon-chevron-up': showAll}" ng-click="showAll = !showAll" title="Hide"></span>
+  <a href="#/explore/{{info.engData.frame['@name']}}">{{info.engData.frame['@name']}}</a>
+  <a href="https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml?frame={{info.engData.frame['@name']}}" target="_blank" class="engFNLink">
+    <span class="glyphicon glyphicon-globe" title="{{info.engData.frame['@name']}} in the English FrameNet"></span>
+  </a>
+</h2>
+<div ng-show="showAll">
+  <div id="frame-definition" class="margin-bottom-40"></div>
 
-<div id="frame-definition" class="margin-bottom-40"></div>
+  <h2><a href ng-click="toggle('showFEs')" class="no-underline"> Frame elements <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !showFEs, 'glyphicon-chevron-up': showFEs}"></span></a></h2>
+  <div ng-show="showFEs" class="row">
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">Core FEs</div>
+        <ul class="list-group">
+	      <li class="list-group-item" ng-repeat="fe in info.engData.fes.core">
+	        <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
+	        <div ng-show="fe.show" ng-bind-html="fe.def"></div>
+	      </li>
+        </ul>
+      </div>
+    </div>
 
-<h2><a href ng-click="toggle('showFEs')" class="no-underline"> Frame elements <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !showFEs, 'glyphicon-chevron-up': showFEs}"></span></a></h2>
-<div ng-show="showFEs" class="row">
-  <div class="col-md-5">
-    <div class="panel panel-default">
-      <div class="panel-heading">Core FEs</div>
-      <ul class="list-group">
-	<li class="list-group-item" ng-repeat="fe in info.engData.fes.core">
-	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
-	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
-	</li>
-      </ul>
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">Non-core FEs</div>
+        <ul class="list-group">
+	      <li class="list-group-item" ng-repeat="fe in info.engData.fes.nonCore">
+	        <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
+	        <div ng-show="fe.show" ng-bind-html="fe.def"></div>
+	      </li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-5">
-    <div class="panel panel-default">
-      <div class="panel-heading">Non-core FEs</div>
-      <ul class="list-group">
-	<li class="list-group-item" ng-repeat="fe in info.engData.fes.nonCore">
-	  <a href ng-click="fe.show = !fe.show">{{fe.name}}</a>
-	  <div ng-show="fe.show" ng-bind-html="fe.def"></div>
-	</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<h2><a href ng-click="toggle('showRelations')" class="no-underline"> Inter-frame relations <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !showRelations, 'glyphicon-chevron-up': showRelations}"></span></a></h2>
-<div ng-show="showRelations" id="frame-relations">
-  <div ng-repeat="relation in info.engData.frame.frameRelation">
-    <div ng-show="relation.relatedFrame.length">
-      <h3>{{relation['@type']}}</h3>
-      <span ng-repeat="frame in relation.relatedFrame">
-	<a ng-href="#/explore/{{frame}}">{{frame}}</a>{{$last ? '' : ', '}}
-      </span>
+  <h2><a href ng-click="toggle('showRelations')" class="no-underline"> Inter-frame relations <span class="glyphicon small" ng-class="{'glyphicon-chevron-down': !showRelations, 'glyphicon-chevron-up': showRelations}"></span></a></h2>
+  <div ng-show="showRelations" id="frame-relations">
+    <div ng-repeat="relation in info.engData.frame.frameRelation">
+      <div ng-show="relation.relatedFrame.length">
+        <h3>{{relation['@type']}}</h3>
+        <span ng-repeat="frame in relation.relatedFrame">
+	      <a ng-href="#/explore/{{frame}}">{{frame}}</a>{{$last ? '' : ', '}}
+        </span>
+      </div>
     </div>
   </div>
 </div>
