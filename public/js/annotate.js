@@ -78,7 +78,7 @@
         };
 
         self.save = function () {
-            var annotations = $.map(self.annotations, function(x) {return x})
+            var annotations = $.map(self.annotations, function(x) {return x});
             /*.
               filter(function (v, i, _) {
               return !angular.equals(v, old_annotations[i]);
@@ -131,6 +131,8 @@
                 return;
             }
             
+            removeTokenTag(selected, tokens);
+
             var annotation = {};
 
             annotation.name = fe.name;
@@ -151,10 +153,12 @@
                 return;
             }
             
+            removeTokenTag(selected, tokens);
+
             var annotation = {};
 
             annotation.name = 'Target';
-            annotation.tokens = calcTokens();
+            annotation.tokens = tokens;
 
             $('.annotation-selection').removeClass('annotation-selection');
 
@@ -162,6 +166,36 @@
             selection = null;
 
             updateAnnotations();
+        };
+
+        function removeTokenTag (sentence, tokens) {
+            if (!angular.isArray(tokens)) {
+                tokens = [tokens];
+            }
+
+            var ann = self.annotations[sentence];
+
+            for (var t in tokens) {
+                ann.FE.label = ann.FE.label.map(function (l) {
+                    l.tokens = l.tokens.filter(function (tok) {
+                        return tok != tokens[t];
+                    });
+
+                    return l;
+                }).filter(function (x) { return x.tokens.length > 0});
+
+                
+
+                ann.Target.label = ann.Target.label.map(function (l) {
+                    l.tokens = l.tokens.filter(function (tok) {
+                        return tok != tokens[t];
+                    });
+
+                    return l;
+                }).filter(function (x) { return x.tokens.length > 0});;
+            }
+
+            ann = ann;
         };
 
         function updateAnnotations () {
@@ -267,7 +301,15 @@
                     var r = response.data;
                     raw_sentences = r.sentences;
                     old_annotations = r.luSentence.annotations;
-                    self.annotations = r.luSentence.annotations;
+
+                    self.annotations = $.map(r.luSentence.annotations, function(x) {return x}).
+                        map(function (x) {
+                            x.Target.label = x.Target.label.filter(function (y) {
+                                return y.tokens.indexOf(-1) < 0;
+                            });
+                            return x;
+                        });
+
                     self.fes = {
                         core: r.frameLU.FE.map(function (x) {
                             if (x['@coreType'] === 'Core'){
