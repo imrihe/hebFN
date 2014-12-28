@@ -175,27 +175,39 @@
 
             var ann = self.annotations[sentence];
 
-            for (var t in tokens) {
-                ann.FE.label = ann.FE.label.map(function (l) {
-                    l.tokens = l.tokens.filter(function (tok) {
-                        return tok != tokens[t];
-                    });
+            tokens.some(function (t) {
+                var addition = undefined;
+                for (var i in ann.FE.label) {
+                    var label = ann.FE.label[i];
+                    var idx = label.tokens.indexOf(t);
+                    if (idx >= 0) {
+                        var rest = label.tokens.splice(idx, label.tokens.length - idx);
+                        rest.shift();
+                        addition = {name: label.name, tokens: rest};
+                    }
+                }
 
-                    return l;
-                }).filter(function (x) { return x.tokens.length > 0});
+                if (angular.isDefined(addition)) {
+                    ann.FE.label.push(addition);
+                    return true;
+                }
 
-                
+                var addition = undefined;
+                for (var i in ann.Target.label) {
+                    var label = ann.Target.label[i];
+                    var idx = label.tokens.indexOf(t);
+                    if (idx >= 0) {
+                        var rest = label.tokens.splice(idx, label.tokens.length - idx);
+                        rest.shift();
+                        addition = {name: label.name, tokens: rest};
+                    }
+                }
 
-                ann.Target.label = ann.Target.label.map(function (l) {
-                    l.tokens = l.tokens.filter(function (tok) {
-                        return tok != tokens[t];
-                    });
-
-                    return l;
-                }).filter(function (x) { return x.tokens.length > 0});;
-            }
-
-            ann = ann;
+                if (angular.isDefined(addition)) {
+                    ann.Target.label.push(addition);
+                    return true;
+                }
+            });
         };
 
         function updateAnnotations () {
