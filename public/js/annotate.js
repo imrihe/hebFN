@@ -175,37 +175,31 @@
 
             var ann = self.annotations[sentence];
 
-            tokens.some(function (t) {
-                var addition = undefined;
-                for (var i in ann.FE.label) {
-                    var label = ann.FE.label[i];
-                    var idx = label.tokens.indexOf(t);
-                    if (idx >= 0) {
-                        var rest = label.tokens.splice(idx, label.tokens.length - idx);
-                        rest.shift();
-                        addition = {name: label.name, tokens: rest};
+            tokens.forEach(function (t) {
+                for (var type in ann) {
+                    var addition = undefined;
+                    for (var i in ann[type].label) {
+                        var label = ann[type].label[i];
+                        var idx = label.tokens.indexOf(t);
+                        if (idx >= 0) {
+                            var rest = label.tokens.splice(idx, label.tokens.length - idx);
+                            rest.shift();
+
+                            if (rest.length) {                            
+                                addition = {name: label.name, tokens: rest};
+                            }
+                            
+                            if (!label.tokens.length) {
+                                ann[type].label.splice(i, 1);
+                            }
+
+                            break;
+                        }
                     }
-                }
 
-                if (angular.isDefined(addition)) {
-                    ann.FE.label.push(addition);
-                    return true;
-                }
-
-                var addition = undefined;
-                for (var i in ann.Target.label) {
-                    var label = ann.Target.label[i];
-                    var idx = label.tokens.indexOf(t);
-                    if (idx >= 0) {
-                        var rest = label.tokens.splice(idx, label.tokens.length - idx);
-                        rest.shift();
-                        addition = {name: label.name, tokens: rest};
+                    if (angular.isDefined(addition)) {
+                        ann[type].label.push(addition);
                     }
-                }
-
-                if (angular.isDefined(addition)) {
-                    ann.Target.label.push(addition);
-                    return true;
                 }
             });
         };
@@ -346,50 +340,50 @@
                 };
                 self.select(0);
             });
-
-            $("#annotation .panel-body").on('mouseup', function () {
-                $('.annotation-selection').removeClass('annotation-selection');
-
-                var sel = window.getSelection();
-                if (sel.toString()){
-                    var startParent = sel.anchorNode.parentElement;
-                    var endParent = sel.focusNode.parentElement;
-
-                    var startToken, endToken;
-                    var startOut = false, endOut = false;
-
-                    if (startParent.id) {
-                        startToken = parseInt(startParent.id.replace('s', ''));
-                    } else {
-                        startToken = parseInt(sel.anchorNode.previousSibling.id.replace('s', ''));
-                        startOut = true;
-                    }
-
-                    if (endParent.id) {
-                        endToken = parseInt(endParent.id.replace('s', ''));
-                    } else {
-                        endToken = parseInt(sel.focusNode.previousSibling.id.replace('s', ''));
-                        endOut = true;
-
-                    }
-
-                    if (endToken < startToken) {
-                        var swap = endToken;
-                        endToken = startToken;
-                        startToken = swap;
-
-                        startToken = endOut ? startToken + 1 : startToken;
-                    } else if (startToken < endToken){
-                        startToken = startOut ? startToken + 1 : startToken;
-                    }
-
-                    window.getSelection().removeAllRanges();
-
-                    for (var i = startToken; i <= endToken; i++) {
-                        $('#s'+i).addClass('annotation-selection');
-                    }
-                }
-            });
         }
+
+        $("#annotation .panel-body").on('mouseup', function () {
+            $('.annotation-selection').removeClass('annotation-selection');
+
+            var sel = window.getSelection();
+            if (sel.toString()){
+                var startParent = sel.anchorNode.parentElement;
+                var endParent = sel.focusNode.parentElement;
+
+                var startToken, endToken;
+                var startOut = false, endOut = false;
+
+                if (startParent.id) {
+                    startToken = parseInt(startParent.id.replace('s', ''));
+                } else {
+                    startToken = parseInt(sel.anchorNode.previousSibling.id.replace('s', ''));
+                    startOut = true;
+                }
+
+                if (endParent.id) {
+                    endToken = parseInt(endParent.id.replace('s', ''));
+                } else {
+                    endToken = parseInt(sel.focusNode.previousSibling.id.replace('s', ''));
+                    endOut = true;
+
+                }
+
+                if (endToken < startToken) {
+                    var swap = endToken;
+                    endToken = startToken;
+                    startToken = swap;
+
+                    startToken = endOut ? startToken + 1 : startToken;
+                } else if (startToken < endToken){
+                    startToken = startOut ? startToken + 1 : startToken;
+                }
+
+                window.getSelection().removeAllRanges();
+
+                for (var i = startToken; i <= endToken; i++) {
+                    $('#s'+i).addClass('annotation-selection');
+                }
+            }
+        });
     };
 })(angular);
