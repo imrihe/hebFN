@@ -37,7 +37,7 @@
 	    if (local) {
 		SessionManager.destroy();
 	    } else {
-		$http.get('/logout').success(function (response) {
+		$http.get('logout').success(function (response) {
 		    SessionManager.destroy();
 		});
 	    }
