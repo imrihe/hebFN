@@ -183,3 +183,16 @@ td > .badge {
     border-bottom-color: #8B0000;
     border-bottom-style: solid;
 }
+
+.core-fe {
+    width: 100%;
+}
+
+.core-fe-part {
+    display: inline-block;
+    width: 49%;
+}
+
+.core-fe-badge {
+    text-align: right;
+}

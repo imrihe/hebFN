@@ -15,6 +15,7 @@
         self.luName = $routeParams.lu;
         self.sentences = [];
         self.annotations = [];
+        self.NIs = [];
         self.lu = {};
         
         var selected = 0;
@@ -41,12 +42,16 @@
             return w.match(/\*\w+\*/);
         };
 
-        self.removeAnnotation = function (index) {
+        self.removeAnnotation = function (index, keepNI) {
             
             var ann = self.annotations[selected].FE.label.splice(index, 1)[0];
             
             for (var i in ann.tokens) {
                 self.activeSentence[ann.tokens[i]].style = {};
+            }
+
+            if (!keepNI && ann.itype) {
+                delete self.NIs[selected][ann.name];
             }
             
             updateAnnotations();
@@ -125,6 +130,10 @@
         };
 
         self.annotate = function (fe) {
+            if (self.NIs[selected][fe.name]) {
+                return false;
+            }
+
             var tokens = calcTokens()
             
             if (!tokens.length){
@@ -142,6 +151,26 @@
 
             self.annotations[selected].FE.label.push(annotation);
             selection = null;
+
+            updateAnnotations();
+        };
+
+        self.updateNI = function (fe) {
+            var value = self.NIs[selected][fe];
+            var sent = self.annotations[selected];
+ 
+            var e = 0;
+            while (e < sent.FE.label.length) {
+                if (sent.FE.label[e].name === fe) {
+                    self.removeAnnotation(e);
+                } else {
+                    e++;
+                }
+            }
+
+            if (value) {
+                sent.FE.label.push({name: fe, itype: value, tokens: []});
+            }
 
             updateAnnotations();
         };
@@ -213,8 +242,8 @@
                 var annotationSet = self.annotations[i].FE.label.
                     concat(self.annotations[i].Target.label).
                     sort(function (a, b) {
-                        if (a.tokens[0] < b.tokens[0]) return -1;
-                        else if (a.tokens[0] > b.tokens[0]) return 1;
+                        if (a.tokens[0] < b.tokens[0] || b.itype) return -1;
+                        else if (a.tokens[0] > b.tokens[0] || a.itype) return 1;
                         else return 0;
                     });
 
@@ -282,6 +311,14 @@
             return ['000', 'fff'];
         };
 
+        self.computeStyle = function (name) {
+            var colors = self.getColors(name);
+            return {
+                'background-color': '#'+colors[0],
+                'color': '#'+colors[1]
+            };
+        };
+
         function calcTokens () {
             return $('.annotation-selection').
                 map(function (_, x) {return parseInt(x.id.replace('s', ''))}).
@@ -317,6 +354,17 @@
                         });
                         return x;
                     });
+
+                self.NIs = self.annotations.map(function (x) {
+                    var nis = {};
+                    for (var i in x.FE.label) {
+                        var y = x.FE.label[i];
+                        if (angular.isDefined(y.itype)){
+                            nis[y.name] = y.itype;
+                        }
+                    }
+                    return nis;
+                });
 
                 self.fes = {
                     core: r.frameLU.FE.map(function (x) {

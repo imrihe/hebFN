@@ -25,17 +25,30 @@
       </li>
       </ul>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">Core FEs:</div>
+    <form class="form-inline">
+      <div class="panel panel-default">
+        <div class="panel-heading">Core FEs:</div>
 
-      <!-- List group -->
-      <ul class="list-group">
-        <li class="list-group-item pointer" ng-repeat="core in annotator.fes.core" ng-click="annotator.annotate(core)">
-          <span class="badge" style="background-color:#{{core.bgcolor}}">&nbsp;</span>
-          {{core['name']}}
-        </li>
-      </ul>
-    </div>
+        <!-- List group -->
+        <ul class="list-group">
+          <li class="list-group-item pointer" ng-repeat="core in annotator.fes.core" ng-click="annotator.annotate(core)">
+            <span class="core-fe">
+              <span class="core-fe-part">{{core['name']}}</span>
+              <span class="core-fe-part core-fe-badge">
+                <select class="form-control" ng-model="annotator.NIs[annotator.selected()][core.name]" ng-change="annotator.updateNI(core.name)">
+                  <option value=""></option>
+                  <option value="CNI">CNI</option>
+                  <option value="DNI">DNI</option>
+                  <option value="INI">INI</option>
+                  <option value="ECNI">ECNI</option>
+                </select>
+                <span class="badge" style="background-color:#{{core.bgcolor}};">&nbsp;</span>
+              </span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </form>
 
     <div class="panel panel-default">
       <div class="panel-heading">Non-Core FEs:</div>
@@ -54,7 +67,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Sentence annotation</div>
       <div class="panel-body rtl">
-        <span id="s{{$index}}" ng-repeat="w in annotator.activeSentence" ng-show="!annotator.isSpecialWord(w['word'])" ng-style="w.style"> {{w.word}} </span>
+        <span id="s{{$index}}" ng-repeat="w in annotator.activeSentence" ng-show="!annotator.isSpecialWord(w['word'])" ng-style="w.style"> {{w.word}} </span> <span ng-repeat="(role, ni) in annotator.NIs[annotator.selected()]" ng-style="annotator.computeStyle(role)">{{ni}}</span>
       </div>
     </div>
     <button type="button" class="btn btn-default margin-bottom-20" ng-click="annotator.save()">Save changes</button>
@@ -82,7 +95,7 @@
 
           <tr ng-repeat="a in annotator.annotations[annotator.selected()].FE.label">
             <td>{{a.name}} <span class="badge" style="background-color:#{{annotator.getColors(a.name)[0]}}">&nbsp;</span></td>
-            <td>{{a.tokens}}</td>
+            <td>{{a.itype || a.tokens}}</td>
             <td><span class="glyphicon glyphicon-trash pointer" ng-click="annotator.removeAnnotation($index)"></span></td>
           </tr>
         </tbody>
