@@ -162,7 +162,7 @@
             var e = 0;
             while (e < sent.FE.label.length) {
                 if (sent.FE.label[e].name === fe) {
-                    self.removeAnnotation(e);
+                    self.removeAnnotation(e, true);
                 } else {
                     e++;
                 }
