@@ -1,4 +1,4 @@
-<h1 class="margin-bottom-20">The {{exploreInfo.frameName}} frame</h1>
+<h1 class="margin-bottom-20">{{exploreInfo.frameName}}</h1>
 
 <div class="frame-info margin-bottom-40">
   <english-frame-info frame-name="exploreInfo.frameName" show-all="true"></english-frame-info>
@@ -31,7 +31,7 @@
 	  <th>Status</th>
 	</tr>
 	<tr ng-repeat="lu in exploreInfo.frame.hebData.lexUnit">
-	  <td>{{lu['@name']}}</td>
+	  <td><a href="#/annotate/{{exploreInfo.frameName}}/{{lu['@name']}}">{{lu['@name']}}</a></td>
 	  <td>{{lu['status']}}</td>
 	</tr>
       </table>

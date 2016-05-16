@@ -61,7 +61,7 @@ var loadFrame =exports.loadFrame = function loadFrame (query,proj,options,cb) {
 		    cb(err2, results);
 		});
 
-//                cb(err, results);
+                //                cb(err, results);
 
             }
         });
@@ -97,7 +97,7 @@ var loadLu = exports.loadLu = function loadLu (query, proj, options, cb) {
     query.strict=1;
 
     var q = q2coll(query,  '@ID @name lexUnit.@ID lexUnit.@name'),
-        qOptions =options || {} ; // options ? options : {'limit' : 50, sort: {'lexUnit.@name': 1}};
+    qOptions =options || {} ; // options ? options : {'limit' : 50, sort: {'lexUnit.@name': 1}};
     q['lexUnit'] = {'$exists':true}; //query optimization
 
     if (query.luid ){ //return single results - use element-match
@@ -277,12 +277,16 @@ function listSentences(req,res,cb){
         query['content.valid']=true;
     }
     hebSentenceModel.find(query, proj,{ sort: {ID: 1}}, function(err, results){ //TODO: add limit + paging
+        console.log(query)
+        console.log(proj)
+        console.log('doing listSentences', err)
         if (err || !results) return cb(err,results)
         var updatedRes =  _.map(results, function(sent){
             var newSent=  sent.toObject();
             newSent['content']=newSent['content'][0]
             return newSent;
         })
+        console.log('done in listSentences', updatedRes)
         cb(err, updatedRes)
     })
 };
@@ -348,23 +352,23 @@ exports.luAnnotationsData = function  luAnnotationsData(req,res,cb){
     //load the lu-sentence for this lu
     //load the sentences related to this lu
     async.parallel({
-            //get the hebrew frame data - with the hebrew lus and all the FEs
-            frameLU: function(cb){
-                loadFrame(req.query,{},{}, cb)
-            },
-            //get the english lexical units list
-            luSentence: function(cb){
-                luSentence(req,res, cb);
-            },
-            sentences: function(cb){
-                listSentences(req,res, cb);
-                /*Models.hebFrameModel.findOne({"@ID":150}, function(err,resultObj){
-                 cb(err, resultObj);
-                 });*/
-            }
+        //get the hebrew frame data - with the hebrew lus and all the FEs
+        frameLU: function(cb){
+            loadFrame(req.query,{},{}, cb)
         },
-        handleHttpResults(req,res)
-    );
+        //get the english lexical units list
+        luSentence: function(cb){
+            luSentence(req,res, cb);
+        },
+        sentences: function(cb){
+            listSentences(req,res, cb);
+            /*Models.hebFrameModel.findOne({"@ID":150}, function(err,resultObj){
+              cb(err, resultObj);
+              });*/
+        }
+    },
+                   handleHttpResults(req,res)
+                  );
 };
 
 
@@ -378,8 +382,8 @@ function orderFes(fes){
     var nonCore=[];
     for (obj in fes){ //"@coreType": "Core",
         //console.log(obj)
-        if (fes[obj]['@coreType'].indexOf('Core') > -1) core.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
-        else  nonCore.push({name: fes[obj]['@name'], ID: fes[obj]['@ID'], def: fes[obj]['definition']}  );
+        if (fes[obj]['@coreType'].indexOf('Core') > -1) core.push(fes[obj]);
+        else  nonCore.push(fes[obj]);
     }
     //console.log("CORE",core);
     //console.log("nonCore",nonCore);
