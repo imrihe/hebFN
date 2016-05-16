@@ -23,8 +23,8 @@
 	        <a href ng-click="fe.show = !fe.show">{{fe['@name']}}</a>
 	        <div ng-show="fe.show" ng-bind-html="fe.definition"></div>
             <div ng-show="fe.show">
-              <div ng-if="fe.requiresFE.length"><em>Requires: <span ng-repeat="f in fe.requiresFE">{{f['@name']}}</span></em></div>
-              <div ng-if="fe.excludesFE.length"><em>Excludes: <span ng-repeat="f in fe.excludesFE">{{f['@name']}}</span></em></div>
+              <div ng-if="fe.requiresFE.length"><small><em>Requires: <span ng-repeat="f in fe.requiresFE">{{f['@name']}}</span></em></small></div>
+              <div ng-if="fe.excludesFE.length"><small><em>Excludes: <span ng-repeat="f in fe.excludesFE">{{f['@name']}}</span></em></small></div>
             </div>
 	      </li>
         </ul>
@@ -40,8 +40,8 @@
 	        <a href ng-click="fe.show = !fe.show">{{fe['@name']}}</a>
 	        <div ng-show="fe.show" ng-bind-html="fe.definition"></div>
             <div ng-show="fe.show">
-              <div ng-if="fe.requiresFE.length"><em>Requires: <span ng-repeat="f in fe.requiresFE">{{f['@name']}}</span></em></div>
-              <div ng-if="fe.excludesFE.length"><em>Excludes: <span ng-repeat="f in fe.excludesFE">{{f['@name']}}</span></em></div>
+              <div ng-if="fe.requiresFE.length"><small><em>Requires: <span ng-repeat="f in fe.requiresFE">{{f['@name']}}</span></em></small></div>
+              <div ng-if="fe.excludesFE.length"><small><em>Excludes: <span ng-repeat="f in fe.excludesFE">{{f['@name']}}</span></em></small></div>
             </div>
 	      </li>
         </ul>
