@@ -40,6 +40,10 @@
             templateUrl: 'partials/annotate.html',
             controller: 'annotator',
             controllerAs: 'annotator'
+        }).when('/annotationViewer/:frame/:lu', {
+            templateUrl: 'partials/view-annotations.html',
+            controller: 'annotationViewer',
+            controllerAs: 'annotationViewer'
         }).
             otherwise('/explore');
 
