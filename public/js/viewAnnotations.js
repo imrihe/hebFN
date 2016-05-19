@@ -1,9 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('hebFN.annotate', [
-	    'hebFN.englishFrame'    
-    ]).
+    angular.module('hebFN.annotate').
         controller('annotationViewer', viewer);
 
     annotator.$injector = ['$routeParams', '$http', '$sce'];
