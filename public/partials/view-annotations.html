@@ -1,15 +1,15 @@
-<h1>Annotate sentences of {{annotator.luName}} in the frame {{annotator.frameName}}</h1>
+<h1>Annotate sentences of {{annotationViewer.luName}} in the frame {{annotationViewer.frameName}}</h1>
 
 <div class="frame-info margin-bottom-40">
-  <english-frame-info frame-name="annotator.frameName"></english-frame-info>
+  <english-frame-info frame-name="annotationViewer.frameName"></english-frame-info>
 </div>
 
-<h4>Number of sentences in this lu: {{annotator.sentences.length}}</h4>
+<h4>Number of sentences in this lu: {{annotationViewer.sentences.length}}</h4>
 <h5>Select a sentence from the list to annotate:</h5>
 
 <div id="available-sentences" class="margin-bottom-40"> 
   <lu  class="list-group">
-    <li class="list-group-item available-sentence pointer rtl" ng-repeat="s in annotator.sentences" ng-class="{'annotate-sentence': annotator.selected($index)}">
+    <li class="list-group-item available-sentence pointer rtl" ng-repeat="s in annotationViewer.sentences" ng-class="{'annotate-sentence': annotationViewer.selected($index)}">
       <span class="sentence-to-annotate" ng-bind-html="s"></span>
     </li>
   </lu>
