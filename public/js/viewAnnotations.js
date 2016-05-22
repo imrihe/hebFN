@@ -31,6 +31,10 @@
             updateAnnotations();
         };
 
+        self.selected = function (index) {
+            return angular.isDefined(index) ? selected == index : selected;
+        };
+
         self.isSpecialWord = function (w) {
             return w.match(/\*\w+\*/);
         };
