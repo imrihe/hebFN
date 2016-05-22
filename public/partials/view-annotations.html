@@ -10,8 +10,7 @@
 <div id="available-sentences" class="margin-bottom-40"> 
   <lu  class="list-group">
     <li class="list-group-item available-sentence pointer rtl" ng-repeat="s in annotator.sentences" ng-class="{'annotate-sentence': annotator.selected($index)}">
-      <!--<span class="glyphicon glyphicon-remove pointer" ng-click="annotator.removeSentence($index)"></span>-->
-      <span class="sentence-to-annotate" ng-click="annotator.select($index)" ng-bind-html="s"></span>
+      <span class="sentence-to-annotate" ng-bind-html="s"></span>
     </li>
   </lu>
 </div>
