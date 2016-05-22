@@ -4,7 +4,7 @@
     angular.module('hebFN.annotate').
         controller('annotationViewer', viewer);
 
-    annotator.$injector = ['$routeParams', '$http', '$sce'];
+    viewer.$injector = ['$routeParams', '$http', '$sce'];
 
     function viewer ($routeParams, $http, $sce) {
         var self = this;
